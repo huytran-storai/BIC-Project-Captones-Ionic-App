@@ -23,7 +23,12 @@ const routes: Routes = [
   {
     path: 'search-product',
     loadChildren: () => import('./search-product/search-product.module').then( m => m.SearchProductPageModule)
+  },
+  {
+    path: 'department/department-result/:tagName',
+    loadChildren: () => import('./department-result/department-result.module').then( m => m.DepartmentResultPageModule)
   }
+
 
 ];
 

@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar class="header">
+    <ion-buttons slot="start">
+      <ion-back-button text="" icon="caret-back" defaultHref="/department"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Department</ion-title>
+  </ion-toolbar>
+  <ion-row class="ion-justify-content-center">
+    <ion-toolbar>
+      <a [routerLink]="['/search-product']">
+        <ion-searchbar></ion-searchbar>
+      </a>
+    </ion-toolbar>
+  </ion-row>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <ion-row class="bg-content">
+    <ion-col size="6" *ngFor="let product of products">
+      <ion-card>
+        <a href="">
+          <ion-row>
+            <ion-col class="ion-justify-content-center product">
+              <img alt="{{product.name}}" [src]="product.imageUrl" />
+            </ion-col>
+          </ion-row>
+        </a>
+        <ion-card-header>
+          <ion-text class="price">{{product.price}}$</ion-text>
+          <ion-text class="product-name fix-2-row">{{product.name}}</ion-text>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-row class="ion-align-items-center ion-justify-content-around">
+            <ion-col class="favorite {{product.favorite?'':'not'}}">
+              <ion-icon name="heart-outline"></ion-icon>
+            </ion-col>
+            <ion-row class="ion-align-items-center">
+              <ion-icon name="time-outline"></ion-icon>
+              <ion-text>{{product.cookTime}}</ion-text>
+            </ion-row>
+          </ion-row>
+          <ion-row class="ion-align-items-center">
+            <ion-col size="6" *ngFor="let origin of product.origins">
+              <ion-chip color="tertiary">{{origin}}</ion-chip>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

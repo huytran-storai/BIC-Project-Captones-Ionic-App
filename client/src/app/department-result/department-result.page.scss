@@ -1,0 +1,63 @@
+a {
+    font-size: 30px;
+}
+
+ion-back-button {
+    --color: black;
+}
+
+.header-ios ion-toolbar:last-of-type {
+    --border-width: 0 0 0px;
+}
+
+.bg-content {
+    
+    .favorite {
+        color: red;
+    }
+    
+    .favorite.not {
+        color: gray;
+    }
+    
+    .product {
+        display: flex;
+
+        img {
+            width: 120px;
+            height: 140px;
+        }
+    }
+
+    .product-name {
+        font-size: 15px;
+        height: 42.5px;
+        white-space: normal;
+        overflow: hidden;
+        font-weight: bold;
+    }
+
+    .fix-2-row {
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+    }
+
+    .price {
+        color: red;
+        font-weight: bolder;
+        padding-top: 16px;
+        font-size: 20px;
+        line-height: 1.75;
+        ;
+    }
+
+    ion-chip {
+        font-size: 10px;
+    }
+
+    ion-card-header {
+        padding: 0 16px;
+    }
+}

@@ -1,4 +1,5 @@
 import { Store } from "./app/shared/models/Store";
+import { Tag } from "./app/shared/models/Tag";
 
 export const sample_stores: Store[] = [
     {
@@ -40,7 +41,7 @@ export const sample_stores: Store[] = [
         price: 2,
         cookTime: '10:20',
         favorite: true,
-        origins: ['vietnam','softdrink'],
+        origins: ['vietnam','soft drink'],
         stars: 3.3,
         imageUrl: 'assets/soft.jpg',
         tags: ['Soft Drinks'],
@@ -67,4 +68,12 @@ export const sample_stores: Store[] = [
         imageUrl: 'assets/spri2.jpg',
         tags: ['Spirits'],
       },
+]
+
+export const sample_tags:Tag[] = [
+  // {name:'All', count:6, imageUrlTag: 'assets/vine2.jpg'},
+  {name:'Vine', count:2, imageUrlTag: 'assets/spri2.jpg'},
+  {name:'Beer', count:1, imageUrlTag: 'assets/beer1.jpg'},
+  {name:'Spirits', count:4, imageUrlTag: 'assets/spri1.jpg'},
+  {name:'Soft Drinks', count:2, imageUrlTag: 'assets/soft.jpg'},
 ]

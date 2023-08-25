@@ -1,4 +1,6 @@
+import { StoreService } from 'src/app/services/store.service';
 import { Component, OnInit } from '@angular/core';
+import { Tag } from '../shared/models/Tag';
 
 @Component({
   selector: 'app-department',
@@ -6,8 +8,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./department.page.scss'],
 })
 export class DepartmentPage implements OnInit {
-
-  constructor() { }
+  tags?:Tag[];
+  constructor(StoreService:StoreService) { 
+    this.tags = StoreService.getAllTags();
+  }
 
   ngOnInit() {
   }

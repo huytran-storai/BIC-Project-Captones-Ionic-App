@@ -1,0 +1,17 @@
+.product-img {
+    display: flex;
+    justify-content: center;
+    height: 80px;
+
+    img {
+        max-width: 40%;
+    }
+}
+
+.title {
+    font-weight: 900;
+}
+
+a {
+    text-decoration: none;
+}
