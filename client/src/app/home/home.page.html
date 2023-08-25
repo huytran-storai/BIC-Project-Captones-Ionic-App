@@ -1,20 +1,25 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-row class="ion-justify-content-center">
+      <img class="logo"
+        src="https://vinncloud.relationshop.net/dxp-assetv2/2023071915183083_outputonlinepngtools_bacb0eb2-2b19-48f8-ae2d-3fb94ba8efbc.png"
+        alt="">
+    </ion-row>
   </ion-toolbar>
+  <ion-row class="ion-justify-content-center">
+    <ion-toolbar>
+      <a [routerLink]="['/search-product']">
+        <ion-searchbar></ion-searchbar>
+      </a>
+    </ion-toolbar>
+  </ion-row>
+  <ion-row class="ion-float-right">
+    <ion-col>
+      Hi, Huy Tran
+    </ion-col>
+  </ion-row>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+<ion-content>
+<app-product-list></app-product-list>
 </ion-content>
