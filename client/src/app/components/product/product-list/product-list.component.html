@@ -1,0 +1,33 @@
+<ion-row class="bg-content">
+  <ion-col size="6" *ngFor="let store of stores">
+    <ion-card>
+      <a href="">
+        <ion-row>
+          <ion-col class="ion-justify-content-center product">
+            <img alt="{{store.name}}" [src]="store.imageUrl" />
+          </ion-col>
+        </ion-row>
+      </a>
+      <ion-card-header>
+        <ion-text class="price">{{store.price}}$</ion-text>
+        <ion-text class="product-name fix-2-row">{{store.name}}</ion-text>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-row class="ion-align-items-center ion-justify-content-around">
+          <ion-col class="favorite {{store.favorite?'':'not'}}">
+            <ion-icon name="heart-outline"></ion-icon>
+          </ion-col>
+          <ion-row class="ion-align-items-center">
+            <ion-icon name="time-outline"></ion-icon>
+            <ion-text>{{store.cookTime}}</ion-text>
+          </ion-row>
+        </ion-row>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="6" *ngFor="let origin of store.origins">
+            <ion-chip color="tertiary">{{origin}}</ion-chip>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+  </ion-col>
+</ion-row>
