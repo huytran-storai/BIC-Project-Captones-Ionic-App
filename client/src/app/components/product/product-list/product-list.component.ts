@@ -9,13 +9,26 @@ import { StoreService } from 'src/app/services/store.service';
 export class ProductListComponent  implements OnInit {
 
   stores: Store[] = [];
+  isModalOpen = false;
+  selectedProduct: any;
 
   constructor(private StoreService: StoreService) { 
-    this.stores = StoreService.getAll();
+    
+  }
+
+  setOpen(store: any) {
+    this.selectedProduct = store;
+    this.isModalOpen = true;
+    // console.log(this.selectedProduct);
+  }
+  
+  setClose(isOpen:boolean) {
+    this.selectedProduct = null;
+    this.isModalOpen = isOpen;
   }
 
   ngOnInit(): void {
-
+    this.stores = this.StoreService.getAll();
   }
 
 }

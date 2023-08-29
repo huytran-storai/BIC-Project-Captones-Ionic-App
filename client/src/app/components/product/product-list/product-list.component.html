@@ -1,17 +1,19 @@
 <ion-row class="bg-content">
   <ion-col size="6" *ngFor="let store of stores">
     <ion-card>
-      <a href="">
+      <!-- <a [routerLink]="['/product-detail', store.id]"> -->
+        <a (click)="setOpen(store)">
         <ion-row>
           <ion-col class="ion-justify-content-center product">
             <img alt="{{store.name}}" [src]="store.imageUrl" />
           </ion-col>
         </ion-row>
+
+        <ion-card-header>
+          <ion-text class="price">{{store.price}}$</ion-text>
+          <ion-text class="product-name fix-2-row">{{store.name}}</ion-text>
+        </ion-card-header>
       </a>
-      <ion-card-header>
-        <ion-text class="price">{{store.price}}$</ion-text>
-        <ion-text class="product-name fix-2-row">{{store.name}}</ion-text>
-      </ion-card-header>
       <ion-card-content>
         <ion-row class="ion-align-items-center ion-justify-content-around">
           <ion-col class="favorite {{store.favorite?'':'not'}}">
@@ -19,7 +21,7 @@
           </ion-col>
           <ion-row class="ion-align-items-center">
             <ion-icon name="time-outline"></ion-icon>
-            <ion-text>{{store.cookTime}}</ion-text>
+            <ion-text>{{store.time}}</ion-text>
           </ion-row>
         </ion-row>
         <ion-row class="ion-align-items-center">
@@ -31,3 +33,18 @@
     </ion-card>
   </ion-col>
 </ion-row>
+<ion-modal [isOpen]="isModalOpen">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Product Detail</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="setClose(false)"><ion-icon color="danger" name="close-outline"></ion-icon></ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <app-product-details [product]="selectedProduct"></app-product-details>
+    </ion-content>
+  </ng-template>
+</ion-modal>

@@ -25,4 +25,8 @@ export class StoreService {
   getAllStoreByTagName(tag: string): Store[] {
     return this.getAll().filter(store => store.tags?.includes(tag));
   }
+
+  // getProductById(productId:string):Store {
+  //   return this.getAll().find(store => store.id == productId) ?? new Store();
+  // }
 }

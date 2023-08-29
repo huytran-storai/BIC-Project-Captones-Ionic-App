@@ -16,7 +16,7 @@ export class SearchProductPage implements OnInit {
   }
 
   ngOnInit(): void {
-
+   
   }
 
   search(event: any): void {
