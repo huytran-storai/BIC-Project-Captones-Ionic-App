@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { DepartmentResultPageRoutingModule } from './department-result-routing.module';
 
 import { DepartmentResultPage } from './department-result.page';
+import { ShareModule } from '../components/shared-components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DepartmentResultPageRoutingModule
+    DepartmentResultPageRoutingModule,
+    ShareModule
   ],
   declarations: [DepartmentResultPage]
 })

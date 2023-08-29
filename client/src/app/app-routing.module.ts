@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { ProductListComponent } from './components/product/product-list/product-list.component';
+
 
 const routes: Routes = [
   {
@@ -27,8 +27,11 @@ const routes: Routes = [
   {
     path: 'department/department-result/:tagName',
     loadChildren: () => import('./department-result/department-result.module').then( m => m.DepartmentResultPageModule)
-  }
-
+  },
+  // {
+  //   path: 'product-detail/:productId',
+  //   loadChildren: () => import('./product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
+  // }
 
 ];
 

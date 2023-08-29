@@ -17,7 +17,7 @@
   <ion-row class="bg-content">
     <ion-col size="6" *ngFor="let product of products">
       <ion-card>
-        <a href="">
+        <a (click)="setOpen(product)">
           <ion-row>
             <ion-col class="ion-justify-content-center product">
               <img alt="{{product.name}}" [src]="product.imageUrl" />
@@ -35,7 +35,7 @@
             </ion-col>
             <ion-row class="ion-align-items-center">
               <ion-icon name="time-outline"></ion-icon>
-              <ion-text>{{product.cookTime}}</ion-text>
+              <ion-text>{{product.time}}</ion-text>
             </ion-row>
           </ion-row>
           <ion-row class="ion-align-items-center">
@@ -47,4 +47,19 @@
       </ion-card>
     </ion-col>
   </ion-row>
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Product Detail</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setClose(false)"><ion-icon color="danger" name="close-outline"></ion-icon></ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+          <app-product-details [product]="selectedProduct"></app-product-details>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>
