@@ -7,5 +7,6 @@ export class Store{
     stars!:number;
     imageUrl!:string;
     origins!:string[];
-    cookTime!:string;
+    time!:string;
+    capacity!:number;
 }
