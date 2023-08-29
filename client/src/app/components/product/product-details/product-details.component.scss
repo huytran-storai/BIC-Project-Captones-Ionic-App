@@ -1,0 +1,21 @@
+img {
+    height: 300px;
+}
+
+.favorite {
+    color: red;
+}
+
+.favorite.not {
+    color: gray;
+}
+
+ion-card-subtitle {
+    font-size: 20px;
+    color: green;
+    padding-bottom: 15px;
+}
+
+ion-button {
+    --ion-color-primary: #553593;
+}
