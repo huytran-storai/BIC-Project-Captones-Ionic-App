@@ -13,7 +13,7 @@
     </ion-toolbar>
   </ion-row>
 </ion-header>
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="bg-content-inner">
   <ion-row class="bg-content">
     <ion-col size="6" *ngFor="let product of products">
       <ion-card>
@@ -38,10 +38,8 @@
               <ion-text>{{product.time}}</ion-text>
             </ion-row>
           </ion-row>
-          <ion-row class="ion-align-items-center">
-            <ion-col size="6" *ngFor="let origin of product.origins">
-              <ion-chip color="tertiary">{{origin}}</ion-chip>
-            </ion-col>
+          <ion-row class="ion-align-items-center add">
+            <ion-button>ADD</ion-button>
           </ion-row>
         </ion-card-content>
       </ion-card>
