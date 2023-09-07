@@ -27,7 +27,11 @@ const routes: Routes = [
   {
     path: 'department/department-result/:tagName',
     loadChildren: () => import('./department-result/department-result.module').then( m => m.DepartmentResultPageModule)
+  },  {
+    path: 'shopping-cart',
+    loadChildren: () => import('./shopping-cart/shopping-cart.module').then( m => m.ShoppingCartPageModule)
   },
+
   // {
   //   path: 'product-detail/:productId',
   //   loadChildren: () => import('./product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
