@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-tabmenu',
   templateUrl: './tabmenu.component.html',
@@ -7,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TabmenuComponent  implements OnInit {
 
-  constructor() { }
+  constructor(private location: Location) { }
 
   ngOnInit() {}
-
+  // refreshPage() {
+  //   this.location.replaceState('/home');
+  //   window.location.reload();
+  // }
 }

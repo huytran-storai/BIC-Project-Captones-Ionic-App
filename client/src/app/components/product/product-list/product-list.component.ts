@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from 'src/app/shared/models/Store';
 import { StoreService } from 'src/app/services/store.service';
+import { ModalController } from '@ionic/angular';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
@@ -12,19 +13,19 @@ export class ProductListComponent  implements OnInit {
   isModalOpen = false;
   selectedProduct: any;
 
-  constructor(private StoreService: StoreService) { 
+  constructor(private StoreService: StoreService,private modalController: ModalController) { 
     
   }
 
   setOpen(store: any) {
     this.selectedProduct = store;
     this.isModalOpen = true;
-    // console.log(this.selectedProduct);
+    // console.log(this.isModalOpen);
   }
   
-  setClose(isOpen:boolean) {
+  async setClose() {
     this.selectedProduct = null;
-    this.isModalOpen = isOpen;
+    this.isModalOpen = false;
   }
 
   ngOnInit(): void {

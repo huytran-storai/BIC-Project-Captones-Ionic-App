@@ -10,6 +10,8 @@ import { Store } from '../shared/models/Store';
 export class SearchProductPage implements OnInit {
   searchTerm = '';
   stores: Store[] = [];
+  isModalOpen = false;
+  selectedProduct: any;
   constructor(
     private StoreService: StoreService,
   ) {
@@ -32,6 +34,17 @@ export class SearchProductPage implements OnInit {
     else{
       this.stores = []
     }
+  }
+
+  setOpen(store: any) {
+    this.selectedProduct = store;
+    this.isModalOpen = true;
+    // console.log(this.selectedProduct);
+  }
+  
+  setClose(isOpen:boolean) {
+    this.selectedProduct = null;
+    this.isModalOpen = isOpen;
   }
 
 }

@@ -12,12 +12,28 @@
 
 <ion-content [fullscreen]="true">
   <ion-content color="light">
-    <a [routerLink]="['/product-detail', nameProduct.id]" *ngFor="let nameProduct of stores">
+    <a (click)="setOpen(product)" *ngFor="let product of stores">
       <ion-list [inset]="true" class="list-result" *ngIf="stores.length > 0">
           <ion-item>
-            <ion-label>{{ nameProduct.name }}</ion-label>
+            <ion-label>{{ product.name }}</ion-label>
           </ion-item>
       </ion-list>
     </a>
   </ion-content>
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Product Detail</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setClose(false)"><ion-icon color="danger" name="close-outline"></ion-icon></ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+          <app-product-details [product]="selectedProduct"></app-product-details>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>
+

@@ -1,14 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'app-product-details',
-  templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.scss'],
+  selector: 'app-checkout-icon',
+  templateUrl: './checkout-icon.component.html',
+  styleUrls: ['./checkout-icon.component.scss'],
 })
-export class ProductDetailsComponent implements OnInit {
-
-  @Input() product: any;
+export class CheckoutIconComponent  implements OnInit {
 
   constructor(
     private modalController: ModalController,
@@ -21,4 +19,5 @@ export class ProductDetailsComponent implements OnInit {
     await this.modalController.dismiss();
     this.router.navigate(['/shopping-cart']);
   }
+
 }

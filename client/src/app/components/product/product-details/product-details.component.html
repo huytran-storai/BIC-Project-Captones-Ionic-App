@@ -19,7 +19,13 @@
           <ion-icon name="time-outline"></ion-icon><ion-text>{{product.time}} </ion-text>
         </ion-row>
       </ion-row>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="3" *ngFor="let origin of product.origins">
+          <ion-chip color="tertiary">{{origin}}</ion-chip>
+        </ion-col>
+      </ion-row>
     </ion-card-content>
-    <ion-button expand="full">ADD</ion-button>
+    <ion-button expand="block">ADD</ion-button>
   </ion-card>
+ <app-checkout-icon></app-checkout-icon>
 </ion-content>

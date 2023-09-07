@@ -24,10 +24,8 @@
             <ion-text>{{store.time}}</ion-text>
           </ion-row>
         </ion-row>
-        <ion-row class="ion-align-items-center">
-          <ion-col size="6" *ngFor="let origin of store.origins">
-            <ion-chip color="tertiary">{{origin}}</ion-chip>
-          </ion-col>
+        <ion-row class="ion-align-items-center add">
+          <ion-button size="small">ADD</ion-button>
         </ion-row>
       </ion-card-content>
     </ion-card>
@@ -37,9 +35,8 @@
   <ng-template>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Product Detail</ion-title>
         <ion-buttons slot="end">
-          <ion-button (click)="setClose(false)"><ion-icon color="danger" name="close-outline"></ion-icon></ion-button>
+          <ion-button (click)="setClose()"><ion-icon color="danger" name="close-outline"></ion-icon></ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
