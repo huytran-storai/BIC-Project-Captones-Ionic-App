@@ -1,3 +1,17 @@
 ion-tabs {
     --ion-color-primary: #553593;
 }
+
+ion-text {
+    position: absolute;
+    top: 0px;
+    right: 26px;
+    font-size: 17px;
+    font-weight: bold;
+    height: 20px;
+    width: 20px;
+    background-color: #553593;
+    color: #fff;
+    border-radius: 20px;
+    border: 1px solid black;
+}

@@ -1,5 +1,4 @@
 .bg-content {
-    background-color: #553593;
     
     a {
         text-decoration: none;
@@ -40,10 +39,8 @@
     .price {
         color: red;
         font-weight: bolder;
-        padding-top: 16px;
         font-size: 20px;
         line-height: 1.75;
-        ;
     }
 
     ion-chip {
@@ -53,4 +50,17 @@
     ion-card-header {
         padding: 0 16px;
     }
+
+    ion-card-content {
+        padding: 0 16px;
+
+        .add {
+            display: block;
+
+            ion-button {
+                display: block;
+            }
+        }
+    }
+
 }

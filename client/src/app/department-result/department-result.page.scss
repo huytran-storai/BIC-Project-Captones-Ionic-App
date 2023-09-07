@@ -12,6 +12,10 @@ ion-back-button {
 
 .bg-content {
     
+    a {
+        text-decoration: none;
+    }
+    
     .favorite {
         color: red;
     }
@@ -47,10 +51,8 @@ ion-back-button {
     .price {
         color: red;
         font-weight: bolder;
-        padding-top: 16px;
         font-size: 20px;
         line-height: 1.75;
-        ;
     }
 
     ion-chip {
@@ -60,4 +62,18 @@ ion-back-button {
     ion-card-header {
         padding: 0 16px;
     }
+
+    ion-card-content {
+        padding: 0 16px;
+
+        .add {
+            display: block;
+
+            ion-button {
+                display: block;
+            }
+        }
+    }
+
+
 }

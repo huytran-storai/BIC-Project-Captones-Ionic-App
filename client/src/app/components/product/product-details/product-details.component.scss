@@ -19,3 +19,40 @@ ion-card-subtitle {
 ion-button {
     --ion-color-primary: #553593;
 }
+
+.checkout-icon {
+    height: 50px;
+    width: 50px;
+    background-color: #553593;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    bottom: -75px;
+    left: 320px;
+
+    ion-icon {
+        justify-content: center;
+        display: flex;
+        align-self: center;
+        font-size: 25px;
+        color: #fff;
+    }
+
+    .number-quantity-cart {
+        position: absolute;
+        color: white;
+        display: flex;
+        width: 30px;
+        height: 30px;
+        background-color: black;
+        justify-content: center;
+        flex-direction: column;
+        font-size: 15px;
+        text-align: center;
+        border-radius: 50px;
+        top: -12px;
+        left: 25px;
+    }
+}
