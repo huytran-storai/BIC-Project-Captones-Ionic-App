@@ -1,17 +1,9 @@
 .bg-content {
-    
+
     a {
         text-decoration: none;
     }
-    
-    .favorite {
-        color: red;
-    }
-    
-    .favorite.not {
-        color: gray;
-    }
-    
+
     .product {
         display: flex;
 
@@ -22,19 +14,20 @@
     }
 
     .product-name {
+        display: inline-block;
         font-size: 15px;
-        height: 42.5px;
-        white-space: normal;
+        height: 40px;
+        white-space: nowrap;
         overflow: hidden;
-        font-weight: bold;
+        text-overflow: ellipsis;
     }
 
-    .fix-2-row {
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 4;
-        -webkit-box-orient: vertical;
-    }
+    // .fix-2-row {
+    //     display: -webkit-box;
+    //     -webkit-line-clamp: 4;
+    //     -webkit-box-orient: vertical;
+    //     overflow: hidden;
+    // }
 
     .price {
         color: red;
@@ -60,6 +53,11 @@
             ion-button {
                 display: block;
             }
+        }
+
+        .btn {
+            margin-top: 8px;
+            margin-bottom: 15px
         }
     }
 

@@ -2,7 +2,7 @@
   <ion-col size="6" *ngFor="let store of stores">
     <ion-card>
       <!-- <a [routerLink]="['/product-detail', store.id]"> -->
-        <a (click)="setOpen(store)">
+      <a (click)="setOpen(store)">
         <ion-row>
           <ion-col class="ion-justify-content-center product">
             <img alt="{{store.name}}" [src]="store.imageUrl" />
@@ -10,12 +10,16 @@
         </ion-row>
 
         <ion-card-header>
-          <ion-text class="price">{{store.price}}$</ion-text>
+          <ion-text class="price">{{store.price}} $</ion-text>
           <ion-text class="product-name fix-2-row">{{store.name}}</ion-text>
         </ion-card-header>
       </a>
       <ion-card-content>
-        <ion-row class="ion-align-items-center ion-justify-content-around">
+        <ion-row class="ion-align-items-center ion-justify-content-between">
+          <ion-text>{{store.capacity}}ml</ion-text>
+          <ion-text>{{store.strength}}%</ion-text>
+        </ion-row>
+        <!-- <ion-row class="ion-align-items-center ion-justify-content-around">
           <ion-col class="favorite {{store.favorite?'':'not'}}">
             <ion-icon name="heart-outline"></ion-icon>
           </ion-col>
@@ -23,9 +27,10 @@
             <ion-icon name="time-outline"></ion-icon>
             <ion-text>{{store.time}}</ion-text>
           </ion-row>
-        </ion-row>
+        </ion-row> -->
         <ion-row class="ion-align-items-center add">
-          <ion-button size="small" color="primary">ADD</ion-button>
+          <ion-button (click)="addProduct(store)" [disabled]="store.added" class="btn" size="small" color="primary">{{
+            store.added ? 'Added' : 'Add' }}</ion-button>
         </ion-row>
       </ion-card-content>
     </ion-card>
@@ -41,7 +46,7 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-        <app-product-details [product]="selectedProduct"></app-product-details>
+      <app-product-details [product]="selectedProduct"></app-product-details>
     </ion-content>
   </ng-template>
 </ion-modal>

@@ -2,20 +2,34 @@ img {
     height: 300px;
 }
 
-.favorite {
+ion-card-title {
+    font-size: 20px;
     color: red;
-}
-
-.favorite.not {
-    color: gray;
+    font-weight: bold;
+    padding-bottom: 5px;
 }
 
 ion-card-subtitle {
     font-size: 20px;
-    color: green;
     padding-bottom: 15px;
+    font-weight: bold;
 }
 
 ion-button {
-    --ion-color-primary: #553593;
+    --ion-color-primary: #9b1f2f;
+    display: flex;
+    justify-content: center;
+}
+
+.origin-detail {
+    width: auto;
+    height: 100%;
+    white-space: nowrap;
+    display: inline-block;
+    margin-left: -5px;
+}
+
+.text-cap-str {
+    font-size: 15px;
+    font-weight: 500;
 }

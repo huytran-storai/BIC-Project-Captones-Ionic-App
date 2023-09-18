@@ -7,14 +7,18 @@ import { ModalController } from '@ionic/angular';
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss'],
 })
-export class ProductListComponent  implements OnInit {
+export class ProductListComponent implements OnInit {
+
+  addProduct(store: any) {
+    store.added = true;
+  }
 
   stores: Store[] = [];
   isModalOpen = false;
   selectedProduct: any;
 
-  constructor(private StoreService: StoreService,private modalController: ModalController) { 
-    
+  constructor(private StoreService: StoreService, private modalController: ModalController) {
+
   }
 
   setOpen(store: any) {
@@ -22,7 +26,7 @@ export class ProductListComponent  implements OnInit {
     this.isModalOpen = true;
     // console.log(this.isModalOpen);
   }
-  
+
   async setClose() {
     this.selectedProduct = null;
     this.isModalOpen = false;

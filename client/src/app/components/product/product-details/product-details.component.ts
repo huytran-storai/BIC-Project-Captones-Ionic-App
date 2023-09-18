@@ -8,6 +8,10 @@ import { Router } from '@angular/router';
 })
 export class ProductDetailsComponent implements OnInit {
 
+  addProduct(store: any) {
+    store.added = true;
+  }
+
   @Input() product: any;
 
   constructor(
