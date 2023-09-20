@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -9,12 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class HomePage implements OnInit {
 
   constructor() {
-    
+
   }
   ngOnInit(): void {
 
   }
-
-  
-  
 }

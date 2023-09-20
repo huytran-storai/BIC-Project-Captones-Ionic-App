@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class ProductDetailsComponent implements OnInit {
 
   addProduct(store: any) {
-    store.added = true;
+    store.added = !store.added;
   }
 
   @Input() product: any;

@@ -1,10 +1,14 @@
+ion-card {
+    box-shadow: 5px 8px 5px 5px var(--ion-color-medium);
+}
+
 img {
     height: 300px;
 }
 
 ion-card-title {
     font-size: 20px;
-    color: red;
+    color: var(--ion-color-primary);
     font-weight: bold;
     padding-bottom: 5px;
 }
@@ -16,9 +20,11 @@ ion-card-subtitle {
 }
 
 ion-button {
-    --ion-color-primary: #9b1f2f;
+    background-color: var(--ion-color-primary);
     display: flex;
     justify-content: center;
+    border-radius: 12px;
+    margin-top: 15px;
 }
 
 .origin-detail {

@@ -19,17 +19,8 @@
           <ion-text>{{store.capacity}}ml</ion-text>
           <ion-text>{{store.strength}}%</ion-text>
         </ion-row>
-        <!-- <ion-row class="ion-align-items-center ion-justify-content-around">
-          <ion-col class="favorite {{store.favorite?'':'not'}}">
-            <ion-icon name="heart-outline"></ion-icon>
-          </ion-col>
-          <ion-row class="ion-align-items-center">
-            <ion-icon name="time-outline"></ion-icon>
-            <ion-text>{{store.time}}</ion-text>
-          </ion-row>
-        </ion-row> -->
         <ion-row class="ion-align-items-center add">
-          <ion-button (click)="addProduct(store)" [disabled]="store.added" class="btn" size="small" color="primary">{{
+          <ion-button (click)="addProduct(store)" class="btn" size="small" color="primary">{{
             store.added ? 'Added' : 'Add' }}</ion-button>
         </ion-row>
       </ion-card-content>
