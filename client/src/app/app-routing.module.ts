@@ -32,6 +32,10 @@ const routes: Routes = [
     path: 'shopping-cart',
     loadChildren: () => import('./shopping-cart/shopping-cart.module').then(m => m.ShoppingCartPageModule)
   },
+  {
+    path: 'account',
+    loadChildren: () => import('./profile/account/account.module').then( m => m.AccountPageModule)
+  },
 
   // {
   //   path: 'product-detail/:productId',
