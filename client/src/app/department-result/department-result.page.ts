@@ -36,4 +36,8 @@ export class DepartmentResultPage implements OnInit {
       }
     });
   }
+
+  addProduct(store: any) {
+    store.added = !store.added;
+  }
 }

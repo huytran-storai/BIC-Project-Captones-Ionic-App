@@ -1,3 +1,4 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicModule} from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -7,6 +8,7 @@ import { ProductDetailsComponent } from './product/product-details/product-detai
 import {RouterModule} from '@angular/router';
 import { CheckoutIconComponent } from './checkout-icon/checkout-icon.component';
 @NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [TabmenuComponent,ProductListComponent,ProductDetailsComponent, CheckoutIconComponent],
   imports: [CommonModule, IonicModule,RouterModule],
   exports:[TabmenuComponent, ProductListComponent,ProductDetailsComponent, CheckoutIconComponent],

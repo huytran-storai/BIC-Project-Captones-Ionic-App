@@ -1,3 +1,18 @@
+.view-all {
+    z-index: 9999;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 14px;
+    justify-content: center;
+    align-items: center;
+    ion-icon {
+        color: var(--ion-color-primary);
+    }
+}
+swiper-container{
+    position: relative;
+}
 .bg-content {
 
     a {
