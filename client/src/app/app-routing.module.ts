@@ -17,6 +17,10 @@ const routes: Routes = [
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   },
   {
+    path: 'account',
+    loadChildren: () => import('./profile/account/account.module').then( m => m.AccountPageModule)
+  },
+  {
     path: 'department',
     loadChildren: () => import('./department/department.module').then( m => m.DepartmentPageModule)
   },
@@ -27,7 +31,8 @@ const routes: Routes = [
   {
     path: 'department/department-result/:tagName',
     loadChildren: () => import('./department-result/department-result.module').then( m => m.DepartmentResultPageModule)
-  },  {
+  },
+  {
     path: 'shopping-cart',
     loadChildren: () => import('./shopping-cart/shopping-cart.module').then( m => m.ShoppingCartPageModule)
   },
