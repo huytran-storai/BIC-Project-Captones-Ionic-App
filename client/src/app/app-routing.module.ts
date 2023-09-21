@@ -5,7 +5,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
     path: '',
@@ -14,27 +14,23 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
-  },
-  {
-    path: 'account',
-    loadChildren: () => import('./profile/account/account.module').then( m => m.AccountPageModule)
+    loadChildren: () => import('./profile/profile.module').then(m => m.ProfilePageModule)
   },
   {
     path: 'department',
-    loadChildren: () => import('./department/department.module').then( m => m.DepartmentPageModule)
+    loadChildren: () => import('./department/department.module').then(m => m.DepartmentPageModule)
   },
   {
     path: 'search-product',
-    loadChildren: () => import('./search-product/search-product.module').then( m => m.SearchProductPageModule)
+    loadChildren: () => import('./search-product/search-product.module').then(m => m.SearchProductPageModule)
   },
   {
     path: 'department/department-result/:tagName',
-    loadChildren: () => import('./department-result/department-result.module').then( m => m.DepartmentResultPageModule)
+    loadChildren: () => import('./department-result/department-result.module').then(m => m.DepartmentResultPageModule)
   },
   {
     path: 'shopping-cart',
-    loadChildren: () => import('./shopping-cart/shopping-cart.module').then( m => m.ShoppingCartPageModule)
+    loadChildren: () => import('./shopping-cart/shopping-cart.module').then(m => m.ShoppingCartPageModule)
   },
 
   // {
