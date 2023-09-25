@@ -10,7 +10,6 @@ export class TabmenuComponent  implements OnInit {
   constructor(private location: Location) { }
 
   ngOnInit() {}
-  //Refeshpage
   // refreshPage() {
   //   this.location.replaceState('/home');
   //   window.location.reload();
