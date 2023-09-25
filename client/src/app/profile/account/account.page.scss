@@ -1,0 +1,28 @@
+ion-button {
+    --background: none;
+    --background-hover: none;
+    --background-activated: none;
+    color: var(--ion-color-success-shade);
+    font-weight: 600;
+    font-size:smaller;
+  }
+  ion-back-button{
+    color: var(--ion-color-warning-contrast);
+  }
+  ion-back-button{
+    margin-left: 50%;
+    margin-top: 20%;
+  }
+.accountBtn{
+    margin-top: 9.5%;
+    
+}
+.bottomAccountText{
+    font-weight: bold;
+    color: var(--ion-color-success-shade);
+}
+.moreScreenTitle{
+    color: var(--ion-color-medium-shade);
+    font-weight: 480; 
+    font-size:larger;
+}

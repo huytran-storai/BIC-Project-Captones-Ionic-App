@@ -1,0 +1,23 @@
+a {
+    color: var(--ion-color-warning-contrast);
+    text-decoration: none;
+  }
+  ion-button {
+    --background:var(--ion-color-tertiary-shade);
+    --background-hover: var(--ion-color-tertiary-shade);
+    --border-color: var(--ion-color-warning-contrast);
+    --background-activated: var(--ion-color-tertiary-tint);
+    
+  }
+  ion-toolbar {
+    --background: var(--ion-color-danger-contrast);
+  }
+.moreScreenTitle{
+    color: var(--ion-color-medium-shade);
+    font-weight: 480; 
+    font-size:larger;
+}
+.moreScreenButton{
+    width:100%;
+    font-weight:bold;
+}
