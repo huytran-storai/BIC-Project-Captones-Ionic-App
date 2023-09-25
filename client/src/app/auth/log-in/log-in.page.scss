@@ -1,0 +1,35 @@
+.input {
+    font-weight: 200;
+}
+
+ion-item {
+    --background: var(--ion-color-light);
+    border-radius: 10px;
+    margin-bottom: 16px;
+}
+
+.header {
+    margin-top: 100px;
+    margin-bottom: 80px;
+    text-align: center;
+
+    .subtitle {
+        color: var(--ion-color-light);
+        font-size: 0.9rem;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+}
+
+.button-login {
+    display: block;
+}
+
+.logo {
+    width: 100px;
+    height: 50px;
+    margin-top: 35px;
+    margin-bottom: 30px;
+}
