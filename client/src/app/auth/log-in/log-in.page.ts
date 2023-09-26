@@ -28,4 +28,12 @@ export class LogInPage{
     this.showPassword = !this.showPassword;
   }
 
+  signup() {
+    this.router.navigate(['/signup']);
+  }
+
+  forgotPass() {
+    this.router.navigate(['/forgot-password']);
+  }
+
 }
