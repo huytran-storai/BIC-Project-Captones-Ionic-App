@@ -5,7 +5,7 @@ import { ForgotPasswordPage } from './forgot-password.page';
 
 const routes: Routes = [
   {
-    path: 'forgot-password',
+    path: '',
     component: ForgotPasswordPage
   }
 ];
