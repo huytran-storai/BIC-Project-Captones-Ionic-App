@@ -44,6 +44,10 @@ const routes: Routes = [
     path: 'forgot-password',
     loadChildren: () => import('./auth/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
   },
+  {
+    path:'account',
+    loadChildren:() => import('./profile/account/account.module').then( m => m.AccountPageModule)
+  },
 
 ];
 

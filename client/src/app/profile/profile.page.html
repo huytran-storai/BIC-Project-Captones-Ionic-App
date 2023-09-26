@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar style="height: 50px;">
-    <ion-title class="moreScreenTitle ion-justify-content-center ">More</ion-title>
+    <ion-title class="ion-justify-content-center">More</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -12,7 +12,7 @@
     <ion-item><a href="#" >Help</a></ion-item>
     <ion-item><a href="#" >Legal</a></ion-item>
     <ion-row class="ion-margin ion-justify-content-center" style="margin-top: 40%">
-      <ion-button class="moreScreenButton" type="button">Log Out</ion-button>
+      <ion-button class="moreScreenButton" type="button" color="primary" (click)="logout()">Log Out</ion-button>
     </ion-row>
   </ion-list>
 </ion-content>
