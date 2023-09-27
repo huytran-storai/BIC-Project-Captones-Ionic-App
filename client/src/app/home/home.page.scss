@@ -27,20 +27,44 @@
 }
 
 .logo {
-  width: 17%;
-  height: 40px;
+  width: 61%;
+  height: 52px;
   margin-top: 15px;
   margin-bottom: 10px;
+  margin-left: 138px;
 }
 
 ion-icon{
   font-size: 25px;
 }
-.ion-float-left{
-margin-left: 8px;
+.navigator-search{
+  margin-left: 160px;
+  margin-top: 45px;
 }
- .ion-float-right{
-      margin-left: 127px;
- }
+.store{
+  background-color: #9b1f2f;
+  height: 48px;
+}
+.store-title{
+  
+  color: #ffffff;
+  font-weight: bold;
+  font-size: small;
+  margin-left: 13px;
+}
+.icon-address{
+ margin-top: 15px;
+ color: #ffffff;
+}
+.title-hello{
+  background-color: #000000;
+}
+.hi-name{
+  color: #ffffff;
+  font-weight: bold;
+  font-size: small;
+  margin-left: 13px;
+}
+
 
 
