@@ -7,10 +7,11 @@ import { ProductListComponent } from './product/product-list/product-list.compon
 import { ProductDetailsComponent } from './product/product-details/product-details.component';
 import {RouterModule} from '@angular/router';
 import { CheckoutIconComponent } from './checkout-icon/checkout-icon.component';
+import {NewsComponent} from './news/news.component'
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  declarations: [TabmenuComponent,ProductListComponent,ProductDetailsComponent, CheckoutIconComponent],
+  declarations: [TabmenuComponent,ProductListComponent,ProductDetailsComponent, CheckoutIconComponent, NewsComponent],
   imports: [CommonModule, IonicModule,RouterModule],
-  exports:[TabmenuComponent, ProductListComponent,ProductDetailsComponent, CheckoutIconComponent],
+  exports:[TabmenuComponent, ProductListComponent,ProductDetailsComponent, CheckoutIconComponent, NewsComponent],
 })
 export class ShareModule {}
