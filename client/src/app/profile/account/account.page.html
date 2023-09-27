@@ -1,0 +1,81 @@
+<ion-header [translucent]="true">
+    <ion-toolbar style="height: 50px;">
+        <ion-buttons slot="start">
+            <ion-back-button text="" icon="arrow-back-outline" defaultHref="profile"></ion-back-button>
+          </ion-buttons>
+        <ion-title class="ion-justify-content-center">My Account</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-list style="font-weight: 470;">
+        <ion-item class="">
+            <ion-label>Account Log In:
+                <h3>
+                    <p style="margin-top: 10px;">Email:</p>
+                    <p>useremail20020222@gmail.com</p>
+                    <p>Password:***************</p>
+                </h3>
+            </ion-label>
+            <ion-button slot="end" class="accountBtn "> Edit </ion-button>
+            <ion-button slot="end" class="accountBtn"> Delete </ion-button>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <ion-toggle aria-label="Success toggle" color="success" [checked]="true"> Face ID </ion-toggle>
+            </ion-label>
+        </ion-item>
+        <ion-item class="">
+            <ion-label>
+                Contact Information:
+                <h3>
+                    <p>Huy Tran:</p>
+                    <p>Mobile Phone: 222-222-222</p>
+                </h3>
+            </ion-label>
+            <ion-button slot="end"> Edit </ion-button>
+        </ion-item>
+        <ion-item style="height: 35px;" lines="none">
+            <ion-label>
+                Address Book:
+            </ion-label>
+            <ion-button slot="end"> Add Address </ion-button>
+        </ion-item>
+        <ion-item class="">
+            <ion-label>
+                <!-- <h3>Address Book:</h3> -->
+                <div style="margin-left: 14px;margin-top: 0%;">
+                    <h3>
+                        <p>Vietnam</p>
+                        <p>New York, CO 2299</p>
+                    </h3>
+                </div>
+            </ion-label>
+            <ion-button slot="end"> Edit </ion-button>
+            <ion-button slot="end" disabled="true"> Remove </ion-button>
+        </ion-item>
+        <ion-item class="" lines="none">
+            <ion-label class="">
+                Payment Cards
+            </ion-label>
+            <ion-button slot="end"> Edit </ion-button>
+        </ion-item>
+        <ion-row class="ion-justify-content-center">
+            <ion-label class="bottomAccountText">Scan In Store</ion-label>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+            <ion-img style="width: 200px;height: 200px;" src="https://www.qrcode-gen.com/images/qrcode-default.png"
+                alt="QR code">
+            </ion-img>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+            <ion-label class="bottomAccountText">Or use your phone number</ion-label>
+        </ion-row>
+        <ion-row class="ion-justify-content-center ion-padding-bottom">
+            <ion-label>222-222-222</ion-label>
+        </ion-row>
+
+
+
+    </ion-list>
+</ion-content>

@@ -32,11 +32,22 @@ const routes: Routes = [
     path: 'shopping-cart',
     loadChildren: () => import('./shopping-cart/shopping-cart.module').then(m => m.ShoppingCartPageModule)
   },
-
-  // {
-  //   path: 'product-detail/:productId',
-  //   loadChildren: () => import('./product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
-  // }
+  {
+    path: 'login',
+    loadChildren: () => import('./auth/log-in/log-in.module').then( m => m.LogInPageModule)
+  },
+  {
+    path: 'signup',
+    loadChildren: () => import('./auth/sign-up/sign-up.module').then( m => m.SignUpPageModule)
+  },
+  {
+    path: 'forgot-password',
+    loadChildren: () => import('./auth/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+  },
+  {
+    path:'account',
+    loadChildren:() => import('./profile/account/account.module').then( m => m.AccountPageModule)
+  },
 
 ];
 
