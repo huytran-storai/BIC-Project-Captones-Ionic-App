@@ -1,0 +1,1010 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>client documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">client documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ProductListComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/product/product-list/product-list.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-product-list</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./product-list.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./product-list.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#isModalOpen" >isModalOpen</a>
+                            </li>
+                            <li>
+                                <a href="#isModalViewAllProductOpen" >isModalViewAllProductOpen</a>
+                            </li>
+                            <li>
+                                <a href="#selectedProduct" >selectedProduct</a>
+                            </li>
+                            <li>
+                                <a href="#stores" >stores</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addProduct" >addProduct</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#setClose" >setClose</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#setCloseViewAll" >setCloseViewAll</a>
+                            </li>
+                            <li>
+                                <a href="#setOpen" >setOpen</a>
+                            </li>
+                            <li>
+                                <a href="#viewAll" >viewAll</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(StoreService: <a href="../injectables/StoreService.html" target="_self">StoreService</a>, modalController: ModalController)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/components/product/product-list/product-list.component.ts:17</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>StoreService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/StoreService.html" target="_self" >StoreService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>modalController</td>
+                                                  
+                                                        <td>
+                                                                    <code>ModalController</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addProduct"></a>
+                    <span class="name">
+                        <span ><b>addProduct</b></span>
+                        <a href="#addProduct"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addProduct(store: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="44"
+                            class="link-to-prism">src/app/components/product/product-list/product-list.component.ts:44</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>store</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="40"
+                            class="link-to-prism">src/app/components/product/product-list/product-list.component.ts:40</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setClose"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>setClose</b></span>
+                        <a href="#setClose"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setClose()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="31"
+                            class="link-to-prism">src/app/components/product/product-list/product-list.component.ts:31</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setCloseViewAll"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>setCloseViewAll</b></span>
+                        <a href="#setCloseViewAll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setCloseViewAll()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="36"
+                            class="link-to-prism">src/app/components/product/product-list/product-list.component.ts:36</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setOpen"></a>
+                    <span class="name">
+                        <span ><b>setOpen</b></span>
+                        <a href="#setOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setOpen(store: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="22"
+                            class="link-to-prism">src/app/components/product/product-list/product-list.component.ts:22</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>store</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="viewAll"></a>
+                    <span class="name">
+                        <span ><b>viewAll</b></span>
+                        <a href="#viewAll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>viewAll()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="27"
+                            class="link-to-prism">src/app/components/product/product-list/product-list.component.ts:27</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isModalOpen"></a>
+                    <span class="name">
+                        <span ><b>isModalOpen</b></span>
+                        <a href="#isModalOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/components/product/product-list/product-list.component.ts:15</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isModalViewAllProductOpen"></a>
+                    <span class="name">
+                        <span ><b>isModalViewAllProductOpen</b></span>
+                        <a href="#isModalViewAllProductOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/components/product/product-list/product-list.component.ts:17</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedProduct"></a>
+                    <span class="name">
+                        <span ><b>selectedProduct</b></span>
+                        <a href="#selectedProduct"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/components/product/product-list/product-list.component.ts:16</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="stores"></a>
+                    <span class="name">
+                        <span ><b>stores</b></span>
+                        <a href="#stores"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Store.html" target="_self" >Store[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/components/product/product-list/product-list.component.ts:14</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input, OnInit } from &#x27;@angular/core&#x27;;
+import { Store } from &#x27;src/app/shared/models/Store&#x27;;
+import { StoreService } from &#x27;src/app/services/store.service&#x27;;
+import { ModalController } from &#x27;@ionic/angular&#x27;;
+import { register } from &#x27;swiper/element/bundle&#x27;;
+
+register();
+@Component({
+  selector: &#x27;app-product-list&#x27;,
+  templateUrl: &#x27;./product-list.component.html&#x27;,
+  styleUrls: [&#x27;./product-list.component.scss&#x27;],
+})
+export class ProductListComponent implements OnInit {
+  stores: Store[] &#x3D; [];
+  isModalOpen &#x3D; false;
+  selectedProduct: any;
+  isModalViewAllProductOpen &#x3D; false;
+
+  constructor(private StoreService: StoreService, private modalController: ModalController) {
+  }
+
+  setOpen(store: any) {
+    this.selectedProduct &#x3D; store;
+    this.isModalOpen &#x3D; true;
+  }
+
+  viewAll(){
+    this.isModalViewAllProductOpen &#x3D; true;
+  }
+
+  async setClose() {
+    this.selectedProduct &#x3D; null;
+    this.isModalOpen &#x3D; false;
+  }
+
+  async setCloseViewAll() {
+    this.isModalViewAllProductOpen &#x3D; false;
+  }
+
+  ngOnInit(): void {
+    this.stores &#x3D; this.StoreService.getAll();
+  }
+
+  addProduct(store: any) {
+    store.added &#x3D; !store.added;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;ion-row class&#x3D;&quot;view-all&quot;&gt;
+  &lt;a (click)&#x3D;&quot;viewAll()&quot;&gt;View All&lt;/a&gt;
+  &lt;ion-icon name&#x3D;&quot;chevron-forward-outline&quot;&gt;&lt;/ion-icon&gt;
+&lt;/ion-row&gt;
+&lt;swiper-container [slidesPerView]&#x3D;&quot;2&quot; [zoom]&#x3D;&quot;false&quot;&gt;
+  &lt;swiper-slide *ngFor&#x3D;&quot;let store of stores&quot; class&#x3D;&quot;bg-content&quot;&gt;
+    &lt;ion-col size&#x3D;&quot;6&quot;&gt;
+      &lt;ion-card&gt;
+        &lt;a (click)&#x3D;&quot;setOpen(store)&quot;&gt;
+          &lt;ion-row&gt;
+            &lt;ion-col class&#x3D;&quot;ion-justify-content-center product&quot;&gt;
+              &lt;img alt&#x3D;&quot;{{store.name}}&quot; [src]&#x3D;&quot;store.imageUrl&quot; /&gt;
+            &lt;/ion-col&gt;
+          &lt;/ion-row&gt;
+          &lt;ion-card-header&gt;
+            &lt;ion-text class&#x3D;&quot;price&quot;&gt;{{store.price}} $&lt;/ion-text&gt;
+            &lt;ion-text class&#x3D;&quot;product-name fix-2-row&quot;&gt;{{store.name}}&lt;/ion-text&gt;
+          &lt;/ion-card-header&gt;
+        &lt;/a&gt;
+        &lt;ion-card-content&gt;
+          &lt;ion-row class&#x3D;&quot;ion-align-items-center ion-justify-content-between&quot;&gt;
+            &lt;ion-text&gt;{{store.capacity}}ml&lt;/ion-text&gt;
+            &lt;ion-text&gt;{{store.strength}}%&lt;/ion-text&gt;
+          &lt;/ion-row&gt;
+          &lt;ion-row class&#x3D;&quot;ion-align-items-center add&quot;&gt;
+            &lt;ion-button (click)&#x3D;&quot;addProduct(store)&quot; class&#x3D;&quot;btn&quot; size&#x3D;&quot;small&quot; color&#x3D;&quot;primary&quot;&gt;{{
+              store.added ? &#x27;Added&#x27; : &#x27;Add&#x27; }}&lt;/ion-button&gt;
+          &lt;/ion-row&gt;
+        &lt;/ion-card-content&gt;
+      &lt;/ion-card&gt;
+    &lt;/ion-col&gt;
+  &lt;/swiper-slide&gt;
+&lt;/swiper-container&gt;
+&lt;ion-modal [isOpen]&#x3D;&quot;isModalOpen&quot;&gt;
+  &lt;ng-template&gt;
+    &lt;ion-header&gt;
+      &lt;ion-toolbar&gt;
+        &lt;ion-buttons slot&#x3D;&quot;end&quot;&gt;
+          &lt;ion-button (click)&#x3D;&quot;setClose()&quot;&gt;&lt;ion-icon color&#x3D;&quot;danger&quot; name&#x3D;&quot;close-outline&quot;&gt;&lt;/ion-icon&gt;&lt;/ion-button&gt;
+        &lt;/ion-buttons&gt;
+      &lt;/ion-toolbar&gt;
+    &lt;/ion-header&gt;
+    &lt;ion-content&gt;
+      &lt;app-product-details [product]&#x3D;&quot;selectedProduct&quot;&gt;&lt;/app-product-details&gt;
+    &lt;/ion-content&gt;
+  &lt;/ng-template&gt;
+&lt;/ion-modal&gt;
+&lt;ion-modal [isOpen]&#x3D;&quot;isModalViewAllProductOpen&quot;&gt;
+  &lt;ng-template&gt;
+    &lt;ion-header&gt;
+      &lt;ion-toolbar&gt;
+        &lt;ion-buttons slot&#x3D;&quot;end&quot;&gt;
+          &lt;ion-button (click)&#x3D;&quot;setCloseViewAll()&quot;&gt;&lt;ion-icon color&#x3D;&quot;danger&quot; name&#x3D;&quot;close-outline&quot;&gt;&lt;/ion-icon&gt;&lt;/ion-button&gt;
+        &lt;/ion-buttons&gt;
+      &lt;/ion-toolbar&gt;
+    &lt;/ion-header&gt;
+    &lt;ion-content&gt;
+      &lt;ion-row&gt;
+        &lt;ion-col size&#x3D;&quot;6&quot; *ngFor&#x3D;&quot;let store of stores&quot; class&#x3D;&quot;bg-content&quot;&gt;
+          &lt;ion-card&gt;
+            &lt;a (click)&#x3D;&quot;setOpen(store)&quot;&gt;
+              &lt;ion-row&gt;
+                &lt;ion-col class&#x3D;&quot;ion-justify-content-center product&quot;&gt;
+                  &lt;img alt&#x3D;&quot;{{store.name}}&quot; [src]&#x3D;&quot;store.imageUrl&quot; /&gt;
+                &lt;/ion-col&gt;
+              &lt;/ion-row&gt;
+              &lt;ion-card-header&gt;
+                &lt;ion-text class&#x3D;&quot;price&quot;&gt;{{store.price}} $&lt;/ion-text&gt;
+                &lt;ion-text class&#x3D;&quot;product-name fix-2-row&quot;&gt;{{store.name}}&lt;/ion-text&gt;
+              &lt;/ion-card-header&gt;
+            &lt;/a&gt;
+            &lt;ion-card-content&gt;
+              &lt;ion-row class&#x3D;&quot;ion-align-items-center ion-justify-content-between&quot;&gt;
+                &lt;ion-text&gt;{{store.capacity}}ml&lt;/ion-text&gt;
+                &lt;ion-text&gt;{{store.strength}}%&lt;/ion-text&gt;
+              &lt;/ion-row&gt;
+              &lt;ion-row class&#x3D;&quot;ion-align-items-center add&quot;&gt;
+                &lt;ion-button (click)&#x3D;&quot;addProduct(store)&quot; class&#x3D;&quot;btn&quot; size&#x3D;&quot;small&quot; color&#x3D;&quot;primary&quot;&gt;{{
+                  store.added ? &#x27;Added&#x27; : &#x27;Add&#x27; }}&lt;/ion-button&gt;
+              &lt;/ion-row&gt;
+            &lt;/ion-card-content&gt;
+          &lt;/ion-card&gt;
+        &lt;/ion-col&gt;
+      &lt;/ion-row&gt;
+    &lt;/ion-content&gt;
+  &lt;/ng-template&gt;
+&lt;/ion-modal&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./product-list.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.view-all {
+    z-index: 9999;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 14px;
+    justify-content: center;
+    align-items: center;
+    ion-icon {
+        color: var(--ion-color-primary);
+    }
+}
+swiper-container{
+    position: relative;
+}
+.bg-content {
+
+    a {
+        text-decoration: none;
+    }
+
+    .product {
+        display: flex;
+
+        img {
+            width: 120px;
+            height: 140px;
+        }
+    }
+
+    .product-name {
+        display: inline-block;
+        font-size: 15px;
+        height: 40px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    // .fix-2-row {
+    //     display: -webkit-box;
+    //     -webkit-line-clamp: 4;
+    //     -webkit-box-orient: vertical;
+    //     overflow: hidden;
+    // }
+
+    .price {
+        color: var(--ion-color-primary);
+        font-weight: bolder;
+        font-size: 20px;
+        line-height: 1.75;
+    }
+
+    ion-chip {
+        font-size: 10px;
+    }
+
+    ion-card-header {
+        padding: 0 16px;
+    }
+
+    ion-card-content {
+        padding: 0 16px;
+
+        .add {
+            display: block;
+
+            ion-button {
+                display: block;
+            }
+        }
+
+        .btn {
+            margin-top: 8px;
+            margin-bottom: 15px
+        }
+    }
+
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><ion-row class="view-all">  <a (click)="viewAll()">View All</a>  <ion-icon name="chevron-forward-outline"></ion-icon></ion-row><swiper-container [slidesPerView]="2" [zoom]="false">  <swiper-slide *ngFor="let store of stores" class="bg-content">    <ion-col size="6">      <ion-card>        <a (click)="setOpen(store)">          <ion-row>            <ion-col class="ion-justify-content-center product">              <img alt="{{store.name}}" [src]="store.imageUrl" />            </ion-col>          </ion-row>          <ion-card-header>            <ion-text class="price">{{store.price}} $</ion-text>            <ion-text class="product-name fix-2-row">{{store.name}}</ion-text>          </ion-card-header>        </a>        <ion-card-content>          <ion-row class="ion-align-items-center ion-justify-content-between">            <ion-text>{{store.capacity}}ml</ion-text>            <ion-text>{{store.strength}}%</ion-text>          </ion-row>          <ion-row class="ion-align-items-center add">            <ion-button (click)="addProduct(store)" class="btn" size="small" color="primary">{{              store.added ? \'Added\' : \'Add\' }}</ion-button>          </ion-row>        </ion-card-content>      </ion-card>    </ion-col>  </swiper-slide></swiper-container><ion-modal [isOpen]="isModalOpen">  <ng-template>    <ion-header>      <ion-toolbar>        <ion-buttons slot="end">          <ion-button (click)="setClose()"><ion-icon color="danger" name="close-outline"></ion-icon></ion-button>        </ion-buttons>      </ion-toolbar>    </ion-header>    <ion-content>      <app-product-details [product]="selectedProduct"></app-product-details>    </ion-content>  </ng-template></ion-modal><ion-modal [isOpen]="isModalViewAllProductOpen">  <ng-template>    <ion-header>      <ion-toolbar>        <ion-buttons slot="end">          <ion-button (click)="setCloseViewAll()"><ion-icon color="danger" name="close-outline"></ion-icon></ion-button>        </ion-buttons>      </ion-toolbar>    </ion-header>    <ion-content>      <ion-row>        <ion-col size="6" *ngFor="let store of stores" class="bg-content">          <ion-card>            <a (click)="setOpen(store)">              <ion-row>                <ion-col class="ion-justify-content-center product">                  <img alt="{{store.name}}" [src]="store.imageUrl" />                </ion-col>              </ion-row>              <ion-card-header>                <ion-text class="price">{{store.price}} $</ion-text>                <ion-text class="product-name fix-2-row">{{store.name}}</ion-text>              </ion-card-header>            </a>            <ion-card-content>              <ion-row class="ion-align-items-center ion-justify-content-between">                <ion-text>{{store.capacity}}ml</ion-text>                <ion-text>{{store.strength}}%</ion-text>              </ion-row>              <ion-row class="ion-align-items-center add">                <ion-button (click)="addProduct(store)" class="btn" size="small" color="primary">{{                  store.added ? \'Added\' : \'Add\' }}</ion-button>              </ion-row>            </ion-card-content>          </ion-card>        </ion-col>      </ion-row>    </ion-content>  </ng-template></ion-modal></div>'
+    var COMPONENTS = [{'name': 'AccountPage', 'selector': 'app-account'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CheckoutIconComponent', 'selector': 'app-checkout-icon'},{'name': 'DepartmentPage', 'selector': 'app-department'},{'name': 'DepartmentResultPage', 'selector': 'app-department-result'},{'name': 'ForgotPasswordPage', 'selector': 'app-forgot-password'},{'name': 'HomePage', 'selector': 'app-home'},{'name': 'LogInPage', 'selector': 'app-log-in'},{'name': 'NewsComponent', 'selector': 'app-news'},{'name': 'ProductDetailsComponent', 'selector': 'app-product-details'},{'name': 'ProductListComponent', 'selector': 'app-product-list'},{'name': 'ProfilePage', 'selector': 'app-profile'},{'name': 'SearchProductPage', 'selector': 'app-search-product'},{'name': 'ShoppingCartPage', 'selector': 'app-shopping-cart'},{'name': 'SignUpPage', 'selector': 'app-sign-up'},{'name': 'TabmenuComponent', 'selector': 'app-tabmenu'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ProductListComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ProductListComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
