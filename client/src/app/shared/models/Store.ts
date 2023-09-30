@@ -1,12 +1,17 @@
 export class Store {
     id!: string;
     name!: string;
+    originalPrice!: number;
     price!: number;
     tags?: string[];
     stars!: number;
     imageUrl!: string;
-    origins!: string[];
-    capacity!: number;
-    strength!: number;
+    unitCapitity!: number;
+    unitPrice!: number;
+    Upc!: string;
+    Descriptions!: string;
+    address!: string;
+    promotions!: string;
     added!: boolean;
+    addedSugar!: boolean;
 }

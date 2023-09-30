@@ -8,8 +8,36 @@ import { Router } from '@angular/router';
 })
 export class ProductDetailsComponent implements OnInit {
 
+  isDropdownOpen = false;
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  isDropdownOpenNutrition = false;
+
+  toggleDropdownNutrition() {
+    this.isDropdownOpenNutrition = !this.isDropdownOpenNutrition;
+  }
+
+  isDropdownOpenProductInfor = false;
+
+  toggleDropdownProductInfor() {
+    this.isDropdownOpenProductInfor = !this.isDropdownOpenProductInfor;
+  }
+
+  isDropdownOpenDisclaimer = false;
+
+  toggleDropdownDisclaimer() {
+    this.isDropdownOpenDisclaimer = !this.isDropdownOpenDisclaimer;
+  }
+
   addProduct(store: any) {
     store.added = !store.added;
+  }
+
+  addSugar(product: any) {
+    product.addedSugar = !product.addedSugar;
   }
 
   @Input() product: any;

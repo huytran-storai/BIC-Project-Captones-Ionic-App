@@ -19,8 +19,8 @@
         </a>
         <ion-card-content>
           <ion-row class="ion-align-items-center ion-justify-content-between">
-            <ion-text>{{store.capacity}}ml</ion-text>
-            <ion-text>{{store.strength}}%</ion-text>
+            <ion-text>{{store.unitCapitity}}lb</ion-text>
+            <ion-text>{{store.unitPrice}}/lb</ion-text>
           </ion-row>
           <ion-row class="ion-align-items-center add">
             <ion-button (click)="addProduct(store)" class="btn" size="small" color="primary">{{
@@ -71,8 +71,8 @@
             </a>
             <ion-card-content>
               <ion-row class="ion-align-items-center ion-justify-content-between">
-                <ion-text>{{store.capacity}}ml</ion-text>
-                <ion-text>{{store.strength}}%</ion-text>
+                <ion-text>{{store.unitCapitity}}ml</ion-text>
+                <ion-text>{{store.unitPrice}}%</ion-text>
               </ion-row>
               <ion-row class="ion-align-items-center add">
                 <ion-button (click)="addProduct(store)" class="btn" size="small" color="primary">{{
