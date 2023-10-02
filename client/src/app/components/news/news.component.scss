@@ -1,0 +1,35 @@
+.news {
+    color: var(--ion-color-primary);
+    margin-left: 16px;
+}
+
+.content2 {
+    
+     .poster2{
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+     }
+    .title-news {
+        font-size: 24px;
+        margin-left: 7px;
+
+    }
+
+    .btn-read {
+        margin-left: 10px;
+        margin-bottom: 4px;
+
+        .read-button {
+            color: var(--ion-color-primary);
+            font-size: 18px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        .icon-read-more {
+            color: var(--ion-color-primary);
+            font-size: 18px;
+        }
+    }
+}
