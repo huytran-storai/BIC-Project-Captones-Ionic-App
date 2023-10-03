@@ -3,33 +3,40 @@
     margin-left: 16px;
 }
 
-.content2 {
-    
-     .poster2{
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-     }
-    .title-news {
-        font-size: 24px;
-        margin-left: 7px;
+swiper-container {
+    position: relative;
+
+    swiper-slide {
+        ion-col {
+            ion-card {
+                ion-card-content {
+                    img {
+                        width: 100%;
+                        height: 200px;
+                        object-fit: cover;
+                        border-radius: 0.5em;
+                    }
+
+                    ion-text {
+                        font-size: 17px;
+                        font-weight: 800;
+                        color: var(--ion-color-light-contrast);
+                    }
+
+                    p {
+                        margin-top: 10px;
+                        margin-bottom: 10px;
+                    }
+
+                    a {
+                        font-weight: 650;
+                        font-size: 16px;
+                    }
+                }
+            }
+
+        }
 
     }
 
-    .btn-read {
-        margin-left: 10px;
-        margin-bottom: 4px;
-
-        .read-button {
-            color: var(--ion-color-primary);
-            font-size: 18px;
-            display: inline-block;
-            font-weight: bold;
-        }
-
-        .icon-read-more {
-            color: var(--ion-color-primary);
-            font-size: 18px;
-        }
-    }
 }

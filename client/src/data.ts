@@ -1,5 +1,6 @@
 import { Store } from "./app/shared/models/Store";
 import { Tag } from "./app/shared/models/Tag";
+import { News } from "./app/shared/models/News";
 
 export const sample_stores: Store[] = [
   {
@@ -106,4 +107,30 @@ export const sample_tags: Tag[] = [
   { name: 'Beer', count: 1, imageUrlTag: 'assets/beer1.jpg' },
   { name: 'Whiskey', count: 4, imageUrlTag: 'assets/spri1.jpg' },
   { name: 'Spririts & Liqueur', count: 2, imageUrlTag: 'assets/bombay.jpg' },
+]
+export const sample_news: News[] = [
+  {
+    imageUrlnew: 'assets/advertisement2.jpeg',
+    title: 'Nine things you need to know about the new alcohol duty system',
+    content: 'Alcohol duty is a type of tax paid by companies that produce alcohol.The change in August makes duty across different drinks more consistent by taxing based on strength (ABV).',
+    btn: 'Read more'
+
+  },
+
+  {
+    imageUrlnew: 'assets/advertisement2.jpeg',
+    title: 'Nine things you need to know about the new alcohol duty system',
+    content: 'Alcohol duty is a type of tax paid by companies that produce alcohol.The change in August makes duty across different drinks more consistent by taxing based on strength (ABV).',
+    btn: 'Read more'
+
+  },
+
+  {
+    imageUrlnew: 'assets/advertisement2.jpeg',
+    title: 'Nine things you need to know about the new alcohol duty system',
+    content: 'Alcohol duty is a type of tax paid by companies that produce alcohol.The change in August makes duty across different drinks more consistent by taxing based on strength (ABV).',
+    btn: 'Read more'
+
+  },
+
 ]

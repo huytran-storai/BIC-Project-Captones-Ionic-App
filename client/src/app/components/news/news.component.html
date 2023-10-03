@@ -1,33 +1,18 @@
 <ion-card-title class="news">
   Hot News
 </ion-card-title>
-<!--new1-->
-<ion-row class="content2">
-  <ion-card>
-    <img class="poster2" src="../../../assets/advertisement2.jpeg">
-    <ion-card-title class="title-news">Nine things you need to know about the new alcohol duty system</ion-card-title>
-    <ion-card-content>
-      Alcohol duty is a type of tax paid by companies that produce alcohol.
-      The change in August makes duty across different drinks more consistent by taxing based on strength (ABV).
-    </ion-card-content>
-    <ion-row class="ion-align-items-center btn-read">
-      <a class="read-button">Read more</a>
-      <ion-icon name="arrow-forward-outline" class="icon-read-more"></ion-icon>
-    </ion-row>
-  </ion-card>
-</ion-row>
-<!--new2-->
-<ion-row class="content2">
-  <ion-card>
-    <img class="poster2" src="../../../assets/advertisement2.jpeg">
-    <ion-card-title class="title-news">Nine things you need to know about the new alcohol duty system</ion-card-title>
-    <ion-card-content>
-      Alcohol duty is a type of tax paid by companies that produce alcohol.
-      The change in August makes duty across different drinks more consistent by taxing based on strength (ABV).
-    </ion-card-content>
-    <ion-row class="ion-align-items-center btn-read">
-      <a class="read-button">Read more</a>
-      <ion-icon name="arrow-forward-outline" class="icon-read-more"></ion-icon>
-    </ion-row>
-  </ion-card>
-</ion-row>
+<!--news content-->
+<swiper-container [slidesPerView]="1.2" [zoom]="false" [pagination]="{clickable:true, dynamicBullets:true}">
+  <swiper-slide *ngFor="let item of news" class="bg-content">
+    <ion-col size="6">
+      <ion-card class="content">
+        <ion-card-content>
+          <img class="img" [src]="item.imageUrlnew" />
+          <ion-text>{{item.title}}</ion-text>
+          <p>{{item.content}}</p>
+          <a>{{item.btn}}</a>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </swiper-slide>
+</swiper-container>
