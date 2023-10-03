@@ -151,25 +151,34 @@ export const sample_tags: Tag[] = [
 export const sample_news: News[] = [
   {
     imageUrlnew: 'assets/advertisement2.jpeg',
-    title: 'Nine things you need to know about the new alcohol duty system',
-    content: 'Alcohol duty is a type of tax paid by companies that produce alcohol.The change in August makes duty across different drinks more consistent by taxing based on strength (ABV).',
-    btn: 'Read more'
+    title: 'Hidden bar',
+    content: 'Alcohol duty is a type of tax paid by companies that produce alcohol',
+
 
   },
 
   {
     imageUrlnew: 'assets/advertisement2.jpeg',
-    title: 'Nine things you need to know about the new alcohol duty system',
-    content: 'Alcohol duty is a type of tax paid by companies that produce alcohol.The change in August makes duty across different drinks more consistent by taxing based on strength (ABV).',
-    btn: 'Read more'
+    title: 'Hidden bar',
+    content: 'Alcohol duty is a type of tax paid by companies that produce alcohol',
+
 
   },
 
   {
     imageUrlnew: 'assets/advertisement2.jpeg',
-    title: 'Nine things you need to know about the new alcohol duty system',
-    content: 'Alcohol duty is a type of tax paid by companies that produce alcohol.The change in August makes duty across different drinks more consistent by taxing based on strength (ABV).',
-    btn: 'Read more'
+    title: 'Hidden bar',
+    content: 'Alcohol duty is a type of tax paid by companies that produce alcohol',
+
+
+
+  },
+  {
+    imageUrlnew: 'assets/advertisement2.jpeg',
+    title: 'Hidden bar',
+    content: 'Alcohol duty is a type of tax paid by companies that produce alcohol',
+
+
 
   },
 
