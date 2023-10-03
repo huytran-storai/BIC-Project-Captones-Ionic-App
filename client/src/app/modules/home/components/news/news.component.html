@@ -1,0 +1,18 @@
+<ion-card-title class="news">
+  Promotion Now
+</ion-card-title>
+<!--news content-->
+<swiper-container [slidesPerView]="1.2" [zoom]="false" [pagination]="{clickable:true, dynamicBullets:true}">
+  <swiper-slide *ngFor="let item of news" class="bg-content">
+    <ion-col size="6">
+      <ion-card class="content">
+        <ion-card-content>
+          <img class="img" [src]="item.imageUrlnew" />
+          <ion-text>{{item.title}}</ion-text>
+          <p>{{item.content}}</p>
+          <a>{{item.btn}}</a>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </swiper-slide>
+</swiper-container>

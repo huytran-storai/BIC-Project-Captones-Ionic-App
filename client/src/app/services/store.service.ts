@@ -1,7 +1,8 @@
 import { Tag } from './../shared/models/Tag';
 import { Injectable } from '@angular/core';
 import { Store } from '../shared/models/Store';
-import { sample_stores, sample_tags } from 'src/data';
+import { sample_stores, sample_tags, } from 'src/data';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class StoreService {
 
   getAll(): Store[] {
     return sample_stores;
+
   }
 
   getAllStoreBySearchTerm(searchTerm: string) {
@@ -30,3 +32,4 @@ export class StoreService {
   //   return this.getAll().find(store => store.id == productId) ?? new Store();
   // }
 }
+
