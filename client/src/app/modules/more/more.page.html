@@ -1,0 +1,18 @@
+<ion-header [translucent]="true">
+  <ion-toolbar style="height: 50px;">
+    <ion-title class="ion-justify-content-center">More</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list style="font-weight: 400;">
+    <ion-item><a [routerLink]="['/more']" >My Account</a></ion-item>
+    <ion-item><a href="#" >Purchase History</a></ion-item>
+    <ion-item><a href="#" >About Our App</a></ion-item>
+    <ion-item><a href="#" >Help</a></ion-item>
+    <ion-item><a href="#" >Legal</a></ion-item>
+    <ion-row class="ion-margin ion-justify-content-center" style="margin-top: 40%">
+      <ion-button class="moreScreenButton" type="button" color="primary" (click)="logout()">Log Out</ion-button>
+    </ion-row>
+  </ion-list>
+</ion-content>

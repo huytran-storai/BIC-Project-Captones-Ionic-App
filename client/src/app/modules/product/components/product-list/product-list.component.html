@@ -1,0 +1,90 @@
+<div>
+  <div class="view-all">
+    <a (click)="viewAll()">View All</a>
+    <ion-icon name="chevron-forward-outline"></ion-icon>
+  </div>
+  <swiper-container [slidesPerView]="2" [zoom]="false" navigation="true">
+    
+    <swiper-slide *ngFor="let store of stores" class="bg-content">
+      <ion-col size="6">
+        <ion-card>
+          <a (click)="setOpen(store)">
+            <ion-row>
+              <ion-col class="ion-justify-content-center product">
+                <img alt="{{store.name}}" [src]="store.imageUrl" />
+              </ion-col>
+            </ion-row>
+            <ion-card-header>
+              <ion-text class="price">{{store.price}} $</ion-text>
+              <ion-text class="product-name fix-2-row">{{store.name}}</ion-text>
+            </ion-card-header>
+          </a>
+          <ion-card-content>
+            <ion-row class="ion-align-items-center ion-justify-content-between">
+              <ion-text>{{store.unitCapitity}}lb</ion-text>
+              <ion-text>{{store.unitPrice}}/lb</ion-text>
+            </ion-row>
+            <ion-row class="ion-align-items-center add">
+              <ion-button (click)="addProduct(store)" class="btn" size="small" color="primary">{{
+                store.added ? 'Added' : 'Add' }}</ion-button>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </swiper-slide>
+  </swiper-container>
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="end">
+            <ion-button (click)="setClose()"><ion-icon color="danger" name="close-outline"></ion-icon></ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <app-product-details [product]="selectedProduct"></app-product-details>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <ion-modal [isOpen]="isModalViewAllProductOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="end">
+            <ion-button (click)="setCloseViewAll()"><ion-icon color="danger" name="close-outline"></ion-icon></ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-row>
+          <ion-col size="6" *ngFor="let store of stores" class="bg-content">
+            <ion-card>
+              <a (click)="setOpen(store)">
+                <ion-row>
+                  <ion-col class="ion-justify-content-center product">
+                    <img alt="{{store.name}}" [src]="store.imageUrl" />
+                  </ion-col>
+                </ion-row>
+                <ion-card-header>
+                  <ion-text class="price">{{store.price}} $</ion-text>
+                  <ion-text class="product-name fix-2-row">{{store.name}}</ion-text>
+                </ion-card-header>
+              </a>
+              <ion-card-content>
+                <ion-row class="ion-align-items-center ion-justify-content-between">
+                  <ion-text>{{store.unitCapitity}}ml</ion-text>
+                  <ion-text>{{store.unitPrice}}%</ion-text>
+                </ion-row>
+                <ion-row class="ion-align-items-center add">
+                  <ion-button (click)="addProduct(store)" class="btn" size="small" color="primary">{{
+                    store.added ? 'Added' : 'Add' }}</ion-button>
+                </ion-row>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</div>
