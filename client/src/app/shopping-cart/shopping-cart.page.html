@@ -1,65 +1,133 @@
+
 <ion-header>
   <ion-toolbar class="header">
-    <ion-title>Cart</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text="" style="color: var(--ion-color-primary-contrast);" icon="close-outline" defaultHref=""></ion-back-button>
+    </ion-buttons>
+    <ion-title >Cart: $13.00<ion-text style="font-size: 12px;font-weight: 300"><br/>
+      1 item</ion-text>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 
-<ion-content [fullscreen]="true">
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>
-        <ion-text>Product List</ion-text>
-      </ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list>
-        <ion-item>
-          <ion-thumbnail slot="start">
-            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-          </ion-thumbnail>
-          <ion-label>Item</ion-label>
-        </ion-item>
-
-        <ion-item>
-          <ion-thumbnail slot="start">
-            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-          </ion-thumbnail>
-          <ion-label>Item</ion-label>
-        </ion-item>
-
-        <ion-item>
-          <ion-thumbnail slot="start">
-            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-          </ion-thumbnail>
-          <ion-label>Item</ion-label>
-        </ion-item>
-
-        <ion-item lines="none">
-          <ion-thumbnail slot="start">
-            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-          </ion-thumbnail>
-          <ion-label>Item</ion-label>
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
+<ion-content [fullscreen]="true" >
+  <ion-card class="cartCardOrder">
+    <ion-card-title class="cartTitleOrder colorText">
+      Order Placed At:
+    </ion-card-title>
+    <ion-item lines="none" class="colorText">
+      <ion-label class="ion-text-wrap">
+        <h3>
+          <p class="cartSubTitleOrder">Hinton Valley</p>
+          <p style="font-size: 13px;">108 Athabasca Avenue Hinton, AB T7v2A5 </p>
+        </h3>
+      </ion-label>
+      <ion-button class="btn" slot="end"> EDIT </ion-button>
+    </ion-item>
   </ion-card>
-
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>
-        <ion-text>Total</ion-text>
-      </ion-card-title>
-    </ion-card-header>
-
-    <ion-card-content>
-      <p>
-        Items: 10
-      </p>
-    </ion-card-content>
-
-    <ion-button fill="clear">200 $</ion-button>
-    <ion-button fill="clear">Empty Cart</ion-button>
+  <!-- Order Type: -->
+  <ion-card class="cartCardOrder">
+    <ion-card-title class="cartTitleOrder colorText">
+      Order Type:
+    </ion-card-title>
+      <ion-checkbox style="margin-left: 15px;margin-top: 10px;" class="cartSubTitleType colorText" labelPlacement="end">Pickup</ion-checkbox>
+    <ion-item lines="none" class="colorText">
+      <ion-checkbox slot="start"></ion-checkbox>
+      <ion-label class="cartSubTitleType">Delivery</ion-label>
+      <ion-button class="btn" slot="end"> Edit delivery address </ion-button>
+    </ion-item>
   </ion-card>
-  <ion-button expand="block">Checkout</ion-button>
+  <!-- Catering and cakes -->
+  <ion-card style="border-radius: 0;">
+    <ion-card-title class="cartTitleCAC">
+      Catering and cakes
+    </ion-card-title>
+    <ion-card-content>
+      <ion-item class="paddingCartCAC" >
+        <ion-thumbnail slot="start" style="margin-right: 8px;">
+          <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+        </ion-thumbnail>
+        <ion-label class="cartCACName ion-text-wrap colorText" >
+          Alberta Beef Sandwich Combo
+          <ion-label >
+            <p class="cartCACPrice colorText">$13.00 1</p>
+            <p class="cartCACOption colorText">Options: Alberta Beef Sandwich Combo</p>
+          </ion-label>
+        </ion-label>
+        <div class="wrapper" style="margin-top: -40px">
+          <ion-button class="btnDec" (click)="dec()" > - </ion-button>
+           <ion-text class="cartQuantity">{{productquantity}}</ion-text>
+           <ion-button class="btnInc" (click)="inc()" > + </ion-button>
+         </div>
+      </ion-item>
+    </ion-card-content>
+    <ion-item lines="full">
+      <ion-label class="cartCACViewDetail colorText">
+        <ion-row class="ion-justify-content-between">
+          View details
+          <div class="">$13.00</div>
+        </ion-row>
+        <ion-input style="font-size: 12px;" placeholder="Add notes..."></ion-input>
+      </ion-label>
+    </ion-item>
+    <ion-item style="font-weight: 700;" lines="none" class="colorText">
+      Discount
+    </ion-item>
+    <ion-item class=" cartCACAddPromo" lines="none" >
+      <ion-button  style="color: var(--ion-color-medium);">
+        Add Promo Code
+        <ion-icon name="add-outline">
+        </ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-card>
+  <!-- Order Summary -->
+  <ion-card class="cartCardOrder">
+    <ion-card-title class="cartTitleOrder colorText">
+      Order Summary
+    </ion-card-title>
+
+    <ion-item lines="none" class="colorText">
+      <ion-label>
+        <h3>
+          <ion-row class="ion-justify-content-between cartCardSubOrder">
+            Total Items:
+            <div>1 item</div>
+          </ion-row>
+          <ion-row class="ion-justify-content-between cartCardSubOrder">
+            Subtotal:
+            <div>$13.00</div>
+          </ion-row>
+          <ion-row class="ion-justify-content-between cartCardSubOrder">
+            Tax:
+            <div>$0.65</div>
+          </ion-row>
+          <ion-row style="margin-bottom: 20px;" class="ion-justify-content-between cartCardSubOrder">
+            Order total:
+            <div>$13.65</div>
+          </ion-row>
+        </h3>
+      </ion-label>
+    </ion-item>
+
+  </ion-card>
+  <!-- Notes for your order -->
+  <ion-card class="cartCardOrder">
+    <ion-card-title class="cartTitleOrder colorText">
+      Notes for your Order
+    </ion-card-title>
+    <ion-item lines="none">
+      <ion-input  class="cartInput" 
+      placeholder ="Special Instructions or notes 250 chracters limit." >
+      </ion-input>
+    </ion-item>
+  </ion-card>
+  <ion-grid [fixed]="true" class="ion-text-center">
+    <ion-row>
+     <ion-col > <ion-button class="ion-text-wrap colorText ion-text-start" >Continue Shopping</ion-button></ion-col>
+     <ion-col > <ion-button class="btnCheckout colorText ion-text-center" [routerLink]="['/checkout-order']">CHECKOUT</ion-button></ion-col>
+     <ion-col > <ion-button class="ion-text-wrap colorText ion-text-end" >Empty Cart</ion-button></ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

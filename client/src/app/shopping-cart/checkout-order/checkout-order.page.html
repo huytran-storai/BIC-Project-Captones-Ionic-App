@@ -1,0 +1,165 @@
+<ion-header>
+  <ion-toolbar class="header">
+    <ion-buttons slot="start">
+      <ion-back-button text="" style="color: var(--ion-color-primary-contrast);" icon="close-outline"
+        defaultHref="shopping-cart"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Checkout</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <ion-card class="cartCardOrder">
+    <ion-card-title class="cartTitleOrder colorText">
+      Order Placed At:
+    </ion-card-title>
+    <ion-item lines="none" class="colorText">
+      <ion-label class="ion-text-wrap">
+        <h3>
+          <p class="cartSubTitleOrder">Hinton Valley</p>
+          <p style="font-size: 13px;">108 Athabasca Avenue Hinton, AB T7v2A5 </p>
+        </h3>
+      </ion-label>
+      <ion-button class="btn" slot="end"> EDIT </ion-button>
+    </ion-item>
+  </ion-card>
+  <!-- Contact Information -->
+  <ion-card class="cartCardOrder">
+    <ion-item lines="none">
+        <ion-card-title style="margin-left: -11px;" class="cartTitleOrder colorText">
+          Contact Information
+        </ion-card-title>
+      <ion-button class="btn" slot="end"> EDIT </ion-button>
+    </ion-item>
+   
+    <ion-item lines="none">
+      <ion-item lines="none" class="colorText ">
+        <ion-label class="ion-text-wrap ">
+          <h3 style="">
+            <p class="cartSubTitleOrder">Email</p>
+            <p style="font-size: 13px;margin-bottom: 10px;">tu.nguen@relationship.com</p>
+          </h3>
+          <h3>
+            <p class="cartSubTitleOrder">Phone</p>
+            <p style="font-size: 13px;margin-bottom: 10px;">093-202-8536</p>
+          </h3>
+          <h3>
+            <p class="cartSubTitleOrder">Address</p>
+            <p style="font-size: 13px;">Tu Nguyen</p>
+            <p style="font-size: 13px;">108 Athabasca, Avenue</p>
+            <p style="font-size: 13px;">Hilton, 79601</p>
+          </h3>
+        </ion-label>
+      </ion-item>
+    </ion-item>
+    
+  </ion-card>
+
+  <!-- Payment Method: -->
+  <ion-card class="cartCardOrder">
+    <ion-card-title class="cartTitleOrder colorText">
+      Payment Method:
+    </ion-card-title>
+    <ion-checkbox class="colorText checkoutPaymentMT " labelPlacement="end">Pay Online</ion-checkbox><br />
+    <p class=" checkoutsubPaymentMT">Something....</p>
+    <!-- <br /> -->
+    <ion-checkbox class="colorText checkoutPaymentMT " labelPlacement="end">Pay In Store</ion-checkbox><br />
+    <p class="checkoutsubPaymentMT ">Something....</p>
+  </ion-card>
+  <!-- Discount  -->
+  <ion-card class="cartCardOrder">
+    <ion-card-title lines="none" class="colorText cartTitleOrder">
+      Discount
+    </ion-card-title>
+    <!-- <ion-item class=" cartCACAddPromo" lines="none"> -->
+      <ion-button class="colorText cartCACAddPromo">
+        Add Promo Code
+        <ion-icon name="add-outline">
+        </ion-icon>
+      </ion-button>
+    <!-- </ion-item> -->
+  </ion-card>
+  <!-- Order Summary -->
+  <ion-card class="cartCardOrder">
+    <ion-card-title class="cartTitleOrder colorText">
+      Order Summary
+    </ion-card-title>
+
+    <ion-item lines="none" class="colorText">
+      <ion-label>
+        <h3>
+          <ion-row class="ion-justify-content-between cartCardSubOrder">
+            Total Items:
+            <div>1 item</div>
+          </ion-row>
+          <ion-row class="ion-justify-content-between cartCardSubOrder">
+            Subtotal:
+            <div>$13.00</div>
+          </ion-row>
+          <ion-row class="ion-justify-content-between cartCardSubOrder">
+            Tax:
+            <div>$0.65</div>
+          </ion-row>
+          <ion-row style="margin-bottom: 20px;" class="ion-justify-content-between cartCardSubOrder">
+            Order total:
+            <div>$13.65</div>
+          </ion-row>
+        </h3>
+      </ion-label>
+    </ion-item>
+
+  </ion-card>
+  <!-- Catering and cakes -->
+  <ion-card style="border-radius: 0;">
+    <ion-card-title class="cartTitleCAC">
+      Catering and cakes
+    </ion-card-title>
+    <ion-item lines="none">
+      <ion-label >
+       <h3> Delivery Scheduled for:</h3>
+       <p class="ion-text-wrap" >12/16/22 at 11:30AM - 12:00PM </p>
+      </ion-label>
+      <ion-button style="margin-top: 20px;" slot="end" justify="space-between"> Change </ion-button>
+      
+    </ion-item>
+    
+    <ion-card-content >
+      <ion-item class="paddingCartCAC">
+        <ion-thumbnail slot="start" style="margin-right: 8px;">
+          <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+        </ion-thumbnail>
+        <ion-label class="cartCACName ion-text-wrap colorText">
+          Alberta Beef Sandwich Combo
+          <ion-label>
+            <p class="cartCACPrice colorText">$13.00 1</p>
+            <p class="cartCACOption colorText">Options: Alberta Beef Sandwich Combo</p>
+          </ion-label>
+        </ion-label>
+        <p class="setQuantity cartCACPrice ion-text-center">
+          1
+        </p>
+      </ion-item>
+    </ion-card-content>
+    <ion-item lines="full">
+      <ion-label class="cartCACViewDetail colorText">
+        <ion-row class="ion-justify-content-between">
+          View details
+          <div class="cartCACPrice">$13.00</div>
+        </ion-row>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+  <ion-grid [fixed]="true" style="text-align: center;">
+    <ion-row>
+      <ion-col> <ion-button class="btnCheckout colorText">PLACE ORDER</ion-button></ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- <ion-item> -->
+  <!-- <ion-icon name="add-outline">
+    </ion-icon>
+    <ion-input style="width: 50px;border: 1px solid; border-radius: 20px; "  type="number" placeholder="0"></ion-input> -->
+  <!-- </ion-item> -->
+
+
+</ion-content>

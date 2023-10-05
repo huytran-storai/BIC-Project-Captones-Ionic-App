@@ -26,6 +26,9 @@ ion-toolbar {
     color: var(--ion-color-primary);
 }
 .cartCardOrder{
+    // max-height: 100%;
+    // display: flex;
+    // flex-direction: column;
     border-radius: 0px;
 }
 .header{
@@ -34,7 +37,7 @@ ion-toolbar {
 .cartTitleOrder{
     font-size: 17px;
     padding: 10px;
-    margin-bottom: -10px;
+    // margin-bottom: -10px;
 }
 .cartSubTitleOrder{
     font-size: 13px;
@@ -56,8 +59,9 @@ ion-toolbar {
 
 }
 .cartCACName{
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
+    // max-width: 100%;
 }
 .cartCACPrice{
     font-weight: 700;
@@ -70,11 +74,12 @@ ion-toolbar {
     margin-left: 85px;
     font-size: 14px;
     margin-top: -2px;
+    // background-color: aqua;
 }
 .cartCACAddPromo{
     margin-top: -15px;
-    margin-left: -7px;
-    font-size: 12px;
+    font-size: 10px;
+    color: var(--ion-color-medium);
 }
 .cartCardSubOrder{
     font-weight: 700;
@@ -101,20 +106,20 @@ ion-input.cartInput{
     background-color: var(--ion-color-primary-contrast)!important;
     
 }
-.wrapper{
-    border: 1px solid;
-    border-radius: 20px;
-    width: 54px;
-    height:26px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--ion-color-primary);
+.checkoutPaymentMT{
+    margin-left: 15px;
+    margin-top: 10px;
+    font-weight: 700;
 }
-.btnInc ,.btnDec,.cartQuantity{
-    font-size: 11px;
-    text-align: center;
-    font-weight: 900;
+.checkoutsubPaymentMT{
+    margin-left: 48px;
+    font-size: 10px;
+    width: 250px;
+}
+.setQuantity{
+    border: 1px solid; 
     width: 20px;
-    color: var(--ion-color-primary);
+    height: 20px;
+    border-radius:30px;
+    margin-top: -50px;
 }
