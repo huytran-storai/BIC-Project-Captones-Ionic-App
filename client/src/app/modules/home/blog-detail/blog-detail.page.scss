@@ -1,0 +1,46 @@
+ion-toolbar {
+    height: 80px;
+
+    .title-page {
+        color: var(--ion-color-primary);
+        font-size: larger;
+        font-weight: 600;
+    }
+
+    .btn-back {
+        color: var(--ion-color-dark-shade);
+    }
+}
+
+ion-content {
+    img {
+        height: 26%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .title-blog {
+        font-size: 22px;
+        margin-top: 10px;
+        color: var(--ion-color-dark-tint);
+
+        border-radius: 10px;
+        margin-left: 14px;
+        margin-right: 10px;
+    }
+
+    .paragragh {
+        line-height: 1.4;
+        margin-left: 14px;
+        width: 94%;
+    }
+
+    .author {
+        text-align: right;
+        width: 94%;
+        color: var(--ion-color-primary);
+        font-weight: bold;
+        font-size: 13px;
+
+    }
+}
