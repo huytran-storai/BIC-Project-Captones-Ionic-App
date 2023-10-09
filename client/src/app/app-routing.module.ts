@@ -34,7 +34,7 @@ const routes: Routes = [
   },
   {
     path: 'checkout-order',
-    loadChildren: () => import('./shopping-cart/checkout-order/checkout-order.module').then(m => m.CheckOutOrderPageModule)
+    loadChildren: () => import('./modules/shopping-cart/checkout-order/checkout-order.module').then(m => m.CheckOutOrderPageModule)
   },
   {
     path: 'login',

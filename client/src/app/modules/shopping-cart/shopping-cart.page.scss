@@ -69,7 +69,7 @@ ion-toolbar {
     width: 100%;
     margin-left: 85px;
     font-size: 14px;
-    margin-top: -2px;
+    margin-top: 10px;
 }
 .cartCACAddPromo{
     margin-top: -15px;
@@ -104,17 +104,21 @@ ion-input.cartInput{
 .wrapper{
     border: 1px solid;
     border-radius: 20px;
-    width: 54px;
+    width: 56px;
     height:26px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     color: var(--ion-color-primary);
+    
 }
 .btnInc ,.btnDec,.cartQuantity{
     font-size: 11px;
     text-align: center;
     font-weight: 900;
-    width: 20px;
+    width: 30px;
     color: var(--ion-color-primary);
+}
+.btnInc ,.btnDec{
+    width: 20px;
 }
