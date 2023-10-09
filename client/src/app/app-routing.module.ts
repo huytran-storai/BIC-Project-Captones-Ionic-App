@@ -38,19 +38,23 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./modules/auth/log-in/log-in.module').then( m => m.LogInPageModule)
+    loadChildren: () => import('./modules/auth/log-in/log-in.module').then(m => m.LogInPageModule)
   },
   {
     path: 'signup',
-    loadChildren: () => import('./modules/auth/sign-up/sign-up.module').then( m => m.SignUpPageModule)
+    loadChildren: () => import('./modules/auth/sign-up/sign-up.module').then(m => m.SignUpPageModule)
   },
   {
     path: 'forgot-password',
-    loadChildren: () => import('./modules/auth/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+    loadChildren: () => import('./modules/auth/forgot-password/forgot-password.module').then(m => m.ForgotPasswordPageModule)
   },
   {
-    path:'account',
-    loadChildren:() => import('./modules/more/account/account.module').then( m => m.AccountPageModule)
+    path: 'account',
+    loadChildren: () => import('./modules/more/account/account.module').then(m => m.AccountPageModule)
+  },
+  {
+    path: 'blog-detail',
+    loadChildren: () => import('./modules/home/blog-detail/blog-detail.module').then(m => m.BlogDetailPageModule)
   },
 ];
 
