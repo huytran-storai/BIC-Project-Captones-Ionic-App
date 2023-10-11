@@ -8,7 +8,6 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content [fullscreen]="true">
   <ion-card class="cartCardOrder">
     <ion-card-title class="cartTitleOrder colorText">
@@ -32,7 +31,6 @@
         </ion-card-title>
       <ion-button class="btn" slot="end"> EDIT </ion-button>
     </ion-item>
-   
     <ion-item lines="none">
       <ion-item lines="none" class="colorText ">
         <ion-label class="ion-text-wrap ">
@@ -46,16 +44,14 @@
           </h3>
           <h3>
             <p class="cartSubTitleOrder">Address</p>
-            <p style="font-size: 13px;">Tu Nguyen</p>
+            <p style="font-size: 13px;">Huy Tran</p>
             <p style="font-size: 13px;">108 Athabasca, Avenue</p>
             <p style="font-size: 13px;">Hilton, 79601</p>
           </h3>
         </ion-label>
       </ion-item>
     </ion-item>
-    
   </ion-card>
-
   <!-- Payment Method: -->
   <ion-card class="cartCardOrder">
     <ion-card-title class="cartTitleOrder colorText">
@@ -63,9 +59,6 @@
     </ion-card-title>
     <ion-checkbox class="colorText checkoutPaymentMT " labelPlacement="end">Pay Online</ion-checkbox><br />
     <p class=" checkoutsubPaymentMT">Something....</p>
-    <!-- <br /> -->
-    <ion-checkbox class="colorText checkoutPaymentMT " labelPlacement="end">Pay In Store</ion-checkbox><br />
-    <p class="checkoutsubPaymentMT ">Something....</p>
   </ion-card>
   <!-- Discount  -->
   <ion-card class="cartCardOrder">
@@ -85,7 +78,6 @@
     <ion-card-title class="cartTitleOrder colorText">
       Order Summary
     </ion-card-title>
-
     <ion-item lines="none" class="colorText">
       <ion-label>
         <h3>
@@ -108,7 +100,6 @@
         </h3>
       </ion-label>
     </ion-item>
-
   </ion-card>
   <!-- Catering and cakes -->
   <ion-card style="border-radius: 0;">
@@ -121,9 +112,7 @@
        <p class="ion-text-wrap" >12/16/22 at 11:30AM - 12:00PM </p>
       </ion-label>
       <ion-button style="margin-top: 20px;" slot="end" justify="space-between"> Change </ion-button>
-      
     </ion-item>
-    
     <ion-card-content >
       <ion-item class="paddingCartCAC">
         <ion-thumbnail slot="start" style="margin-right: 8px;">
@@ -155,11 +144,4 @@
       <ion-col> <ion-button class="btnCheckout colorText">PLACE ORDER</ion-button></ion-col>
     </ion-row>
   </ion-grid>
-  <!-- <ion-item> -->
-  <!-- <ion-icon name="add-outline">
-    </ion-icon>
-    <ion-input style="width: 50px;border: 1px solid; border-radius: 20px; "  type="number" placeholder="0"></ion-input> -->
-  <!-- </ion-item> -->
-
-
 </ion-content>

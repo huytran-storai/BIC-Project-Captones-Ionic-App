@@ -17,7 +17,8 @@ export const sample_stores: Store[] = [
     address: 'Located in Aisle 1',
     promotions: '2 deals available',
     added: false,
-    addedSugar: false
+    addedSugar: false, 
+    productQuantityAddDefault: 1,
   },
   {
     id: '2',
@@ -34,7 +35,8 @@ export const sample_stores: Store[] = [
     address: 'Located in Aisle 2',
     promotions: '2 deals available',
     added: false,
-    addedSugar: false
+    addedSugar: false,
+    productQuantityAddDefault: 1,
   },
   {
     id: '3',
@@ -51,7 +53,8 @@ export const sample_stores: Store[] = [
     address: 'Located in Aisle 3',
     promotions: '2 deals available',
     added: false,
-    addedSugar: false
+    addedSugar: false,
+    productQuantityAddDefault: 1,
   },
   {
     id: '4',
@@ -68,7 +71,8 @@ export const sample_stores: Store[] = [
     address: 'Located in Aisle 4',
     promotions: '2 deals available',
     added: false,
-    addedSugar: false
+    addedSugar: false,
+    productQuantityAddDefault: 1,
   },
   {
     id: '5',
@@ -85,7 +89,8 @@ export const sample_stores: Store[] = [
     address: 'Located in Aisle 5',
     promotions: '2 deals available',
     added: false,
-    addedSugar: false
+    addedSugar: false,
+    productQuantityAddDefault: 1,
   },
   {
     id: '6',
@@ -102,7 +107,8 @@ export const sample_stores: Store[] = [
     address: 'Located in Aisle 6',
     promotions: '2 deals available',
     added: false,
-    addedSugar: false
+    addedSugar: false,
+    productQuantityAddDefault: 1,
   },
   {
     id: '7',
@@ -119,7 +125,8 @@ export const sample_stores: Store[] = [
     address: 'Located in Aisle 7',
     promotions: '2 deals available',
     added: false,
-    addedSugar: false
+    addedSugar: false,
+    productQuantityAddDefault: 1,
   },
   {
     id: '8',
@@ -136,7 +143,8 @@ export const sample_stores: Store[] = [
     address: 'Located in Aisle 8',
     promotions: '2 deals available',
     added: false,
-    addedSugar: false
+    addedSugar: false,
+    productQuantityAddDefault: 1,
   },
 ]
 

@@ -42,29 +42,29 @@
     <ion-card-title class="cartTitleCAC">
       Catering and cakes
     </ion-card-title>
-    <ion-card-content *ngFor="let prod of arrayProductPicked">
+    <ion-card-content *ngFor="let prod of stores">
       <ion-item class="paddingCartCAC">
         <ion-thumbnail slot="start" style="margin-right: 8px;">
-          <img alt="Silhouette of mountains" src="{{prod.image}}" />
+          <img alt="Silhouette of mountains" src="{{prod.imageUrl}}" />
         </ion-thumbnail>
         <ion-label class="cartCACName ion-text-wrap colorText">
-          {{prod.nameProduct}}
+          {{prod.name}}
           <ion-label>
-            <p class="cartCACPrice colorText">${{prod.priceProduct}}.00</p>
-            <p class="cartCACOption colorText">Options: {{prod.optionsProduct}}</p>
+            <p class="cartCACPrice colorText">${{prod.originalPrice}}.00</p>
+            <!-- <p class="cartCACOption colorText">Options: {{prod.optionsProduct}}</p> -->
           </ion-label>
         </ion-label>
         <div class="wrapper" style="margin-top: -40px">
-          <ion-button class="btnDec" (click)="dec(prod)"> - </ion-button>
-          <ion-text class="cartQuantity">{{prod.productQuantity}}</ion-text>
-          <ion-button class="btnInc" (click)="inc(prod)"> + </ion-button>
+          <ion-button class="btnDec" (click)="decProduct(prod)"> - </ion-button>
+          <ion-text class="cartQuantity">{{prod.productQuantityAddDefault}}</ion-text>
+          <ion-button class="btnInc" (click)="incProduct(prod)"> + </ion-button>
         </div>
       </ion-item>
       <ion-item lines="full">
         <ion-label class="cartCACViewDetail colorText">
           <ion-row class="ion-justify-content-between">
             View details
-            <div class="">${{prod.productQuantity * prod.priceProduct}}.00</div>
+            <div class="">$ {{prod.originalPrice * prod.productQuantityAddDefault}}.00</div>
           </ion-row>
           <ion-input style="font-size: 12px;" placeholder="Add notes..."></ion-input>
         </ion-label>

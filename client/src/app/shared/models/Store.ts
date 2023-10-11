@@ -14,4 +14,5 @@ export class Store {
     promotions!: string;
     added!: boolean;
     addedSugar!: boolean;
+    productQuantityAddDefault!: number;
 }

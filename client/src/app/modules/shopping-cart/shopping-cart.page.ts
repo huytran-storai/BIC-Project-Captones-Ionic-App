@@ -1,61 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { StoreService } from 'src/app/services/store.service';
+import { Store } from 'src/app/shared/models/Store';
 // import { FormsModule } from '@angular/forms';
-interface arrayProductCart{
-  id:number;
-  nameProduct:string;
-  productQuantity:number;
-  priceProduct:number;
-  optionsProduct:string;
-  image:string;
-  priceDetails:number
-}
-const arrayProduct: arrayProductCart[]=[
-  {
-    id:1,
-    nameProduct:"Alberta Beef Sandwich Combo",
-    productQuantity:1,
-    priceProduct:13.00,
-    optionsProduct:"Alberta Beef Sandwich Combo",
-    image:"../../assets/beefsandwich.jpg",
-    priceDetails:13.00,
-  },
-  {
-    id:2,
-    nameProduct:"Alberta Beef Sandwich Combo 2",
-    productQuantity:1,
-    priceProduct:14.00,
-    optionsProduct:"Alberta Beef Sandwich Combo 2",
-    image:"../../assets/beefsandwich.jpg",
-    priceDetails:14.00,
-  },
-  {
-    id:3,
-    nameProduct:"Alberta Beef Sandwich Combo 3",
-    productQuantity:1,
-    priceProduct:15.00,
-    optionsProduct:"Alberta Beef Sandwich Combo 3",
-    image:"../../assets/beefsandwich.jpg",
-    priceDetails:15.00,
-  }
-]
 @Component({
   selector: 'app-shopping-cart',
   templateUrl: './shopping-cart.page.html',
   styleUrls: ['./shopping-cart.page.scss'],
-  
+
 })
 
 export class ShoppingCartPage implements OnInit {
-  constructor(private location: Location) { }
- 
-  ngOnInit() { 
-  }
-  arrayProductPicked = arrayProduct;
-
-// Choose Order Type
+  stores: Store[] = [];
+  tax = 0.65;
+  numberOfItems: number | undefined;
   pickupChecked: boolean = false;
   deliveryChecked: boolean = false;
+  subTotalAmount: number | undefined;
+
+  constructor(private location: Location, private StoreService: StoreService,) { }
+
+  ngOnInit(): void {
+    this.stores = this.StoreService.getAll();
+    this.numberOfItems = this.stores.length;
+  };
+
   onCheckboxChange(type: 'pickup' | 'delivery') {
     if (type === 'pickup') {
       this.deliveryChecked = false;
@@ -63,40 +32,37 @@ export class ShoppingCartPage implements OnInit {
       this.pickupChecked = false;
     }
   }
-  // Quantity Item
-  
-  numberOfItems = arrayProduct.length;
 
-// increase or decrease quantity
-  inc(prod: any){
-      prod.productQuantity += 1
+  incProduct(prod: any) {
+    prod.productQuantityAddDefault += 1
   }
-  dec(prod: any){
-    if(prod.productQuantity > 1){
-      prod.productQuantity -= 1
+
+  decProduct(prod: Store) {
+    if (prod.productQuantityAddDefault > 1) {
+      prod.productQuantityAddDefault -= 1;
+    } else if (prod.productQuantityAddDefault === 1) {
+      prod.productQuantityAddDefault = 0;
+      this.stores = this.stores.filter(item => item !== prod);
+      this.numberOfItems = this.stores.length;
+      this.updateSubTotal();
     }
-    
   }
-// SubTotal
+
+  updateSubTotal() {
+    this.subTotalAmount = this.subTotal();
+  }
+
   subTotal(): number {
     let subTotal = 0;
-    for (const product of this.arrayProductPicked) {
-      subTotal +=  product.priceProduct * product.productQuantity;
+    for (const product of this.stores) {
+      subTotal += product.originalPrice * product.productQuantityAddDefault;
     }
     return subTotal;
   }
-// Tax
-  tax = 0.65
-// count array
 
-  ngModel(){
-
-  }
- 
   refreshPage() {
-    
     this.location.replaceState('/home');
     window.location.reload();
   }
-  
+
 }
