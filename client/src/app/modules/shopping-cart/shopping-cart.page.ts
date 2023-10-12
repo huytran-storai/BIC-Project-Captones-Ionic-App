@@ -14,8 +14,6 @@ export class ShoppingCartPage implements OnInit {
   stores: Store[] = [];
   tax = 0.65;
   numberOfItems: number | undefined;
-  pickupChecked: boolean = false;
-  deliveryChecked: boolean = false;
   subTotalAmount: number | undefined;
 
   constructor(private location: Location, private StoreService: StoreService,) { }
@@ -24,14 +22,6 @@ export class ShoppingCartPage implements OnInit {
     this.stores = this.StoreService.getAll();
     this.numberOfItems = this.stores.length;
   };
-
-  onCheckboxChange(type: 'pickup' | 'delivery') {
-    if (type === 'pickup') {
-      this.deliveryChecked = false;
-    } else if (type === 'delivery') {
-      this.pickupChecked = false;
-    }
-  }
 
   incProduct(prod: any) {
     prod.productQuantityAddDefault += 1

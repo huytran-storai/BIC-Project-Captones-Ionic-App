@@ -15,28 +15,59 @@
     </ion-card-title>
     <ion-item lines="none" class="colorText">
       <ion-label class="ion-text-wrap">
-        <h3>
-          <p class="cartSubTitleOrder">Hinton Valley</p>
-          <p style="font-size: 13px;">108 Athabasca Avenue Hinton, AB T7v2A5 </p>
-        </h3>
+        <h2 class="titleNameStore">
+          <p class="cartSubTitleOrder">Vani Store</p>
+          <p style="font-size: 13px;">120 Phan Van Tri, Phuong 10, Q.Go Vap, TPHCM </p>
+        </h2>
       </ion-label>
-      <ion-button class="btn" slot="end"> EDIT </ion-button>
+      <!-- <ion-button class="btn" slot="end"> EDIT </ion-button> -->
     </ion-item>
+  </ion-card>
+  <!-- Order Type: -->
+  <ion-card class="cartCardOrder">
+    <ion-card-title class="cartTitleOrder colorText">
+      Order Type:
+    </ion-card-title>
+    <ion-checkbox [(ngModel)]="pickupChecked" (ionChange)="onCheckboxChange('pickup')" style="margin-left: 15px;
+    margin-top: 10px;" class="cartSubTitleType colorText" labelPlacement="end">Pickup</ion-checkbox>
+    <ion-item lines="none" class="colorText">
+      <ion-checkbox slot="start" [(ngModel)]="deliveryChecked"
+        (ionChange)="onCheckboxChange('delivery')"></ion-checkbox>
+      <ion-label class="cartSubTitleType">Delivery</ion-label>
+
+    </ion-item>
+  </ion-card>
+  <!-- Payment Method: -->
+  <ion-card class="cartCardOrder">
+    <ion-card-title class="cartTitleOrder colorText">
+      <ion-row>
+        <ion-button> Select time delivery </ion-button>
+      </ion-row>
+    </ion-card-title>
+    <ion-card-content class="ion-padding-vertical" style="padding-top: 0;">
+      <ion-item lines="none" class="ion-no-padding-horizontal">
+        <ion-label>
+          <h3> Delivery Scheduled for:</h3>
+          <p class="ion-text-wrap">12/16/22 at 11:30AM - 12:00PM </p>
+        </ion-label>
+        <ion-button class="ion-margin-top" slot="end" justify="space-between"> Change </ion-button>
+      </ion-item>
+    </ion-card-content>
   </ion-card>
   <!-- Contact Information -->
   <ion-card class="cartCardOrder">
     <ion-item lines="none">
-        <ion-card-title style="margin-left: -11px;" class="cartTitleOrder colorText">
-          Contact Information
-        </ion-card-title>
+      <ion-card-title style="margin-left: -10px;" class="cartTitleOrder colorText">
+        Contact Information
+      </ion-card-title>
       <ion-button class="btn" slot="end"> EDIT </ion-button>
     </ion-item>
     <ion-item lines="none">
       <ion-item lines="none" class="colorText ">
         <ion-label class="ion-text-wrap ">
-          <h3 style="">
+          <h3>
             <p class="cartSubTitleOrder">Email</p>
-            <p style="font-size: 13px;margin-bottom: 10px;">tu.nguen@relationship.com</p>
+            <p style="font-size: 13px;margin-bottom: 10px;">huy.tran@vanlanguni.com</p>
           </h3>
           <h3>
             <p class="cartSubTitleOrder">Phone</p>
@@ -65,17 +96,44 @@
     <ion-card-title lines="none" class="colorText cartTitleOrder">
       Discount
     </ion-card-title>
-    <!-- <ion-item class=" cartCACAddPromo" lines="none"> -->
-      <ion-button class="colorText cartCACAddPromo">
-        Add Promo Code
-        <ion-icon name="add-outline">
-        </ion-icon>
-      </ion-button>
+    <ion-button class="colorText cartCACAddPromo">
+      Add Promo Code
+      <ion-icon name="add-outline">
+      </ion-icon>
+    </ion-button>
     <!-- </ion-item> -->
+  </ion-card>
+  <ion-card style="border-radius: 0;">
+    <ion-card-title class="cartTitleCAC">
+      Product Items
+    </ion-card-title>
+    <ion-card-content>
+      <ion-item class="paddingCartCAC">
+        <ion-thumbnail slot="start" style="margin-right: 8px;">
+          <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+        </ion-thumbnail>
+        <ion-label class="cartCACName ion-text-wrap colorText">
+          Alberta Beef Sandwich Combo
+          <ion-label>
+            <p class="cartCACPrice colorText">$13.00</p>
+          </ion-label>
+        </ion-label>
+        <p class="setQuantity cartCACPrice ion-text-center">
+          1
+        </p>
+      </ion-item>
+    </ion-card-content>
+    <ion-item lines="full">
+      <ion-label class="cartCACViewDetail colorText">
+        <ion-row class="ion-justify-content-between">
+          <div class="cartCACPrice">$13.00</div>
+        </ion-row>
+      </ion-label>
+    </ion-item>
   </ion-card>
   <!-- Order Summary -->
   <ion-card class="cartCardOrder">
-    <ion-card-title class="cartTitleOrder colorText">
+    <ion-card-title class="cartTitleOrder colorText cartTitleCAC">
       Order Summary
     </ion-card-title>
     <ion-item lines="none" class="colorText">
@@ -98,44 +156,6 @@
             <div>$13.65</div>
           </ion-row>
         </h3>
-      </ion-label>
-    </ion-item>
-  </ion-card>
-  <!-- Catering and cakes -->
-  <ion-card style="border-radius: 0;">
-    <ion-card-title class="cartTitleCAC">
-      Catering and cakes
-    </ion-card-title>
-    <ion-item lines="none">
-      <ion-label >
-       <h3> Delivery Scheduled for:</h3>
-       <p class="ion-text-wrap" >12/16/22 at 11:30AM - 12:00PM </p>
-      </ion-label>
-      <ion-button style="margin-top: 20px;" slot="end" justify="space-between"> Change </ion-button>
-    </ion-item>
-    <ion-card-content >
-      <ion-item class="paddingCartCAC">
-        <ion-thumbnail slot="start" style="margin-right: 8px;">
-          <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-        </ion-thumbnail>
-        <ion-label class="cartCACName ion-text-wrap colorText">
-          Alberta Beef Sandwich Combo
-          <ion-label>
-            <p class="cartCACPrice colorText">$13.00 1</p>
-            <p class="cartCACOption colorText">Options: Alberta Beef Sandwich Combo</p>
-          </ion-label>
-        </ion-label>
-        <p class="setQuantity cartCACPrice ion-text-center">
-          1
-        </p>
-      </ion-item>
-    </ion-card-content>
-    <ion-item lines="full">
-      <ion-label class="cartCACViewDetail colorText">
-        <ion-row class="ion-justify-content-between">
-          View details
-          <div class="cartCACPrice">$13.00</div>
-        </ion-row>
       </ion-label>
     </ion-item>
   </ion-card>

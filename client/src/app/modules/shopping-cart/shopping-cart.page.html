@@ -6,7 +6,6 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content [fullscreen]="true">
   <ion-card class="cartCardOrder">
     <ion-card-title class="cartTitleOrder colorText">
@@ -14,61 +13,45 @@
     </ion-card-title>
     <ion-item lines="none" class="colorText">
       <ion-label class="ion-text-wrap">
-        <h3>
-          <p class="cartSubTitleOrder">Hinton Valley</p>
-          <p style="font-size: 13px;">108 Athabasca Avenue Hinton, AB T7v2A5 </p>
-        </h3>
+        <h2>
+          <p class="cartSubTitleOrder">Vani Store</p>
+          <p style="font-size: 13px;">120 Phan Van Tri, Phuong 10, Q.Go Vap, TPHCM </p>
+        </h2>
       </ion-label>
-      <ion-button class="btn" slot="end"> EDIT </ion-button>
+      <!-- <ion-button class="btn" slot="end"> EDIT </ion-button> -->
     </ion-item>
   </ion-card>
-  <!-- Order Type: -->
-  <ion-card class="cartCardOrder">
-    <ion-card-title class="cartTitleOrder colorText">
-      Order Type:
-    </ion-card-title>
 
-    <ion-checkbox [(ngModel)]="pickupChecked" (ionChange)="onCheckboxChange('pickup')" style="margin-left: 15px;
-    margin-top: 10px;" class="cartSubTitleType colorText" labelPlacement="end">Pickup</ion-checkbox>
-    <ion-item lines="none" class="colorText">
-      <ion-checkbox slot="start" [(ngModel)]="deliveryChecked"
-        (ionChange)="onCheckboxChange('delivery')"></ion-checkbox>
-      <ion-label class="cartSubTitleType">Delivery</ion-label>
-      <ion-button class="btn" slot="end"> Edit delivery address </ion-button>
-    </ion-item>
-  </ion-card>
-  <!-- Catering and cakes -->
   <ion-card style="border-radius: 0;">
     <ion-card-title class="cartTitleCAC">
-      Catering and cakes
+      Product Items
     </ion-card-title>
     <ion-card-content *ngFor="let prod of stores">
       <ion-item class="paddingCartCAC">
         <ion-thumbnail slot="start" style="margin-right: 8px;">
-          <img alt="Silhouette of mountains" src="{{prod.imageUrl}}" />
+          <img alt={{prod.name}} src="{{prod.imageUrl}}" />
         </ion-thumbnail>
-        <ion-label class="cartCACName ion-text-wrap colorText">
+        <ion-label class="cartCACName ion-text-wrap colorTextProd">
           {{prod.name}}
           <ion-label>
-            <p class="cartCACPrice colorText">${{prod.originalPrice}}.00</p>
+            <p class="cartCACPrice colorTextProd">${{prod.originalPrice}}.00</p>
             <!-- <p class="cartCACOption colorText">Options: {{prod.optionsProduct}}</p> -->
           </ion-label>
         </ion-label>
         <div class="wrapper" style="margin-top: -40px">
-          <ion-button class="btnDec" (click)="decProduct(prod)"> - </ion-button>
+          <ion-button class="btnDec" (click)="decProduct(prod)"><ion-icon name="remove-outline"></ion-icon></ion-button>
           <ion-text class="cartQuantity">{{prod.productQuantityAddDefault}}</ion-text>
-          <ion-button class="btnInc" (click)="incProduct(prod)"> + </ion-button>
+          <ion-button class="btnInc" (click)="incProduct(prod)"><ion-icon name="add-outline"></ion-icon></ion-button>
         </div>
       </ion-item>
-      <ion-item lines="full">
-        <ion-label class="cartCACViewDetail colorText">
-          <ion-row class="ion-justify-content-between">
-            View details
-            <div class="">$ {{prod.originalPrice * prod.productQuantityAddDefault}}.00</div>
-          </ion-row>
-          <ion-input style="font-size: 12px;" placeholder="Add notes..."></ion-input>
-        </ion-label>
-      </ion-item>
+      <ion-row class="cartCACViewDetail colorTextProd ion-justify-content-between ion-align-items-center">
+        <ion-col>
+          <ion-input style="font-size: 12px;" placeholder="Add note..."></ion-input>
+        </ion-col>
+        <ion-col>
+          <div class="">$ {{prod.originalPrice * prod.productQuantityAddDefault}}.00</div>
+        </ion-col>
+      </ion-row>
     </ion-card-content>
     <ion-item style="font-weight: 700;" lines="none" class="colorText">
       Discount
@@ -83,14 +66,14 @@
   </ion-card>
   <!-- Order Summary -->
   <ion-card class="cartCardOrder">
-    <ion-card-title class="cartTitleOrder colorText">
+    <ion-card-title class="cartTitleCAC">
       Order Summary
     </ion-card-title>
 
     <ion-item lines="none" class="colorText">
       <ion-label>
         <h3>
-          <ion-row class="ion-justify-content-between cartCardSubOrder">
+          <ion-row class="ion-justify-content-between titleTotal">
             Total Items:
             <div>{{numberOfItems}}</div>
           </ion-row>
@@ -102,7 +85,7 @@
             Tax:
             <div>${{tax}}</div>
           </ion-row>
-          <ion-row style="margin-bottom: 20px;" class="ion-justify-content-between cartCardSubOrder">
+          <ion-row style="margin-bottom: 20px;" class="ion-justify-content-between titleTotal">
             Order total:
             <div>${{subTotal() + tax}}</div>
           </ion-row>
