@@ -34,21 +34,40 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./auth/log-in/log-in.module').then( m => m.LogInPageModule)
+    loadChildren: () => import('./auth/log-in/log-in.module').then(m => m.LogInPageModule)
   },
   {
     path: 'signup',
-    loadChildren: () => import('./auth/sign-up/sign-up.module').then( m => m.SignUpPageModule)
+    loadChildren: () => import('./auth/sign-up/sign-up.module').then(m => m.SignUpPageModule)
   },
   {
     path: 'forgot-password',
-    loadChildren: () => import('./auth/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+    loadChildren: () => import('./auth/forgot-password/forgot-password.module').then(m => m.ForgotPasswordPageModule)
   },
   {
-    path:'account',
-    loadChildren:() => import('./profile/account/account.module').then( m => m.AccountPageModule)
+    path: 'account',
+    loadChildren: () => import('./profile/account/account.module').then(m => m.AccountPageModule)
   },
-
+  {
+    path: 'edit-account',
+    loadChildren: () => import('./profile/account/edit-account/edit-account.module').then(m => m.EditAccountPageModule)
+  },
+  {
+    path: 'edit-contact',
+    loadChildren: () => import('./profile/account/edit-contact/edit-contact.module').then(m => m.EditContactPageModule)
+  },
+  {
+    path: 'edit-address-book',
+    loadChildren: () => import('./profile/account/edit-address-book/edit-address-book.module').then(m => m.EditAddressBookPageModule)
+  },
+  {
+    path: 'edit-payment-cards',
+    loadChildren: () => import('./profile/account/edit-payment-cards/edit-payment-cards.module').then(m => m.EditPaymentCardsPageModule)
+  },
+  {
+    path: 'add-address',
+    loadChildren: () => import('./profile/account/add-address/add-address.module').then(m => m.AddAddressPageModule)
+  },
 ];
 
 @NgModule({

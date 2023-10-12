@@ -1,0 +1,40 @@
+ion-back-button {
+    padding-left: 10px;
+    color: var(--ion-color-warning-contrast);
+}
+
+.label-infor {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid var(--ion-color-warning-shade);
+    padding: 5px;
+}
+
+.linked-custom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.text-expires {
+    position: relative;
+    right: -25px;
+}
+
+.linked-setDefault {
+    font-size: 18px;
+    margin-top: 20px;
+    color: var(--ion-color-medium);
+}
+
+.linked-remove {
+    font-size: 18px;
+    margin-top: 20px;
+    color: var(--ion-color-primary);
+}
+
+.icon-plus {
+    padding-right: 10px;
+    font-size: 25px;
+}

@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar style="height: 50px;">
+    <ion-buttons slot="start">
+      <ion-back-button text="" icon="arrow-back-outline" defaultHref="account"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-justify-content-center">Payment Cards</ion-title>
+    <ion-buttons slot="end">
+      <ion-icon class="icon-plus" text="" icon="add-outline" defaultHref="Payment"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content class="item-text">
+      <ion-label class="label-infor">
+        <ion-text class="">*** *** *** 000</ion-text>
+        <ion-text class="text-expires">Expires 12/24</ion-text>
+      </ion-label>
+      <ion-list class="linked-custom">
+        <a class="linked-setDefault">Set default</a>
+        <a class="linked-remove">Remove</a>
+      </ion-list>
+
+    </ion-card-content>
+  </ion-card>
+</ion-content>

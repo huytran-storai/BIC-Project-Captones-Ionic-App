@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar style="height: 50px;">
+    <ion-buttons slot="start">
+      <ion-back-button text="" icon="arrow-back-outline" defaultHref="account"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-justify-content-center">Edit Account Log In</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list style="font-weight: 500;">
+    <ion-label>Username:
+      <ion-icon class="icon-help" name="help-circle-outline"></ion-icon>
+      <h3 class="text-user">
+        <ion-text>lailadghouse_rhyder@gmail.com</ion-text>
+      </h3>
+    </ion-label>
+  </ion-list>
+
+  <ion-label class="label-title">Current Email
+    <ion-card-content class="item-text">
+      <ion-text class="text-user">lailadghouse_rhyder@gmail.com</ion-text>
+    </ion-card-content>
+  </ion-label>
+
+  <ion-label class="label-title">New Email
+    <ion-input type="Email" class="item-text" placeholder="New Email"></ion-input>
+  </ion-label>
+
+  <ion-label class="label-title">Current Password
+    <ion-card-content class="item-text">
+      <ion-text class="text-user">****************</ion-text>
+      <ion-icon class="icon-eyes" name="eye-outline"></ion-icon>
+    </ion-card-content>
+  </ion-label>
+
+  <ion-label class="label-title">New Password
+    <ion-input type="Password" class="item-text" placeholder="New Password">
+      <ion-icon class="icon-eyes-pass" name="eye-outline"></ion-icon>
+    </ion-input>
+  </ion-label>
+
+  <ion-label class="label-title">Confirm New Password
+    <ion-input type="Password" class="item-text" placeholder="Confirm New Password">
+      <ion-icon class="icon-eyes-pass" name="eye-outline"></ion-icon>
+    </ion-input>
+  </ion-label>
+
+  <ion-label class="label-title">
+    <ion-text style="font-size: 15px;">Password must be more than 8 characters and have 1 letter, 1 number and a special
+      character such as @, $,
+      !, %, *, #, ?, &.</ion-text>
+  </ion-label>
+
+  <ion-label class="label-title">
+    <ion-button>Update</ion-button>
+  </ion-label>
+
+</ion-content>

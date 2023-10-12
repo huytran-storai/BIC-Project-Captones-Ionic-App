@@ -1,0 +1,70 @@
+<ion-header [translucent]="true">
+  <ion-toolbar style="height: 50px;">
+    <ion-buttons slot="start">
+      <ion-back-button text="" icon="arrow-back-outline" defaultHref="account"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-justify-content-center">Edit Contact Information</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row class="row-contact" style="margin-top: 10px;">
+    <ion-col size="4">
+      <ion-label>
+        First Name
+      </ion-label>
+      <ion-input type="text" class="input-contact"></ion-input>
+    </ion-col>
+    <ion-col size="4">
+      <ion-label>
+        Last Name
+      </ion-label>
+      <ion-input type="text" class="input-contact"></ion-input>
+    </ion-col>
+  </ion-row>
+  <ion-row class="row-section">
+    <ion-col>
+      <ion-label>
+        Address
+      </ion-label>
+      <ion-input type="text" class="input-contact"></ion-input>
+    </ion-col>
+  </ion-row>
+  <ion-row class="row-contact">
+    <ion-col size="3" class="ml-25">
+      <ion-label>
+        City
+      </ion-label>
+      <ion-input type="text" class="input-contact"></ion-input>
+    </ion-col>
+    <ion-col size="3">
+      <ion-label>
+        State
+      </ion-label>
+      <ion-input type="text" class="input-contact">
+        <ion-icon class="icon-down-sharp" name="caret-down-sharp"></ion-icon>
+      </ion-input>
+    </ion-col>
+    <ion-col size="3" class="mr-25">
+      <ion-label>
+        Zip code
+      </ion-label>
+      <ion-input type="number" class="input-contact"></ion-input>
+    </ion-col>
+  </ion-row>
+  <ion-row class="row-section">
+    <ion-col>
+      <ion-label>
+        Mobile phone
+      </ion-label>
+      <ion-input type="phone" class="input-contact"></ion-input>
+    </ion-col>
+  </ion-row>
+  <ion-row class="row-section">
+    <ion-col>
+      <ion-label>
+        <ion-button>Update</ion-button>
+      </ion-label>
+    </ion-col>
+  </ion-row>
+</ion-content>
