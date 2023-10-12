@@ -8,10 +8,17 @@
 
     ion-icon {
         color: var(--ion-color-primary);
+        margin-top: 2px;
     }
 }
 
 swiper-container {
+
+    --swiper-navigation-size: 21px;
+    --swiper-navigation-top-offset: 45%;
+    --swiper-navigation-sides-offset: 15px;
+    --swiper-navigation-color: var(--ion-color-dark);
+
     position: relative;
 }
 
