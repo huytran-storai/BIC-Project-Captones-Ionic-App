@@ -4,7 +4,7 @@
     <ion-icon name="chevron-forward-outline"></ion-icon>
   </div>
   <swiper-container [slidesPerView]="2" [zoom]="false" navigation="true">
-    
+
     <swiper-slide *ngFor="let store of stores" class="bg-content">
       <ion-col size="6">
         <ion-card>
@@ -52,7 +52,8 @@
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="end">
-            <ion-button (click)="setCloseViewAll()"><ion-icon color="danger" name="close-outline"></ion-icon></ion-button>
+            <ion-button (click)="setCloseViewAll()"><ion-icon color="danger"
+                name="close-outline"></ion-icon></ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
