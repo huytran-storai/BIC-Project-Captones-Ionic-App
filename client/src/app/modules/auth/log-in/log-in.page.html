@@ -15,13 +15,19 @@
           <ion-item>
             <ion-input name="email" type="email" placeholder="your@email.com" ngModel required></ion-input>
           </ion-item>
+          <ion-row *ngIf="form.controls.email.touched && form.controls.email.invalid" class="ion-padding-horizontal">
+            <p style="color: red;" class="ion-no-margin">Email is required.</p>
+          </ion-row>
           <ion-item>
             <ion-input name="password" [type]="showPassword ? 'text' : 'password'" placeholder="Password" ngModel required></ion-input>
             <ion-icon slot="end" name="eye" *ngIf="showPassword" (click)="togglePasswordVisibility()"></ion-icon>
             <ion-icon slot="end" name="eye-off" *ngIf="!showPassword" (click)="togglePasswordVisibility()"></ion-icon>
           </ion-item>
+          <ion-row *ngIf="form.controls.password.touched && form.controls.password.invalid" class="ion-padding-horizontal">
+            <p style="color: red;" class="ion-no-margin">Password is required.</p>
+          </ion-row>
           <ion-row>
-            <a (click)="forgotPass()">Forgot Password ?</a>
+            <a (click)="forgotPass()" class="ion-margin-top">Forgot Password ?</a>
           </ion-row>
         </ion-col>
       </ion-row>

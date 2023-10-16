@@ -55,7 +55,7 @@
       </ion-row>
 
       <ion-row class="button-login">
-        <ion-button color="medium" type="submit" expand="block" (click)="signup()">Sign Up</ion-button>
+        <ion-button [disabled]="form.invalid" color="medium" type="submit" expand="block" (click)="signup()">Sign Up</ion-button>
       </ion-row>
     </ion-grid>
   </form>

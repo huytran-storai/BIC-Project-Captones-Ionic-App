@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { CustomValidators } from 'src/app/shared/validate/Shared-Validation';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.page.html',
@@ -15,7 +15,7 @@ export class SignUpPage {
   constructor(private formBuilder: FormBuilder, private router: Router) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, CustomValidators.password]],
     });
   }
 
@@ -30,6 +30,6 @@ export class SignUpPage {
   }
 
   signup() {
-    this.router.navigate(['/signup']);
+    this.router.navigate(['/login']);
   }
 }
