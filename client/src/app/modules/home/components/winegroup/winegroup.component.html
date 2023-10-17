@@ -1,0 +1,19 @@
+<!--titleWinegroup-->
+<ion-card-title class="title">
+    Category
+</ion-card-title>
+<!--container-->
+<swiper-container *ngIf="tags" [slidesPerView]="2" [pagination]="{clickable:true, dynamicBullets:true}">
+    <swiper-slide *ngFor="let item of tags">
+        <a [routerLink]="['/department/department-result', item.name]">
+            <ion-col>
+                <ion-card>
+                    <ion-row>
+                        <img [src]="item.imageUrlTag" class="img" />
+                    </ion-row>
+                    <ion-title class="name">{{item.name}}</ion-title>
+                </ion-card>
+            </ion-col>
+        </a>
+    </swiper-slide>
+</swiper-container>
