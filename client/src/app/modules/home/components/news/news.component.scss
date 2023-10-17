@@ -1,22 +1,24 @@
 .news {
     color: var(--ion-color-primary);
-    margin-left: 16px;
 }
 
 swiper-container {
     --swiper-pagination-color: var(--ion-color-primary);
+    margin: 0;
 
     swiper-slide {
-
+        width: 450px;
+        padding: 0 5px;
+        justify-content: center;
+        display: flex;
 
         ion-card {
             width: 100%;
 
             img {
                 width: 100%;
-                height: 96px;
+                height: 100px;
                 object-fit: cover;
-
                 border-radius: 0.6em;
             }
 
@@ -25,8 +27,6 @@ swiper-container {
                 font-weight: 800;
                 color: var(--ion-color-light-contrast);
                 margin-left: 4px;
-
-
             }
 
             p {
@@ -37,11 +37,6 @@ swiper-container {
                 white-space: nowrap;
                 margin-left: 4px;
             }
-
-
         }
-
-
-
     }
 }
