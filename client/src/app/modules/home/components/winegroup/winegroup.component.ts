@@ -9,7 +9,7 @@ register();
   styleUrls: ['./winegroup.component.scss'],
 })
 export class WinegroupComponent implements OnInit {
-  tags?: Tag[];
+  tags: Tag[];
   constructor(StoreService: StoreService) {
     this.tags = StoreService.getAllTags();
   }
