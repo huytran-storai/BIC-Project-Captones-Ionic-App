@@ -13,7 +13,7 @@ import { ShoppingCartPage } from './shopping-cart.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ShoppingCartPageRoutingModule
+    ShoppingCartPageRoutingModule,
   ],
   declarations: [ShoppingCartPage]
 })

@@ -1,7 +1,11 @@
 <ion-header>
   <ion-toolbar class="header">
-    <ion-title>Cart: ${{subTotal() + tax}}<ion-text style="font-size: 12px;font-weight: 300"><br />
+    <ion-title *ngIf="checkItemsCart">Cart: ${{subTotal() + tax}}<ion-text
+        style="font-size: 12px;font-weight: 300"><br />
         {{numberOfItems}} Item</ion-text>
+    </ion-title>
+    <ion-title *ngIf="!checkItemsCart">Cart<ion-text style="font-size: 12px;font-weight: 300"><br />
+      </ion-text>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -26,46 +30,52 @@
     <ion-card-title class="cartTitleCAC">
       Product Items
     </ion-card-title>
-    <ion-card-content *ngFor="let prod of stores">
-      <ion-item class="paddingCartCAC">
-        <ion-thumbnail slot="start" style="margin-right: 8px;">
-          <img alt={{prod.name}} src="{{prod.imageUrl}}" />
-        </ion-thumbnail>
-        <ion-label class="cartCACName ion-text-wrap colorTextProd">
-          {{prod.name}}
-          <ion-label>
-            <p class="cartCACPrice colorTextProd">${{prod.originalPrice}}.00</p>
-            <!-- <p class="cartCACOption colorText">Options: {{prod.optionsProduct}}</p> -->
+    <!-- List of products in the shopping cart -->
+    <ng-container *ngIf="checkItemsCart; else notItem">
+      <ion-card-content *ngFor="let prod of stores">
+        <ion-item class="paddingCartCAC">
+          <ion-thumbnail slot="start" style="margin-right: 8px;">
+            <img alt={{prod.name}} src="{{prod.imageUrl}}" />
+          </ion-thumbnail>
+          <ion-label class="cartCACName ion-text-wrap colorTextProd">
+            {{prod.name}}
+            <ion-label>
+              <p class="cartCACPrice colorTextProd">${{prod.originalPrice}}.00</p>
+            </ion-label>
           </ion-label>
-        </ion-label>
-        <div class="wrapper" style="margin-top: -40px">
-          <ion-button class="btnDec" (click)="decProduct(prod)"><ion-icon name="remove-outline"></ion-icon></ion-button>
-          <ion-text class="cartQuantity">{{prod.productQuantityAddDefault}}</ion-text>
-          <ion-button class="btnInc" (click)="incProduct(prod)"><ion-icon name="add-outline"></ion-icon></ion-button>
-        </div>
+          <div class="wrapper" style="margin-top: -40px">
+            <ion-button class="btnDec" (click)="decProduct(prod)"><ion-icon
+                name="remove-outline"></ion-icon></ion-button>
+            <ion-text class="cartQuantity">{{prod.productQuantityAddDefault}}</ion-text>
+            <ion-button class="btnInc" (click)="incProduct(prod)"><ion-icon name="add-outline"></ion-icon></ion-button>
+          </div>
+        </ion-item>
+        <ion-row class="cartCACViewDetail colorTextProd ion-justify-content-between ion-align-items-center">
+          <ion-col>
+            <ion-input style="font-size: 12px;" placeholder="Add note..."></ion-input>
+          </ion-col>
+          <ion-col>
+            <div class="">$ {{prod.originalPrice * prod.productQuantityAddDefault}}.00</div>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+      <ion-item style="font-weight: 700;" lines="none" class="colorText">
+        Discount
       </ion-item>
-      <ion-row class="cartCACViewDetail colorTextProd ion-justify-content-between ion-align-items-center">
-        <ion-col>
-          <ion-input style="font-size: 12px;" placeholder="Add note..."></ion-input>
-        </ion-col>
-        <ion-col>
-          <div class="">$ {{prod.originalPrice * prod.productQuantityAddDefault}}.00</div>
-        </ion-col>
-      </ion-row>
-    </ion-card-content>
-    <ion-item style="font-weight: 700;" lines="none" class="colorText">
-      Discount
-    </ion-item>
-    <ion-item class=" cartCACAddPromo" lines="none">
-      <ion-button style="color: var(--ion-color-medium);">
-        Add Promo Code
-        <ion-icon name="add-outline">
-        </ion-icon>
-      </ion-button>
-    </ion-item>
+      <ion-item class=" cartCACAddPromo" lines="none">
+        <ion-button style="color: var(--ion-color-medium);">
+          Add Promo Code
+          <ion-icon name="add-outline">
+          </ion-icon>
+        </ion-button>
+      </ion-item>
+    </ng-container>
+    <ng-template #notItem>
+      <img src="../../../assets/empty_cart.png" class="imageEmptyCart">
+    </ng-template>
   </ion-card>
   <!-- Order Summary -->
-  <ion-card class="cartCardOrder">
+  <ion-card class="cartCardOrder" *ngIf="checkItemsCart">
     <ion-card-title class="cartTitleCAC">
       Order Summary
     </ion-card-title>
@@ -92,10 +102,10 @@
         </h3>
       </ion-label>
     </ion-item>
-
   </ion-card>
+  <ng-template *ngIf="!checkItemsCart"></ng-template>
   <!-- Notes for your order -->
-  <ion-card class="cartCardOrder">
+  <ion-card class="cartCardOrder" *ngIf="checkItemsCart">
     <ion-card-title class="cartTitleOrder colorText">
       Notes for your Order
     </ion-card-title>
@@ -104,13 +114,38 @@
       </ion-input>
     </ion-item>
   </ion-card>
+  <ng-template *ngIf="!checkItemsCart"></ng-template>
   <ion-grid [fixed]="true" class="ion-text-center">
     <ion-row>
       <ion-col> <ion-button class="ion-text-wrap colorText ion-text-start" [routerLink]="['/home']">Continue
           Shopping</ion-button></ion-col>
       <ion-col> <ion-button class="btnCheckout colorText ion-text-center"
           [routerLink]="['/checkout-order']">CHECKOUT</ion-button></ion-col>
-      <ion-col> <ion-button class="ion-text-wrap colorText ion-text-end">Empty Cart</ion-button></ion-col>
+      <ion-col *ngIf="checkItemsCart"> <ion-button id="open-modal" class="ion-text-wrap colorText ion-text-end">
+          Empty Cart
+        </ion-button>
+      </ion-col>
+      <ion-col *ngIf="!checkItemsCart"> <ion-button disabled="true" id="open-modal"
+          class="ion-text-wrap colorText ion-text-end">
+          Empty Cart
+        </ion-button>
+      </ion-col>
     </ion-row>
   </ion-grid>
+  <ion-modal #modal trigger="open-modal">
+    <ng-template class="container">
+      <ion-content>
+        <ion-toolbar>
+          <ion-buttons slot="end" color="light" (click)="modal.dismiss()"><ion-icon
+              name="close-outline"></ion-icon></ion-buttons>
+        </ion-toolbar>
+        <ion-img class="warning" src="../../../../../assets/warning.png"></ion-img>
+        <h3 class="h3TitleAlert">Empty Cart</h3>
+        <p class="pTitleAlert" style="text-align: center;justify-content: center;">Are you sure you want to delete all
+          items from your cart?</p>
+        <ion-button style="text-align: center;" class="btnTitleAlert" (click)="delProduct()">Yes</ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
 </ion-content>

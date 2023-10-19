@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { StoreService } from 'src/app/services/store.service';
 import { Store } from 'src/app/shared/models/Store';
-// import { FormsModule } from '@angular/forms';
+import { AlertController, ModalController } from '@ionic/angular';
 @Component({
   selector: 'app-shopping-cart',
   templateUrl: './shopping-cart.page.html',
@@ -12,16 +12,49 @@ import { Store } from 'src/app/shared/models/Store';
 
 export class ShoppingCartPage implements OnInit {
   stores: Store[] = [];
-  tax = 0.65;
-  numberOfItems: number | undefined;
-  subTotalAmount: number | undefined;
-
-  constructor(private location: Location, private StoreService: StoreService,) { }
-
+  tax = 0.65
+  checkItemsCart : boolean = true;
+  private _numberOfItems: number | undefined;
+  alerCtrl: any;
+  get numberOfItems(): number | undefined {
+    return this._numberOfItems;
+  }
+  set numberOfItems(value: number | undefined) {
+    this._numberOfItems = value;
+    this.checkItemsCart = this.calculateTestSuccess(value);
+  }
   ngOnInit(): void {
     this.stores = this.StoreService.getAll();
     this.numberOfItems = this.stores.length;
   };
+  private calculateTestSuccess(numberOfItems: number | undefined): boolean {
+    if (numberOfItems === 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  subTotalAmount: number | undefined;
+  constructor(private modalController: ModalController,private location: Location, private StoreService: StoreService,private alertController: AlertController) { }
+  
+ closeAlert(){
+  this.modalController.dismiss();
+ }
+ delProduct(){
+  while (this.stores.length > 0) {
+    this.stores.pop(); 
+    this.numberOfItems = this.stores.length;
+  }
+  this.modalController.dismiss();
+}
+
+async showModal() {
+  const modal = await this.modalController.create({
+    component: ShoppingCartPage,
+    cssClass: 'alert-modal',
+  });
+  return await modal.present();
+}
 
   incProduct(prod: any) {
     prod.productQuantityAddDefault += 1
@@ -49,7 +82,6 @@ export class ShoppingCartPage implements OnInit {
     }
     return subTotal;
   }
-
   refreshPage() {
     this.location.replaceState('/home');
     window.location.reload();
