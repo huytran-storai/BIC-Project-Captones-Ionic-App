@@ -1,9 +1,9 @@
 <!--titleWinegroup-->
-<ion-card-title class="title">
+<ion-card-title class="title ion-text-center">
     Department
 </ion-card-title>
 <!--container-->
-<ion-card-content class="content">
+<ion-card-content class="content ion-no-padding">
     <ion-col size="6" *ngFor="let item of tags">
         <a [routerLink]="['/department/department-result', item.name]">
             <ion-card>

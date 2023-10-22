@@ -1,38 +1,31 @@
 .title {
-    margin-top: 6px;
+    margin-top: 10px;
     color: var(--ion-color-primary);
-    margin-left: 16px;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bolder;
 }
 
 .content {
-
     display: flex;
     flex-wrap: wrap;
     height: auto;
 
-
-
     .product-img {
-
         justify-content: center;
-
 
         img {
             max-width: 70%;
             height: 180px;
             object-fit: cover;
-
         }
     }
-
     a {
         text-decoration: none;
 
         p {
-            font-size: large;
+            font-size: 13px;
             font-weight: bolder;
+            color: var(--ion-color-dark-shade);
         }
     }
 }
