@@ -1,0 +1,17 @@
+<!--titleWinegroup-->
+<ion-card-title class="title ion-text-center">
+    Department
+</ion-card-title>
+<!--container-->
+<ion-card-content class="content ion-no-padding">
+    <ion-col size="6" *ngFor="let item of tags">
+        <a [routerLink]="['/department/department-result', item.name]">
+            <ion-card>
+                <ion-row class="product-img">
+                    <img alt="{{item.name}}" [src]="item.imageUrlTag" />
+                </ion-row>
+            </ion-card>
+            <p class="ion-text-center">{{item.name}}</p>
+        </a>
+    </ion-col>
+</ion-card-content>
