@@ -2,6 +2,7 @@ import { Tag } from './../shared/models/Tag';
 import { Injectable } from '@angular/core';
 import { Store } from '../shared/models/Store';
 import { sample_stores, sample_tags, } from 'src/data';
+import { Subject } from 'rxjs';
 
 
 @Injectable({
@@ -28,6 +29,8 @@ export class StoreService {
     return this.getAll().filter(store => store.tags?.includes(tag));
   }
 
+
+  
   // getProductById(productId:string):Store {
   //   return this.getAll().find(store => store.id == productId) ?? new Store();
   // }

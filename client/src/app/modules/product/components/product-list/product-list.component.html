@@ -25,8 +25,9 @@
               <ion-text>{{store.unitPrice}}/lb</ion-text>
             </ion-row>
             <ion-row class="ion-align-items-center add">
-              <ion-button (click)="addProduct(store)" class="btn" size="small" color="primary">{{
-                store.added ? 'Added' : 'Add' }}</ion-button>
+              <!-- <ion-button (click)="addProduct(store)" class="btn" size="small" color="primary">{{
+                store.added ? 'Added' : 'Add' }}</ion-button> -->
+                <ion-button (click)="addProduct(store)" class="btn" size="small" color="primary">Add to cart</ion-button>
             </ion-row>
           </ion-card-content>
         </ion-card>

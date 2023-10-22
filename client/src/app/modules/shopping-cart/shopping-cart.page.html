@@ -32,33 +32,33 @@
     </ion-card-title>
     <!-- List of products in the shopping cart -->
     <ng-container *ngIf="checkItemsCart; else notItem">
-      <ion-card-content *ngFor="let prod of stores">
-        <ion-item class="paddingCartCAC">
-          <ion-thumbnail slot="start" style="margin-right: 8px;">
-            <img alt={{prod.name}} src="{{prod.imageUrl}}" />
-          </ion-thumbnail>
-          <ion-label class="cartCACName ion-text-wrap colorTextProd">
-            {{prod.name}}
-            <ion-label>
-              <p class="cartCACPrice colorTextProd">${{prod.originalPrice}}.00</p>
+        <ion-card-content *ngFor="let prod of getCartDetails">
+          <ion-item class="paddingCartCAC">
+            <ion-thumbnail slot="start" style="margin-right: 8px;">
+              <img alt={{prod.name}} src="{{prod.imageUrl}}" />
+            </ion-thumbnail>
+            <ion-label class="cartCACName ion-text-wrap colorTextProd">
+              {{prod.name}}
+              <ion-label>
+                <p class="cartCACPrice colorTextProd">${{prod.originalPrice}}.00</p>
+              </ion-label>
             </ion-label>
-          </ion-label>
-          <div class="wrapper" style="margin-top: -40px">
-            <ion-button class="btnDec" (click)="decProduct(prod)"><ion-icon
-                name="remove-outline"></ion-icon></ion-button>
-            <ion-text class="cartQuantity">{{prod.productQuantityAddDefault}}</ion-text>
-            <ion-button class="btnInc" (click)="incProduct(prod)"><ion-icon name="add-outline"></ion-icon></ion-button>
-          </div>
-        </ion-item>
-        <ion-row class="cartCACViewDetail colorTextProd ion-justify-content-between ion-align-items-center">
-          <ion-col>
-            <ion-input style="font-size: 12px;" placeholder="Add note..."></ion-input>
-          </ion-col>
-          <ion-col>
-            <div class="">$ {{prod.originalPrice * prod.productQuantityAddDefault}}.00</div>
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
+            <div class="wrapper" style="margin-top: -40px">
+              <ion-button class="btnDec" (click)="decProduct(prod)"><ion-icon
+                  name="remove-outline"></ion-icon></ion-button>
+              <ion-text class="cartQuantity">{{prod.productQuantityAddDefault}}</ion-text>
+              <ion-button class="btnInc" (click)="incProduct(prod)"><ion-icon name="add-outline"></ion-icon></ion-button>
+            </div>
+          </ion-item>
+          <ion-row class="cartCACViewDetail colorTextProd ion-justify-content-between ion-align-items-center">
+            <ion-col>
+              <ion-input style="font-size: 12px;" placeholder="Add note..."></ion-input>
+            </ion-col>
+            <ion-col>
+              <div class="">$ {{prod.originalPrice * prod.productQuantityAddDefault}}.00</div>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
       <ion-item style="font-weight: 700;" lines="none" class="colorText">
         Discount
       </ion-item>
