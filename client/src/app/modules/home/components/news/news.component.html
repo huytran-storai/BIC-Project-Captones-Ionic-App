@@ -2,7 +2,7 @@
   [pagination]="{clickable:true, dynamicBullets:true}">
   <swiper-slide *ngFor="let item of news" class="bg-content">
     <ion-card>
-      <img class="img" [src]="item.imageUrlnew" />
+      <img class="img" [src]="item.imageUrlnew" alt={{item.title}}/>
       <!-- <ion-text>{{item.title}}</ion-text>
       <p>{{item.content}}</p> -->
     </ion-card>

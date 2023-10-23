@@ -4,6 +4,24 @@
 }
 
 .content2 {
+    ion-card-content {
+        padding-left: 10px;
+        p {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .timedate {
+            color: var(--ion-color-success-shade);
+            gap: 5px;
+        
+            span {           
+                font-size: 10px;
+                font-weight: 600;
+            }
+        }
+    }
 
     .poster2 {
         width: 100%;

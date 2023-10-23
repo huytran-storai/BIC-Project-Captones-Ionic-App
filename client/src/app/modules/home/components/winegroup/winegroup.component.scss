@@ -9,13 +9,13 @@
     display: flex;
     flex-wrap: wrap;
     height: auto;
-    border-bottom: 0.5px solid var(--ion-color-medium);
+    border-bottom: 0.5px solid var(--ion-color-medium-tint);
 
     .product-img {
         justify-content: center;
 
         img {
-            max-width: 70%;
+            max-width: 60%;
             height: 180px;
             object-fit: cover;
         }
