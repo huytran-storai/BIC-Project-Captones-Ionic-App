@@ -22,14 +22,13 @@
           <p style="font-size: 13px;">120 Phan Van Tri, Phuong 10, Q.Go Vap, TPHCM </p>
         </h2>
       </ion-label>
-      <!-- <ion-button class="btn" slot="end"> EDIT </ion-button> -->
     </ion-item>
   </ion-card>
 
   <ion-card style="border-radius: 0;">
     <ion-card-title class="cartTitleCAC">
       Product Items
-    </ion-card-title>
+    </ion-card-title> 
     <!-- List of products in the shopping cart -->
     <ng-container *ngIf="checkItemsCart; else notItem">
         <ion-card-content *ngFor="let prod of getCartDetails">
@@ -103,7 +102,7 @@
       </ion-label>
     </ion-item>
   </ion-card>
-  <ng-template *ngIf="!checkItemsCart"></ng-template>
+  <ng-template *ngIf="!checkItemsCart"></ng-template> 
   <!-- Notes for your order -->
   <ion-card class="cartCardOrder" *ngIf="checkItemsCart">
     <ion-card-title class="cartTitleOrder colorText">
@@ -117,35 +116,40 @@
   <ng-template *ngIf="!checkItemsCart"></ng-template>
   <ion-grid [fixed]="true" class="ion-text-center">
     <ion-row>
-      <ion-col> <ion-button class="ion-text-wrap colorText ion-text-start" [routerLink]="['/home']">Continue
-          Shopping</ion-button></ion-col>
-      <ion-col> <ion-button class="btnCheckout colorText ion-text-center"
-          [routerLink]="['/checkout-order']">CHECKOUT</ion-button></ion-col>
-      <ion-col *ngIf="checkItemsCart"> <ion-button id="open-modal" class="ion-text-wrap colorText ion-text-end">
-          Empty Cart
+      <ion-col>
+        <ion-button class="ion-text-wrap colorText ion-text-start" [routerLink]="['/home']">Continue
+          Shopping</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button class="btnCheckout colorText ion-text-center" [routerLink]="['/checkout-order']">CHECKOUT
         </ion-button>
       </ion-col>
-      <ion-col *ngIf="!checkItemsCart"> <ion-button disabled="true" id="open-modal"
-          class="ion-text-wrap colorText ion-text-end">
+      
+      <ion-col >
+        <ion-button id="open-modal" class="ion-text-wrap colorText ion-text-end" >
           Empty Cart
         </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
+  <!-- Modal Alert Delete Cart -->
+
   <ion-modal #modal trigger="open-modal">
     <ng-template class="container">
       <ion-content>
         <ion-toolbar>
-          <ion-buttons slot="end" color="light" (click)="modal.dismiss()"><ion-icon
-              name="close-outline"></ion-icon></ion-buttons>
+          <ion-buttons slot="end" color="light" (click)="modal.dismiss()"><ion-icon name="close-outline"></ion-icon></ion-buttons>
         </ion-toolbar>
-        <ion-img class="warning" src="../../../../../assets/warning.png"></ion-img>
-        <h3 class="h3TitleAlert">Empty Cart</h3>
-        <p class="pTitleAlert" style="text-align: center;justify-content: center;">Are you sure you want to delete all
-          items from your cart?</p>
-        <ion-button style="text-align: center;" class="btnTitleAlert" (click)="delProduct()">Yes</ion-button>
+        <ion-img class="warning" [src]="checkItemsCart ? '../../../../../assets/warning.png' : '../../../../../assets/empty_cart.png'"></ion-img>
+        <h3 class="h3TitleAlert">{{checkItemsCart ? 'Empty Cart' : 'No Products'}}</h3>
+        <p class="pTitleAlert" style="text-align: center; justify-content: center;">
+          {{checkItemsCart ? 'Are you sure you want to delete all items from your cart?' : 'Your shopping cart has no products, please "CONTINUE SHOPPING" '}}
+        </p>
+        <ion-button style="text-align: center;" class="btnTitleAlert" (click)="checkItemsCart ? delProduct() : modal.dismiss()" [routerLink]="checkItemsCart ? './' : '/home'">
+          {{ checkItemsCart ? 'Yes' : 'Continue Shopping' }}
+        </ion-button>
       </ion-content>
     </ng-template>
   </ion-modal>
-
 </ion-content>
+

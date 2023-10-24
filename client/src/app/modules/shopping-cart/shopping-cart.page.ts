@@ -14,15 +14,17 @@ import { CartService } from 'src/app/services/cart.service';
 export class ShoppingCartPage implements OnInit {
   CartItem = ''
   tax = 0.65
-  checkItemsCart : boolean = true;
+  checkItemsCart : boolean = false;
   public _numberOfItems: number | undefined;
   alerCtrl: any;
   ngOnInit(): void {
-    
+    // this.CartDetails()
   }
-  ionViewWillEnter() {
+ 
+ ionViewWillEnter() {
     this.CartDetails()
-    this.cartNumberFunc();
+    this.checkItemsCart
+    this.calculateItem
     this.readLocalStorageCart(); 
   }
 
@@ -34,20 +36,19 @@ export class ShoppingCartPage implements OnInit {
       this.updateSubTotal();
     }
   }
-  get numberOfItems(): number | undefined {
-    return this._numberOfItems;
-  }
-  set numberOfItems(value: number | undefined) {
-    this._numberOfItems = value;
-    this.checkItemsCart = this.calculateItem(value);
-  }
-
   private calculateItem(numberOfItems: number | undefined): boolean {
     if (numberOfItems === 0) {
       return false;
     } else {
       return true;
     }
+  }
+  get numberOfItems(): number | undefined {
+    return this._numberOfItems;
+  }
+  set numberOfItems(value: number | undefined) {
+    this._numberOfItems = value;
+    this.checkItemsCart = this.calculateItem(value);
   }
   subTotalAmount: number | undefined;
   constructor(private CartService: CartService,
@@ -56,9 +57,7 @@ export class ShoppingCartPage implements OnInit {
     private changeDetectorRef: ChangeDetectorRef ,
     ) { }
   
- closeAlert(){
-  this.modalController.dismiss();
- }
+
 async showModal() {
   const modal = await this.modalController.create({
     component: ShoppingCartPage,
@@ -72,7 +71,6 @@ CartDetails(){
    this.getCartDetails = JSON.parse(localStorage.getItem('localCart') || '[]') 
    this.numberOfItems = this.getCartDetails.length;
  }
- this.CartService.cartSubject.next(this.cartNumber);
   
 }
   incProduct(prod: any) {
@@ -93,6 +91,15 @@ CartDetails(){
       this.updateSubTotal();
     }
   }
+
+  delProduct(){
+    this.getCartDetails.length = 0;
+    this.numberOfItems = 0;
+    this.modalController.dismiss();
+    this.updateSubTotal()
+    localStorage.setItem('localCart', JSON.stringify(this.getCartDetails));
+  }
+
   updateSubTotal() {
     this.subTotalAmount = this.subTotal();
     this.changeDetectorRef.detectChanges();
@@ -105,25 +112,6 @@ CartDetails(){
       subTotal += product.originalPrice * product.productQuantityAddDefault;
     }
     return subTotal;
-  }
-
-  delProduct(){
-    this.getCartDetails.length = 0;
-    this.numberOfItems = 0;
-    this.updateSubTotal();
-    this.modalController.dismiss();
-    localStorage.removeItem('localCart');
-    this.updateSubTotal()
-  }
-  cartNumber: number = 0;
-  cartNumberFunc() {
-    var cartValue = localStorage.getItem('localCart');
-    if (cartValue !== null) {
-      this.cartNumber = cartValue.length;
-      this.CartService.cartSubject.next(this.cartNumber);
-    } else {
-      this.cartNumber = 0;
-    }
   }
  
   refreshPage() {
