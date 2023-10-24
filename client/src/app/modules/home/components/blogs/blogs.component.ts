@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { News } from 'src/app/shared/models/News';
+import { NewsService } from 'src/app/services/news.service';
 
 @Component({
   selector: 'app-blogs',
@@ -7,8 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BlogsComponent implements OnInit {
 
-  constructor() { }
+  news: News[] = [];
+  constructor(private NewsService: NewsService) { }
 
-  ngOnInit() { }
+  ngOnInit(): void {
+    this.news = this.NewsService.getAll()
+    console.log("===<", this.news)
+  }
 
 }

@@ -1,10 +1,12 @@
 <div>
-  <div class="view-all" style="display: flex;">
-    <a (click)="viewAll()">View All</a>
-    <ion-icon name="chevron-forward-outline"></ion-icon>
-  </div>
+  <ion-card-title>
+    <span>Our Products</span>
+    <div class="view-all" style="display: flex;">
+      <a (click)="viewAll()">View All</a>
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </div>
+  </ion-card-title>
   <swiper-container [slidesPerView]="2" [zoom]="false" navigation="true">
-
     <swiper-slide *ngFor="let store of stores" class="bg-content">
       <ion-col size="6">
         <ion-card>

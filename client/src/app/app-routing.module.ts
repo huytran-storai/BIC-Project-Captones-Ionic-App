@@ -56,6 +56,26 @@ const routes: Routes = [
     path: 'blog-detail',
     loadChildren: () => import('./modules/home/blog-detail/blog-detail.module').then(m => m.BlogDetailPageModule)
   },
+  {
+    path: 'add-address',
+    loadChildren: () => import('./modules/more/account/add-address/add-address.module').then(m => m.AddAddressPageModule)
+  },
+  {
+    path: 'edit-account',
+    loadChildren: () => import('./modules/more/account/edit-account/edit-account.module').then(m => m.EditAccountPageModule)
+  },
+  {
+    path: 'edit-address-book',
+    loadChildren: () => import('./modules/more/account/edit-address-book/edit-address-book.module').then(m => m.EditAddressBookPageModule)
+  },
+  {
+    path: 'edit-contact',
+    loadChildren: () => import('./modules/more/account/edit-contact/edit-contact.module').then(m => m.EditContactPageModule)
+  },
+  {
+    path: 'edit-payment-cards',
+    loadChildren: () => import('./modules/more/account/edit-payment-cards/edit-payment-cards.module').then(m => m.EditPaymentCardsPageModule)
+  },
 ];
 
 @NgModule({

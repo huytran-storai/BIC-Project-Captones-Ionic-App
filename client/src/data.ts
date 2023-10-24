@@ -161,15 +161,7 @@ export const sample_news: News[] = [
     imageUrlnew: 'assets/advertisement2.jpeg',
     title: 'Hidden bar',
     content: 'Alcohol duty is a type of tax paid by companies that produce alcohol',
-
-
-  },
-
-  {
-    imageUrlnew: 'assets/advertisement2.jpeg',
-    title: 'Hidden bar',
-    content: 'Alcohol duty is a type of tax paid by companies that produce alcohol',
-
+    date:'01-07-2002',
 
   },
 
@@ -177,16 +169,22 @@ export const sample_news: News[] = [
     imageUrlnew: 'assets/advertisement2.jpeg',
     title: 'Hidden bar',
     content: 'Alcohol duty is a type of tax paid by companies that produce alcohol',
+    date:'01-07-2002',
 
+  },
 
+  {
+    imageUrlnew: 'assets/advertisement2.jpeg',
+    title: 'Hidden bar',
+    content: 'Alcohol duty is a type of tax paid by companies that produce alcohol',
+    date:'01-07-2002',
 
   },
   {
     imageUrlnew: 'assets/advertisement2.jpeg',
     title: 'Hidden bar',
     content: 'Alcohol duty is a type of tax paid by companies that produce alcohol',
-
-
+    date:'01-07-2002',
 
   },
 

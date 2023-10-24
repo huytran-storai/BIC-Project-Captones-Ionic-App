@@ -1,0 +1,32 @@
+.title {
+    margin-top: 10px;
+    color: var(--ion-color-primary);
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    border-bottom: 0.5px solid var(--ion-color-medium-tint);
+
+    .product-img {
+        justify-content: center;
+
+        img {
+            max-width: 60%;
+            height: 180px;
+            object-fit: cover;
+        }
+    }
+    a {
+        text-decoration: none;
+
+        p {
+            font-size: 13px;
+            font-weight: bolder;
+            color: var(--ion-color-dark-shade);
+        }
+    }
+}

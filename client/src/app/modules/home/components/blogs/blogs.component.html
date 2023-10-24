@@ -1,33 +1,23 @@
 <ion-card-title class="news">
   Blogs Vine
 </ion-card-title>
-<!--new1-->
-<ion-row class="content2">
-  <ion-card>
-    <img class="poster2" src="../../../assets/advertisement2.jpeg">
-    <ion-card-title class="title-news">Nine things you need to know about the new alcohol duty system</ion-card-title>
-    <ion-card-content>
-      Alcohol duty is a type of tax paid by companies that produce alcohol.
-      The change in August makes duty across different drinks more consistent by taxing based on strength (ABV).
-    </ion-card-content>
-    <ion-row class="ion-align-items-center btn-read">
-      <a class="read-button" [routerLink]="['/blog-detail']">Read more</a>
-      <ion-icon name="arrow-forward-outline" class="icon-read-more"></ion-icon>
-    </ion-row>
-  </ion-card>
-</ion-row>
-<!--new2-->
-<ion-row class="content2">
-  <ion-card>
-    <img class="poster2" src="../../../assets/advertisement2.jpeg">
-    <ion-card-title class="title-news">Nine things you need to know about the new alcohol duty system</ion-card-title>
-    <ion-card-content>
-      Alcohol duty is a type of tax paid by companies that produce alcohol.
-      The change in August makes duty across different drinks more consistent by taxing based on strength (ABV).
-    </ion-card-content>
-    <ion-row class="ion-align-items-center btn-read">
-      <a class="read-button" [routerLink]="['/blog-detail']">Read more</a>
-      <ion-icon name="arrow-forward-outline" class="icon-read-more"></ion-icon>
-    </ion-row>
-  </ion-card>
-</ion-row>
+
+<ion-col *ngFor="let item of news">
+  <ion-row class="content2">
+    <ion-card>
+      <img class="poster2" [src]="item.imageUrlnew" alt={{item.title}}>
+      <ion-card-title class="title-news">{{item.title}}</ion-card-title>
+      <ion-card-content>
+        <p class="ion-no-margin">{{item.content}}</p>
+        <ion-row class="timedate ion-align-items-center">
+          <ion-icon name="time-outline"></ion-icon> 
+          <span class="ion-no-margin">{{item.date}}</span>
+        </ion-row>
+      </ion-card-content>
+      <ion-row class="ion-align-items-center btn-read">
+        <a class="read-button" [routerLink]="['/blog-detail']">Read more</a>
+        <ion-icon name="arrow-forward-outline" class="icon-read-more"></ion-icon>
+      </ion-row>
+    </ion-card>
+  </ion-row>
+</ion-col>

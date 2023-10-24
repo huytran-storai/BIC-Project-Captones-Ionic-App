@@ -1,19 +1,24 @@
-.view-all {
-    z-index: 9999;
-    position: absolute;
-    right: 20px;
-    font-size: 14px;
-    justify-content: center;
-    align-items: center;
 
-    ion-icon {
-        color: var(--ion-color-primary);
-        margin-top: 2px;
+ion-card-title {
+    color: var(--ion-color-primary);
+    margin-left: 16px;
+    .view-all {
+        z-index: 9999;
+        position: absolute;
+        right: 20px;
+        top: 14px;
+        font-size: 14px;
+        justify-content: center;
+        align-items: center;
+    
+        ion-icon {
+            color: var(--ion-color-primary);
+            margin-top: 2px;
+        }
     }
 }
 
 swiper-container {
-
     --swiper-navigation-size: 21px;
     --swiper-navigation-top-offset: 45%;
     --swiper-navigation-sides-offset: 15px;
