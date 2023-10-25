@@ -125,8 +125,9 @@
         </ion-button>
       </ion-col>
       
-      <ion-col >
-        <ion-button id="open-modal" class="ion-text-wrap colorText ion-text-end" >
+      <ion-col>
+        <h3 class="h3TitleAlert"></h3>
+        <ion-button id="open-modal" class="ion-text-wrap colorText ion-text-end" [disabled]="!checkItemsCart">
           Empty Cart
         </ion-button>
       </ion-col>
@@ -135,20 +136,21 @@
   <!-- Modal Alert Delete Cart -->
 
   <ion-modal #modal trigger="open-modal">
-    <ng-template class="container">
-      <ion-content>
+      <ng-template class="container">
         <ion-toolbar>
-          <ion-buttons slot="end" color="light" (click)="modal.dismiss()"><ion-icon name="close-outline"></ion-icon></ion-buttons>
+          <ion-buttons slot="end" color="light" (click)="modal.dismiss()" class="close-icon"><ion-icon name="close-outline"></ion-icon></ion-buttons>
         </ion-toolbar>
-        <ion-img class="warning" [src]="checkItemsCart ? '../../../../../assets/warning.png' : '../../../../../assets/empty_cart.png'"></ion-img>
-        <h3 class="h3TitleAlert">{{checkItemsCart ? 'Empty Cart' : 'No Products'}}</h3>
-        <p class="pTitleAlert" style="text-align: center; justify-content: center;">
-          {{checkItemsCart ? 'Are you sure you want to delete all items from your cart?' : 'Your shopping cart has no products, please "CONTINUE SHOPPING" '}}
-        </p>
-        <ion-button style="text-align: center;" class="btnTitleAlert" (click)="checkItemsCart ? delProduct() : modal.dismiss()" [routerLink]="checkItemsCart ? './' : '/home'">
-          {{ checkItemsCart ? 'Yes' : 'Continue Shopping' }}
-        </ion-button>
-      </ion-content>
+        <ion-col style="text-align: center; display: contents;">
+          <ion-row class="ion-justify-content-center">
+            <ion-icon name="warning-outline" class="warning-icon"></ion-icon>
+          </ion-row>
+          <p class="pTitleAlert">
+            Are you sure, you want to delete all items from your cart?
+          </p>
+          <ion-button style="text-align: center;" class="btnTitleAlert" (click)="delProduct()" [routerLink]="'./'">
+            YES
+          </ion-button>
+        </ion-col>
     </ng-template>
   </ion-modal>
 </ion-content>
