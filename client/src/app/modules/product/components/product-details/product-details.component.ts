@@ -47,6 +47,22 @@ export class ProductDetailsComponent implements OnInit {
     private router: Router,
     private CartService: CartService,
   ) { }
+
+  checkAdded(product: any): boolean {
+    const productId = product.id;
+    this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
+    let isConditionTrue = false; // Mặc định là false
+  
+    for (let i = 0; i < this.itemCart.length; i++) {
+      if (parseInt(productId) === parseInt(this.itemCart[i].id)) {
+        isConditionTrue = true;
+        break;
+      }
+    }
+  
+    return isConditionTrue; // Trả về kết quả boolean
+  }
+
   itemCart:any = []
   addProduct(store: any){
     let cartDataNull = localStorage.getItem('localCart');

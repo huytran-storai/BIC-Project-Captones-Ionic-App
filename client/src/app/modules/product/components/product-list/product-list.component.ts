@@ -15,6 +15,8 @@ export class ProductListComponent implements OnInit {
   isModalOpen = false;
   selectedProduct: any;
   isModalViewAllProductOpen = false;
+  public _numberOfItems: number | undefined;
+  itemCart:any = []
 
   constructor(private CartService: CartService,
     private StoreService: StoreService,
@@ -50,7 +52,26 @@ export class ProductListComponent implements OnInit {
     }
     return subTotal;
   }
-  itemCart:any = []
+ 
+  checkAdded(store: any): boolean {
+    const productId = store.id;
+    this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
+    let isConditionTrue = false; 
+  
+    for (let i = 0; i < this.itemCart.length; i++) {
+      if (parseInt(productId) === parseInt(this.itemCart[i].id)) {
+        isConditionTrue = true;
+        break;
+      }
+    }
+  
+    return isConditionTrue; 
+  }
+
+
+
+  
+  isConditionTrue: boolean = false;
   addProduct(store: any){
     let cartDataNull = localStorage.getItem('localCart');
     if(cartDataNull == null) {
@@ -66,6 +87,7 @@ export class ProductListComponent implements OnInit {
           this.itemCart[i].productQuantityAddDefault += store.productQuantityAddDefault
           index = i;
           break;
+          
         }
       }
       if(index == -1){
@@ -75,21 +97,10 @@ export class ProductListComponent implements OnInit {
       else{
         localStorage.setItem('localCart', JSON.stringify(this.itemCart))
       }
-    }
-    console.log(this.itemCart)
-    // const existingCartItem = this.itemCart.find(item => item.productId === store.id)
-    this.cartNumberFunc();
-  }
-
-  cartNumber: number = 0;
-  cartNumberFunc() {
-    var cartValue = localStorage.getItem('localCart');
-    if (cartValue !== null) {
-      this.cartNumber = cartValue.length;
-      this.CartService.cartSubject.next(this.cartNumber);
-    } else {
-      this.cartNumber = 0;
-    }
+      
+    } 
+    
+    
   }
   
   }
