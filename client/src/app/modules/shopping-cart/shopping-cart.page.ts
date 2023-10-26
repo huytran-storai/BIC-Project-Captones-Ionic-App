@@ -71,7 +71,6 @@ CartDetails(){
    this.getCartDetails = JSON.parse(localStorage.getItem('localCart') || '[]') 
    this.numberOfItems = this.getCartDetails.length;
  }
-  
 }
   incProduct(prod: any) {
     prod.productQuantityAddDefault += 1
@@ -119,4 +118,5 @@ CartDetails(){
     window.location.reload();
     
   }
+  
 }

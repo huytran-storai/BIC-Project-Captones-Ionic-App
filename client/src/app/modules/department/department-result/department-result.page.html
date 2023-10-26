@@ -37,7 +37,7 @@
           </ion-row>
           <ion-row class="ion-align-items-center add">
             <ion-button (click)="addProduct(product)" class="btn" size="small" color="primary">{{
-              product.added ? 'Added' : 'Add' }}</ion-button>
+              checkAdded(product) ? 'Added' : 'Add' }}</ion-button>
           </ion-row>
         </ion-card-content>
       </ion-card>

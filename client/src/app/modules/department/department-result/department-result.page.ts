@@ -12,19 +12,61 @@ export class DepartmentResultPage implements OnInit {
   products: any[] = [];
   isModalOpen = false;
   selectedProduct: any;
+  itemCart:any = []
 
+  constructor(private route: ActivatedRoute, private StoreService: StoreService) { }
   setOpen(product: any) {
     this.selectedProduct = product;
     this.isModalOpen = true;
-    // console.log(this.selectedProduct);
   }
   
   setClose(isOpen:boolean) {
     this.selectedProduct = null;
     this.isModalOpen = isOpen;
   }
+  checkAdded(product: any): boolean {
+    const productId = product.id;
+    this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
+    let isConditionTrue = false; 
+  
+    for (let i = 0; i < this.itemCart.length; i++) {
+      if (parseInt(productId) === parseInt(this.itemCart[i].id)) {
+        isConditionTrue = true;
+        break;
+      }
+    }
+  
+    return isConditionTrue;   
+  }
 
-  constructor(private route: ActivatedRoute, private StoreService: StoreService) { }
+  addProduct(store: any){
+    let cartDataNull = localStorage.getItem('localCart');
+    if(cartDataNull == null) {
+      let storeDataGet:any =[]
+      storeDataGet.push(store)
+      localStorage.setItem('localCart', JSON.stringify(storeDataGet));
+    } else {
+      var productId = store.id;
+      let index:number = -1;
+      this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
+      for(let i = 0 ; i < this.itemCart.length; i++){
+        if(parseInt(productId) === parseInt(this.itemCart[i].id)){
+          this.itemCart[i].productQuantityAddDefault += store.productQuantityAddDefault
+          index = i;
+          break; 
+        }
+      }
+      if(index == -1){
+        this.itemCart.push(store)
+        localStorage.setItem('localCart', JSON.stringify(this.itemCart))
+      }
+      else{
+        localStorage.setItem('localCart', JSON.stringify(this.itemCart))
+      }
+    }
+   
+  }
+  
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -35,9 +77,5 @@ export class DepartmentResultPage implements OnInit {
         this.products = this.StoreService.getAllStoreByTagName(this.tagName);
       }
     });
-  }
-
-  addProduct(store: any) {
-    store.added = !store.added;
   }
 }
