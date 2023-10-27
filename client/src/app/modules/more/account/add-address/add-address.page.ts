@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { RegularExpression } from 'src/app/shared/validate/constants';
 
 @Component({
   selector: 'app-add-address',
@@ -6,8 +9,41 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-address.page.scss'],
 })
 export class AddAddressPage implements OnInit {
+  billingChecked: boolean = false;
 
-  constructor() { }
+  deliveryChecked: boolean = false;
+  editForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder, private router: Router) {
+    this.editForm = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.pattern(RegularExpression.OnlyAlphabets)]],
+      address: ['', [Validators.required, Validators.pattern(RegularExpression.AddressPattern)]],
+      billingChecked: ['', [Validators.required,]],
+      deliveryChecked: ['', [Validators.required,]],
+      city: ['', [Validators.required,]],
+      state: ['', [Validators.required,]],
+      code: ['', [Validators.required, Validators.pattern(RegularExpression.ZipPattern)]],
+      phone: ['', [Validators.required, Validators.pattern(RegularExpression.PhoneNumber)]],
+    });
+  }
+
+  SaveForm() {
+    if (this.editForm.valid) {
+      this.router.navigate(['/home']);
+    }
+  }
+
+  save() {
+    this.router.navigate(['/home']);
+  }
+
+  onCheckboxChange(type: 'billing' | 'delivery') {
+    if (type === 'billing') {
+      this.deliveryChecked = false;
+    } else if (type === 'delivery') {
+      this.billingChecked = false;
+    }
+  }
 
   ngOnInit() {
   }

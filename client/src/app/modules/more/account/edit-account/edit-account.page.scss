@@ -41,18 +41,26 @@ ion-content {
             display: block;
             padding: 10px;
             border: 1px solid var(--ion-color-medium);
+        }
 
-            .icon-eyes {
-                position: absolute !important;
-                font-size: 18px;
-                right: 20px;
-            }
+        .icon-eyes {
+            position: absolute !important;
+            font-size: 18px;
+            right: 25px;
+        }
 
-            .icon-eyes-pass {
-                position: absolute !important;
-                right: 20px;
-                margin-top: 15px;
-            }
+        .icon-eyes-pass {
+            position: absolute !important;
+            font-size: 18px;
+            right: 32px;
+            top: 59%;
+        }
+
+        .eyes-confi-pass {
+            position: absolute !important;
+            font-size: 18px;
+            right: 33px;
+            top: 72%;
         }
 
         ion-button {
@@ -64,7 +72,7 @@ ion-content {
         }
 
         ion-input {
-            padding-left: 10px !important;
+            padding: 0 14.5px 0 10px !important;
             font-size: 18px;
         }
     }
