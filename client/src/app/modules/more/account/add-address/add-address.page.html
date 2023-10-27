@@ -8,90 +8,95 @@
 </ion-header>
 
 <ion-content>
-  <ion-row class="row-contact" style="margin-top: 20px;">
-    <ion-col size="4.5">
-      <ion-label>
-        First Name
-      </ion-label>
-      <ion-input type="text" class="input-contact"></ion-input>
-    </ion-col>
-    <ion-col size="4.5">
-      <ion-label>
-        Last Name
-      </ion-label>
-      <ion-input type="text" class="input-contact"></ion-input>
-    </ion-col>
-  </ion-row>
-  <ion-row class="" style="margin-top: 10px;">
-    <ion-col size="6" class="col-custom" style="display: flex; align-items: center; justify-content: space-around;">
-      <ion-checkbox class="checbox-custom"></ion-checkbox>
-      <ion-text class="text-custom">Billing Address</ion-text>
-    </ion-col>
-    <ion-col size="6" class="col-custom" style="display: flex; align-items: center; justify-content: space-around;">
-      <ion-checkbox class="checbox-custom"></ion-checkbox>
-      <ion-text class="text-custom">Delivery Address</ion-text>
-    </ion-col>
-  </ion-row>
-  <ion-row class="row-section">
-    <ion-col>
-      <ion-label class="label-custom">
-        Address
-      </ion-label>
-      <ion-input type="text" class="input-section"></ion-input>
-    </ion-col>
-  </ion-row>
-  <ion-row class="row-section">
-    <ion-col>
-      <ion-label class="label-custom">
-        City
-      </ion-label>
-      <ion-input type="text" class="input-section"></ion-input>
-    </ion-col>
-  </ion-row>
-  <ion-row class="row-contact" style="margin-top: 20px;">
-    <ion-col size="4.5">
-      <ion-label class="label-custom">
-        State
-      </ion-label>
-      <ion-input type="text" class="input-contact">
-        <ion-icon class="icon-down-sharp" name="caret-down-sharp"></ion-icon>
-      </ion-input>
-    </ion-col>
-    <ion-col size="4.5">
-      <ion-label>
-        Zip Code
-      </ion-label>
-      <ion-input type="text" class="input-contact"></ion-input>
-    </ion-col>
-  </ion-row>
-  <ion-row class="row-section" style="margin-top: 15px;">
-    <ion-col>
-      <ion-label class="label-custom">
-        Mobile phone
-      </ion-label>
-      <ion-input type="phone" class="input-section"></ion-input>
-    </ion-col>
-  </ion-row>
+  <form #form="ngForm" (ngSubmit)="SaveForm()">
+    <ion-row class="row-contact" style="margin-top: 20px;">
+      <ion-col size="4.5">
+        <ion-label>
+          First Name
+        </ion-label>
+        <ion-input name="name" type="name" class="input-contact" ngModel required></ion-input>
+      </ion-col>
+      <ion-col size="4.5">
+        <ion-label>
+          Last Name
+        </ion-label>
+        <ion-input name="name" type="name" class="input-contact" ngModel required></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row class="" style="margin-top: 10px;">
+      <ion-col size="6" class="col-custom" style="display: flex; align-items: center; justify-content: space-around;">
+        <ion-checkbox name="billing" [(ngModel)]="billingChecked" (ionChange)="onCheckboxChange('billing')"
+          class="checbox-custom"></ion-checkbox>
+        <ion-text class="text-custom">Billing Address</ion-text>
+      </ion-col>
+      <ion-col size="6" class="col-custom" style="display: flex; align-items: center; justify-content: space-around;">
+        <ion-checkbox name="delivery" [(ngModel)]="deliveryChecked" (ionChange)="onCheckboxChange('delivery')"
+          class="checbox-custom"></ion-checkbox>
+        <ion-text class="text-custom">Delivery Address</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row-section">
+      <ion-col>
+        <ion-label class="label-custom">
+          Address
+        </ion-label>
+        <ion-input name="address" type="address" class="input-section" ngModel required></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row-section">
+      <ion-col>
+        <ion-label class="label-custom">
+          City
+        </ion-label>
+        <ion-input name="city" type="city" class="input-section" ngModel required></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row-contact" style="margin-top: 20px;">
+      <ion-col size="4.5">
+        <ion-label class="label-custom">
+          State
+        </ion-label>
+        <ion-input name="state" type="state" class="input-contact" ngModel required>
+          <ion-icon class="icon-down-sharp" name="caret-down-sharp"></ion-icon>
+        </ion-input>
+      </ion-col>
+      <ion-col size="4.5">
+        <ion-label>
+          Zip Code
+        </ion-label>
+        <ion-input name="code" type="code" class="input-contact" ngModel required></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row-section" style="margin-top: 15px;">
+      <ion-col>
+        <ion-label class="label-custom">
+          Mobile phone
+        </ion-label>
+        <ion-input name="phone" type="phone" class="input-section" ngModel required></ion-input>
+      </ion-col>
+    </ion-row>
 
-  <ion-row class="row-section">
-    <ion-col>
-      <ion-text style="font-size: 15px; margin-bottom: 10px;">Note: Phone number changes only apply to this
-        Address.</ion-text><br>
-    </ion-col>
-  </ion-row>
+    <ion-row class="row-section">
+      <ion-col>
+        <ion-text style="font-size: 15px; margin-bottom: 10px;">Note: Phone number changes only apply to this
+          Address.</ion-text><br>
+      </ion-col>
+    </ion-row>
 
-  <ion-row class="row-section">
-    <ion-col>
-      <a class="link-custom" [routerLink]="['/edit-contact']">Click here to change your mobile number in your contact
-        info</a>
-    </ion-col>
-  </ion-row>
+    <ion-row class="row-section">
+      <ion-col>
+        <a class="link-custom" [routerLink]="['/edit-contact']">Click here to change your mobile number in your contact
+          info</a>
+      </ion-col>
+    </ion-row>
 
-  <ion-row class="row-section">
-    <ion-col>
-      <ion-label>
-        <ion-button class="btn-save">Save</ion-button>
-      </ion-label>
-    </ion-col>
-  </ion-row>
+    <ion-row class="row-section">
+      <ion-col>
+        <ion-label>
+          <ion-button [disabled]="form.invalid" type="submit" color="primary" expand="block" (click)="save()"
+            class="btn-save">Save</ion-button>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+  </form>
 </ion-content>

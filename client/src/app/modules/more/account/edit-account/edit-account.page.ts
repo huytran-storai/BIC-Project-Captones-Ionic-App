@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { RegularExpression } from 'src/app/shared/validate/constants';
 
 @Component({
   selector: 'app-edit-account',
@@ -7,7 +10,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditAccountPage implements OnInit {
 
-  constructor() { }
+  showCurrentPassword: boolean = false;
+
+  showNewPassword: boolean = false;
+
+  showConfirmNewPassword: boolean = false;
+
+  editForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder, private router: Router) {
+    this.editForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.pattern(RegularExpression.Password)]],
+    });
+  }
+
+  UpdateForm() {
+    if (this.editForm.valid) {
+      this.router.navigate(['/home']);
+    }
+  }
+
+  update() {
+    this.router.navigate(['/home']);
+  }
 
   ngOnInit() {
   }

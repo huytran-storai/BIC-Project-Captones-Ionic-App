@@ -8,50 +8,63 @@
 </ion-header>
 
 <ion-content>
-  <ion-list style="font-weight: 500;">
-    <ion-label>Username:
-      <ion-icon class="icon-help" name="help-circle-outline"></ion-icon>
-      <ion-text class="text-user">lailadghouse_rhyder@gmail.com</ion-text>
+  <form #form="ngForm" (ngSubmit)="UpdateForm()">
+    <ion-list style="font-weight: 500;">
+      <ion-label>Username:
+        <ion-icon class="icon-help" name="help-circle-outline"></ion-icon>
+        <ion-text class="text-user">lailadghouse_rhyder@gmail.com</ion-text>
+      </ion-label>
+    </ion-list>
+
+    <ion-label class="label-title">Current Email
+      <ion-card-content class="item-text">
+        <ion-text class="text-user">lailadghouse_rhyder@gmail.com</ion-text>
+      </ion-card-content>
     </ion-label>
-  </ion-list>
 
-  <ion-label class="label-title">Current Email
-    <ion-card-content class="item-text">
-      <ion-text class="text-user">lailadghouse_rhyder@gmail.com</ion-text>
-    </ion-card-content>
-  </ion-label>
+    <ion-label class="label-title">New Email
+      <ion-input name="email" type="email" class="item-text" placeholder="New Email" ngModel required></ion-input>
+    </ion-label>
 
-  <ion-label class="label-title">New Email
-    <ion-input type="Email" class="item-text" placeholder="New Email"></ion-input>
-  </ion-label>
+    <ion-label class="label-title">Current Password
+      <ion-card-content class="item-text">
+        <ion-text class="text-user">{{ showCurrentPassword ? 'lailadghouse_rhyder123456' : '*****************'
+          }}</ion-text>
+        <ion-icon class="icon-eyes" name="{{ showCurrentPassword ? 'eye' : 'eye-off' }}"
+          (click)="showCurrentPassword = !showCurrentPassword"></ion-icon>
+      </ion-card-content>
+    </ion-label>
 
-  <ion-label class="label-title">Current Password
-    <ion-card-content class="item-text">
-      <ion-text class="text-user">****************</ion-text>
-      <ion-icon class="icon-eyes" name="eye-outline"></ion-icon>
-    </ion-card-content>
-  </ion-label>
+    <ion-label class="label-title">New Password
+      <ion-item-group>
+        <ion-input name="password" class="item-text" [type]="showNewPassword ? 'text': 'password'"
+          placeholder="New Password" ngModel required></ion-input>
+        <ion-icon style="z-index: 999;" class="icon-eyes-pass" name="{{ showNewPassword ? 'eye' : 'eye-off' }}"
+          (click)="showNewPassword = !showNewPassword">
+        </ion-icon>
+      </ion-item-group>
+    </ion-label>
 
-  <ion-label class="label-title">New Password
-    <ion-input type="Password" class="item-text" placeholder="New Password">
-      <ion-icon class="icon-eyes-pass" name="eye-outline"></ion-icon>
-    </ion-input>
-  </ion-label>
+    <ion-label class="label-title">Confirm New Password
+      <ion-item-group>
+        <ion-input name="confirm-password" class="item-text" [type]="showConfirmNewPassword ? 'text': 'password'"
+          placeholder="Confirm New Password" ngModel required></ion-input>
+        <ion-icon style="z-index: 999;" class="eyes-confi-pass" name="{{ showConfirmNewPassword ? 'eye' : 'eye-off' }}"
+          (click)="showConfirmNewPassword = !showConfirmNewPassword">
+        </ion-icon>
+      </ion-item-group>
+    </ion-label>
 
-  <ion-label class="label-title">Confirm New Password
-    <ion-input type="Password" class="item-text" placeholder="Confirm New Password">
-      <ion-icon class="icon-eyes-pass" name="eye-outline"></ion-icon>
-    </ion-input>
-  </ion-label>
+    <ion-label class="label-title">
+      <ion-text style="font-size: 15px;">Password must be more than 8 characters and have 1 letter, 1 number and a
+        special
+        character such as @, $,
+        !, %, *, #, ?, &.</ion-text>
+    </ion-label>
 
-  <ion-label class="label-title">
-    <ion-text style="font-size: 15px;">Password must be more than 8 characters and have 1 letter, 1 number and a special
-      character such as @, $,
-      !, %, *, #, ?, &.</ion-text>
-  </ion-label>
-
-  <ion-label class="label-title">
-    <ion-button>Update</ion-button>
-  </ion-label>
-
+    <ion-label class="label-title">
+      <ion-button [disabled]="form.invalid" type="submit" color="primary" expand="block"
+        (click)="update()">Update</ion-button>
+    </ion-label>
+  </form>
 </ion-content>
