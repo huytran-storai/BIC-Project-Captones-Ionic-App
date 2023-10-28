@@ -196,18 +196,49 @@ ion-input.cartInput {
     margin-bottom: 20px;
 }
 
-.warning {
-    margin-bottom: 20px;
-    height: 30%;
-}
-
 .h3TitleAlert {
     font-weight: 300;
     margin-top: -20px;
     text-align: center;
 }
-
-.pTitleAlert {
-    font-weight: 300;
-    font-size: 15px;
+// Modal Promo
+.containerPromo {
+    // background: var(--ion-color-primary-contrast) !important;
+    // width: 90%;
+    // border-radius: 10px;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+}
+.toolBarPromo{
+    height: 30px;
+}
+.ionModal {
+    --height: 40%
+}
+.inpPromoCode{
+   border: 1px solid;
+   width: 70%;
+   margin-left: 15%;
+   margin-top: -30px;
+   
+}
+.pTitleAlertPromo {
+    font-weight: 700;
+    font-size: 20px;
+    text-align: center;
+    color: var(--ion-color-success-shade);
+    margin-top: -20px;
+    
+}
+.btnTitleAlerPromo{
+    margin-left: 15%;
+    width: 70%;
+    font-weight: 600;
+    background-color: var(--ion-color-primary);
+    text-align: center;
+    color: var(--ion-color-primary-contrast);
+    border-radius: 5px;
+    // margin-bottom: 20px;
+    margin-bottom: 90px;
 }

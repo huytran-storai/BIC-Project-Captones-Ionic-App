@@ -1,9 +1,11 @@
-import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, IonModal, ModalController } from '@ionic/angular';
 import { Cart } from 'src/app/shared/models/Cart';
 import { CartService } from 'src/app/services/cart.service';
-
+import { InputCustomEvent } from '@ionic/angular';
+import { CheckboxCustomEvent } from '@ionic/angular';
+import { OverlayEventDetail } from '@ionic/core/components';
 @Component({
   selector: 'app-shopping-cart',
   templateUrl: './shopping-cart.page.html',
@@ -12,15 +14,55 @@ import { CartService } from 'src/app/services/cart.service';
 })
 
 export class ShoppingCartPage implements OnInit {
+  @ViewChild(IonModal)
+  modal!: IonModal;
   CartItem = ''
   tax = 0.65
   checkItemsCart : boolean = false;
   public _numberOfItems: number | undefined;
   alerCtrl: any;
+  message = 'Add Promo Code';
+  name: string | undefined;
+
+  // named(inName: string | undefined){
+  //   var name = inName
+  //   if(inName !== undefined){
+  //     return inName
+  //   } else {
+  //     return this.message
+  //   }
+  // }
+
+  checkInput() {
+    if (this.name !== '' &&  this.name !== undefined) {
+      return true 
+    } else {
+      return false
+    }
+  }
+
+  onWillDismiss(event: Event) {
+    const ev = event as CustomEvent<OverlayEventDetail<string>>;
+    if (ev.detail.role === 'confirm') {
+      this.message = `${ev.detail.data}`;
+    }
+  }
+  cancel() {
+    this.modal.dismiss(null, 'cancel');
+  }
+  confirm() {
+    this.modal.dismiss(this.name, 'confirm');
+  }
+  
   ngOnInit(): void {
     // this.CartDetails()
+    
+  
   }
- 
+
+ onInput(even : any){
+
+ }
  ionViewWillEnter() {
     this.CartDetails()
     this.checkItemsCart
