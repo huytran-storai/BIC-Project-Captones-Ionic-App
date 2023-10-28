@@ -10,6 +10,9 @@
   </ion-toolbar>
 </ion-header>
 
+
+
+
 <ion-content [fullscreen]="true">
   <ion-card class="cartCardOrder">
     <ion-card-title class="cartTitleOrder colorText">
@@ -62,11 +65,32 @@
         Discount
       </ion-item>
       <ion-item class=" cartCACAddPromo" lines="none">
-        <ion-button style="color: var(--ion-color-medium);">
-          Add Promo Code
+        <ion-button id="open-modal-promo" style="color: var(--ion-color-medium);">
+          {{message}}
           <ion-icon name="add-outline">
           </ion-icon>
         </ion-button>
+
+        <!-- Modal for promo code add  -->
+        <ion-modal #modal trigger="open-modal-promo" class="ionModal " (willDismiss)="onWillDismiss($event)">
+          <ng-template class="containerPromo">
+            <ion-toolbar class="toolBarPromo">
+              <ion-buttons slot="end" color="light" (click)="cancel()" class="close-icon"><ion-icon
+                  name="close-outline"></ion-icon></ion-buttons>
+            </ion-toolbar>
+            <ion-col style=" display: contents;">
+              <p class="pTitleAlertPromo">
+                Enter Promo Code
+              </p>
+              <ion-input type="text" class="inpPromoCode" [(ngModel)]="name" autofocus="true" required="true">
+              </ion-input>
+              <ion-button  (click)="confirm()"  style="text-align: center;" class="btnTitleAlerPromo" [routerLink]="'./'"  [disabled]="!checkInput()">
+                SUBMIT
+              </ion-button>
+            </ion-col>
+          </ng-template> 
+        </ion-modal> 
+
       </ion-item>
     </ng-container>
     <ng-template #notItem>
@@ -124,7 +148,7 @@
         </ion-button>
       </ion-col>
       <ion-col class="ion-justify-content-center" style="display: flex;">
-        <ion-button id="open-modal" class="ion-text-wrap colorText ion-text-end" [disabled]="!checkItemsCart">
+        <ion-button id="open-modal-empty" class="ion-text-wrap colorText ion-text-end" [disabled]="!checkItemsCart">
           Empty Cart
         </ion-button>
       </ion-col>
@@ -132,7 +156,7 @@
   </ion-grid>
   <!-- Modal Alert Delete Cart -->
 
-  <ion-modal #modal trigger="open-modal">
+  <ion-modal #modal trigger="open-modal-empty">
       <ng-template class="container">
         <ion-toolbar>
           <ion-buttons slot="end" color="light" (click)="modal.dismiss()" class="close-icon"><ion-icon name="close-outline"></ion-icon></ion-buttons>
