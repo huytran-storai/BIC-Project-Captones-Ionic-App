@@ -15,8 +15,12 @@
     <p class="store-title">Vanni Store<br>
       120 Phan Van Tri, Phuong 10, Quan Go Vap, TP HCM</p>
   </ion-row>
-  <ion-row class="title-hello">
-    <p class="hi-name">Hi, {{user.username || ""}}!</p>
+  <ion-row class="title-hello" *ngIf="user">
+    <p class="hi-name" *ngIf="user.username">Hi, {{user.username}}!</p>
+    <p class="hi-name" *ngIf="!user.username">Hi, there!</p>
+  </ion-row>
+  <ion-row class="title-hello" *ngIf="!user">
+    <p class="hi-name" [routerLink]="['/login']">Click here to login</p>
   </ion-row>
 </ion-header>
 
