@@ -21,7 +21,7 @@ export class LogInPage{
   }
 
   login() {
-    // if (this.form.valid) {
+    if (this.form.valid) {
       const emailControl = this.form.get('email');
       const passwordControl = this.form.get('password');
   
@@ -39,7 +39,7 @@ export class LogInPage{
             }
           );
       }
-    // }
+    }
   }
   
 

@@ -2,15 +2,15 @@ import { Tag } from './../shared/models/Tag';
 import { Injectable } from '@angular/core';
 import { Store } from '../shared/models/Store';
 import { sample_stores, sample_tags, } from 'src/data';
-import { Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class StoreService {
-
-  constructor() { }
+  private apiUrl = 'http://localhost:1337/api';
+  constructor(private http: HttpClient) { }
 
   getAll(): Store[] {
     return sample_stores;
@@ -29,10 +29,9 @@ export class StoreService {
     return this.getAll().filter(store => store.tags?.includes(tag));
   }
 
+  getCurrentStoreAddress() {
+    return this.http.get(`${this.apiUrl}/stores`);
+  }
 
-  
-  // getProductById(productId:string):Store {
-  //   return this.getAll().find(store => store.id == productId) ?? new Store();
-  // }
 }
 

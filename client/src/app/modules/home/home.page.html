@@ -10,10 +10,15 @@
       </a>
     </ion-col>
   </ion-row>
-  <ion-row class="ion-justify-content-center ion-align-items-center store">
+  <ion-row class="ion-justify-content-center ion-align-items-center store" *ngIf="currentStore">
     <ion-icon name="storefront-outline" class="icon-address"></ion-icon>
-    <p class="store-title">Vanni Store<br>
-      120 Phan Van Tri, Phuong 10, Quan Go Vap, TP HCM</p>
+    <p class="store-title" *ngIf="currentStore">{{ currentStore.name }}<br>
+      {{ currentStore.address }}</p>
+  </ion-row>
+  <ion-row class="ion-justify-content-center ion-align-items-center store" *ngIf="!currentStore">
+    <ion-icon name="storefront-outline" class="icon-address"></ion-icon>
+    <p class="store-title">Closeing<br>
+      See you next time!</p>
   </ion-row>
   <ion-row class="title-hello" *ngIf="user">
     <p class="hi-name" *ngIf="user.username">Hi, {{user.username}}!</p>

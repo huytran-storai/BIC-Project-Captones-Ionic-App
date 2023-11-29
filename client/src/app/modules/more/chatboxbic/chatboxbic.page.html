@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar style="height: 50px;">
+    <ion-buttons slot="start">
+      <ion-back-button text="" icon="arrow-back-outline" defaultHref="more"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-justify-content-center">Chat Box</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let message of messages" class="message-item">
+      {{ message }}
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-input [(ngModel)]="userInput" placeholder="Type your message" class="input-message"></ion-input>
+    <ion-button expand="full" (click)="sendMessage()" class="send-button" color="primary">Send</ion-button>
+  </ion-toolbar>
+</ion-footer>
