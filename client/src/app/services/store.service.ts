@@ -9,7 +9,9 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class StoreService {
-  private apiUrl = 'http://localhost:1337/api';
+  private apiUrl = 'https://attractive-star-afacd2432f.strapiapp.com/api';
+
+  // private apiUrl = 'http://localhost:1337/api';
   constructor(private http: HttpClient) { }
 
   getAll(): Store[] {
