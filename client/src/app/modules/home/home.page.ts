@@ -19,6 +19,22 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.getUserData();
     this.getCurrentStore();
+    (function (d, m) {
+      var kommunicateSettings = {
+        appId: "11c15e214c77a3f11028cdce28abe430b",
+        popupWidget: true,
+        automaticChatOpenOnNavigation: true,
+        automaticChatOpen: true,
+      };
+      var s = document.createElement("script");
+      s.type = "text/javascript";
+      s.async = true;
+      s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+      var h = document.getElementsByTagName("head")[0];
+      h.appendChild(s);
+      (window as any).kommunicate = m;
+      m._globals = kommunicateSettings;
+    })(document, (window as any).kommunicate || {});
   }
 
   getUserData() {

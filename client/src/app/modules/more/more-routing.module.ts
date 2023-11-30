@@ -7,9 +7,6 @@ const routes: Routes = [
   {
     path: '',
     component: MorePage
-  },  {
-    path: 'chatboxbic',
-    loadChildren: () => import('./chatboxbic/chatboxbic.module').then( m => m.ChatboxbicPageModule)
   }
 
 ];
