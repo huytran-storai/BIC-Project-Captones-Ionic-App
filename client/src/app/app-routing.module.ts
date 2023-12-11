@@ -75,7 +75,11 @@ const routes: Routes = [
   {
     path: 'edit-payment-cards',
     loadChildren: () => import('./modules/more/account/edit-payment-cards/edit-payment-cards.module').then(m => m.EditPaymentCardsPageModule)
+  },  {
+    path: 'product-detail',
+    loadChildren: () => import('./product/product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
   }
+
 ];
 
 @NgModule({
