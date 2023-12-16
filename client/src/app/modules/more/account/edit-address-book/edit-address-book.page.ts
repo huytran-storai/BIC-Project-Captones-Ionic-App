@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegularExpression } from 'src/app/shared/validate/constants';
+import { MaskitoOptions, MaskitoElementPredicateAsync } from '@maskito/core';
 
 @Component({
   selector: 'app-edit-address-book',
@@ -9,9 +10,7 @@ import { RegularExpression } from 'src/app/shared/validate/constants';
   styleUrls: ['./edit-address-book.page.scss'],
 })
 export class EditAddressBookPage implements OnInit {
-
   billingChecked: boolean = false;
-
   deliveryChecked: boolean = false;
   editForm: FormGroup;
 
@@ -45,6 +44,12 @@ export class EditAddressBookPage implements OnInit {
       this.billingChecked = false;
     }
   }
+
+  readonly phoneMask: MaskitoOptions = {
+    mask: ['+', '8', '4', ' ', '(', /\d/, /\d/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/],
+  };
+
+  readonly maskPredicate: MaskitoElementPredicateAsync = async (el) => (el as HTMLIonInputElement).getInputElement();
 
   ngOnInit() {
   }

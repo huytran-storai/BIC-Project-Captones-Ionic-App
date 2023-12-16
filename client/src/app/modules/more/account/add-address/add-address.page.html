@@ -67,12 +67,13 @@
         <ion-input name="code" type="code" class="input-contact" ngModel required></ion-input>
       </ion-col>
     </ion-row>
-    <ion-row class="row-section" style="margin-top: 15px;">
+    <ion-row class="row-section">
       <ion-col>
         <ion-label class="label-custom">
           Mobile phone
         </ion-label>
-        <ion-input name="phone" type="phone" class="input-section" ngModel required></ion-input>
+        <ion-input name="phone" class="input-section" [maskito]="phoneMask"
+          [maskitoElement]="maskPredicate"></ion-input>
       </ion-col>
     </ion-row>
 

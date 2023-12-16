@@ -8,13 +8,16 @@ import { EditAddressBookPageRoutingModule } from './edit-address-book-routing.mo
 
 import { EditAddressBookPage } from './edit-address-book.page';
 
+import { MaskitoModule } from '@maskito/angular';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    MaskitoModule,
     EditAddressBookPageRoutingModule
   ],
   declarations: [EditAddressBookPage]
 })
-export class EditAddressBookPageModule {}
+export class EditAddressBookPageModule { }

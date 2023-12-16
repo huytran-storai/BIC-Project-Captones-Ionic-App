@@ -7,26 +7,24 @@ const routes: Routes = [
   {
     path: '',
     component: AccountPage
-  },  {
+  },
+  {
     path: 'add-address',
-    loadChildren: () => import('./add-address/add-address.module').then( m => m.AddAddressPageModule)
+    loadChildren: () => import('./add-address/add-address.module').then(m => m.AddAddressPageModule)
   },
   {
     path: 'edit-account',
-    loadChildren: () => import('./edit-account/edit-account.module').then( m => m.EditAccountPageModule)
+    loadChildren: () => import('./edit-account/edit-account.module').then(m => m.EditAccountPageModule)
   },
   {
     path: 'edit-address-book',
-    loadChildren: () => import('./edit-address-book/edit-address-book.module').then( m => m.EditAddressBookPageModule)
+    loadChildren: () => import('./edit-address-book/edit-address-book.module').then(m => m.EditAddressBookPageModule)
   },
   {
     path: 'edit-contact',
-    loadChildren: () => import('./edit-contact/edit-contact.module').then( m => m.EditContactPageModule)
+    loadChildren: () => import('./edit-contact/edit-contact.module').then(m => m.EditContactPageModule)
   },
-  {
-    path: 'edit-payment-cards',
-    loadChildren: () => import('./edit-payment-cards/edit-payment-cards.module').then( m => m.EditPaymentCardsPageModule)
-  }
+
 
 ];
 
@@ -34,4 +32,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AccountPageRoutingModule {}
+export class AccountPageRoutingModule { }

@@ -9,10 +9,12 @@ import { RouterModule } from '@angular/router';
 import { BlogsComponent } from '../modules/home/components/blogs/blogs.component';
 import { NewsComponent } from '../modules/home/components/news/news.component';
 import { WinegroupComponent } from '../modules/home/components/winegroup/winegroup.component';
+import { MaskitoModule } from '@maskito/angular';
+
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [TabmenuComponent, ProductListComponent, ProductDetailsComponent, BlogsComponent, NewsComponent, WinegroupComponent],
-  imports: [CommonModule, IonicModule, RouterModule],
+  imports: [CommonModule, IonicModule, MaskitoModule, RouterModule],
   exports: [TabmenuComponent, ProductListComponent, ProductDetailsComponent, BlogsComponent, NewsComponent, WinegroupComponent],
 })
 export class ShareModule { }
