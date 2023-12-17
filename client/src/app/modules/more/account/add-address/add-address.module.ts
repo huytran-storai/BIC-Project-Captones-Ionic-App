@@ -8,13 +8,16 @@ import { AddAddressPageRoutingModule } from './add-address-routing.module';
 
 import { AddAddressPage } from './add-address.page';
 
+import { MaskitoModule } from '@maskito/angular';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    MaskitoModule,
     AddAddressPageRoutingModule
   ],
   declarations: [AddAddressPage]
 })
-export class AddAddressPageModule {}
+export class AddAddressPageModule { }

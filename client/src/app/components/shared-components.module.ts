@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { BlogsComponent } from '../modules/home/components/blogs/blogs.component';
 import { NewsComponent } from '../modules/home/components/news/news.component';
 import { WinegroupComponent } from '../modules/home/components/winegroup/winegroup.component';
+
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [TabmenuComponent, ProductListComponent, BlogsComponent, NewsComponent, WinegroupComponent],

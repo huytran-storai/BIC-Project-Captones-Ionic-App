@@ -79,11 +79,7 @@ const routes: Routes = [
   {
     path: 'edit-contact',
     loadChildren: () => import('./modules/more/account/edit-contact/edit-contact.module').then(m => m.EditContactPageModule)
-  },
-  {
-    path: 'edit-payment-cards',
-    loadChildren: () => import('./modules/more/account/edit-payment-cards/edit-payment-cards.module').then(m => m.EditPaymentCardsPageModule)
-  },
+  }
 
 ];
 

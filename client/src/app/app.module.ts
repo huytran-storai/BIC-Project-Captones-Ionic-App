@@ -9,12 +9,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { ShareModule } from './components/shared-components.module';
 import { UserRegisterService } from './services/user-register.service';
 import { HttpClientModule } from '@angular/common/http';
+import { MaskitoModule } from '@maskito/angular';
+
 
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot({innerHTMLTemplatesEnabled:true}), AppRoutingModule, ShareModule, HttpClientModule],
+  imports: [BrowserModule, IonicModule.forRoot({ innerHTMLTemplatesEnabled: true }), AppRoutingModule, MaskitoModule, ShareModule, HttpClientModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, UserRegisterService],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

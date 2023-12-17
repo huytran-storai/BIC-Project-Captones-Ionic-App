@@ -72,7 +72,8 @@
         <ion-label class="label-custom">
           Mobile phone
         </ion-label>
-        <ion-input name="phone" type="phone" class="input-section" ngModel required></ion-input>
+        <ion-input name="phone" class="input-section" [maskito]="phoneMask" [maskitoElement]="maskPredicate"
+          required></ion-input>
       </ion-col>
     </ion-row>
 

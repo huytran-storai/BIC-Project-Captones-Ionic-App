@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegularExpression } from 'src/app/shared/validate/constants';
+import { MaskitoOptions, MaskitoElementPredicateAsync } from '@maskito/core';
+
 
 @Component({
   selector: 'app-add-address',
@@ -44,6 +46,12 @@ export class AddAddressPage implements OnInit {
       this.billingChecked = false;
     }
   }
+
+  readonly phoneMask: MaskitoOptions = {
+    mask: ['+', '8', '4', ' ', '(', /\d/, /\d/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/],
+  };
+
+  readonly maskPredicate: MaskitoElementPredicateAsync = async (el) => (el as HTMLIonInputElement).getInputElement();
 
   ngOnInit() {
   }

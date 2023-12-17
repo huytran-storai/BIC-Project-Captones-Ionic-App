@@ -8,13 +8,16 @@ import { EditContactPageRoutingModule } from './edit-contact-routing.module';
 
 import { EditContactPage } from './edit-contact.page';
 
+import { MaskitoModule } from '@maskito/angular';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    MaskitoModule,
     EditContactPageRoutingModule
   ],
   declarations: [EditContactPage]
 })
-export class EditContactPageModule {}
+export class EditContactPageModule { }
