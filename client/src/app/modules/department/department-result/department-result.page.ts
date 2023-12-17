@@ -1,7 +1,7 @@
 import { StoreService } from 'src/app/services/store.service';
 import { Component, OnInit  } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-department-result',
   templateUrl: './department-result.page.html',
@@ -14,15 +14,10 @@ export class DepartmentResultPage implements OnInit {
   selectedProduct: any;
   itemCart:any = []
 
-  constructor(private route: ActivatedRoute, private StoreService: StoreService) { }
-  setOpen(product: any) {
-    this.selectedProduct = product;
-    this.isModalOpen = true;
-  }
-  
-  setClose(isOpen:boolean) {
-    this.selectedProduct = null;
-    this.isModalOpen = isOpen;
+  constructor(private route: ActivatedRoute, private StoreService: StoreService,private router: Router) { }
+
+  navigateToProductDetail(product: any) {
+    this.router.navigate(['product-detail/', product.id]); 
   }
   checkAdded(product: any): boolean {
     const productId = product.id;

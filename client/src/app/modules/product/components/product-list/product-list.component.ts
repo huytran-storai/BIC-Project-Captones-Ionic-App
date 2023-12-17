@@ -4,6 +4,7 @@ import { StoreService } from 'src/app/services/store.service';
 import { ModalController } from '@ionic/angular';
 import { register } from 'swiper/element/bundle';
 import { CartService } from 'src/app/services/cart.service';
+import { Router } from '@angular/router';
 register();
 @Component({
   selector: 'app-product-list',
@@ -18,33 +19,27 @@ export class ProductListComponent implements OnInit {
   public _numberOfItems: number | undefined;
   itemCart:any = []
 
-  constructor(private CartService: CartService,
+  constructor(
+    private CartService: CartService,
     private StoreService: StoreService,
      private modalController: ModalController,
+     private router: Router
      ) {
   }
-
-  setOpen(store: any) {
-    this.selectedProduct = store;
-    this.isModalOpen = true;
-  }
-
-  viewAll(){
-    this.isModalViewAllProductOpen = true;
-  }
-
-  async setClose() {
-    this.selectedProduct = null;
-    this.isModalOpen = false;
-  }
-
-  async setCloseViewAll() {
-    this.isModalViewAllProductOpen = false;
-  }
-
+  
   ngOnInit(): void {
     this.stores = this.StoreService.getAll();
   }
+
+  navigateToProductDetail(store: any) {
+    this.router.navigate(['product-detail/', store.id]); 
+  }
+
+  navigateToProductAll() {
+    this.router.navigate(['product-all/',]); 
+  }
+
+ 
   subTotal(): number {
     let subTotal = 0;
     for (const product of this.stores) {
@@ -69,10 +64,15 @@ export class ProductListComponent implements OnInit {
   }
 
 
+  redirectToProductDetail(event: Event, store: any) {
+    event.stopPropagation();
+    this.navigateToProductDetail(store);
+  }
 
-  
+
   isConditionTrue: boolean = false;
-  addProduct(store: any){
+  addProduct(event: Event,store: any){
+    event.stopPropagation();
     let cartDataNull = localStorage.getItem('localCart');
     if(cartDataNull == null) {
       let storeDataGet:any =[]

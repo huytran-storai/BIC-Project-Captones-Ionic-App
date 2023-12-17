@@ -13,6 +13,14 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'product-all',
+    loadChildren: () => import('./modules/product/product-all/product-all.module').then( m => m.ProductAllPageModule)
+  },
+  {
+    path: 'product-detail/:id',
+    loadChildren: () => import('./modules/product/product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
+  },
+  {
     path: 'more',
     loadChildren: () => import('./modules/more/more.module').then(m => m.MorePageModule)
   },
@@ -75,10 +83,7 @@ const routes: Routes = [
   {
     path: 'edit-payment-cards',
     loadChildren: () => import('./modules/more/account/edit-payment-cards/edit-payment-cards.module').then(m => m.EditPaymentCardsPageModule)
-  },  {
-    path: 'product-detail',
-    loadChildren: () => import('./product/product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
-  }
+  },
 
 ];
 

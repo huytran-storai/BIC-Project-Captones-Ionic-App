@@ -1,52 +1,35 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { StoreService } from 'src/app/services/store.service';
+import { NavController } from '@ionic/angular';
 import { CartService } from 'src/app/services/cart.service';
-
-
+import { StoreService } from 'src/app/services/store.service';
+import { Store } from 'src/app/shared/models/Store';
 
 @Component({
-  selector: 'app-product-details',
-  templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.scss'],
+  selector: 'app-product-all',
+  templateUrl: './product-all.page.html',
+  styleUrls: ['./product-all.page.scss'],
 })
-export class ProductDetailsComponent implements OnInit {
-
-  isDropdownOpen = false;
-
-  toggleDropdown() {
-    this.isDropdownOpen = !this.isDropdownOpen;
-  }
-
-  isDropdownOpenNutrition = false;
-
-  toggleDropdownNutrition() {
-    this.isDropdownOpenNutrition = !this.isDropdownOpenNutrition;
-  }
-
-  isDropdownOpenProductInfor = false;
-
-  toggleDropdownProductInfor() {
-    this.isDropdownOpenProductInfor = !this.isDropdownOpenProductInfor;
-  }
-
-  isDropdownOpenDisclaimer = false;
-
-  toggleDropdownDisclaimer() {
-    this.isDropdownOpenDisclaimer = !this.isDropdownOpenDisclaimer;
-  }
-  addSugar(product: any) {
-    product.addedSugar = !product.addedSugar;
-  }
-
-  @Input() product: any;
-
+export class ProductAllPage implements OnInit {
+  stores: Store[] = [];
   constructor(
-    private modalController: ModalController,
-    private router: Router,
     private CartService: CartService,
+    private StoreService: StoreService,
+    private router: Router,
+    private navCtrl: NavController,
   ) { }
+
+  ngOnInit() {
+    this.stores = this.StoreService.getAll();
+  }
+
+  navigateToProductDetail(store: any) {
+    this.router.navigate(['product-detail/', store.id]); 
+  }
+
+  Back(){
+    this.navCtrl.back()
+  }
 
   checkAdded(product: any): boolean {
     const productId = product.id;
@@ -63,8 +46,15 @@ export class ProductDetailsComponent implements OnInit {
     return isConditionTrue; // Trả về kết quả boolean
   }
 
+  // Dùng để tách sự kiện Add với Navigate Detail Product
+  redirectToProductDetail(event: Event, store: any) {
+    event.stopPropagation();
+    this.navigateToProductDetail(store);
+  }
+
   itemCart:any = []
-  addProduct(store: any){
+  addProduct(event: Event,store: any){
+    event.stopPropagation();
     let cartDataNull = localStorage.getItem('localCart');
     if(cartDataNull == null) {
       let storeDataGet:any =[]
@@ -102,11 +92,5 @@ export class ProductDetailsComponent implements OnInit {
     } else {
       this.cartNumber = 0;
     }
-  }
-  ngOnInit() { }
-
-  async closeModalAndNavigateToCart() {
-    await this.modalController.dismiss();
-    this.router.navigate(['/shopping-cart']);
   }
 }

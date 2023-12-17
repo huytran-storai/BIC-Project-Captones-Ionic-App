@@ -1,6 +1,7 @@
 import { StoreService } from 'src/app/services/store.service';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '../../../shared/models/Store';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-product',
@@ -14,11 +15,16 @@ export class SearchProductPage implements OnInit {
   selectedProduct: any;
   constructor(
     private StoreService: StoreService,
+    private router: Router,
   ) {
   }
 
   ngOnInit(): void {
    
+  }
+
+  navigateToProductDetail(product: any) {
+    this.router.navigate(['product-detail/', product.id]); 
   }
 
   search(event: any): void {
@@ -34,17 +40,6 @@ export class SearchProductPage implements OnInit {
     else{
       this.stores = []
     }
-  }
-
-  setOpen(store: any) {
-    this.selectedProduct = store;
-    this.isModalOpen = true;
-    // console.log(this.selectedProduct);
-  }
-  
-  setClose(isOpen:boolean) {
-    this.selectedProduct = null;
-    this.isModalOpen = isOpen;
   }
 
 }

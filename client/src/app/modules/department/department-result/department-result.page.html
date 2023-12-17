@@ -17,8 +17,7 @@
   <ion-row class="bg-content">
     <ion-col size="6" *ngFor="let product of products">
       <ion-card>
-        <!-- <a [routerLink]="['/product-detail', product.id]"> -->
-        <a (click)="setOpen(product)">
+          <a  (click)="navigateToProductDetail(product)">
           <ion-row>
             <ion-col class="ion-justify-content-center product">
               <img alt="{{product.name}}" [src]="product.imageUrl" />
@@ -43,18 +42,4 @@
       </ion-card>
     </ion-col>
   </ion-row>
-  <ion-modal [isOpen]="isModalOpen">
-    <ng-template>
-      <ion-header>
-        <ion-toolbar>
-          <ion-buttons slot="end">
-            <ion-button (click)="setClose(false)"><ion-icon color="danger" name="close-outline"></ion-icon></ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content>
-          <app-product-details [product]="selectedProduct"></app-product-details>
-      </ion-content>
-    </ng-template>
-  </ion-modal>
 </ion-content>
