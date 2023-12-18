@@ -8,6 +8,9 @@
 </ion-header>
 
 <ion-content>
+  <ion-row class="ion-justify-content-center">
+    <img class="logo" src="../../assets/icon/bIc.png" alt="">
+  </ion-row>
   <form [formGroup]="form">
     <ion-grid>
       <ion-row>
@@ -18,9 +21,8 @@
           <ion-row *ngIf="form?.get('email')?.invalid && form?.get('email')?.touched">
             <p style="color: red;" class="ion-no-margin ion-padding-bottom"> Email is not valid. </p>
           </ion-row>
-          <ion-item>
-            <ion-input formControlName="password" [type]="showPassword ? 'text' : 'password'"
-              placeholder="Password"></ion-input>
+          <ion-item [class.input-error]="form!.get('password')!.invalid && form!.get('password')!.touched">
+            <ion-input formControlName="password" [type]="showPassword ? 'text' : 'password'" placeholder="Password"></ion-input>
             <ion-icon slot="end" name="eye" *ngIf="showPassword" (click)="togglePasswordVisibility()"></ion-icon>
             <ion-icon slot="end" name="eye-off" *ngIf="!showPassword" (click)="togglePasswordVisibility()"></ion-icon>
           </ion-item>
@@ -31,47 +33,31 @@
             <ion-text> Password must be more than 8 characters and <br> have 1 letter, 1 number and a special character
               (@, $, !, %, *, #, ?, &amp;) </ion-text>
           </ion-row>
-          <ion-item>
-            <ion-input formControlName="confirm-password" [type]="showPassword ? 'text' : 'password'"
-              placeholder="Confirm Password"></ion-input>
+          <ion-item [class.input-error]="form!.get('password')!.invalid && form!.get('password')!.touched">
+            <ion-input formControlName="password" [type]="showPassword ? 'text' : 'password'" placeholder="Confirm Password"></ion-input>
             <ion-icon slot="end" name="eye" *ngIf="showPassword" (click)="togglePasswordVisibility()"></ion-icon>
             <ion-icon slot="end" name="eye-off" *ngIf="!showPassword" (click)="togglePasswordVisibility()"></ion-icon>
           </ion-item>
           <ion-row *ngIf="form?.get('password')?.invalid && form?.get('password')?.touched">
             <p style="color: red;" class="ion-no-margin ion-padding-bottom"> Password is not valid. </p>
           </ion-row>
-          <ion-item [class.input-error]="form!.get('fristname')!.invalid && form!.get('fristname')!.touched">
-            <ion-input formControlName="fristname" type="text" placeholder="Frist Name"></ion-input>
+          <ion-item [class.input-error]="form!.get('phone')!.invalid && form!.get('phone')!.touched">
+            <ion-input formControlName="phone" [maskito]="phoneMask"
+            [maskitoElement]="maskPredicate" placeholder="Phone Number"></ion-input>
           </ion-item>
-          <ion-row *ngIf="form?.get('fristname')?.invalid && form?.get('fristname')?.touched">
-            <p style="color: red;" class="ion-no-margin ion-padding-bottom"> Frist Name is not valid. </p>
-          </ion-row>
-          <ion-item [class.input-error]="form!.get('lastname')!.invalid && form!.get('lastname')!.touched">
-            <ion-input formControlName="lastname" type="text" placeholder="Last Name"></ion-input>
-          </ion-item>
-          <ion-row *ngIf="form?.get('lastname')?.invalid && form?.get('lastname')?.touched">
-            <p style="color: red;" class="ion-no-margin ion-padding-bottom"> Last Name is not valid. </p>
+          <ion-row *ngIf="form?.get('phone')?.invalid && form?.get('phone')?.touched">
+            <p style="color: red;" class="ion-no-margin ion-padding-bottom"> Phone Number is not valid. </p>
           </ion-row>
           <ion-item [class.input-error]="form!.get('address')!.invalid && form!.get('address')!.touched">
             <ion-input formControlName="address" type="text" placeholder="Your Address"></ion-input>
           </ion-item>
           <ion-row *ngIf="form?.get('address')?.invalid && form?.get('address')?.touched">
-            <p style="color: red;" class="ion-no-margin ion-padding-bottom"> Your Address is not valid. </p>
-          </ion-row>
-          <ion-item [class.input-error]="form!.get('phone')!.invalid && form!.get('phone')!.touched">
-            <ion-input formControlName="phone" placeholder="Phone Numbers" [maskito]="phoneMask"
-              [maskitoElement]="maskPredicate"></ion-input>
-          </ion-item>
-
-          <ion-row *ngIf="form?.get('phone')?.invalid && form?.get('phone')?.touched">
-            <p style="color: red;" class="ion-no-margin ion-padding-bottom"> Phone Number is not valid. </p>
+            <p style="color: red;" class="ion-no-margin ion-padding-bottom"> Address is not valid. </p>
           </ion-row>
         </ion-col>
       </ion-row>
-
       <ion-row class="button-login">
-        <ion-button [disabled]="form.invalid" color="medium" type="submit" expand="block" (click)="signup()">Sign
-          Up</ion-button>
+        <ion-button color="medium" type="submit" expand="block" (click)="signup()" [disabled]="form.invalid">Sign Up</ion-button>
       </ion-row>
     </ion-grid>
   </form>

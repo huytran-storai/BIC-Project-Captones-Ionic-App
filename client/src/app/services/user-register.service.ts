@@ -7,8 +7,8 @@ import { UserService } from './user.service';
   providedIn: 'root'
 })
 export class UserRegisterService {
-  private apiUrl = 'https://attractive-star-afacd2432f.strapiapp.com/api';
-  // private apiUrl = 'http://localhost:1337/api';
+  // private apiUrl = 'https://attractive-star-afacd2432f.strapiapp.com/api';
+  private apiUrl = 'http://localhost:1337/api';
 
   constructor(private http: HttpClient) { }
 

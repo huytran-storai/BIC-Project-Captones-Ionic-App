@@ -18,7 +18,7 @@
           <ion-row *ngIf="form?.get('email')?.invalid && form?.get('email')?.touched">
             <p style="color: red;" class="ion-no-margin ion-padding-bottom"> Email is not valid. </p>
           </ion-row>
-          <ion-item>
+          <ion-item [class.input-error]="form!.get('password')!.invalid && form!.get('password')!.touched">
             <ion-input formControlName="password" [type]="showPassword ? 'text' : 'password'" placeholder="Password"></ion-input>
             <ion-icon slot="end" name="eye" *ngIf="showPassword" (click)="togglePasswordVisibility()"></ion-icon>
             <ion-icon slot="end" name="eye-off" *ngIf="!showPassword" (click)="togglePasswordVisibility()"></ion-icon>

@@ -1,10 +1,10 @@
-import { Component, OnInit,ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { AlertController, IonModal, ModalController } from '@ionic/angular';
 import { Cart } from 'src/app/shared/models/Cart';
 import { CartService } from 'src/app/services/cart.service';
-import { InputCustomEvent } from '@ionic/angular';
-import { CheckboxCustomEvent } from '@ionic/angular';
+import { StoreService } from 'src/app/services/store.service';
+import { UserService } from 'src/app/services/user.service';
 import { OverlayEventDetail } from '@ionic/core/components';
 @Component({
   selector: 'app-shopping-cart',
@@ -18,24 +18,48 @@ export class ShoppingCartPage implements OnInit {
   modal!: IonModal;
   CartItem = ''
   tax = 0.65
-  checkItemsCart : boolean = false;
+  checkItemsCart: boolean = false;
   public _numberOfItems: number | undefined;
   alerCtrl: any;
   message = 'Add Promo Code';
   name: string | undefined;
+  getCartDetails: any = [];
+  public user: any;
+  public currentStore: any;
 
-  // named(inName: string | undefined){
-  //   var name = inName
-  //   if(inName !== undefined){
-  //     return inName
-  //   } else {
-  //     return this.message
-  //   }
-  // }
+  constructor(private CartService: CartService,
+    private modalController: ModalController,
+    private location: Location,
+    private changeDetectorRef: ChangeDetectorRef,
+    private userService: UserService,
+    private storeService: StoreService,
+  ) { }
+
+  ngOnInit(): void {
+    this.getUserData()
+    this.getCurrentStore()
+  }
+
+
+  getUserData() {
+    this.userService.getUserData().subscribe(res => this.user = res?.user);
+  }
+
+  getCurrentStore() {
+    this.storeService.getCurrentStoreAddress().subscribe(
+      (res: any) => {
+        this.currentStore = res?.data[0]?.attributes;
+        console.log("find store", this.currentStore)
+      },
+      (err) => {
+        console.error('Error fetching current store data:', err);
+      }
+    );
+  }
 
   checkInput() {
-    if (this.name !== '' &&  this.name !== undefined) {
-      return true 
+    if (this.name !== '' && this.name !== undefined) {
+      return true
     } else {
       return false
     }
@@ -47,27 +71,24 @@ export class ShoppingCartPage implements OnInit {
       this.message = `${ev.detail.data}`;
     }
   }
+
   cancel() {
     this.modal.dismiss(null, 'cancel');
   }
+
   confirm() {
     this.modal.dismiss(this.name, 'confirm');
   }
-  
-  ngOnInit(): void {
-    // this.CartDetails()
-    
-  
+
+  onInput(even: any) {
+
   }
 
- onInput(even : any){
-
- }
- ionViewWillEnter() {
+  ionViewWillEnter() {
     this.CartDetails()
     this.checkItemsCart
     this.calculateItem
-    this.readLocalStorageCart(); 
+    this.readLocalStorageCart();
   }
 
   readLocalStorageCart() {
@@ -78,6 +99,7 @@ export class ShoppingCartPage implements OnInit {
       this.updateSubTotal();
     }
   }
+
   private calculateItem(numberOfItems: number | undefined): boolean {
     if (numberOfItems === 0) {
       return false;
@@ -85,35 +107,31 @@ export class ShoppingCartPage implements OnInit {
       return true;
     }
   }
+
   get numberOfItems(): number | undefined {
     return this._numberOfItems;
   }
+
   set numberOfItems(value: number | undefined) {
     this._numberOfItems = value;
     this.checkItemsCart = this.calculateItem(value);
   }
   subTotalAmount: number | undefined;
-  constructor(private CartService: CartService,
-    private modalController: ModalController,
-    private location: Location, 
-    private changeDetectorRef: ChangeDetectorRef ,
-    ) { }
-  
 
-async showModal() {
-  const modal = await this.modalController.create({
-    component: ShoppingCartPage,
-    cssClass: 'alert-modal',
-  });
-  return await modal.present();
-}
-getCartDetails:any=[];
-CartDetails(){
- if(localStorage.getItem('localCart')){
-   this.getCartDetails = JSON.parse(localStorage.getItem('localCart') || '[]') 
-   this.numberOfItems = this.getCartDetails.length;
- }
-}
+  async showModal() {
+    const modal = await this.modalController.create({
+      component: ShoppingCartPage,
+      cssClass: 'alert-modal',
+    });
+    return await modal.present();
+  }
+
+  CartDetails() {
+    if (localStorage.getItem('localCart')) {
+      this.getCartDetails = JSON.parse(localStorage.getItem('localCart') || '[]')
+      this.numberOfItems = this.getCartDetails.length;
+    }
+  }
   incProduct(prod: any) {
     prod.productQuantityAddDefault += 1
     localStorage.setItem('localCart', JSON.stringify(this.getCartDetails));
@@ -133,7 +151,7 @@ CartDetails(){
     }
   }
 
-  delProduct(){
+  delProduct() {
     this.getCartDetails.length = 0;
     this.numberOfItems = 0;
     this.modalController.dismiss();
@@ -144,7 +162,7 @@ CartDetails(){
   updateSubTotal() {
     this.subTotalAmount = this.subTotal();
     this.changeDetectorRef.detectChanges();
-    
+
   }
 
   subTotal(): number {
@@ -154,11 +172,11 @@ CartDetails(){
     }
     return subTotal;
   }
- 
+
   refreshPage() {
     this.location.replaceState('/home');
     window.location.reload();
-    
+
   }
-  
+
 }

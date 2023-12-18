@@ -9,9 +9,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class StoreService {
-  private apiUrl = 'https://attractive-star-afacd2432f.strapiapp.com/api';
-
-  // private apiUrl = 'http://localhost:1337/api';
+  // private apiUrl = 'https://attractive-star-afacd2432f.strapiapp.com/api';
+  private apiUrl = 'http://localhost:1337/api';
   constructor(private http: HttpClient) { }
 
   getStores() {

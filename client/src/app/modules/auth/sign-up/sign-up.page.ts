@@ -25,6 +25,8 @@ export class SignUpPage {
   constructor(private router: Router, private authService: UserRegisterService, private userService: UserService) {
     this.form = new FormGroup({
       'email': new FormControl(null, [Validators.required, Validators.email]),
+      'phone': new FormControl(null, [Validators.required]),
+      'address': new FormControl(null, [Validators.required, Validators.pattern(RegularExpression.AddressPattern)]),
       'password': new FormControl(null, [Validators.required, Validators.pattern(RegularExpression.Password)])
     });
   }

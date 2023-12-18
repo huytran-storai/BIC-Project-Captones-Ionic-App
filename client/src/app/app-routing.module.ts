@@ -13,14 +13,6 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'product-all',
-    loadChildren: () => import('./modules/product/product-all/product-all.module').then( m => m.ProductAllPageModule)
-  },
-  {
-    path: 'product-detail/:id',
-    loadChildren: () => import('./modules/product/product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
-  },
-  {
     path: 'more',
     loadChildren: () => import('./modules/more/more.module').then(m => m.MorePageModule)
   },
@@ -79,6 +71,18 @@ const routes: Routes = [
   {
     path: 'edit-contact',
     loadChildren: () => import('./modules/more/account/edit-contact/edit-contact.module').then(m => m.EditContactPageModule)
+  },
+  {
+    path: 'product-detail',
+    loadChildren: () => import('./modules/product/product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
+  },
+  {
+    path:'product-all',
+    loadChildren: () => import('./modules/product/product-all/product-all.module').then( m => m.ProductAllPageModule)
+  },
+  {
+    path: 'product-detail/:id',
+    loadChildren: () => import('./modules/product/product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
   }
 
 ];
