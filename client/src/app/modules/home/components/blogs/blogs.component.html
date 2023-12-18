@@ -10,12 +10,12 @@
       <ion-card-content>
         <p class="ion-no-margin">{{item.content}}</p>
         <ion-row class="timedate ion-align-items-center">
-          <ion-icon name="time-outline"></ion-icon> 
+          <ion-icon name="time-outline"></ion-icon>
           <span class="ion-no-margin">{{item.date}}</span>
         </ion-row>
       </ion-card-content>
       <ion-row class="ion-align-items-center btn-read">
-        <a class="read-button" [routerLink]="['/blog-detail']">Read more</a>
+        <a class="read-button" href={{item.readmore}}>Read more</a>
         <ion-icon name="arrow-forward-outline" class="icon-read-more"></ion-icon>
       </ion-row>
     </ion-card>
