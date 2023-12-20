@@ -1,0 +1,25 @@
+ion-back-button {
+    color: var(--ion-color-dark);
+}
+
+swiper-container {
+    --swiper-pagination-color: var(--ion-color-primary);
+    height: 100%;
+
+    swiper-slide img {
+        display: flex;
+        padding: 10%;
+        justify-content: center;
+        margin-left: 46px;
+
+
+    }
+
+    .title {
+        text-align: center;
+    }
+
+    .paragrapb {
+        text-align: center;
+    }
+}
