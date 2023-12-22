@@ -10,5 +10,10 @@ export class CartService {
   EmprtCart: any[] = [
   ]
   
+  getCartItems(): any[] {
+    const cartData = localStorage.getItem('localCart');
+    return cartData ? JSON.parse(cartData) : [];
+  }
+  
   cartSubject = new Subject<any>()
 }
