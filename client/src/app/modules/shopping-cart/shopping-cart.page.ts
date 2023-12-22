@@ -6,6 +6,8 @@ import { CartService } from 'src/app/services/cart.service';
 import { StoreService } from 'src/app/services/store.service';
 import { UserService } from 'src/app/services/user.service';
 import { OverlayEventDetail } from '@ionic/core/components';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-shopping-cart',
   templateUrl: './shopping-cart.page.html',
@@ -33,11 +35,13 @@ export class ShoppingCartPage implements OnInit {
     private changeDetectorRef: ChangeDetectorRef,
     private userService: UserService,
     private storeService: StoreService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
     this.getUserData()
     this.getCurrentStore()
+    this.readLocalStorageCart();
   }
 
 
@@ -178,5 +182,7 @@ export class ShoppingCartPage implements OnInit {
     window.location.reload();
 
   }
-
+checkout(){
+  this.router.navigate(['./checkout-order'])
+}
 }

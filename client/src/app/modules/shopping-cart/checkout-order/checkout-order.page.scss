@@ -22,13 +22,22 @@ ion-toolbar {
     --background: var(--ion-color-primary);
     --color: var(--ion-color-primary-contrast);
 }
-.colorText{
+ion-modal ion-toolbar {
+    --background: white !important;
+    color: black;
+}
+
+.close-icon {
+    font-size: 30px;
+    color: var(-ion-color-success-contrast);
+}
+.colorTitle{
     color: var(--ion-color-primary);
 }
+.colorText{
+    color: black;
+}
 .cartCardOrder{
-    // max-height: 100%;
-    // display: flex;
-    // flex-direction: column;
     border-radius: 0px;
 }
 .header{
@@ -37,7 +46,6 @@ ion-toolbar {
 .cartTitleOrder{
     font-size: 17px;
     padding: 10px;
-    // margin-bottom: -10px;
 }
 .cartSubTitleOrder{
     font-size: 13px;
@@ -61,7 +69,6 @@ ion-toolbar {
 .cartCACName{
     font-size: 12px;
     font-weight: 700;
-    // max-width: 100%;
 }
 .cartCACPrice{
     font-weight: 700;
@@ -74,7 +81,6 @@ ion-toolbar {
     margin-left: 85px;
     font-size: 14px;
     margin-top: -2px;
-    // background-color: aqua;
 }
 .cartCACAddPromo{
     margin-top: -15px;
@@ -123,3 +129,117 @@ ion-input.cartInput{
     border-radius:30px;
     margin-top: -50px;
 }
+.toolBarPromo{
+    height: 30px;
+}
+
+.inpPromoCode{
+   border: 1px solid;
+   width: 70%;
+   margin-left: 15%;
+   margin-top: -30px;
+   
+}
+.pTitleAlertPromo {
+    font-weight: 700;
+    font-size: 20px;
+    text-align: center;
+    color: var(--ion-color-success-shade);
+    margin-top: -20px;
+    
+}
+.btnTitleAlerPromo{
+    margin-left: 15%;
+    width: 70%;
+    font-weight: 600;
+    background-color: var(--ion-color-primary);
+    text-align: center;
+    color: var(--ion-color-primary-contrast);
+    border-radius: 5px;
+    margin-bottom: 90px;
+}
+.modalSchedule{
+    --border-radius: 13px;
+}
+.modalPromo {
+    --width: 78%;
+    --height: 40%;
+    --border-radius: 13px;
+}
+
+
+// SCSS Modal Edit Contact 
+.ml-25 {
+    margin-left: 25px;
+}
+
+.mr-25 {
+    margin-right: 25px;
+}
+
+ion-back-button {
+    color: var(--ion-color-warning-contrast);
+}
+
+.row-contact {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    ion-label {
+        text-transform: uppercase;
+    }
+
+    .input-contact {
+        display: block;
+        margin-top: 10px;
+        background-color: var(--ion-color-light-shade);
+        padding-left: 10px !important;
+        border: 1px solid var(--ion-color-medium);
+
+        .icon-down-sharp {
+            position: absolute;
+            margin-top: 15px;
+            margin-left: 55px;
+        }
+    }
+}
+
+.col-custom {
+    .checbox-custom {
+        margin-left: 15px;
+    }
+
+    .text-custom {
+        font-size: 16px;
+        margin-left: -15px;
+    }
+}
+
+.row-section {
+    margin: 5px 0 0 0;
+    padding: 0 33px;
+
+    .label-custom {
+        text-transform: uppercase;
+    }
+
+    .input-section {
+        display: block;
+        margin-top: 10px;
+        background-color: var(--ion-color-light-shade);
+        padding-left: 10px !important;
+        border: 1px solid var(--ion-color-medium);
+    }
+}
+
+.btnUpdate{
+    background-color: var(--ion-color-primary);
+    display: flex;
+    justify-content: center;
+    border-radius: 50px;
+    margin: 15px 0;
+    width: 150px;
+    color: var(--ion-color-primary-contrast);
+}
+// End  SCSS Modal Edit Contact 
