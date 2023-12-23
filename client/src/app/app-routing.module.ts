@@ -83,7 +83,12 @@ const routes: Routes = [
   {
     path: 'product-detail/:id',
     loadChildren: () => import('./modules/product/product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
+  },
+  {
+    path: 'filter-result',
+    loadChildren: () => import('./modules/department/department-result/filter-result/filter-result.module').then( m => m.FilterResultPageModule)
   }
+
 
 ];
 

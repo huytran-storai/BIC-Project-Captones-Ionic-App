@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Filter Result</ion-title>
+    <ion-buttons slot="start" (click)="Back()">
+      <ion-icon size="large" icon="caret-back"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col size="6" *ngFor="let store of stores" class="bg-content">
+      <!-- Fix lỗi click add bị vô luôn detail product  -->
+      <ion-card (click)="navigateToProductDetail(store)">
+        <ion-row>
+          <ion-col class="ion-justify-content-center product">
+            <img alt="{{store.name}}" [src]="store.imageUrl" />
+          </ion-col>
+        </ion-row>
+        <ion-card-header>
+          <ion-text class="price">{{store.price}} $</ion-text>
+          <ion-text class="product-name fix-2-row">{{store.name}}</ion-text>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-row class="ion-align-items-center ion-justify-content-between">
+            <ion-text>{{store.unitCapitity}}ml</ion-text>
+            <ion-text>{{store.unitPrice}}%</ion-text>
+          </ion-row>
+          <ion-row class="ion-align-items-center add">
+            <ion-button (click)="addProduct($event, store)"  class="btn" size="small" color="primary">{{
+              checkAdded(store) ? 'Added' : 'Add' }}</ion-button>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>
