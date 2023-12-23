@@ -34,13 +34,6 @@ ion-back-button {
         text-overflow: ellipsis;
     }
 
-    // .fix-2-row {
-    //     display: -webkit-box;
-    //     -webkit-line-clamp: 4;
-    //     -webkit-box-orient: vertical;
-    //     overflow: hidden;
-    // }
-
     .price {
         color: var(--ion-color-primary);
         font-weight: bolder;
@@ -72,5 +65,88 @@ ion-back-button {
             margin-bottom: 15px
         }
     }
+}
+
+ion-toolbar {
+    --background: var(--ion-color-primary-contrast);
+
+    .titleFilter {
+        font-size: x-large;
+        opacity: 0.5;
+        font-weight: 400;
+    }
+
+    .iconClose {
+        color: var(--ion-color-light-contrast);
+    }
+
+}
+
+.typeFilter {
+    margin-left: 20px;
+    color: var(--ion-color-success-shade);
+}
+
+.bar {
+    background-color: var(--ion-color-medium);
+    height: 1px;
+    opacity: 0.7;
+    width: 100%;
+}
+
+.btnSee {
+    background-color: none;
+    color: var(--ion-color-primary-shade);
+    font-size: smaller;
+    font-weight: bold;
+}
+
+ion-checkbox {
+    --size: 22px;
+    --checkbox-background-checked: var(--ion-color-success-shade);
+}
+
+ion-checkbox::part(container) {
+    border-radius: 1px;
+    border: 1px solid var(--ion-color-success-shade);
+}
+
+.btnActionFilter {
+    border-radius: 1px;
+    font-size: medium;
+    width: 150px;
+}
+
+.btnActionFilter {
+    font-weight: 900;
+    --border-radius: 2;
+    --border-color: #000;
+    --border-style: solid;
+    --border-width: 1px;
+
+}
+
+.btnReset {
+    --background: white;
+    --color: var(--ion-color-tertiary-shade);
+    --border-color: var(--ion-color-tertiary-shade);
+    --background-hover: var(--ion-color-step-350);
+
+}
+
+.btnApply {
+    --background: var(--ion-color-tertiary-shade);
+    ;
+    --color: white;
+    --border-color: var(--ion-color-tertiary-shade);
+    --background-hover: var(--ion-color-step-350);
+
+}
+
+.centerBtn {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
 }
