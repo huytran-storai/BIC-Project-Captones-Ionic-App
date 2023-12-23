@@ -220,7 +220,7 @@
         <ion-label class="cartCACName ion-text-wrap colorText">
           {{item.name}}
           <ion-label>
-            <p class="cartCACPrice colorText">${{item.originalPrice}}.00</p>
+            <p class="cartCACPrice colorText">{{item.price | number:'1.0-0'}} ₫</p>
           </ion-label>
         </ion-label>
         <p class="setQuantity cartCACPrice ion-text-center">
@@ -231,7 +231,7 @@
       <ion-item lines="full" lines="none">
         <ion-label class="cartCACViewDetail colorText">
           <ion-row class="ion-justify-content-between">
-            <div class="cartCACPrice">${{item.originalPrice * item.productQuantityAddDefault}}.00</div>
+            <div class="cartCACPrice">{{item.price * item.productQuantityAddDefault | number:'1.0-0'}} ₫</div>
           </ion-row>
         </ion-label>
       </ion-item>
@@ -252,19 +252,19 @@
           </ion-row>
           <ion-row class="ion-justify-content-between cartCardSubOrder">
             Subtotal:
-            <div>${{subTotal()}}.00</div>
+            <div>{{subTotal()| number:'1.0-0'}} ₫</div>
           </ion-row>
           <ion-row class="ion-justify-content-between cartCardSubOrder">
             Tax:
-            <div>${{tax}}</div>
+            <div>{{tax| number:'1.0-0'}} ₫</div>
           </ion-row>
           <ion-row class="ion-justify-content-between cartCardSubOrder">
             Delivery fee:
-            <div>${{deliveryFee}}</div>
+            <div>{{deliveryFee| number:'1.0-0'}} ₫</div>
           </ion-row>
           <ion-row style="margin-bottom: 20px;" class="ion-justify-content-between cartCardSubOrder">
             Order total:
-            <div>${{subTotal() + tax + deliveryFee}}</div>
+            <div>{{subTotal() + tax + deliveryFee| number:'1.0-0'}} ₫</div>
           </ion-row>
         </h3>
       </ion-label>

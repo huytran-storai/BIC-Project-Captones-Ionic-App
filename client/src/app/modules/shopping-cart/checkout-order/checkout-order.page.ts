@@ -29,7 +29,7 @@ export class CheckOutOrderPage implements OnInit {
   checkItemsCart: boolean = false;
   public currentStore: any;
   public user: any;
-  tax = 0.65;
+  tax = 65000;
   deliveryFee: number = 0;
   contactInfo: any = {};
   newFirstName: string = '';
@@ -120,7 +120,7 @@ export class CheckOutOrderPage implements OnInit {
     subTotal(): number {
       let subTotal = 0;
       for (const product of this.cartItems) {
-        subTotal += product.originalPrice * product.productQuantityAddDefault;
+        subTotal += product.price * product.productQuantityAddDefault;
       }
       return subTotal;
     }
@@ -166,7 +166,7 @@ export class CheckOutOrderPage implements OnInit {
         this.pickupChecked = false;
         this.deliveryFee = 0;
         if (this.deliveryChecked) {
-          this.deliveryFee = 5; 
+          this.deliveryFee = 50000; 
         }
       }
     }

@@ -19,7 +19,7 @@ export class ShoppingCartPage implements OnInit {
   @ViewChild(IonModal)
   modal!: IonModal;
   CartItem = ''
-  tax = 0.65
+  tax = 65000
   checkItemsCart: boolean = false;
   public _numberOfItems: number | undefined;
   alerCtrl: any;
@@ -172,7 +172,7 @@ export class ShoppingCartPage implements OnInit {
   subTotal(): number {
     let subTotal = 0;
     for (const product of this.getCartDetails) {
-      subTotal += product.originalPrice * product.productQuantityAddDefault;
+      subTotal += product.price * product.productQuantityAddDefault;
     }
     return subTotal;
   }

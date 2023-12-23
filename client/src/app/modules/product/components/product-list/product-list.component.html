@@ -17,7 +17,7 @@
             </ion-col>
           </ion-row>
           <ion-card-header>
-            <ion-text class="price">{{store.price}} $</ion-text>
+            <ion-text class="price">{{store.price | number:'1.0-0'}} ₫</ion-text>
             <ion-text class="product-name fix-2-row">{{store.name}}</ion-text>
           </ion-card-header>
           <ion-card-content>
