@@ -1,6 +1,7 @@
 <ion-header>
   <ion-toolbar class="header">
-    <ion-title *ngIf="checkItemsCart">Cart </ion-title>
+    <ion-title *ngIf="checkItemsCart">Cart
+    </ion-title>
     <ion-title *ngIf="!checkItemsCart">Cart<ion-text style="font-size: 12px;font-weight: 300"><br />
       </ion-text>
     </ion-title>
@@ -42,7 +43,7 @@
           <ion-label class="cartCACName ion-text-wrap colorTextProd">
             {{prod.name}}
             <ion-label>
-              <p class="cartCACPrice colorTextProd">${{prod.originalPrice}}.00</p>
+              <p class="cartCACPrice colorTextProd">{{prod.price | number:'1.0-0'}} ₫</p>
             </ion-label>
           </ion-label>
           <div class="wrapper" style="margin-top: -40px">
@@ -57,7 +58,7 @@
             <ion-input style="font-size: 12px;" placeholder="Add note..."></ion-input>
           </ion-col>
           <ion-col>
-            <div class="">$ {{prod.originalPrice * prod.productQuantityAddDefault}}.00</div>
+            <div class="">{{prod.price * prod.productQuantityAddDefault | number:'1.0-0'}} ₫</div>
           </ion-col>
         </ion-row>
       </ion-card-content>
@@ -113,15 +114,15 @@
           </ion-row>
           <ion-row class="ion-justify-content-between cartCardSubOrder">
             Subtotal:
-            <div>${{subTotal()}}.00</div>
+            <div>{{subTotal()| number:'1.0-0'}} ₫</div>
           </ion-row>
           <ion-row class="ion-justify-content-between cartCardSubOrder">
             Tax:
-            <div>${{tax}}</div>
+            <div>{{tax | number:'1.0-0'}} ₫</div>
           </ion-row>
           <ion-row style="margin-bottom: 20px;" class="ion-justify-content-between titleTotal">
             Order total:
-            <div>${{subTotal() + tax}}</div>
+            <div>{{subTotal() + tax | number:'1.0-0'}} ₫</div>
           </ion-row>
         </h3>
       </ion-label>

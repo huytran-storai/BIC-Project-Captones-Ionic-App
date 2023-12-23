@@ -18,8 +18,8 @@
       <ion-row>
         <ion-card-subtitle>{{productDetail.name}}</ion-card-subtitle>
         <ion-col class="col-price">
-          <ion-card-title class="original-price">$ {{productDetail.originalPrice}} avg/ea</ion-card-title>
-          <ion-card-title>$ {{productDetail.price}} avg/ea</ion-card-title>
+          <ion-card-title class="original-price">{{productDetail.originalPrice | number:'1.0-0'}}₫ avg/ea</ion-card-title>
+          <ion-card-title>{{productDetail.price | number:'1.0-0'}}₫ avg/ea</ion-card-title>
         </ion-col>
       </ion-row>
     </ion-card-header>
@@ -27,7 +27,7 @@
       <ion-row>
         <ion-col>
           <ion-text class="text-unitCapitity">{{productDetail.unitCapitity}} lb </ion-text> | <ion-text
-            class="text-unitPrice">${{productDetail.unitPrice}}/lb </ion-text>
+            class="text-unitPrice">₫{{productDetail.unitPrice}}/lb </ion-text>
         </ion-col>
       </ion-row>
       <ion-row class="ion-align-items-center">
