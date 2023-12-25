@@ -96,7 +96,7 @@ ion-toolbar {
 
 .btnSee {
     background-color: none;
-    color: var(--ion-color-primary-shade);
+    color: var(--ion-color-primary);
     font-size: smaller;
     font-weight: bold;
 }
@@ -127,18 +127,18 @@ ion-checkbox::part(container) {
 }
 
 .btnReset {
-    --background: white;
-    --color: var(--ion-color-tertiary-shade);
-    --border-color: var(--ion-color-tertiary-shade);
+    --background: var(--ion-color-primary-contrast);
+    --color: var(--ion-color-primary);
+    --border-color: var(--ion-color-primary);
     --background-hover: var(--ion-color-step-350);
 
 }
 
 .btnApply {
-    --background: var(--ion-color-tertiary-shade);
+    --background: var(--ion-color-primary);
     ;
-    --color: white;
-    --border-color: var(--ion-color-tertiary-shade);
+    --color: var(--ion-color-primary-contrast);
+    --border-color: var(--ion-color-primary);
     --background-hover: var(--ion-color-step-350);
 
 }
@@ -148,5 +148,4 @@ ion-checkbox::part(container) {
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
