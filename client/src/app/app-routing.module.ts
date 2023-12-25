@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
-
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./modules/home/home.module').then(m => m.HomePageModule)
+    loadChildren: () => import('./modules/home/home.module').then(m => m.HomePageModule),
+
   },
   {
     path: '',
     redirectTo: 'home',
-    pathMatch: 'full'
+    pathMatch: 'full',
+
   },
   {
     path: 'more',
@@ -53,6 +54,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/more/account/account.module').then(m => m.AccountPageModule)
   },
   {
+    path: 'aboutourapp',
+    loadChildren: () => import('./modules/more/aboutourapp/aboutourapp.module').then(m => m.AboutourappPageModule),
+  },
+  {
     path: 'blog-detail',
     loadChildren: () => import('./modules/home/blog-detail/blog-detail.module').then(m => m.BlogDetailPageModule)
   },
@@ -73,22 +78,25 @@ const routes: Routes = [
     loadChildren: () => import('./modules/more/account/edit-contact/edit-contact.module').then(m => m.EditContactPageModule)
   },
   {
-    path: 'product-detail',
-    loadChildren: () => import('./modules/product/product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
+    path: 'intro',
+    loadChildren: () => import('./modules/more/aboutourapp/intro/intro.module').then(m => m.IntroPageModule)
   },
   {
-    path:'product-all',
-    loadChildren: () => import('./modules/product/product-all/product-all.module').then( m => m.ProductAllPageModule)
+    path: 'product-detail',
+    loadChildren: () => import('./modules/product/product-detail/product-detail.module').then(m => m.ProductDetailPageModule)
+  },
+  {
+    path: 'product-all',
+    loadChildren: () => import('./modules/product/product-all/product-all.module').then(m => m.ProductAllPageModule)
   },
   {
     path: 'product-detail/:id',
-    loadChildren: () => import('./modules/product/product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
+    loadChildren: () => import('./modules/product/product-detail/product-detail.module').then(m => m.ProductDetailPageModule)
   },
   {
     path: 'filter-result',
-    loadChildren: () => import('./modules/department/department-result/filter-result/filter-result.module').then( m => m.FilterResultPageModule)
+    loadChildren: () => import('./modules/department/department-result/filter-result/filter-result.module').then(m => m.FilterResultPageModule)
   }
-
 
 ];
 

@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar style="height: 50px;">
+    <ion-buttons slot="start" class="back">
+      <ion-back-button text="" icon="caret-back" defaultHref="/aboutourapp"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-justify-content-center">About Our App</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <swiper-container [pagination]="{clickable:true, dynamicBullets:true}">
+    <swiper-slide class="ion-padding">
+      <img src="../../../../../assets/intro1.png">
+      <div class="title">
+        <h2>Chat bot</h2>
+      </div>
+      <div class="paragrapb">
+        <h4>Currently you can receive service consultation from us via chat bot </h4>
+      </div>
+    </swiper-slide>
+    <swiper-slide class="ion-padding">
+      <img src="../../../../../assets/intro2.png">
+      <div class="title">
+        <h2>Take Note</h2>
+      </div>
+      <div class="paragrapb">
+        <h4>You can leave a note to the store what you need </h4>
+      </div>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>
