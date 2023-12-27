@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { CartService } from 'src/app/services/cart.service';
 import { StoreService } from 'src/app/services/store.service';
-import { Store } from 'src/app/shared/models/Store';
+import { ProductItem } from 'src/app/shared/models/ProductItem';
 
 @Component({
   selector: 'app-product-all',
@@ -11,7 +11,7 @@ import { Store } from 'src/app/shared/models/Store';
   styleUrls: ['./product-all.page.scss'],
 })
 export class ProductAllPage implements OnInit {
-  stores: Store[] = [];
+  items: ProductItem[] = [];
   constructor(
     private CartService: CartService,
     private StoreService: StoreService,
@@ -20,11 +20,11 @@ export class ProductAllPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.stores = this.StoreService.getAll();
+    this.items = this.StoreService.getAll();
   }
 
-  navigateToProductDetail(store: any) {
-    this.router.navigate(['product-detail/', store.id]); 
+  navigateToProductDetail(item: any) {
+    this.router.navigate(['product-detail/', item.id]); 
   }
 
   Back(){
@@ -34,7 +34,7 @@ export class ProductAllPage implements OnInit {
   checkAdded(product: any): boolean {
     const productId = product.id;
     this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
-    let isConditionTrue = false; // Mặc định là false
+    let isConditionTrue = false; 
   
     for (let i = 0; i < this.itemCart.length; i++) {
       if (parseInt(productId) === parseInt(this.itemCart[i].id)) {
@@ -42,37 +42,35 @@ export class ProductAllPage implements OnInit {
         break;
       }
     }
-  
-    return isConditionTrue; // Trả về kết quả boolean
+    return isConditionTrue; 
   }
 
-  // Dùng để tách sự kiện Add với Navigate Detail Product
-  redirectToProductDetail(event: Event, store: any) {
+  redirectToProductDetail(event: Event, items: any) {
     event.stopPropagation();
-    this.navigateToProductDetail(store);
+    this.navigateToProductDetail(items);
   }
 
   itemCart:any = []
-  addProduct(event: Event,store: any){
+  addProduct(event: Event,item: any){
     event.stopPropagation();
     let cartDataNull = localStorage.getItem('localCart');
     if(cartDataNull == null) {
       let storeDataGet:any =[]
-      storeDataGet.push(store)
+      storeDataGet.push(item)
       localStorage.setItem('localCart', JSON.stringify(storeDataGet));
     } else {
-      var productId = store.id;
+      var productId = item.id;
       let index:number = -1;
       this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
       for(let i = 0 ; i < this.itemCart.length; i++){
         if(parseInt(productId) === parseInt(this.itemCart[i].id)){
-          this.itemCart[i].productQuantityAddDefault += store.productQuantityAddDefault
+          this.itemCart[i].productQuantityAddDefault += item.productQuantityAddDefault
           index = i;
           break; 
         }
       }
       if(index == -1){
-        this.itemCart.push(store)
+        this.itemCart.push(item)
         localStorage.setItem('localCart', JSON.stringify(this.itemCart))
       }
       else{

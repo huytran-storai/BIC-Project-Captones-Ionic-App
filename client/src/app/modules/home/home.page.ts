@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { StoreInfo } from 'src/app/shared/models/StoreInfo';
 import { UserService } from 'src/app/services/user.service';
 import { StoreService } from 'src/app/services/store.service';
 @Component({
@@ -9,7 +9,7 @@ import { StoreService } from 'src/app/services/store.service';
 })
 export class HomePage implements OnInit {
   public user: any;
-  public currentStore: any;
+  public currentStore: StoreInfo = {name: "No having data store...", address:" "};
 
   constructor(
     private userService: UserService,

@@ -7,27 +7,27 @@
     </div>
   </ion-card-title>
   <swiper-container [slidesPerView]="2" [zoom]="false" navigation="true">
-    <swiper-slide *ngFor="let store of stores" class="bg-content">
+    <swiper-slide *ngFor="let item of items" class="bg-content">
       <ion-col size="6">
         <!-- product list -->
-        <ion-card (click)="navigateToProductDetail(store)">
+        <ion-card (click)="navigateToProductDetail(item)">
           <ion-row>
             <ion-col class="ion-justify-content-center product">
-              <img alt="{{store.name}}" [src]="store.imageUrl" />
+              <img alt="{{item.name}}" [src]="item.imageUrl" />
             </ion-col>
           </ion-row>
           <ion-card-header>
-            <ion-text class="price">{{store.price | number:'1.0-0'}} ₫</ion-text>
-            <ion-text class="product-name fix-2-row">{{store.name}}</ion-text>
+            <ion-text class="price">{{item.price | number:'1.0-0'}} ₫</ion-text>
+            <ion-text class="product-name fix-2-row">{{item.name}}</ion-text>
           </ion-card-header>
           <ion-card-content>
             <ion-row class="ion-align-items-center ion-justify-content-between">
-              <ion-text>{{store.unitCapitity}}lb</ion-text>
-              <ion-text>{{store.unitPrice}}/lb</ion-text>
+              <ion-text>{{item.unitCapitity}}lb</ion-text>
+              <ion-text>{{item.unitPrice}}/lb</ion-text>
             </ion-row>
             <ion-row class="ion-align-items-center add">
-              <ion-button (click)="addProduct($event, store)" class="btn" size="small" color="primary">{{
-                checkAdded(store) ? 'Added' : 'Add' }}</ion-button>
+              <ion-button (click)="addProduct($event, item)" class="btn" size="small" color="primary">{{
+                checkAdded(item) ? 'Added' : 'Add' }}</ion-button>
             </ion-row>
           </ion-card-content>
         </ion-card>

@@ -1,6 +1,6 @@
 import { StoreService } from 'src/app/services/store.service';
 import { Component, OnInit } from '@angular/core';
-import { Store } from '../../../shared/models/Store';
+import { ProductItem } from '../../../shared/models/ProductItem';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class SearchProductPage implements OnInit {
   searchTerm = '';
-  stores: Store[] = [];
+  items: ProductItem[] = [];
   isModalOpen = false;
   selectedProduct: any;
   constructor(
@@ -35,10 +35,10 @@ export class SearchProductPage implements OnInit {
 
   updateSearchResults(): void {
     if (this.searchTerm) {
-      this.stores = this.StoreService.getAllStoreBySearchTerm(this.searchTerm);
+      this.items = this.StoreService.getAllStoreBySearchTerm(this.searchTerm);
     }
     else{
-      this.stores = []
+      this.items = []
     }
   }
 

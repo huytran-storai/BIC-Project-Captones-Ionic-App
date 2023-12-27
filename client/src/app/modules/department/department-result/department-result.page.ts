@@ -110,25 +110,25 @@ export class DepartmentResultPage implements OnInit {
     return isConditionTrue;   
   }
 
-  addProduct(store: any){
+  addProduct(items: any){
     let cartDataNull = localStorage.getItem('localCart');
     if(cartDataNull == null) {
       let storeDataGet:any =[]
-      storeDataGet.push(store)
+      storeDataGet.push(items)
       localStorage.setItem('localCart', JSON.stringify(storeDataGet));
     } else {
-      var productId = store.id;
+      var productId = items.id;
       let index:number = -1;
       this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
       for(let i = 0 ; i < this.itemCart.length; i++){
         if(parseInt(productId) === parseInt(this.itemCart[i].id)){
-          this.itemCart[i].productQuantityAddDefault += store.productQuantityAddDefault
+          this.itemCart[i].productQuantityAddDefault += items.productQuantityAddDefault
           index = i;
           break; 
         }
       }
       if(index == -1){
-        this.itemCart.push(store)
+        this.itemCart.push(items)
         localStorage.setItem('localCart', JSON.stringify(this.itemCart))
       }
       else{

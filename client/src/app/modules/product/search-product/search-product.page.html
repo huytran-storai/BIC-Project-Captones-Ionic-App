@@ -12,8 +12,8 @@
 
 <ion-content [fullscreen]="true">
   <ion-content color="light">
-    <a (click)="navigateToProductDetail(product)" *ngFor="let product of stores">
-      <ion-list [inset]="true" class="list-result" *ngIf="stores.length > 0">
+    <a (click)="navigateToProductDetail(product)" *ngFor="let product of items">
+      <ion-list [inset]="true" class="list-result" *ngIf="items.length > 0">
           <ion-item>
             <ion-label>{{ product.name }}</ion-label>
           </ion-item>

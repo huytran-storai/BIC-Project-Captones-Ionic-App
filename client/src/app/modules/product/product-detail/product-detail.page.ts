@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
 import { ModalController, NavController } from '@ionic/angular';
-import { Store } from 'src/app/shared/models/Store';
 import { ActivatedRoute } from '@angular/router';
 import { StoreService } from 'src/app/services/store.service';
 @Component({
@@ -67,12 +66,10 @@ export class ProductDetailPage implements OnInit {
     product.addedSugar = !product.addedSugar;
   }
 
-
-
   checkAdded(product: any): boolean {
     const productId = product.id;
     this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
-    let isConditionTrue = false; // Mặc định là false
+    let isConditionTrue = false;
   
     for (let i = 0; i < this.itemCart.length; i++) {
       if (parseInt(productId) === parseInt(this.itemCart[i].id)) {
@@ -81,31 +78,30 @@ export class ProductDetailPage implements OnInit {
       }
     }
   
-    return isConditionTrue; // Trả về kết quả boolean
+    return isConditionTrue;
   }
 
-
-  
   itemCart:any = []
-  addProduct(store: any){
+
+  addProduct(item: any){
     let cartDataNull = localStorage.getItem('localCart');
     if(cartDataNull == null) {
       let storeDataGet:any =[]
-      storeDataGet.push(store)
+      storeDataGet.push(item)
       localStorage.setItem('localCart', JSON.stringify(storeDataGet));
     } else {
-      var productId = store.id;
+      var productId = item.id;
       let index:number = -1;
       this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
       for(let i = 0 ; i < this.itemCart.length; i++){
         if(parseInt(productId) === parseInt(this.itemCart[i].id)){
-          this.itemCart[i].productQuantityAddDefault += store.productQuantityAddDefault
+          this.itemCart[i].productQuantityAddDefault += item.productQuantityAddDefault
           index = i;
           break; 
         }
       }
       if(index == -1){
-        this.itemCart.push(store)
+        this.itemCart.push(item)
         localStorage.setItem('localCart', JSON.stringify(this.itemCart))
       }
       else{

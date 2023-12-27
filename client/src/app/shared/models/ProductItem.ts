@@ -1,4 +1,4 @@
-export class Store {
+export class ProductItem {
     id!: string;
     name!: string;
     originalPrice!: number;

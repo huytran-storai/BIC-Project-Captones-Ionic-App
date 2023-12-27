@@ -1,7 +1,7 @@
-import { Store } from "./app/shared/models/Store";
+import { ProductItem } from "./app/shared/models/ProductItem";
 import { Tag } from "./app/shared/models/Tag";
 import { News } from "./app/shared/models/News";
-export const sample_stores: Store[] = [
+export const sampleProductItems: ProductItem[] = [
   {
     id: '1',
     name: 'Champagne Dom Perignon Vintage 2008',
@@ -162,8 +162,7 @@ export const sample_news: News[] = [
     title: 'Vinography Unboxed: Week of 11/26/23',
     content: 'This past week included a few wines that didn’t make the final cut for inclusion in my roundup of the best sparkling wines in California that I wrote for Jancis Robinson last month.',
     date: '11/26/23',
-    readmore: 'https://www.vinography.com/2023/12/vinography-unboxed-week-of-11-26-23',
-
+    url: 'https://www.vinography.com/2023/12/vinography-unboxed-week-of-11-26-23',
   },
 
   {
@@ -171,7 +170,7 @@ export const sample_news: News[] = [
     title: 'The 2023 Vinography Holiday Gift Guide for Wine Lovers',
     content: 'There are always two things noticeably absent from this guide, and very much on purpose.',
     date: '17-11-2023',
-    readmore: 'https://www.vinography.com/2023/11/the-2023-vinography-holiday-gift-guide-for-wine-lovers',
+    url: 'https://www.vinography.com/2023/11/the-2023-vinography-holiday-gift-guide-for-wine-lovers',
   },
 
   {
@@ -179,7 +178,7 @@ export const sample_news: News[] = [
     title: 'California’s Top Sparkling Wines',
     content: 'We’ve seen a refocus in California sparkling wine to site specificity, with people making wines that are much more targeted in their terroir expression',
     date: '17-11-2023',
-    readmore: 'https://www.vinography.com/2023/11/californias-top-sparkling-wines',
+    url: 'https://www.vinography.com/2023/11/californias-top-sparkling-wines',
 
   },
   {
@@ -187,8 +186,7 @@ export const sample_news: News[] = [
     title: 'The World’s Greatest Wine Reference Book Gets a Major Overhaul',
     content: 'For the first time, the editorship of this book was handed off to Julia Harding and her new partner in crime Tara Q.',
     date: '31-10-2023',
-    readmore: 'https://www.vinography.com/2023/10/the-worlds-greatest-wine-reference-book-gets-a-major-overhaul',
-
+    url: 'https://www.vinography.com/2023/10/the-worlds-greatest-wine-reference-book-gets-a-major-overhaul',
   },
 
 ]

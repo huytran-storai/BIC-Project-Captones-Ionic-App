@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Store } from 'src/app/shared/models/Store';
+import { ProductItem } from 'src/app/shared/models/ProductItem';
 import { StoreService } from 'src/app/services/store.service';
 import { ModalController } from '@ionic/angular';
 import { register } from 'swiper/element/bundle';
@@ -12,95 +12,91 @@ register();
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
-  stores: Store[] = [];
+  items: ProductItem[] = [];
   isModalOpen = false;
   selectedProduct: any;
   isModalViewAllProductOpen = false;
   public _numberOfItems: number | undefined;
-  itemCart:any = []
+  itemCart: any = []
 
   constructor(
     private CartService: CartService,
     private StoreService: StoreService,
-     private modalController: ModalController,
-     private router: Router
-     ) {
-  }
-  
-  ngOnInit(): void {
-    this.stores = this.StoreService.getAll();
+    private modalController: ModalController,
+    private router: Router
+  ) {
   }
 
-  navigateToProductDetail(store: any) {
-    this.router.navigate(['product-detail/', store.id]); 
+  ngOnInit(): void {
+    this.items = this.StoreService.getAll();
+  }
+
+  navigateToProductDetail(item: any) {
+    this.router.navigate(['product-detail/', item.id]);
   }
 
   navigateToProductAll() {
-    this.router.navigate(['product-all/',]); 
+    this.router.navigate(['product-all/',]);
   }
 
- 
   subTotal(): number {
     let subTotal = 0;
-    for (const product of this.stores) {
+    for (const product of this.items) {
       subTotal += product.originalPrice * product.productQuantityAddDefault;
     }
     return subTotal;
   }
- 
-  checkAdded(store: any): boolean {
-    const productId = store.id;
+
+  checkAdded(item: any): boolean {
+    const productId = item.id;
     this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
-    let isConditionTrue = false; 
-  
+    let isConditionTrue = false;
+
     for (let i = 0; i < this.itemCart.length; i++) {
       if (parseInt(productId) === parseInt(this.itemCart[i].id)) {
         isConditionTrue = true;
         break;
       }
     }
-  
-    return isConditionTrue; 
+
+    return isConditionTrue;
   }
 
-
-  redirectToProductDetail(event: Event, store: any) {
+  redirectToProductDetail(event: Event, item: any) {
     event.stopPropagation();
-    this.navigateToProductDetail(store);
+    this.navigateToProductDetail(item);
   }
-
 
   isConditionTrue: boolean = false;
-  addProduct(event: Event,store: any){
+  addProduct(event: Event, item: any) {
     event.stopPropagation();
     let cartDataNull = localStorage.getItem('localCart');
-    if(cartDataNull == null) {
-      let storeDataGet:any =[]
-      storeDataGet.push(store)
+    if (cartDataNull == null) {
+      let storeDataGet: any = []
+      storeDataGet.push(item)
       localStorage.setItem('localCart', JSON.stringify(storeDataGet));
     } else {
-      var productId = store.id;
-      let index:number = -1;
+      var productId = item.id;
+      let index: number = -1;
       this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
-      for(let i = 0 ; i < this.itemCart.length; i++){
-        if(parseInt(productId) === parseInt(this.itemCart[i].id)){
-          this.itemCart[i].productQuantityAddDefault += store.productQuantityAddDefault
+      for (let i = 0; i < this.itemCart.length; i++) {
+        if (parseInt(productId) === parseInt(this.itemCart[i].id)) {
+          this.itemCart[i].productQuantityAddDefault += item.productQuantityAddDefault
           index = i;
           break;
-          
+
         }
       }
-      if(index == -1){
-        this.itemCart.push(store)
+      if (index == -1) {
+        this.itemCart.push(item)
         localStorage.setItem('localCart', JSON.stringify(this.itemCart))
       }
-      else{
+      else {
         localStorage.setItem('localCart', JSON.stringify(this.itemCart))
       }
-      
-    } 
-    
-    
+
+    }
+
   }
-  
-  }
+
+}

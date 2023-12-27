@@ -1,10 +1,8 @@
 import { Tag } from './../shared/models/Tag';
 import { Injectable } from '@angular/core';
-import { Store } from '../shared/models/Store';
-import { sample_stores, sample_tags, } from 'src/data';
+import { ProductItem } from '../shared/models/ProductItem';
+import { sampleProductItems, sample_tags, } from 'src/data';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -14,35 +12,32 @@ export class StoreService {
   constructor(private http: HttpClient) { }
 
   getStores() {
-    return this.http.get<Store[]>('/api/stores');
+    return this.http.get<ProductItem[]>('/api/stores');
   }
 
-  getAll(): Store[] {
-    return sample_stores;
-
+  getAll(): ProductItem[] {
+    return sampleProductItems;
   }
   
-  getProductById(id: any): Store | undefined {
-    return sample_stores.find(store => store.id === id);
+  getProductById(id: any): ProductItem | undefined {
+    return sampleProductItems.find(item => item.id === id);
   }
 
   getAllStoreBySearchTerm(searchTerm: string) {
-    return this.getAll().filter(store => store.name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase()))
+    return this.getAll().filter(item => item.name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase()))
   }
 
   getAllTags(): Tag[] {
     return sample_tags;
   }
 
-  getAllStoreByTagName(tag: string): Store[] {
-    return this.getAll().filter(store => store.tags?.includes(tag));
+  getAllStoreByTagName(tag: string): ProductItem[] {
+    return this.getAll().filter(item => item.tags?.includes(tag));
   }
 
   getCurrentStoreAddress() {
     return this.http.get(`${this.apiUrl}/stores`);
   }
-
- 
 
 }
 
