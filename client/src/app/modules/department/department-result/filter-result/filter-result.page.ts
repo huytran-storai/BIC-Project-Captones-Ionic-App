@@ -12,6 +12,8 @@ import { NavController } from '@ionic/angular';
 })
 export class FilterResultPage implements OnInit {
   items: ProductItem[] = [];
+  cartNumber: number = 0;
+  itemCart: any = []
 
   constructor(
     private StoreService: StoreService,
@@ -21,49 +23,47 @@ export class FilterResultPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.items = this.StoreService.getAll();
+    this.items = this.StoreService.getAllProducts();
   }
 
-  Back(){
+  Back() {
     this.navCtrl.back()
   }
 
   navigateToProductDetail(items: any) {
-    this.router.navigate(['product-detail/', items.id]); 
+    this.router.navigate(['product-detail/', items.id]);
   }
 
-  itemCart:any = []
-  addProduct(event: Event,items: any){
+  addProduct(event: Event, items: any) {
     event.stopPropagation();
     let cartDataNull = localStorage.getItem('localCart');
-    if(cartDataNull == null) {
-      let storeDataGet:any =[]
+    if (cartDataNull == null) {
+      let storeDataGet: any = []
       storeDataGet.push(items)
       localStorage.setItem('localCart', JSON.stringify(storeDataGet));
     } else {
       var productId = items.id;
-      let index:number = -1;
+      let index: number = -1;
       this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
-      for(let i = 0 ; i < this.itemCart.length; i++){
-        if(parseInt(productId) === parseInt(this.itemCart[i].id)){
+      for (let i = 0; i < this.itemCart.length; i++) {
+        if (parseInt(productId) === parseInt(this.itemCart[i].id)) {
           this.itemCart[i].productQuantityAddDefault += items.productQuantityAddDefault
           index = i;
-          break; 
+          break;
         }
       }
-      if(index == -1){
+      if (index == -1) {
         this.itemCart.push(items)
         localStorage.setItem('localCart', JSON.stringify(this.itemCart))
       }
-      else{
+      else {
         localStorage.setItem('localCart', JSON.stringify(this.itemCart))
       }
     }
+
     this.cartNumberFunc();
-   
   }
 
-  cartNumber: number = 0;
   cartNumberFunc() {
     var cartValue = localStorage.getItem('localCart');
     if (cartValue !== null) {
@@ -77,16 +77,16 @@ export class FilterResultPage implements OnInit {
   checkAdded(product: any): boolean {
     const productId = product.id;
     this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
-    let isConditionTrue = false; 
-  
+    let isConditionTrue = false;
+
     for (let i = 0; i < this.itemCart.length; i++) {
       if (parseInt(productId) === parseInt(this.itemCart[i].id)) {
         isConditionTrue = true;
         break;
       }
     }
-  
-    return isConditionTrue; 
+
+    return isConditionTrue;
   }
 
 }

@@ -20,7 +20,7 @@ export class ProductAllPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.items = this.StoreService.getAll();
+    this.items = this.StoreService.getAllProducts();
   }
 
   navigateToProductDetail(item: any) {

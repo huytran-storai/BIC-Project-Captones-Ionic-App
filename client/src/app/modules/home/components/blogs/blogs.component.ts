@@ -13,8 +13,7 @@ export class BlogsComponent implements OnInit {
   constructor(private NewsService: NewsService) { }
 
   ngOnInit(): void {
-    this.news = this.NewsService.getAll()
-    console.log("===<", this.news)
+    this.news = this.NewsService.getAllNews()
   }
 
 }

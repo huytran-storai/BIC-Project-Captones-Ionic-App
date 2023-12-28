@@ -28,7 +28,7 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.items = this.StoreService.getAll();
+    this.items = this.StoreService.getAllProducts();
   }
 
   navigateToProductDetail(item: any) {
