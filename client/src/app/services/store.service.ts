@@ -9,14 +9,13 @@ import { HttpClient } from '@angular/common/http';
 export class StoreService {
   // private apiUrl = 'https://attractive-star-afacd2432f.strapiapp.com/api';
   private apiUrl = 'http://localhost:1337/api';
-
   constructor(private http: HttpClient) { }
 
   getStores() {
     return this.http.get<ProductItem[]>('/api/stores');
   }
 
-  getAllProducts(): ProductItem[] {
+  getAll(): ProductItem[] {
     return sampleProductItems;
   }
   
@@ -24,16 +23,16 @@ export class StoreService {
     return sampleProductItems.find(item => item.id === id);
   }
 
-  getAllProductBySearchTerm(searchTerm: string) {
-    return this.getAllProducts().filter(item => item.name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase()))
+  getAllStoreBySearchTerm(searchTerm: string) {
+    return this.getAll().filter(item => item.name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase()))
   }
 
   getAllTags(): Tag[] {
     return sample_tags;
   }
 
-  getAllProductByTagName(tag: string): ProductItem[] {
-    return this.getAllProducts().filter(item => item.tags?.includes(tag));
+  getAllStoreByTagName(tag: string): ProductItem[] {
+    return this.getAll().filter(item => item.tags?.includes(tag));
   }
 
   getCurrentStoreAddress() {

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegularExpression } from 'src/app/shared/validate/constants';
+import { UserRegisterService } from 'src/app/services/user-register.service';
 import { UserService } from 'src/app/services/user.service';
 import { MaskitoOptions, MaskitoElementPredicateAsync } from '@maskito/core';
 
@@ -21,7 +22,7 @@ export class SignUpPage {
 
   readonly maskPredicate: MaskitoElementPredicateAsync = async (el) => (el as HTMLIonInputElement).getInputElement();
 
-  constructor(private router: Router, private userService: UserService) {
+  constructor(private router: Router, private authService: UserRegisterService, private userService: UserService) {
     this.form = new FormGroup({
       'email': new FormControl(null, [Validators.required, Validators.email]),
       'phone': new FormControl(null, [Validators.required]),
@@ -42,14 +43,14 @@ export class SignUpPage {
       if (emailControl && passwordControl) {
         const email = emailControl.value;
         const password = passwordControl.value;
-        this.userService.loginUser({ identifier: email, password })
+        this.authService.login({ identifier: email, password })
           .subscribe(
             (response: any) => {
               this.userService.setUserData(response);
               this.router.navigate(['/home']);
             },
-            (err) => {
-              console.error(err);
+            (error) => {
+              console.error(error);
             }
           );
       }

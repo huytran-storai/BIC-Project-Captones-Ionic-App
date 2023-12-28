@@ -7,7 +7,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ShareModule } from './components/shared-components.module';
-import { UserService } from './services/user.service';
+import { UserRegisterService } from './services/user-register.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MaskitoModule } from '@maskito/angular';
 import { IonicStorageModule } from '@ionic/storage-angular';
@@ -16,7 +16,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot({ innerHTMLTemplatesEnabled: true }), AppRoutingModule, MaskitoModule, ShareModule, HttpClientModule, IonicStorageModule.forRoot()],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, UserService],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, UserRegisterService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -12,9 +12,10 @@ import { MaskitoOptions, MaskitoElementPredicateAsync } from '@maskito/core';
 })
 export class AddAddressPage implements OnInit {
   billingChecked: boolean = false;
+
   deliveryChecked: boolean = false;
   editForm: FormGroup;
-  
+
   constructor(private formBuilder: FormBuilder, private router: Router) {
     this.editForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.pattern(RegularExpression.OnlyAlphabets)]],
@@ -26,9 +27,6 @@ export class AddAddressPage implements OnInit {
       code: ['', [Validators.required, Validators.pattern(RegularExpression.ZipPattern)]],
       phone: ['', [Validators.required, Validators.pattern(RegularExpression.PhoneNumber)]],
     });
-  }
-
-  ngOnInit() {
   }
 
   SaveForm() {
@@ -55,6 +53,7 @@ export class AddAddressPage implements OnInit {
 
   readonly maskPredicate: MaskitoElementPredicateAsync = async (el) => (el as HTMLIonInputElement).getInputElement();
 
-
+  ngOnInit() {
+  }
 
 }

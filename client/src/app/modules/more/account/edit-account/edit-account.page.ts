@@ -9,9 +9,13 @@ import { RegularExpression } from 'src/app/shared/validate/constants';
   styleUrls: ['./edit-account.page.scss'],
 })
 export class EditAccountPage implements OnInit {
+
   showCurrentPassword: boolean = false;
+
   showNewPassword: boolean = false;
+
   showConfirmNewPassword: boolean = false;
+
   editForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private router: Router) {
@@ -19,9 +23,6 @@ export class EditAccountPage implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.pattern(RegularExpression.Password)]],
     });
-  }
-  
-  ngOnInit() {
   }
 
   UpdateForm() {
@@ -34,6 +35,7 @@ export class EditAccountPage implements OnInit {
     this.router.navigate(['/home']);
   }
 
-
+  ngOnInit() {
+  }
 
 }

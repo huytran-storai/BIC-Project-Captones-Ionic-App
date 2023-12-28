@@ -12,8 +12,6 @@ import { StoreService } from 'src/app/services/store.service';
 export class ProductDetailPage implements OnInit {
   productInfor: any; 
   productDetail: any;
-  cartNumber: number = 0;
-  itemCart:any = []
   @Input() product: any;
 
 
@@ -83,6 +81,8 @@ export class ProductDetailPage implements OnInit {
     return isConditionTrue;
   }
 
+  itemCart:any = []
+
   addProduct(item: any){
     let cartDataNull = localStorage.getItem('localCart');
     if(cartDataNull == null) {
@@ -112,6 +112,7 @@ export class ProductDetailPage implements OnInit {
    
   }
 
+  cartNumber: number = 0;
   cartNumberFunc() {
     var cartValue = localStorage.getItem('localCart');
     if (cartValue !== null) {
@@ -122,6 +123,7 @@ export class ProductDetailPage implements OnInit {
     }
   }
   
+
   async closeModalAndNavigateToCart() {
     await this.modalController.dismiss();
     this.router.navigate(['/shopping-cart']);

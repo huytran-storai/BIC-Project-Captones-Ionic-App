@@ -8,7 +8,7 @@ import { sample_news } from 'src/data';
 export class NewsService {
 
   constructor() { }
-  getAllNews(): News[] {
+  getAll(): News[] {
     return sample_news
   }
 }

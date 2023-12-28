@@ -18,10 +18,12 @@ export class DepartmentResultPage implements OnInit {
   departmentShow: string[] = [];
   selectedDepartment: any = {}; 
   showMoreDepartment = false;
+
   brands: string[] = [`Chimay (1)`, `Corona`, `Dom Perignon`, `14 hands`, `Mad River `, `Bombay` , `Danzka`];
   brandShow: string[] = [];
   selectedBrand: any = {}; 
   showMoreBrand = false;
+
   lifestyles: string[] = [`Gluten free (1)`, `Vegan`, `Organic`, `Low-Alcohol`, `Non-alcoholic`, `Natural Wine `, `Biodynamic Wine` , `Fair Trade Wine`];
   lifestyleShow: string[] = [];
   selectedLifestyle: any = {}; 
@@ -89,6 +91,7 @@ export class DepartmentResultPage implements OnInit {
     return brandValues.concat(lifestyleValues,departmentValues).some(value => value === true);
   }
   
+
   navigateToProductDetail(product: any) {
     this.router.navigate(['product-detail/', product.id]); 
   }
@@ -135,13 +138,14 @@ export class DepartmentResultPage implements OnInit {
    
   }
   
+
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.tagName = params['tagName'];
       if (this.tagName === "All") {
-        this.products = this.StoreService.getAllProducts();
+        this.products = this.StoreService.getAll();
       } else {
-        this.products = this.StoreService.getAllProductByTagName(this.tagName);
+        this.products = this.StoreService.getAllStoreByTagName(this.tagName);
       }
     });
   }
