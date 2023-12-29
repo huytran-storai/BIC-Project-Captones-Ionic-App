@@ -5,14 +5,14 @@
         defaultHref="shopping-cart">
       </ion-back-button>
     </ion-buttons>
-    <ion-title>Checkout</ion-title>
+    <ion-title>Thanh toán</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-card class="cartCardOrder">
     <ion-card-title class="cartTitleOrder colorTitle">
-      Order Placed At:
+      Nơi đặt hàng:
     </ion-card-title>
     <ion-item lines="none" class="colorText">
       <ion-label class="ion-text-wrap" *ngIf="currentStore">
@@ -23,8 +23,7 @@
       </ion-label>
       <ion-label class="ion-text-wrap" *ngIf="!currentStore">
         <h2>
-          <p class="cartSubTitleOrder">Updating Store...</p>
-          <p style="font-size: 13px;">Sorry About That</p>
+          <p class="cartSubTitleOrder">Đang cập nhật...</p>
         </h2>
       </ion-label>
     </ion-item>
@@ -33,17 +32,17 @@
   <!-- Order Type: -->
   <ion-card class="cartCardOrder" *ngIf="checkItemsCart">
     <ion-card-title class="cartTitleOrder colorTitle">
-      Order Type:
+      Chọn hình thức giao hàng:
     </ion-card-title>
 
     <ion-checkbox [(ngModel)]="pickupChecked" (ionChange)="onCheckboxChangeOrder('pickup')" style="margin-left: 15px;
         margin-top: 10px;" class="cartSubTitleType colorText" labelPlacement="end">
-      Pickup
+      Nhận tại cửa hàng
     </ion-checkbox>
     <br />
     <ion-checkbox [(ngModel)]="deliveryChecked" (ionChange)="onCheckboxChangeOrder('delivery')" style="margin-left: 15px; margin-bottom: 10px;
         margin-top: 10px;" class="cartSubTitleType colorText" labelPlacement="end">
-      Delivery
+      Giao hàng tận cửa nhà
     </ion-checkbox>
     <!-- <ion-item lines="none" class="colorText">
       <ion-checkbox slot="start" [(ngModel)]="deliveryChecked"
@@ -57,20 +56,20 @@
     <ion-card *ngIf="pickupChecked || deliveryChecked" class="cartCardOrder">
       <ion-card-title class="cartTitleOrder colorText">
         <ion-row>
-          <ion-text class="colorTitle">Select a time to {{pickupChecked ? 'Pickup' : 'Delivery'}}</ion-text>
+          <ion-text class="colorTitle">Chọn thời gian để {{pickupChecked ? 'Pickup' : 'Delivery'}}</ion-text>
         </ion-row>
       </ion-card-title>
       <ion-card-content class="ion-padding-vertical" style="padding-top: 0;">
         <ion-item lines="none" class="ion-no-padding-horizontal">
           <!-- <ion-label> -->
           <ion-row>
-            <ion-label> {{pickupChecked ? 'Pickup' : 'Delivery'}} Scheduled for:</ion-label>
+            <ion-label> {{pickupChecked ? 'Pickup' : 'Delivery'}} Đặt thời gian nhận hàng:</ion-label>
             <ion-datetime-button datetime="datetime"></ion-datetime-button>
           </ion-row>
           <ion-modal [keepContentsMounted]="true" class="modalSchedule">
             <ng-template>
               <ion-datetime [showDefaultTitle]="true" [showDefaultButtons]="true" id="datetime" [min]="currentDate">
-                <span slot="title">{{pickupChecked ? 'Pickup' : 'Delivery'}} Scheduled for:</span>
+                <span slot="title">{{pickupChecked ? 'Pickup' : 'Delivery'}} Đặt thời gian nhận hàng:</span>
               </ion-datetime>
             </ng-template>
           </ion-modal>
@@ -83,9 +82,9 @@
   <ion-card class="cartCardOrder" *ngIf="checkItemsCart">
     <ion-item lines="none">
       <ion-card-title style="margin-left: -10px;" class="cartTitleOrder colorTitle">
-        Contact Information
+        Thông tin liên lạc
       </ion-card-title>
-      <ion-button class="btn" slot="end" id="openEditContact" > EDIT </ion-button> 
+      <ion-button class="btn" slot="end" id="openEditContact" > Chỉnh sửa </ion-button> 
 
       <ion-modal #modal trigger="openEditContact" (willDismiss)="onWillDismiss($event)">
         <ng-template class="containerPromo">
@@ -93,13 +92,13 @@
             <ion-row class="row-contact" style="margin-top: 10px;">
               <ion-col size="4">
                 <ion-label>
-                  First Name
+                  Tên đầu
                 </ion-label>
                 <ion-input type="text" class="input-contact" value="{{contactInfo.firstName}}" [(ngModel)]="newFirstName" ></ion-input>
               </ion-col>
               <ion-col size="4">
                 <ion-label>
-                  Last Name
+                  Tên họ
                 </ion-label>
                 <ion-input type="text" class="input-contact" value="{{contactInfo.lastName}}" [(ngModel)]="newLastName"></ion-input>
               </ion-col>
@@ -107,7 +106,7 @@
             <ion-row class="row-section">
               <ion-col>
                 <ion-label class="label-custom">
-                  Address
+                  Địa chỉ
                 </ion-label>
                 <ion-input type="text" class="input-section" value="{{contactInfo.address}}" [(ngModel)]="newAddress"></ion-input>
               </ion-col>
@@ -115,7 +114,7 @@
             <ion-row class="row-section">
               <ion-col>
                 <ion-label class="label-custom">
-                  Mobile phone
+                  Số điện thoại
                 </ion-label>
                 <ion-input class="input-section" [maskito]="phoneMask" [maskitoElement]="maskPredicate" value="{{contactInfo.phone}}" [(ngModel)]="newPhone"></ion-input>
               </ion-col>
@@ -124,8 +123,8 @@
               <ion-col>
                 <ion-label>
                   <ion-row style="justify-content: space-between;">
-                    <ion-button  (click)="cancel()" class="btnUpdate">Cancel</ion-button>
-                    <ion-button  (click)="updateContact()" class="btnUpdate">Update</ion-button>
+                    <ion-button  (click)="cancel()" class="btnUpdate">Hủy</ion-button>
+                    <ion-button  (click)="updateContact()" class="btnUpdate">Cập nhật</ion-button>
                   </ion-row>
                 </ion-label>
               </ion-col>
@@ -139,15 +138,15 @@
       <ion-item lines="none" class="colorText" *ngIf="contactInfo.firstName || contactInfo.lastName || contactInfo.address || contactInfo.phone">
         <ion-label class="ion-text-wrap">
           <h3 *ngIf="contactInfo.firstName || contactInfo.lastName">
-            <p class="cartSubTitleOrder">First name, last name</p>
+            <p class="cartSubTitleOrder">Tên đầu, tên họ</p>
             <p style="font-size: 13px;margin-bottom: 10px;">{{ contactInfo.firstName }} {{ contactInfo.lastName }}</p>
           </h3>
           <h3 *ngIf="contactInfo.address">
-            <p class="cartSubTitleOrder">Address</p>
+            <p class="cartSubTitleOrder">Địa chỉ</p>
             <p style="font-size: 13px;margin-bottom: 10px;">{{contactInfo.address}}</p>
           </h3>
           <h3 *ngIf="contactInfo.phone">
-            <p class="cartSubTitleOrder">Phone</p>
+            <p class="cartSubTitleOrder">Số điện thoại</p>
             <p style="font-size: 13px">{{contactInfo.phone}}</p>
           </h3>
         </ion-label>
@@ -156,25 +155,24 @@
   <!-- Payment Method: -->
   <ion-card class="cartCardOrder" *ngIf="checkItemsCart">
     <ion-card-title class="cartTitleOrder colorTitle">
-      Payment Method:
+      Phương thức thanh toán:
     </ion-card-title>
     <ion-checkbox class="colorText checkoutPaymentMT " labelPlacement="end" [(ngModel)]="payOnline"
       (ionChange)="onCheckboxChangePayment('payonline')">
-      Pay Online
+      Chuyển khoản trước
     </ion-checkbox><br />
-    <p class=" checkoutsubPaymentMT">Something....</p>
+
     <ion-checkbox class="colorText checkoutPaymentMT " labelPlacement="end" [(ngModel)]="payAfter"
       (ionChange)="onCheckboxChangePayment('payafter')">
-      Pay after recieve
+      Thanh toán khi nhận hàng
     </ion-checkbox><br />
-    <p class=" checkoutsubPaymentMT">Something....</p>
 
   </ion-card>
   <!-- Discount  -->
   <ion-card class="cartCardOrder" *ngIf="checkItemsCart">
     <ion-item lines="none" style="margin-left: -13px;">
       <ion-card-title lines="none" class="colorTitle cartTitleOrder">
-        Discount
+        Mã giảm giá
       </ion-card-title>
     </ion-item>
     <ion-item class=" cartCACAddPromo" lines="none">
@@ -192,13 +190,13 @@
           </ion-toolbar>
           <ion-col style=" display: contents;">
             <p class="pTitleAlertPromo">
-              Enter Promo Code
+              Nhập mã ưu đãi
             </p>
             <ion-input type="text" class="inpPromoCode" [(ngModel)]="name" autofocus="true" required="true">
             </ion-input>
             <ion-button (click)="confirm()" style="text-align: center;" class="btnTitleAlerPromo" [routerLink]="'./'"
               [disabled]="!checkInput()">
-              SUBMIT
+              OK
             </ion-button>
           </ion-col>
         </ng-template>
@@ -209,7 +207,7 @@
   </ion-card>
   <ion-card style="border-radius: 0;" *ngIf="checkItemsCart">
     <ion-card-title class="cartTitleCAC">
-      Product Items
+      Các sản phẩm
     </ion-card-title>
     <ion-card-content *ngFor="let item of cartItems">
 
@@ -241,29 +239,29 @@
   <!-- Order Summary -->
   <ion-card class="cartCardOrder" *ngIf="checkItemsCart">
     <ion-card-title class="cartTitleOrder colorText cartTitleCAC">
-      Order Summary
+      Tổng đơn hàng
     </ion-card-title>
     <ion-item lines="none" class="colorText">
       <ion-label>
         <h3>
           <ion-row class="ion-justify-content-between cartCardSubOrder">
-            Total Items:
+            Tổng sản phẩm:
             <div>{{numberOfItems}} item</div>
           </ion-row>
           <ion-row class="ion-justify-content-between cartCardSubOrder">
-            Subtotal:
+            Giá tiền:
             <div>{{subTotal()| number:'1.0-0'}} ₫</div>
           </ion-row>
           <ion-row class="ion-justify-content-between cartCardSubOrder">
-            Tax:
+            Thuws:
             <div>{{tax| number:'1.0-0'}} ₫</div>
           </ion-row>
           <ion-row class="ion-justify-content-between cartCardSubOrder">
-            Delivery fee:
+            Chi phí giao hàng:
             <div>{{deliveryFee| number:'1.0-0'}} ₫</div>
           </ion-row>
           <ion-row style="margin-bottom: 20px;" class="ion-justify-content-between cartCardSubOrder">
-            Order total:
+            Tổng tiền:
             <div>{{subTotal() + tax + deliveryFee| number:'1.0-0'}} ₫</div>
           </ion-row>
         </h3>
@@ -272,7 +270,7 @@
   </ion-card>
   <ion-grid [fixed]="true" style="text-align: center;">
     <ion-row>
-      <ion-col> <ion-button class="btnCheckout colorText">PLACE ORDER</ion-button></ion-col>
+      <ion-col> <ion-button class="btnCheckout colorText">Đặt hàng</ion-button></ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

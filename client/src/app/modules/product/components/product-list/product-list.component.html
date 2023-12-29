@@ -1,8 +1,8 @@
 <div>
   <ion-card-title>
-    <span>Our Products</span>
+    <span>Sản phẩm chúng tôi</span>
     <div class="view-all" style="display: flex;">
-      <a (click)="navigateToProductAll()">View All</a>
+      <a (click)="navigateToProductAll()">Xem tất cả</a>
       <ion-icon name="chevron-forward-outline"></ion-icon>
     </div>
   </ion-card-title>
@@ -27,7 +27,7 @@
             </ion-row>
             <ion-row class="ion-align-items-center add">
               <ion-button (click)="addProduct($event, item)" class="btn" size="small" color="primary">{{
-                checkAdded(item) ? 'Added' : 'Add' }}</ion-button>
+                checkAdded(item) ? 'Đã thêm' : 'Thêm' }}</ion-button>
             </ion-row>
           </ion-card-content>
         </ion-card>

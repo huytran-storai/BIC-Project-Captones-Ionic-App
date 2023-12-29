@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title >Product detail</ion-title>
+    <ion-title *ngIf="productDetail">{{productDetail.name}}</ion-title>
     <ion-buttons slot="start" (click)="Back()">
       <ion-icon size="large" icon="caret-back"></ion-icon>
     </ion-buttons>
@@ -36,7 +36,7 @@
           <ion-text class="address">{{productDetail.address}}</ion-text>
         </ion-col>
       </ion-row>
-      <ion-button (click)="addProduct(productDetail)">{{checkAdded(productDetail) ? 'Added' : 'Add'}}</ion-button>
+      <ion-button (click)="addProduct(productDetail)">{{checkAdded(productDetail) ? 'Đã thêm' : 'Thêm'}}</ion-button>
       <ion-row class="ion-align-items-center">
         <ion-col>
           <ion-text class="promo">{{productDetail.promotions}}</ion-text>
@@ -47,18 +47,18 @@
 
   <!-- About this product -->
   <ion-row class="ion-justify-content-center">
-    <ion-text class="text-aboutProduct">About this product</ion-text>
+    <ion-text class="text-aboutProduct">Giới thiệu về sản phẩm</ion-text>
   </ion-row>
   <ion-card>
     <ion-row>
       <ion-col class="col-block">
         <ion-item (click)="toggleDropdown()">
-          <ion-label class="label-text">Lifestyle Focus</ion-label>
+          <ion-label class="label-text">Hương vị</ion-label>
           <ion-icon [name]="isDropdownOpen ? 'chevron-up' : 'chevron-down'"></ion-icon>
         </ion-item>
         <ion-col class="ml-12" *ngIf="isDropdownOpen">
-          <ion-button (click)="addSugar(productDetail)">{{
-            productDetail.addedSugar ? 'No Added Sugar' : 'Added Sugar' }}
+          <ion-button>
+            Ngọt
           </ion-button>
         </ion-col>
       </ion-col>
@@ -66,7 +66,7 @@
     <ion-row>
       <ion-col class="col-block">
         <ion-item (click)="toggleDropdownNutrition()">
-          <ion-label class="label-text">Ingredients & Nutrition</ion-label>
+          <ion-label class="label-text">Thành phần và nguyên liệu</ion-label>
           <ion-icon [name]="isDropdownOpenNutrition ? 'chevron-up' : 'chevron-down'"></ion-icon>
         </ion-item>
         <ion-col class="ml-12" *ngIf="isDropdownOpenNutrition">
@@ -77,12 +77,12 @@
     <ion-row>
       <ion-col class="col-block">
         <ion-item (click)="toggleDropdownProductInfor()">
-          <ion-label class="label-text">Product Information</ion-label>
+          <ion-label class="label-text">Thông tin sản phẩm</ion-label>
           <ion-icon [name]="isDropdownOpenProductInfor ? 'chevron-up' : 'chevron-down'"></ion-icon>
         </ion-item>
         <ion-col class="col-block ml-12" *ngIf="isDropdownOpenProductInfor">
           <ion-text class="textProductInfor">UPC: {{productDetail.Upc}}</ion-text>
-          <ion-text class="col-block textProductInfor">Description: {{productDetail.Descriptions}}</ion-text>
+          <ion-text class="col-block textProductInfor">Mô tả: {{productDetail.Descriptions}}</ion-text>
         </ion-col>
       </ion-col>
     </ion-row>
@@ -93,12 +93,8 @@
           <ion-icon [name]="isDropdownOpenDisclaimer ? 'chevron-up' : 'chevron-down'"></ion-icon>
         </ion-item>
         <ion-col class="col-block ml-12" *ngIf="isDropdownOpenDisclaimer">
-          <ion-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque interdum
-            neque
-            dictum,
-            ultricies justo eu, tincidunt magna. Nunc feugiat leo at ligula sagittis, sit amet consequat justo luctus.
-            Mauris eget venenatis neque, et scelerisque...</ion-text>
-          <ion-text class="text-readMore">Readmore</ion-text>
+          <ion-text>Mô tả: {{productDetail.Descriptions}}</ion-text>
+          <ion-text class="text-readMore">Xem thêm</ion-text>
         </ion-col>
       </ion-col>
     </ion-row>

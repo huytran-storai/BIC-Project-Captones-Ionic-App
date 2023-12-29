@@ -1,8 +1,8 @@
 <ion-header>
   <ion-toolbar class="header">
-    <ion-title *ngIf="checkItemsCart">Cart
+    <ion-title *ngIf="checkItemsCart">Giỏ hàng
     </ion-title>
-    <ion-title *ngIf="!checkItemsCart">Cart<ion-text style="font-size: 12px;font-weight: 300"><br />
+    <ion-title *ngIf="!checkItemsCart">Giỏ hàng trống<ion-text style="font-size: 12px;font-weight: 300"><br />
       </ion-text>
     </ion-title>
   </ion-toolbar>
@@ -11,7 +11,7 @@
 <ion-content [fullscreen]="true">
   <ion-card class="cartCardOrder">
     <ion-card-title class="cartTitleOrder colorText">
-      Order Placed At:
+      Nơi đặt hàng:
     </ion-card-title>
     <ion-item lines="none" class="colorText">
       <ion-label class="ion-text-wrap" *ngIf="currentStore">
@@ -22,8 +22,7 @@
       </ion-label>
       <ion-label class="ion-text-wrap" *ngIf="!currentStore">
         <h2>
-          <p class="cartSubTitleOrder">Updating Store...</p>
-          <p style="font-size: 13px;">Sorry About That</p>
+          <p class="cartSubTitleOrder">Đang cập nhật...</p>
         </h2>
       </ion-label>
     </ion-item>
@@ -31,7 +30,7 @@
 
   <ion-card style="border-radius: 0;">
     <ion-card-title class="cartTitleCAC">
-      Product Items
+      Các sản phẩm
     </ion-card-title>
     <!-- List of products in the shopping cart -->
     <ng-container *ngIf="checkItemsCart; else notItem">
@@ -63,7 +62,7 @@
         </ion-row>
       </ion-card-content>
       <ion-item style="font-weight: 700;" lines="none" class="colorText">
-        Discount
+        Mã giảm giá
       </ion-item>
       <ion-item class=" cartCACAddPromo" lines="none">
         <ion-button id="open-modal-promo" style="color: var(--ion-color-medium);">
@@ -81,13 +80,13 @@
             </ion-toolbar>
             <ion-col style=" display: contents;">
               <p class="pTitleAlertPromo">
-                Enter Promo Code
+                Nhập mã giảm giá
               </p>
               <ion-input type="text" class="inpPromoCode" [(ngModel)]="name" autofocus="true" required="true">
               </ion-input>
               <ion-button (click)="confirm()" style="text-align: center;" class="btnTitleAlerPromo" [routerLink]="'./'"
                 [disabled]="!checkInput()">
-                SUBMIT
+                OK
               </ion-button>
             </ion-col>
           </ng-template>
@@ -102,26 +101,26 @@
   <!-- Order Summary -->
   <ion-card class="cartCardOrder" *ngIf="checkItemsCart">
     <ion-card-title class="cartTitleCAC">
-      Order Summary
+      Tổng đơn hàng
     </ion-card-title>
 
     <ion-item lines="none" class="colorText">
       <ion-label>
         <h3>
           <ion-row class="ion-justify-content-between titleTotal">
-            Total Items:
-            <div>{{numberOfItems}}</div>
+            Tổng sản phẩm:
+            <div>{{numberOfItems}} item</div>
           </ion-row>
           <ion-row class="ion-justify-content-between cartCardSubOrder">
-            Subtotal:
+            Giá tiền:
             <div>{{subTotal()| number:'1.0-0'}} ₫</div>
           </ion-row>
           <ion-row class="ion-justify-content-between cartCardSubOrder">
-            Tax:
-            <div>{{tax | number:'1.0-0'}} ₫</div>
+            Thuế:
+            <div>{{tax| number:'1.0-0'}} ₫</div>
           </ion-row>
           <ion-row style="margin-bottom: 20px;" class="ion-justify-content-between titleTotal">
-            Order total:
+            Tổng tiền:
             <div>{{subTotal() + tax | number:'1.0-0'}} ₫</div>
           </ion-row>
         </h3>
@@ -132,7 +131,7 @@
   <!-- Notes for your order -->
   <ion-card class="cartCardOrder" *ngIf="checkItemsCart">
     <ion-card-title class="cartTitleOrder colorText">
-      Notes for your Order
+      Ghi chú đơn hàng
     </ion-card-title>
     <ion-item lines="none">
       <ion-input class="cartInput" placeholder="Special Instructions or notes 250 chracters limit.">
@@ -143,16 +142,15 @@
   <ion-grid [fixed]="true" class="ion-text-center">
     <ion-row>
       <ion-col>
-        <ion-button class="ion-text-wrap colorText ion-text-start" [routerLink]="['/home']">Continue
-          Shopping</ion-button>
+        <ion-button class="ion-text-wrap colorText ion-text-start" [routerLink]="['/home']">Tiếp tục mua sắm</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button class="btnCheckout colorText ion-text-center" (click)="checkout()">CHECKOUT
+        <ion-button class="btnCheckout colorText ion-text-center" (click)="checkout()">Tiến hành thanh toán
         </ion-button>
       </ion-col>
       <ion-col class="ion-justify-content-center" style="display: flex;">
         <ion-button id="open-modal-empty" class="ion-text-wrap colorText ion-text-end" [disabled]="!checkItemsCart">
-          Empty Cart
+          Xóa tất cả
         </ion-button>
       </ion-col>
     </ion-row>
@@ -170,10 +168,10 @@
           <ion-icon name="warning-outline" class="warning-icon"></ion-icon>
         </ion-row>
         <p class="pTitleAlert">
-          Are you sure, you want to delete all items from your cart?
+          Bạn có muốn xóa tất cả bên trong giỏ hàng?
         </p>
         <ion-button style="text-align: center;" class="btnTitleAlert" (click)="delProduct()" [routerLink]="'./'">
-          YES
+          Đồng ý
         </ion-button>
       </ion-col>
     </ng-template>

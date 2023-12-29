@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Product List</ion-title>
+    <ion-title>Danh sách sản phẩm</ion-title>
     <ion-buttons slot="start" (click)="Back()">
       <ion-icon size="large" icon="caret-back"></ion-icon>
     </ion-buttons>
@@ -27,7 +27,7 @@
           </ion-row>
           <ion-row class="ion-align-items-center add">
             <ion-button (click)="addProduct($event, item)"  class="btn" size="small" color="primary">{{
-              checkAdded(item) ? 'Added' : 'Add' }}</ion-button>
+              checkAdded(item) ? 'Đã thêm' : 'Thêm' }}</ion-button>
           </ion-row>
         </ion-card-content>
       </ion-card>
