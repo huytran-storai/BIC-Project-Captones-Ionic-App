@@ -35,7 +35,7 @@ export class SearchProductPage implements OnInit {
 
   updateSearchResults(): void {
     if (this.searchTerm) {
-      this.items = this.StoreService.getAllStoreBySearchTerm(this.searchTerm);
+      this.items = this.StoreService.getAllProductsBySearchTerm(this.searchTerm);
     }
     else{
       this.items = []

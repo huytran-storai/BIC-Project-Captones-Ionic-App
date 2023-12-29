@@ -21,7 +21,7 @@ export class FilterResultPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.items = this.StoreService.getAll();
+    this.items = this.StoreService.getAllProducts();
   }
 
   Back(){

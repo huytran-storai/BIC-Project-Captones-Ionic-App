@@ -58,10 +58,6 @@ const routes: Routes = [
     loadChildren: () => import('./modules/more/aboutourapp/aboutourapp.module').then(m => m.AboutourappPageModule),
   },
   {
-    path: 'blog-detail',
-    loadChildren: () => import('./modules/home/blog-detail/blog-detail.module').then(m => m.BlogDetailPageModule)
-  },
-  {
     path: 'add-address',
     loadChildren: () => import('./modules/more/account/add-address/add-address.module').then(m => m.AddAddressPageModule)
   },

@@ -9,7 +9,7 @@ import { StoreService } from 'src/app/services/store.service';
 })
 export class HomePage implements OnInit {
   public user: any;
-  public currentStore: StoreInfo = {name: "No having data store...", address:" "};
+  public currentStore: StoreInfo = {name: "BIC 789 Store", address:"97 Le Quang Dinh, phuong 32, quan Binh Thanh, TPHCM"};
 
   constructor(
     private userService: UserService,

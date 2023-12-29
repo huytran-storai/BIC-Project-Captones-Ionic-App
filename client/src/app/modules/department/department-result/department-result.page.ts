@@ -143,9 +143,9 @@ export class DepartmentResultPage implements OnInit {
     this.route.params.subscribe(params => {
       this.tagName = params['tagName'];
       if (this.tagName === "All") {
-        this.products = this.StoreService.getAll();
+        this.products = this.StoreService.getAllProducts();
       } else {
-        this.products = this.StoreService.getAllStoreByTagName(this.tagName);
+        this.products = this.StoreService.getAllProductsByTagName(this.tagName);
       }
     });
   }

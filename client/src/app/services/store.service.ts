@@ -11,11 +11,7 @@ export class StoreService {
   private apiUrl = 'http://localhost:1337/api';
   constructor(private http: HttpClient) { }
 
-  getStores() {
-    return this.http.get<ProductItem[]>('/api/stores');
-  }
-
-  getAll(): ProductItem[] {
+  getAllProducts(): ProductItem[] {
     return sampleProductItems;
   }
   
@@ -23,16 +19,16 @@ export class StoreService {
     return sampleProductItems.find(item => item.id === id);
   }
 
-  getAllStoreBySearchTerm(searchTerm: string) {
-    return this.getAll().filter(item => item.name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase()))
+  getAllProductsBySearchTerm(searchTerm: string) {
+    return this.getAllProducts().filter(item => item.name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase()))
   }
 
   getAllTags(): Tag[] {
     return sample_tags;
   }
 
-  getAllStoreByTagName(tag: string): ProductItem[] {
-    return this.getAll().filter(item => item.tags?.includes(tag));
+  getAllProductsByTagName(tag: string): ProductItem[] {
+    return this.getAllProducts().filter(item => item.tags?.includes(tag));
   }
 
   getCurrentStoreAddress() {
