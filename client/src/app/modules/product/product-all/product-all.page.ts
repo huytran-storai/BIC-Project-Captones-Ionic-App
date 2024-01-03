@@ -12,37 +12,43 @@ import { ProductItem } from 'src/app/shared/models/ProductItem';
 })
 export class ProductAllPage implements OnInit {
   items: ProductItem[] = [];
+  public productData: any;
+
   constructor(
     private CartService: CartService,
     private StoreService: StoreService,
     private router: Router,
     private navCtrl: NavController,
+    private productService: StoreService,
+
   ) { }
 
   ngOnInit() {
     this.items = this.StoreService.getAllProducts();
+    this.getProductRender();
+
   }
 
   navigateToProductDetail(item: any) {
-    this.router.navigate(['product-detail/', item.id]); 
+    this.router.navigate(['product-detail/', item.id]);
   }
 
-  Back(){
+  Back() {
     this.navCtrl.back()
   }
 
   checkAdded(product: any): boolean {
     const productId = product.id;
     this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
-    let isConditionTrue = false; 
-  
+    let isConditionTrue = false;
+
     for (let i = 0; i < this.itemCart.length; i++) {
       if (parseInt(productId) === parseInt(this.itemCart[i].id)) {
         isConditionTrue = true;
         break;
       }
     }
-    return isConditionTrue; 
+    return isConditionTrue;
   }
 
   redirectToProductDetail(event: Event, items: any) {
@@ -50,35 +56,35 @@ export class ProductAllPage implements OnInit {
     this.navigateToProductDetail(items);
   }
 
-  itemCart:any = []
-  addProduct(event: Event,item: any){
+  itemCart: any = []
+  addProduct(event: Event, item: any) {
     event.stopPropagation();
     let cartDataNull = localStorage.getItem('localCart');
-    if(cartDataNull == null) {
-      let storeDataGet:any =[]
+    if (cartDataNull == null) {
+      let storeDataGet: any = []
       storeDataGet.push(item)
       localStorage.setItem('localCart', JSON.stringify(storeDataGet));
     } else {
       var productId = item.id;
-      let index:number = -1;
+      let index: number = -1;
       this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
-      for(let i = 0 ; i < this.itemCart.length; i++){
-        if(parseInt(productId) === parseInt(this.itemCart[i].id)){
+      for (let i = 0; i < this.itemCart.length; i++) {
+        if (parseInt(productId) === parseInt(this.itemCart[i].id)) {
           this.itemCart[i].productQuantityAddDefault += item.productQuantityAddDefault
           index = i;
-          break; 
+          break;
         }
       }
-      if(index == -1){
+      if (index == -1) {
         this.itemCart.push(item)
         localStorage.setItem('localCart', JSON.stringify(this.itemCart))
       }
-      else{
+      else {
         localStorage.setItem('localCart', JSON.stringify(this.itemCart))
       }
     }
     this.cartNumberFunc();
-   
+
   }
 
   cartNumber: number = 0;
@@ -90,5 +96,17 @@ export class ProductAllPage implements OnInit {
     } else {
       this.cartNumber = 0;
     }
+  }
+
+  getProductRender() {
+    this.productService.getProducts().subscribe(
+      (res: any) => {
+        this.productData = res?.data[0]?.attributes;
+        console.log("find store", this.productData)
+      },
+      (err: any) => {
+        console.error('Error fetching current store data:', err);
+      }
+    );
   }
 }

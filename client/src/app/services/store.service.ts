@@ -14,7 +14,7 @@ export class StoreService {
   getAllProducts(): ProductItem[] {
     return sampleProductItems;
   }
-  
+
   getProductById(id: any): ProductItem | undefined {
     return sampleProductItems.find(item => item.id === id);
   }
@@ -33,6 +33,10 @@ export class StoreService {
 
   getCurrentStoreAddress() {
     return this.http.get(`${this.apiUrl}/stores`);
+  }
+
+  getProducts() {
+    return this.http.get(`${this.apiUrl}/products`);
   }
 
 }

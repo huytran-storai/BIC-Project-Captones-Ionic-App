@@ -13,7 +13,7 @@ export class MorePage implements OnInit {
   }
 
   logout() {
-      this.router.navigate(['/login']);
-      console.log("log out")
+    this.router.navigate(['/login']);
+    console.log("log out")
   }
 }

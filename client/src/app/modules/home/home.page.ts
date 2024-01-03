@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { StoreInfo } from 'src/app/shared/models/StoreInfo';
 import { UserService } from 'src/app/services/user.service';
 import { StoreService } from 'src/app/services/store.service';
+import { BlogsService } from 'src/app/services/blogs.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -9,16 +11,23 @@ import { StoreService } from 'src/app/services/store.service';
 })
 export class HomePage implements OnInit {
   public user: any;
-  public currentStore: StoreInfo = {name: "BIC 789 Store", address:"97 Le Quang Dinh, phuong 32, quan Binh Thanh, TPHCM"};
+  public currentStore: StoreInfo = { name: "BIC 789 Store", address: "97 Le Quang Dinh, phuong 32, quan Binh Thanh, TPHCM" };
+  public blogsData: any;
+  public productData: any;
 
   constructor(
     private userService: UserService,
     private storeService: StoreService,
-  ) {}
+    private blogsService: BlogsService,
+    private productService: StoreService,
+
+  ) { }
 
   ngOnInit() {
     this.getUserData();
     this.getCurrentStore();
+    this.getBlogsRender();
+    this.getProductRender();
     (function (d, m) {
       var kommunicateSettings = {
         appId: "11c15e214c77a3f11028cdce28abe430b",
@@ -38,7 +47,7 @@ export class HomePage implements OnInit {
   }
 
   getUserData() {
-     this.userService.getUserData().subscribe(res=> this.user = res?.user);
+    this.userService.getUserData().subscribe(res => this.user = res?.user);
   }
 
   getCurrentStore() {
@@ -53,4 +62,27 @@ export class HomePage implements OnInit {
     );
   }
 
+  getBlogsRender() {
+    this.blogsService.getblog().subscribe(
+      (res: any) => {
+        this.blogsData = res?.data[0]?.attributes;
+        console.log("find store", this.blogsData)
+      },
+      (err) => {
+        console.error('Error fetching current store data:', err);
+      }
+    );
+  }
+
+  getProductRender() {
+    this.productService.getProducts().subscribe(
+      (res: any) => {
+        this.productData = res?.data[0]?.attributes;
+        console.log("find store", this.productData)
+      },
+      (err: any) => {
+        console.error('Error fetching current store data:', err);
+      }
+    );
+  }
 }

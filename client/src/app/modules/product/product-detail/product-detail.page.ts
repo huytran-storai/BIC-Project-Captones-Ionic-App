@@ -10,8 +10,10 @@ import { StoreService } from 'src/app/services/store.service';
   styleUrls: ['./product-detail.page.scss'],
 })
 export class ProductDetailPage implements OnInit {
-  productInfor: any; 
+  productInfor: any;
   productDetail: any;
+  public productData: any;
+
   @Input() product: any;
 
 
@@ -20,6 +22,8 @@ export class ProductDetailPage implements OnInit {
       this.productInfor = params.get('id');
       this.loadProductDetails(this.productInfor);
     });
+    this.getProductRender();
+
   }
 
   constructor(
@@ -28,10 +32,12 @@ export class ProductDetailPage implements OnInit {
     private route: ActivatedRoute,
     private CartService: CartService,
     private storeService: StoreService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private productService: StoreService,
+
   ) { }
-  
-  Back(){
+
+  Back() {
     this.navCtrl.back()
   }
 
@@ -70,46 +76,46 @@ export class ProductDetailPage implements OnInit {
     const productId = product.id;
     this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
     let isConditionTrue = false;
-  
+
     for (let i = 0; i < this.itemCart.length; i++) {
       if (parseInt(productId) === parseInt(this.itemCart[i].id)) {
         isConditionTrue = true;
         break;
       }
     }
-  
+
     return isConditionTrue;
   }
 
-  itemCart:any = []
+  itemCart: any = []
 
-  addProduct(item: any){
+  addProduct(item: any) {
     let cartDataNull = localStorage.getItem('localCart');
-    if(cartDataNull == null) {
-      let storeDataGet:any =[]
+    if (cartDataNull == null) {
+      let storeDataGet: any = []
       storeDataGet.push(item)
       localStorage.setItem('localCart', JSON.stringify(storeDataGet));
     } else {
       var productId = item.id;
-      let index:number = -1;
+      let index: number = -1;
       this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
-      for(let i = 0 ; i < this.itemCart.length; i++){
-        if(parseInt(productId) === parseInt(this.itemCart[i].id)){
+      for (let i = 0; i < this.itemCart.length; i++) {
+        if (parseInt(productId) === parseInt(this.itemCart[i].id)) {
           this.itemCart[i].productQuantityAddDefault += item.productQuantityAddDefault
           index = i;
-          break; 
+          break;
         }
       }
-      if(index == -1){
+      if (index == -1) {
         this.itemCart.push(item)
         localStorage.setItem('localCart', JSON.stringify(this.itemCart))
       }
-      else{
+      else {
         localStorage.setItem('localCart', JSON.stringify(this.itemCart))
       }
     }
     this.cartNumberFunc();
-   
+
   }
 
   cartNumber: number = 0;
@@ -122,10 +128,22 @@ export class ProductDetailPage implements OnInit {
       this.cartNumber = 0;
     }
   }
-  
+
 
   async closeModalAndNavigateToCart() {
     await this.modalController.dismiss();
     this.router.navigate(['/shopping-cart']);
+  }
+
+  getProductRender() {
+    this.productService.getProducts().subscribe(
+      (res: any) => {
+        this.productData = res?.data[0]?.attributes;
+        console.log("find store", this.productData)
+      },
+      (err: any) => {
+        console.error('Error fetching current store data:', err);
+      }
+    );
   }
 }

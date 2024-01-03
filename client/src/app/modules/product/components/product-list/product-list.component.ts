@@ -5,6 +5,7 @@ import { ModalController } from '@ionic/angular';
 import { register } from 'swiper/element/bundle';
 import { CartService } from 'src/app/services/cart.service';
 import { Router } from '@angular/router';
+
 register();
 @Component({
   selector: 'app-product-list',
@@ -17,18 +18,22 @@ export class ProductListComponent implements OnInit {
   selectedProduct: any;
   isModalViewAllProductOpen = false;
   public _numberOfItems: number | undefined;
-  itemCart: any = []
+  itemCart: any = [];
+  public productData: any;
 
   constructor(
     private CartService: CartService,
     private StoreService: StoreService,
     private modalController: ModalController,
-    private router: Router
+    private router: Router,
+    private productService: StoreService,
   ) {
   }
 
   ngOnInit(): void {
     this.items = this.StoreService.getAllProducts();
+    this.getProductRender();
+
   }
 
   navigateToProductDetail(item: any) {
@@ -97,6 +102,18 @@ export class ProductListComponent implements OnInit {
 
     }
 
+  }
+
+  getProductRender() {
+    this.productService.getProducts().subscribe(
+      (res: any) => {
+        this.productData = res?.data[0]?.attributes;
+        console.log("find store", this.productData)
+      },
+      (err: any) => {
+        console.error('Error fetching current store data:', err);
+      }
+    );
   }
 
 }

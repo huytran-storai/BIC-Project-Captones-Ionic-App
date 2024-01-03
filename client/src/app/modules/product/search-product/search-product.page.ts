@@ -13,18 +13,23 @@ export class SearchProductPage implements OnInit {
   items: ProductItem[] = [];
   isModalOpen = false;
   selectedProduct: any;
+  public productData: any;
+
   constructor(
     private StoreService: StoreService,
     private router: Router,
+    private productService: StoreService,
+
   ) {
   }
 
   ngOnInit(): void {
-   
+    this.getProductRender();
+
   }
 
   navigateToProductDetail(product: any) {
-    this.router.navigate(['product-detail/', product.id]); 
+    this.router.navigate(['product-detail/', product.id]);
   }
 
   search(event: any): void {
@@ -37,9 +42,20 @@ export class SearchProductPage implements OnInit {
     if (this.searchTerm) {
       this.items = this.StoreService.getAllProductsBySearchTerm(this.searchTerm);
     }
-    else{
+    else {
       this.items = []
     }
   }
 
+  getProductRender() {
+    this.productService.getProducts().subscribe(
+      (res: any) => {
+        this.productData = res?.data[0]?.attributes;
+        console.log("find store", this.productData)
+      },
+      (err: any) => {
+        console.error('Error fetching current store data:', err);
+      }
+    );
+  }
 }
