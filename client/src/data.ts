@@ -1,6 +1,8 @@
 import { ProductItem } from "./app/shared/models/ProductItem";
 import { Tag } from "./app/shared/models/Tag";
 import { News } from "./app/shared/models/News";
+import { Histories } from "./app/shared/models/Histories";
+
 export const sampleProductItems: ProductItem[] = [
   {
     id: '1',
@@ -189,4 +191,53 @@ export const sample_news: News[] = [
     url: 'https://www.vinography.com/2023/10/the-worlds-greatest-wine-reference-book-gets-a-major-overhaul',
   },
 
+]
+export const sample_histoy: Histories[] = [
+    { id: '1', date: '1/12/23', 
+    pricetotal: 100000000, 
+    status: 'Huỷ', 
+    paymentMethod: 'offline' , 
+    products: [
+      { name: 'GIN BOMBAY SAPPHIRE', originalPrice: 100000, price: 200000, quantity: 10 },
+      { name: 'Bia', originalPrice: 100000, price: 200000 , quantity: 10},
+      { name: 'VODKA DANZKA', originalPrice: 100000, price: 200000 ,quantity: 10 },
+      { name: 'Rượu', originalPrice: 100000, price: 200000,quantity: 10 },]
+  },
+    { id: '2', date: '1/12/23', 
+    pricetotal: 100000000, 
+    status: 'Chấp thuận', 
+    paymentMethod: 'offline' , 
+    products: [
+      { name: 'GIN BOMBAY SAPPHIRE', originalPrice: 100000, price: 200000,quantity: 10 },]
+  },
+  { id: '3', date: '1/12/23', 
+    pricetotal: 100000000, 
+    status: 'Chấp thuận', 
+    paymentMethod: 'offline' , 
+    products: [
+      { name: 'GIN BOMBAY SAPPHIRE ', originalPrice: 100000, price: 200000,quantity: 10 },
+      { name: 'Bia', originalPrice: 100000, price: 200000,quantity: 10 },
+      { name: 'VODKA DANZKA', originalPrice: 100000, price: 200000 ,quantity: 10},
+      { name: 'Rượu', originalPrice: 100000, price: 200000,quantity: 10 },
+      { name: 'GIN BOMBAY SAPPHIRE', originalPrice: 100000, price: 200000 ,quantity: 10 },
+      { name: 'Bia', originalPrice: 100000, price: 200000,quantity: 10 },
+      { name: 'VODKA DANZKA', originalPrice: 100000, price: 200000,quantity: 10 },
+      { name: 'Rượu', originalPrice: 100000, price: 200000,quantity: 10 },]
+  },
+  { id: '4', date: '1/12/23', 
+    pricetotal: 100000000, 
+    status: 'Chấp thuận', 
+    paymentMethod: 'offline' , 
+    products: [
+      { name: 'Bia', originalPrice: 100000, price: 200000 ,quantity: 10},
+      { name: 'VODKA DANZKA', originalPrice: 100000, price: 200000,quantity: 10 },
+      { name: 'Rượu', originalPrice: 100000, price: 200000,quantity: 10 },]
+  },
+  { id: '5', date: '1/12/23', 
+    pricetotal: 100000000, 
+    status: 'Huỷ', 
+    paymentMethod: 'offline' , 
+    products: [
+      { name: 'GIN BOMBAY SAPPHIRE', originalPrice: 100000, price: 200000,quantity: 10 },]
+  },
 ]

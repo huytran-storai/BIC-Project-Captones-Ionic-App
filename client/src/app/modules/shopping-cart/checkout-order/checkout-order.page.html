@@ -253,7 +253,7 @@
             <div>{{subTotal()| number:'1.0-0'}} ₫</div>
           </ion-row>
           <ion-row class="ion-justify-content-between cartCardSubOrder">
-            Thuws:
+            Thuế:
             <div>{{tax| number:'1.0-0'}} ₫</div>
           </ion-row>
           <ion-row class="ion-justify-content-between cartCardSubOrder">
@@ -270,7 +270,7 @@
   </ion-card>
   <ion-grid [fixed]="true" style="text-align: center;">
     <ion-row>
-      <ion-col> <ion-button class="btnCheckout colorText">Đặt hàng</ion-button></ion-col>
+      <ion-col> <ion-button class="btnCheckout colorText" (click)="checkoutAccept()">Đặt hàng</ion-button></ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

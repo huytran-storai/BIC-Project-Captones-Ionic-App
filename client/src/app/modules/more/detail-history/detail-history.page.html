@@ -1,0 +1,126 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Chi tiết lịch sử đặt hàng</ion-title>
+    <ion-buttons slot="start" (click)="Back()">
+      <ion-icon size="large" icon="caret-back"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="cartCardOrder" *ngIf="detaillHistory">
+    <ion-card-title class="cartTitleCAC">
+      Chi tiết đặt hàng
+    </ion-card-title>
+    <ion-item lines="none" class="colorText">
+      <ion-label>
+        <h3>
+          <ion-row class="ion-justify-content-between row-with-border">
+            <img width="80" height="30" src="../../../../assets/icon/bIc.png" alt="Mô tả về hình ảnh">
+            <ion-label class="ion-text-wrap" *ngIf="currentStore">
+              <h2>
+                <p class="cartSubTitleOrder" *ngIf="currentStore">{{ currentStore.name }}</p>
+                <p style="font-size: 13px;" *ngIf="currentStore">{{ currentStore.address }}</p>
+              </h2>
+            </ion-label>
+            <ion-label class="ion-text-wrap" *ngIf="!currentStore">
+              <h2>
+                <p class="cartSubTitleOrder" style="margin-right: 170px; width: fit-content">Đang cập nhật...</p>
+              </h2>
+            </ion-label>
+          </ion-row>
+          <ion-row class="ion-justify-content-between row-with-border" >
+            Mã đặt hàng:
+            <div>{{detaillHistory.id}}</div>
+          </ion-row>
+          <ion-row class="ion-justify-content-between row-with-border">
+            Trang thái đặt hàng:
+            <div [ngStyle]="{'color': detaillHistory.status === 'Huỷ' ? 'red' : 'green' }">{{detaillHistory.status}}</div>
+          </ion-row>
+        </h3>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+  <ion-card class="cartCardOrder" *ngIf="detaillHistory">
+    <ion-card-title class="cartTitleCAC">
+      Tóm tắt đặt hàng
+    </ion-card-title>
+    <ion-item lines="none" class="colorText">
+      <ion-label>
+        <h3>
+          <ion-row class="ion-justify-content-between row-with-border ">
+            Giá trị đặt hàng:
+            <div>{{detaillHistory.pricetotal | number:'1.0-0'}} ₫</div>
+          </ion-row>
+          <ion-row class="ion-justify-content-between row-with-border" >
+            Tổng thuế:
+            <div>₫</div>
+          </ion-row>
+          <ion-row class="ion-justify-content-between row-with-border">
+            Phí dịch vụ:
+            <div>₫</div>
+          </ion-row>
+          <ion-row class="ion-justify-content-between " style="margin-top: 8px;margin-bottom: 8px;" >
+            Tổng giá đơn hàng:
+            <div>{{detaillHistory.pricetotal | number:'1.0-0'}} ₫</div>
+          </ion-row>
+        </h3>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+  <ion-card class="cartCardOrder" *ngIf="detaillHistory">
+    <ion-card-title class="cartTitleCAC">
+      Phương thức thanh toán
+    </ion-card-title>
+    <ion-item lines="none" class="colorText">
+      <ion-label>
+        <h3>
+          <ion-row class="ion-justify-content-between  ">
+            Chuyển khoảng trước:
+            <div>Ending in 1126</div>
+          </ion-row>
+        </h3>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+  <ion-card class="cartCardOrder" >
+    <ion-card-title class="cartTitleCAC">
+      Các sản phẩm đã đặt
+    </ion-card-title>
+      <ion-label>
+        <ion-row class="headerTable">
+          <ion-col  size="3"><strong>SL</strong></ion-col>
+          <ion-col size="6"><strong>Sản phẩm</strong></ion-col>
+          <ion-col size="3"><strong>Tổng giá</strong></ion-col>
+        </ion-row>
+        <ion-row class="row-with-border"  style="height: fit-content;" *ngFor="let detaillHistory of detaillHistory.products">
+          <ion-col  size="3">{{detaillHistory.quantity}}</ion-col>
+          <ion-col  size="6">{{detaillHistory.name}}</ion-col>
+          <ion-col  size="3">{{detaillHistory.price * detaillHistory.quantity | number:'1.0-0'}}₫</ion-col>
+        </ion-row>
+        <ion-row class="ion-margin ion-justify-content-center" >
+          <!-- <ion-button id="open-modal-byagain" class="buyAgain" shape="round">Mua lại</ion-button> -->
+          <ion-button  class="buyAgain" shape="round" (click)="butAgain(detaillHistory)">Mua lại</ion-button>
+        </ion-row>
+      </ion-label>
+  </ion-card>
+</ion-content>
+
+  <!-- Modal Alert Delete Cart -->
+
+  <ion-modal #modal trigger="open-modal-byagain">
+    <ng-template class="container">
+      <ion-toolbar>
+        <ion-buttons slot="end" color="light" (click)="modal.dismiss()" class="close-icon"><ion-icon
+            name="close-outline"></ion-icon></ion-buttons>
+      </ion-toolbar>
+      <ion-col style="text-align: center; display: contents;">
+        <p class="pTitleAlert">
+          Bạn muốn có muốn mua lại tất cả sản phẩm trong lịch sử đặt hàng này?
+        </p>
+        <ion-button style="text-align: center;" class="btnTitleAlert" [routerLink]="'./'">
+          Đồng ý
+        </ion-button>
+      </ion-col>
+    </ng-template>
+  </ion-modal>

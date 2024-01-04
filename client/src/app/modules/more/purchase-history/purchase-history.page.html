@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Lịch sử đặt hàng</ion-title>
+    <ion-buttons slot="start" (click)="Back()">
+      <ion-icon size="large" icon="caret-back"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid >
+      <ion-row class="headerTable">
+        <ion-col  size="1"><strong>ID</strong></ion-col>
+        <ion-col size="2"><strong>Thời gian</strong></ion-col>
+        <ion-col ><strong>Tổng giá</strong></ion-col>
+        <ion-col size="3"><strong>Trang thái</strong></ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+
+    <ion-row *ngFor="let item of items" class="row-with-border" (click)="navigateDetailHistory(item)">
+      <ion-col size="1">{{ item.id }}</ion-col>
+      <ion-col >{{ item.date }}</ion-col>
+      <ion-col>{{ item.pricetotal | number:'1.0-0'}}₫</ion-col>
+      <ion-col class="statusCustom" [ngStyle]="{'color': item.status === 'Huỷ' ? 'red' : 'green' }" size="4">{{ item.status }}</ion-col>
+      <ion-col size="1"><ion-icon name="chevron-forward-outline" ></ion-icon></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

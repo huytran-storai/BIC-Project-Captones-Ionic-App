@@ -6,6 +6,8 @@ import { StoreService } from 'src/app/services/store.service';
 import { CartService } from 'src/app/services/cart.service';
 import { UserService } from 'src/app/services/user.service';
 import { MaskitoOptions, MaskitoElementPredicateAsync } from '@maskito/core';
+import { PurchasehistoryService } from 'src/app/services/purchasehistory.service';
+
 @Component({
   selector: 'app-checkout-order',
   templateUrl: './checkout-order.page.html',
@@ -42,7 +44,8 @@ export class CheckOutOrderPage implements OnInit {
     private modalController: ModalController,
     private storeService: StoreService,
     private userService: UserService,
-    private cartService: CartService
+    private cartService: CartService,
+    private historyService: PurchasehistoryService
     
     ) { 
     const now = new Date();
@@ -192,6 +195,14 @@ export class CheckOutOrderPage implements OnInit {
     return await modal.present();
   }
 
+ checkoutAccept() {
+  // const cartItems = this.cartService.getCartItems();
+  
+  // this.historyService.saveShoppingHistory(cartItems);
+  // localStorage.removeItem('localCart');
+}
+
+  
   
 
 }

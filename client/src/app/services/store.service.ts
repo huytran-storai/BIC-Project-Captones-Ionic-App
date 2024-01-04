@@ -11,6 +11,10 @@ export class StoreService {
   private apiUrl = 'http://localhost:1337/api';
   constructor(private http: HttpClient) { }
 
+  allProducts() {
+    return this.http.get<ProductItem[]>(`${this.apiUrl}/products`)
+  }
+
   getAllProducts(): ProductItem[] {
     return sampleProductItems;
   }

@@ -92,7 +92,17 @@ const routes: Routes = [
   {
     path: 'filter-result',
     loadChildren: () => import('./modules/department/department-result/filter-result/filter-result.module').then(m => m.FilterResultPageModule)
+  },
+  {
+    path: 'purchase-history',
+    loadChildren: () => import('./modules/more/purchase-history/purchase-history.module').then( m => m.PurchaseHistoryPageModule)
+  },
+  {
+    path: 'detail-history/:id',
+    loadChildren: () => import('./modules/more/detail-history/detail-history.module').then( m => m.DetailHistoryPageModule)
   }
+
+
 
 ];
 

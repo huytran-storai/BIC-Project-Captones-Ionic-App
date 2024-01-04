@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { StoreInfo } from 'src/app/shared/models/StoreInfo';
 import { UserService } from 'src/app/services/user.service';
 import { StoreService } from 'src/app/services/store.service';
+<<<<<<< Updated upstream
 import { BlogsService } from 'src/app/services/blogs.service';
+=======
+>>>>>>> Stashed changes
+import { ProductItem } from 'src/app/shared/models/ProductItem';
 
 @Component({
   selector: 'app-home',
@@ -11,9 +15,15 @@ import { BlogsService } from 'src/app/services/blogs.service';
 })
 export class HomePage implements OnInit {
   public user: any;
+<<<<<<< Updated upstream
   public currentStore: StoreInfo = { name: "BIC 789 Store", address: "97 Le Quang Dinh, phuong 32, quan Binh Thanh, TPHCM" };
   public blogsData: any;
   public productData: any;
+  // public currentStore: StoreInfo = {name: "BIC 789 Store", address:"97 Le Quang Dinh, phuong 32, quan Binh Thanh, TPHCM"};
+=======
+  public currentStore: StoreInfo = {name: "BIC 789 Store", address:"97 Le Quang Dinh, phuong 32, quan Binh Thanh, TPHCM"};
+>>>>>>> Stashed changes
+  productLists: any;
 
   constructor(
     private userService: UserService,
@@ -26,8 +36,12 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.getUserData();
     this.getCurrentStore();
+<<<<<<< Updated upstream
     this.getBlogsRender();
     this.getProductRender();
+=======
+>>>>>>> Stashed changes
+    this.getAllProducts();
     (function (d, m) {
       var kommunicateSettings = {
         appId: "11c15e214c77a3f11028cdce28abe430b",
@@ -61,6 +75,64 @@ export class HomePage implements OnInit {
       }
     );
   }
+  
+<<<<<<< Updated upstream
+=======
+
+  // getAllProducts() {
+  //   this.storeService.allProducts().subscribe(
+  //     (res: any) => {
+  //       this.productLists = res?.data[1]?.attributes;
+  //       console.log("find product", this.getAllProducts)
+  //     },
+  //     (err) => {
+  //       console.error('Error fetching current store data:', err);
+  //     }
+  //   );
+  // }
+
+  getAllProducts() {
+    this.storeService.allProducts().subscribe(
+      (res: any) => {
+        if (res && res.data && res.data.length > 0) {
+          this.productLists = res.data.map((item: any) => item.attributes);
+          console.log("Product lists:", this.productLists);
+        }
+      },
+      (err) => {
+        console.error('Error fetching current store data:', err);
+      }
+    );
+  }
+
+>>>>>>> Stashed changes
+
+  // getAllProducts() {
+  //   this.storeService.allProducts().subscribe(
+  //     (res: any) => {
+  //       this.productLists = res?.data[1]?.attributes;
+  //       console.log("find product", this.getAllProducts)
+  //     },
+  //     (err) => {
+  //       console.error('Error fetching current store data:', err);
+  //     }
+  //   );
+  // }
+
+  getAllProducts() {
+    this.storeService.allProducts().subscribe(
+      (res: any) => {
+        if (res && res.data && res.data.length > 0) {
+          this.productLists = res.data.map((item: any) => item.attributes);
+          console.log("Product lists:", this.productLists);
+        }
+      },
+      (err) => {
+        console.error('Error fetching current store data:', err);
+      }
+    );
+  }
+
 
   getBlogsRender() {
     this.blogsService.getblog().subscribe(
