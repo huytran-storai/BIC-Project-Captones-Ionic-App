@@ -123,7 +123,7 @@ export class CheckOutOrderPage implements OnInit {
     subTotal(): number {
       let subTotal = 0;
       for (const product of this.cartItems) {
-        subTotal += product.price * product.productQuantityAddDefault;
+        subTotal += product.Current_Price * product.productQuantityAddDefault;
       }
       return subTotal;
     }

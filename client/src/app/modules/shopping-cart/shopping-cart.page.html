@@ -37,12 +37,12 @@
       <ion-card-content *ngFor="let prod of getCartDetails">
         <ion-item class="paddingCartCAC">
           <ion-thumbnail slot="start" style="margin-right: 8px;">
-            <img alt={{prod.name}} src="{{prod.imageUrl}}" />
+            <img alt={{prod.Product_Name}} src="{{prod.Product_Image}}" />
           </ion-thumbnail>
           <ion-label class="cartCACName ion-text-wrap colorTextProd">
-            {{prod.name}}
+            {{prod.Product_Name}}
             <ion-label>
-              <p class="cartCACPrice colorTextProd">{{prod.price | number:'1.0-0'}} ₫</p>
+              <p class="cartCACPrice colorTextProd">{{prod.Current_Price | number:'1.0-0'}} ₫</p>
             </ion-label>
           </ion-label>
           <div class="wrapper" style="margin-top: -40px">
@@ -57,7 +57,7 @@
             <ion-input style="font-size: 12px;" placeholder="Add note..."></ion-input>
           </ion-col>
           <ion-col>
-            <div class="">{{prod.price * prod.productQuantityAddDefault | number:'1.0-0'}} ₫</div>
+            <div class="">{{prod.Current_Price * prod.productQuantityAddDefault | number:'1.0-0'}} ₫</div>
           </ion-col>
         </ion-row>
       </ion-card-content>

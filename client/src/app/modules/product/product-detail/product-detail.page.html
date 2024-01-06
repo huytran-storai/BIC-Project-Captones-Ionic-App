@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title *ngIf="productDetail">{{productDetail.name}}</ion-title>
+    <ion-title *ngIf="productDetail">{{productDetail.Product_Name}}</ion-title>
     <ion-buttons slot="start" (click)="Back()">
       <ion-icon size="large" icon="caret-back"></ion-icon>
     </ion-buttons>
@@ -12,28 +12,28 @@
     <ion-row class="ion-justify-content-center">
       <img class="img-sale" src="../../../../assets/iconSale.png" />
       <!-- <ion-text class="text-sale">SALE!</ion-text> -->
-      <img [src]="productDetail.imageUrl" alt={{productDetail.name}}/>
+      <img [src]="productDetail.Product_Image" alt={{productDetail.Product_Name}}/>
     </ion-row>
     <ion-card-header class="pb-0">
       <ion-row>
-        <ion-card-subtitle>{{productDetail.name}}</ion-card-subtitle>
+        <ion-card-subtitle>{{productDetail.Product_Name}}</ion-card-subtitle>
         <ion-col class="col-price">
-          <ion-card-title class="original-price">{{productDetail.originalPrice | number:'1.0-0'}}₫ avg/ea</ion-card-title>
-          <ion-card-title>{{productDetail.price | number:'1.0-0'}}₫ avg/ea</ion-card-title>
+          <ion-card-title class="original-price">{{productDetail.Old_Price | number:'1.0-0'}}₫ avg/ea</ion-card-title>
+          <ion-card-title>{{productDetail.Current_Price | number:'1.0-0'}}₫ avg/ea</ion-card-title>
         </ion-col>
       </ion-row>
     </ion-card-header>
     <ion-card-content>
       <ion-row>
         <ion-col>
-          <ion-text class="text-unitCapitity">{{productDetail.unitCapitity}} lb </ion-text> | <ion-text
-            class="text-unitPrice">₫{{productDetail.unitPrice}}/lb </ion-text>
+          <ion-text class="text-unitCapitity">{{productDetail.Unit_Capitity}} lb </ion-text> | <ion-text
+            class="text-unitPrice">{{productDetail.Unit_Price | number:'1.0-0'}}₫/lb </ion-text>
         </ion-col>
       </ion-row>
       <ion-row class="ion-align-items-center">
         <ion-col>
           <ion-icon class="icon-location" name="location-outline"></ion-icon>
-          <ion-text class="address">{{productDetail.address}}</ion-text>
+          <ion-text class="address">{{productDetail.Product_Address}}</ion-text>
         </ion-col>
       </ion-row>
       <ion-button (click)="addProduct(productDetail)">{{checkAdded(productDetail) ? 'Đã thêm' : 'Thêm'}}</ion-button>
@@ -58,7 +58,7 @@
         </ion-item>
         <ion-col class="ml-12" *ngIf="isDropdownOpen">
           <ion-button>
-            Ngọt
+            {{productDetail.taste}}
           </ion-button>
         </ion-col>
       </ion-col>
@@ -82,7 +82,7 @@
         </ion-item>
         <ion-col class="col-block ml-12" *ngIf="isDropdownOpenProductInfor">
           <ion-text class="textProductInfor">UPC: {{productDetail.Upc}}</ion-text>
-          <ion-text class="col-block textProductInfor">Mô tả: {{productDetail.Descriptions}}</ion-text>
+          <ion-text class="col-block textProductInfor">Mô tả: {{productDetail.Description}}</ion-text>
         </ion-col>
       </ion-col>
     </ion-row>
@@ -93,7 +93,7 @@
           <ion-icon [name]="isDropdownOpenDisclaimer ? 'chevron-up' : 'chevron-down'"></ion-icon>
         </ion-item>
         <ion-col class="col-block ml-12" *ngIf="isDropdownOpenDisclaimer">
-          <ion-text>Mô tả: {{productDetail.Descriptions}}</ion-text>
+          <ion-text>Mô tả: {{productDetail.Description}}</ion-text>
           <ion-text class="text-readMore">Xem thêm</ion-text>
         </ion-col>
       </ion-col>

@@ -24,13 +24,24 @@ export class ProductAllPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.items = this.StoreService.getAllProducts();
+    // this.items = this.StoreService.getAllProducts();
     this.getProductRender();
 
   }
+  getProductRender() {
+    this.productService.getProducts().subscribe(
+      (res: any) => {
+        this.productData = res.data.map((item: any) => item.attributes);
+        console.log("Product lists:", this.productData)
+      },
+      (err: any) => {
+        console.error('Error fetching current store data:', err);
+      }
+    );
+  }
 
   navigateToProductDetail(item: any) {
-    this.router.navigate(['product-detail/', item.id]);
+    this.router.navigate(['product-detail/', item.Product_Id]);
   }
 
   Back() {
@@ -98,15 +109,5 @@ export class ProductAllPage implements OnInit {
     }
   }
 
-  getProductRender() {
-    this.productService.getProducts().subscribe(
-      (res: any) => {
-        this.productData = res?.data[0]?.attributes;
-        console.log("find store", this.productData)
-      },
-      (err: any) => {
-        console.error('Error fetching current store data:', err);
-      }
-    );
-  }
+
 }

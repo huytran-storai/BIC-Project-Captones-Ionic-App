@@ -31,13 +31,13 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.items = this.StoreService.getAllProducts();
+    // this.items = this.StoreService.getAllProducts();
     this.getProductRender();
 
   }
 
   navigateToProductDetail(item: any) {
-    this.router.navigate(['product-detail/', item.id]);
+    this.router.navigate(['product-detail/', item.Product_Id]);
   }
 
   navigateToProductAll() {
@@ -46,19 +46,19 @@ export class ProductListComponent implements OnInit {
 
   subTotal(): number {
     let subTotal = 0;
-    for (const product of this.items) {
-      subTotal += product.originalPrice * product.productQuantityAddDefault;
+    for (const product of this.productData) {
+      subTotal += product.Old_Price * product.productQuantityAddDefault;
     }
     return subTotal;
   }
 
   checkAdded(item: any): boolean {
-    const productId = item.id;
+    const productId = item.Product_Id;
     this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
     let isConditionTrue = false;
 
     for (let i = 0; i < this.itemCart.length; i++) {
-      if (parseInt(productId) === parseInt(this.itemCart[i].id)) {
+      if (parseInt(productId) === parseInt(this.itemCart[i].Product_Id)) {
         isConditionTrue = true;
         break;
       }
@@ -81,11 +81,11 @@ export class ProductListComponent implements OnInit {
       storeDataGet.push(item)
       localStorage.setItem('localCart', JSON.stringify(storeDataGet));
     } else {
-      var productId = item.id;
+      var productId = item.Product_Id;
       let index: number = -1;
       this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
       for (let i = 0; i < this.itemCart.length; i++) {
-        if (parseInt(productId) === parseInt(this.itemCart[i].id)) {
+        if (parseInt(productId) === parseInt(this.itemCart[i].Product_Id)) {
           this.itemCart[i].productQuantityAddDefault += item.productQuantityAddDefault
           index = i;
           break;
@@ -107,8 +107,8 @@ export class ProductListComponent implements OnInit {
   getProductRender() {
     this.productService.getProducts().subscribe(
       (res: any) => {
-        this.productData = res?.data[0]?.attributes;
-        console.log("find store", this.productData)
+        this.productData = res.data.map((item: any) => item.attributes);
+        console.log("Product lists:", this.productData)
       },
       (err: any) => {
         console.error('Error fetching current store data:', err);

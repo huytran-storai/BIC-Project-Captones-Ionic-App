@@ -13,18 +13,18 @@ export class ProductDetailPage implements OnInit {
   productInfor: any;
   productDetail: any;
   public productData: any;
-
+  productId: any;
   @Input() product: any;
+  Product_Id: any;
 
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.productInfor = params.get('id');
-      this.loadProductDetails(this.productInfor);
+    this.route.params.subscribe(params => {
+      this.productId = params['id']; 
+      this.getProductRenderDetail(this.productId);
     });
-    this.getProductRender();
-
   }
+  
 
   constructor(
     private modalController: ModalController,
@@ -36,14 +36,11 @@ export class ProductDetailPage implements OnInit {
     private productService: StoreService,
 
   ) { }
-
   Back() {
     this.navCtrl.back()
   }
 
-  loadProductDetails(id: any) {
-    this.productDetail = this.storeService.getProductById(id);
-  }
+  
 
   isDropdownOpen = false;
 
@@ -135,15 +132,19 @@ export class ProductDetailPage implements OnInit {
     this.router.navigate(['/shopping-cart']);
   }
 
-  getProductRender() {
-    this.productService.getProducts().subscribe(
+  getProductRenderDetail(Product_Id: any) {
+    console.log("ID", Product_Id);
+    this.productService.getProductById(Product_Id).subscribe(
       (res: any) => {
-        this.productData = res?.data[0]?.attributes;
-        console.log("find store", this.productData)
+        // Kiểm tra nếu res.data là một đối tượng
+        (res.data && typeof res.data === 'object')
+          this.productDetail = res.data.attributes;
+          console.log("Product Detail:", this.productDetail);
       },
       (err: any) => {
-        console.error('Error fetching current store data:', err);
+        console.error('Lỗi data api:', err);
       }
     );
   }
+
 }

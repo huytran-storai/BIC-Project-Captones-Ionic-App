@@ -6,14 +6,14 @@
 
 <ion-content [fullscreen]="true">
   <ion-row *ngIf="tags">
-    <ion-col size="6" *ngFor="let tag of tags">
+    <ion-col size="6" *ngFor="let tag of productTag">
       <ion-card>
-        <a [routerLink]="['/department/department-result', tag.name]">
+        <a [routerLink]="['/department/department-result', tag.Product_Category_Name]">
           <ion-col>
             <ion-row class="product-img">
-              <img alt="{{tag.name}}" [src]="tag.imageUrlTag" />
+              <img alt="{{tag.imageUrlTag}}" [src]="tag.imageUrlTag" />
             </ion-row>
-            <p class="title ion-text-center">{{tag.name}}</p>
+            <p class="title ion-text-center">{{tag.Product_Category_Name}}</p>
           </ion-col>
         </a>
       </ion-card>

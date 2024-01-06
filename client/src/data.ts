@@ -155,7 +155,7 @@ export const sample_tags: Tag[] = [
   { name: 'Vine', count: 2, imageUrlTag: 'assets/spri2.jpg' },
   { name: 'Beer', count: 1, imageUrlTag: 'assets/beer1.jpg' },
   { name: 'Whiskey', count: 4, imageUrlTag: 'assets/spri1.jpg' },
-  { name: 'Spririts & Liqueur', count: 2, imageUrlTag: 'assets/bombay.jpg' },
+  { name: 'Spirits & Liqueur', count: 2, imageUrlTag: 'assets/bombay.jpg' },
 ]
 
 export const sample_news: News[] = [

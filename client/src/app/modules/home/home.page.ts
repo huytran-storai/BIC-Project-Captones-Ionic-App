@@ -30,8 +30,8 @@ export class HomePage implements OnInit {
     this.getUserData();
     this.getCurrentStore();
     this.getBlogsRender();
-    this.getProductRender();
-    this.getAllProducts();
+    // this.getProductRender();
+    // this.getAllProducts();
     (function (d, m) {
       var kommunicateSettings = {
         appId: "11c15e214c77a3f11028cdce28abe430b",
@@ -66,21 +66,6 @@ export class HomePage implements OnInit {
     );
   }
 
-  getAllProducts() {
-    this.storeService.allProducts().subscribe(
-      (res: any) => {
-        if (res && res.data && res.data.length > 0) {
-          this.productLists = res.data.map((item: any) => item.attributes);
-          console.log("Product lists:", this.productLists);
-        }
-      },
-      (err) => {
-        console.error('Error fetching current store data:', err);
-      }
-    );
-  }
-
-
 
   getBlogsRender() {
     this.blogsService.getblog().subscribe(
@@ -94,15 +79,15 @@ export class HomePage implements OnInit {
     );
   }
 
-  getProductRender() {
-    this.productService.getProducts().subscribe(
-      (res: any) => {
-        this.productData = res?.data[0]?.attributes;
-        console.log("find store", this.productData)
-      },
-      (err: any) => {
-        console.error('Error fetching current store data:', err);
-      }
-    );
-  }
+  // getProductRender() {
+  //   this.productService.getProducts().subscribe(
+  //     (res: any) => {
+  //       this.productData = res.data.map((item: any) => item.attributes);
+  //       console.log("Product lists:", this.productData)
+  //     },
+  //     (err: any) => {
+  //       console.error('Error fetching current store data:', err);
+  //     }
+  //   );
+  // }
 }
