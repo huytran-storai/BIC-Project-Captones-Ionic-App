@@ -12,6 +12,7 @@ import { NavController } from '@ionic/angular';
 })
 export class FilterResultPage implements OnInit {
   items: ProductItem[] = [];
+  productData: any;
 
   constructor(
     private StoreService: StoreService,
@@ -22,6 +23,7 @@ export class FilterResultPage implements OnInit {
 
   ngOnInit() {
     this.items = this.StoreService.getAllProducts();
+    this.getProductRender()
   }
 
   Back(){
@@ -88,5 +90,17 @@ export class FilterResultPage implements OnInit {
   
     return isConditionTrue; 
   }
+  getProductRender() {
+    this.StoreService.getProducts().subscribe(
+      (res: any) => {
+        this.productData = res.data.map((item: any) => item.attributes);
+        console.log("Product lists:", this.productData)
+      },
+      (err: any) => {
+        console.error('Error fetching current store data:', err);
+      }
+    );
+  }
+
 
 }

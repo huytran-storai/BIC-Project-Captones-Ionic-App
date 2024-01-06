@@ -172,7 +172,7 @@ export class ShoppingCartPage implements OnInit {
   subTotal(): number {
     let subTotal = 0;
     for (const product of this.getCartDetails) {
-      subTotal += product.price * product.productQuantityAddDefault;
+      subTotal += product.Current_Price * product.productQuantityAddDefault;
     }
     return subTotal;
   }
@@ -185,4 +185,7 @@ export class ShoppingCartPage implements OnInit {
 checkout(){
   this.router.navigate(['./checkout-order'])
 }
+
+
+
 }

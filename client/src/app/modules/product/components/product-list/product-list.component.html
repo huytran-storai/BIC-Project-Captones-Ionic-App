@@ -7,23 +7,23 @@
     </div>
   </ion-card-title>
   <swiper-container [slidesPerView]="2" [zoom]="false" navigation="true">
-    <swiper-slide *ngFor="let item of items" class="bg-content">
+    <swiper-slide *ngFor="let item of productData" class="bg-content">
       <ion-col size="6">
         <!-- product list -->
         <ion-card (click)="navigateToProductDetail(item)">
           <ion-row>
             <ion-col class="ion-justify-content-center product">
-              <img alt="{{item.name}}" [src]="item.imageUrl" />
+              <img alt="{{item.Product_Name}}" [src]="item.Product_Image" />
             </ion-col>
           </ion-row>
           <ion-card-header>
-            <ion-text class="price">{{item.price | number:'1.0-0'}} ₫</ion-text>
-            <ion-text class="product-name fix-2-row">{{item.name}}</ion-text>
+            <ion-text class="price">{{item.Current_Price | number:'1.0-0'}} ₫</ion-text>
+            <ion-text class="product-name fix-2-row">{{item.Product_Name}}</ion-text>
           </ion-card-header>
           <ion-card-content>
             <ion-row class="ion-align-items-center ion-justify-content-between">
-              <ion-text>{{item.unitCapitity}}lb</ion-text>
-              <ion-text>{{item.unitPrice}}/lb</ion-text>
+              <ion-text>{{item.Unit_Capitity}}lb</ion-text>
+              <ion-text>{{item.Unit_Price | number:'1.0-0'}}₫/lb</ion-text>
             </ion-row>
             <ion-row class="ion-align-items-center add">
               <ion-button (click)="addProduct($event, item)" class="btn" size="small" color="primary">{{
