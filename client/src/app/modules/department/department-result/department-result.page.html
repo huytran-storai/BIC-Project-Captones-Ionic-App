@@ -4,7 +4,7 @@
       <ion-back-button text="" icon="caret-back" defaultHref="/department"></ion-back-button>
     </ion-buttons>
     <ion-title class="ion-justify-content-center">
-      Department
+      Danh Mục
     </ion-title>
     <ion-buttons slot="end">
       <ion-button id="open-modal"> <ion-icon name="options-outline" slot="end"></ion-icon></ion-button>
@@ -14,7 +14,7 @@
       <ng-template>
         <ion-header>
           <ion-toolbar>
-            <ion-title class="titleFilter">Filter</ion-title>
+            <ion-title class="titleFilter">Tìm kiếm</ion-title>
             <ion-buttons slot="end">
               <ion-button (click)="modal.dismiss()"><ion-icon name="close-outline" class="iconClose"
                   size="large"></ion-icon></ion-button>
@@ -23,56 +23,56 @@
         </ion-header>
         <ion-content>
           <!-- List department -->
-          <h3 class="typeFilter">Departments</h3>
+          <h3 class="typeFilter">Danh Mục</h3>
           <div class="bar"></div>
           <ion-list>
             <ion-item *ngFor="let depart of departmentShow; let i = index" lines="full">
               <ion-checkbox slot="start" [(ngModel)]="selectedDepartment[depart]"></ion-checkbox>
               <ion-label>{{ depart }}</ion-label>
               <ng-container *ngIf="i === 2 && !showMoreDepartment">
-                <ion-buttons (click)="toggleShowMoreDepartment()" class="btnSee" >See More</ion-buttons>
+                <ion-buttons (click)="toggleShowMoreDepartment()" class="btnSee">Xem thêm</ion-buttons>
               </ng-container>
               <ng-container *ngIf="i === 3 && showMoreDepartment">
-                <ion-buttons (click)="toggleShowMoreDepartment()" class="btnSee">See Less</ion-buttons>
+                <ion-buttons (click)="toggleShowMoreDepartment()" class="btnSee">Rút gọn</ion-buttons>
               </ng-container>
             </ion-item>
           </ion-list>
           <!-- End list department -->
           <!-- List brand -->
-          <h3 class="typeFilter">Brand</h3>
+          <h3 class="typeFilter">Nhãn hàng</h3>
           <div class="bar"></div>
           <ion-list>
             <ion-item *ngFor="let brand of brandShow; let i = index" lines="full">
               <ion-checkbox slot="start" [(ngModel)]="selectedBrand[brand]"></ion-checkbox>
               <ion-label>{{ brand }}</ion-label>
               <ng-container *ngIf="i === 2 && !showMoreBrand">
-                <ion-buttons (click)="toggleShowMoreBrand()" class="btnSee" >See More</ion-buttons>
+                <ion-buttons (click)="toggleShowMoreBrand()" class="btnSee" >Xem thêm</ion-buttons>
               </ng-container>
               <ng-container *ngIf="i === brandShow.length - 1 && showMoreBrand">
-                <ion-buttons (click)="toggleShowMoreBrand()" class="btnSee">See Less</ion-buttons>
+                <ion-buttons (click)="toggleShowMoreBrand()" class="btnSee">Rút gọn</ion-buttons>
               </ng-container>
             </ion-item>
           </ion-list>
           <!-- End list brand -->
            <!-- List lifestyle -->
-           <h3 class="typeFilter">Lifestyle focus</h3>
+           <h3 class="typeFilter">Hương vị</h3>
            <div class="bar"></div>
            <ion-list>
              <ion-item *ngFor="let lifestyle of lifestyleShow; let i = index" lines="full">
                <ion-checkbox slot="start" [(ngModel)]="selectedLifestyle[lifestyle]"></ion-checkbox>
                <ion-label>{{ lifestyle }}</ion-label>
                <ng-container *ngIf="i === 2 && !showMoreLifestyles">
-                 <ion-buttons (click)="toggleShowMoreLifestyle()" class="btnSee" >See More</ion-buttons>
+                 <ion-buttons (click)="toggleShowMoreLifestyle()" class="btnSee">Xem thêm</ion-buttons>
                </ng-container>
                <ng-container *ngIf="i === lifestyleShow.length - 1 && showMoreLifestyles">
-                 <ion-buttons (click)="toggleShowMoreLifestyle()" class="btnSee">See Less</ion-buttons>
+                 <ion-buttons (click)="toggleShowMoreLifestyle()" class="btnSee">Rút gọn</ion-buttons>
                </ng-container>
              </ion-item>
            </ion-list>
            <!-- End list lifestyle -->
           <div  class="centerBtn">
-            <ion-button  (click)="toggleReset()" class="btnActionFilter btnReset">RESET</ion-button>
-            <ion-button  (click)="toggleApply()" class="btnActionFilter btnApply" [disabled]="!areAnyCheckboxesSelected()">APPLY</ion-button>
+            <ion-button  (click)="toggleReset()" class="btnActionFilter btnReset">CHỌN LẠI</ion-button>
+            <ion-button  (click)="toggleApply()" class="btnActionFilter btnApply" [disabled]="!areAnyCheckboxesSelected()">TÌM KIẾM</ion-button>
           </div>
         </ion-content>
       </ng-template>
@@ -83,7 +83,7 @@
   <ion-row class="ion-justify-content-center">
     <ion-toolbar>
       <a [routerLink]="['/search-product']">
-        <ion-searchbar></ion-searchbar>
+        <ion-searchbar placeholder="nhập sản phẩm cần tìm..."></ion-searchbar>
       </a>
     </ion-toolbar>
   </ion-row>
@@ -111,7 +111,7 @@
           </ion-row>
           <ion-row class="ion-align-items-center add">
             <ion-button (click)="addProduct(product)" class="btn" size="small" color="primary" >{{
-              checkAdded(product) ? 'Added' : 'Add' }}</ion-button>
+              checkAdded(product) ? 'Đã thêm' : 'Thêm' }}</ion-button>
           </ion-row>
         </ion-card-content>
       </ion-card>

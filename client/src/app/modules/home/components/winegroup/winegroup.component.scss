@@ -22,9 +22,13 @@
     }
     a {
         text-decoration: none;
+        ion-card {
+            border-radius: 30%;
+            box-shadow: 5px 11px var(--ion-color-danger-shade), -5px 5px var(--ion-color-medium-tint);
+        }
 
         p {
-            font-size: 13px;
+            font-size: 16px;
             font-weight: bolder;
             color: var(--ion-color-dark-shade);
         }

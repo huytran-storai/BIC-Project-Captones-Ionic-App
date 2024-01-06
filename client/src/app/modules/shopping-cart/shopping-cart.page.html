@@ -139,23 +139,25 @@
     </ion-item>
   </ion-card>
   <ng-template *ngIf="!checkItemsCart"></ng-template>
-  <ion-grid [fixed]="true" class="ion-text-center">
-    <ion-row>
-      <ion-col>
-        <ion-button class="ion-text-wrap colorText ion-text-start" [routerLink]="['/home']">Tiếp tục mua sắm</ion-button>
-      </ion-col>
-      <ion-col>
-        <ion-button class="btnCheckout colorText ion-text-center" (click)="checkout()">Tiến hành thanh toán
-        </ion-button>
-      </ion-col>
-      <ion-col class="ion-justify-content-center" style="display: flex;">
-        <ion-button id="open-modal-empty" class="ion-text-wrap colorText ion-text-end" [disabled]="!checkItemsCart">
-          Xóa tất cả
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <!-- Modal Alert Delete Cart -->
+  
+  <ion-row class="ion-text-center">
+    <ion-col>
+      <ion-button class="btnCheckout colorText ion-text-center" (click)="checkout()" [disabled]="!checkItemsCart">Tiến
+        hành thanh toán
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="ion-text-center">
+    <ion-col>
+      <ion-button class="ion-text-wrap colorText ion-text-start" [routerLink]="['/home']">Quay về</ion-button>
+    </ion-col>
+    <ion-col class="ion-justify-content-center" style="display: flex;">
+      <ion-button id="open-modal-empty" class="ion-text-wrap colorText ion-text-end" [disabled]="!checkItemsCart">
+        Xóa tất cả
+      </ion-button>
+    </ion-col>
+  </ion-row>
 
   <ion-modal #modal trigger="open-modal-empty">
     <ng-template class="container">
