@@ -2,20 +2,20 @@
   Blogs Vine
 </ion-card-title>
 
-<ion-col *ngFor="let item of news">
+<ion-col *ngFor="let item of blogsData">
   <ion-row class="content2">
     <ion-card>
-      <img class="poster2" [src]="item.imageUrlnew" alt={{item.title}}>
-      <ion-card-title class="title-news">{{item.title}}</ion-card-title>
+      <img class="poster2" [src]="item.Blog_Image" alt={{item.Blog_Name}}>
+      <ion-card-title class="title-news">{{item.Blog_Name}}</ion-card-title>
       <ion-card-content>
-        <p class="ion-no-margin">{{item.content}}</p>
+        <p class="ion-no-margin">{{item.Description}}</p>
         <ion-row class="timedate ion-align-items-center">
           <ion-icon name="time-outline"></ion-icon>
-          <span class="ion-no-margin">{{item.date}}</span>
+          <span class="ion-no-margin">{{item.createdAt | date: 'dd/MM/yyyy HH:mm:ss'}}</span>
         </ion-row>
       </ion-card-content>
       <ion-row class="ion-align-items-center btn-read">
-        <a class="read-button" href={{item.url}}>Đọc thêm</a>
+        <a class="read-button" href={{item.Blog_Url}}>Đọc thêm</a>
         <ion-icon name="arrow-forward-outline" class="icon-read-more"></ion-icon>
       </ion-row>
     </ion-card>

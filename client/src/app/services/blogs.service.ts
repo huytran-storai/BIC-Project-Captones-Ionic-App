@@ -8,7 +8,7 @@ export class BlogsService {
   private apiUrl = 'http://localhost:1337/api';
   constructor(private http: HttpClient) { }
 
-  getblog() {
+  getBlog() {
     return this.http.get(`${this.apiUrl}/blogs`);
   }
 }

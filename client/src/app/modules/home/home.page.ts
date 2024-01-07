@@ -29,7 +29,7 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.getUserData();
     this.getCurrentStore();
-    this.getBlogsRender();
+    // this.getBlogsRender();
     // this.getProductRender();
     // this.getAllProducts();
     (function (d, m) {
@@ -67,17 +67,6 @@ export class HomePage implements OnInit {
   }
 
 
-  getBlogsRender() {
-    this.blogsService.getblog().subscribe(
-      (res: any) => {
-        this.blogsData = res?.data[0]?.attributes;
-        console.log("find store", this.blogsData)
-      },
-      (err) => {
-        console.error('Error fetching current store data:', err);
-      }
-    );
-  }
 
   // getProductRender() {
   //   this.productService.getProducts().subscribe(
