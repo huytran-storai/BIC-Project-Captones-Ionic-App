@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { ProductItem } from '../shared/models/ProductItem';
 import { sampleProductItems, sample_tags, } from 'src/data';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,16 +13,20 @@ export class StoreService {
   private apiUrl = 'http://localhost:1337/api';
   constructor(private http: HttpClient) { }
 
-  allProducts() {
-    return this.http.get<ProductItem[]>(`${this.apiUrl}/products`)
-  }
-
   getAllProducts(): ProductItem[] {
     return sampleProductItems;
   }
 
-  getProductById(id: any): ProductItem | undefined {
-    return sampleProductItems.find(item => item.id === id);
+  getProductById(Product_Id: string) {
+    return this.http.get(`${this.apiUrl}/products/${Product_Id}`);
+  }
+
+  getProducts() {
+    return this.http.get(`${this.apiUrl}/products`);
+  }
+
+  getProductTag(){
+    return this.http.get(`${this.apiUrl}/product-categories`)
   }
 
   getAllProductsBySearchTerm(searchTerm: string) {
@@ -31,16 +37,15 @@ export class StoreService {
     return sample_tags;
   }
 
-  getAllProductsByTagName(tag: string): ProductItem[] {
-    return this.getAllProducts().filter(item => item.tags?.includes(tag));
-  }
+  // getAllProductsByTagName(tag: string){
+  //   return this.getProducts().pipe(filter(item => item.tags?.includes(tag)))
+  // }
+  
+
+  
 
   getCurrentStoreAddress() {
     return this.http.get(`${this.apiUrl}/stores`);
-  }
-
-  getProducts() {
-    return this.http.get(`${this.apiUrl}/products`);
   }
 
 }

@@ -1,19 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { News } from 'src/app/shared/models/News';
-import { NewsService } from 'src/app/services/news.service';
-
+import { BlogsService } from 'src/app/services/blogs.service';
 @Component({
   selector: 'app-blogs',
   templateUrl: './blogs.component.html',
   styleUrls: ['./blogs.component.scss'],
 })
 export class BlogsComponent implements OnInit {
-
-  news: News[] = [];
-  constructor(private NewsService: NewsService) { }
+  public blogsData: any;
+  constructor(
+    private BlogService: BlogsService
+    ) { }
 
   ngOnInit(): void {
-    this.news = this.NewsService.getAllNews()
+    this.getBlogsRender()
+  }
+
+  getBlogsRender() {
+    this.BlogService.getBlog().subscribe(
+      (res: any) => {
+        this.blogsData = res.data.map((item: any) => item.attributes);
+        console.log("Find Blog: ", this.blogsData)
+      },
+      (err) => {
+        console.error('Error fetching current store data:', err);
+      }
+    );
   }
 
 }

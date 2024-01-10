@@ -10,10 +10,24 @@ register();
 })
 export class WinegroupComponent implements OnInit {
   tags: Tag[];
-  constructor(StoreService: StoreService) {
+  public productTag: any;
+  constructor(private StoreService: StoreService) {
     this.tags = StoreService.getAllTags();
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.getTagsProduct()
+   }
 
+  getTagsProduct(){
+    this.StoreService.getProductTag().subscribe(
+      (res: any) => {
+        this.productTag = res.data.map((item: any) => item.attributes);
+        console.log("Product tags:", this.productTag)
+      },
+      (err: any) => {
+        console.error('Error fetching current store data:', err);
+      }
+    );
+  }
 }
