@@ -23,7 +23,7 @@ export class ShoppingCartPage implements OnInit {
   checkItemsCart: boolean = false;
   public _numberOfItems: number | undefined;
   alerCtrl: any;
-  message = 'Add Promo Code';
+  message = 'Nhập mã giảm giá';
   name: string | undefined;
   getCartDetails: any = [];
   public user: any;

@@ -25,7 +25,7 @@ export class CheckOutOrderPage implements OnInit {
   payAfter: boolean = true;
   currentDate: string;
   modal!: IonModal;
-  message = 'Add Promo Code';
+  message = 'Nhập mã giảm giá';
   name: string | undefined;
   public _numberOfItems: number | undefined;
   checkItemsCart: boolean = false;

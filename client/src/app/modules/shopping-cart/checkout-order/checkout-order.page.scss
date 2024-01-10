@@ -1,3 +1,41 @@
+ion-radio::part(container) {
+    width: 25px;
+    height: 25px;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+}
+
+ion-radio::part(mark) {
+    background: none;
+    transition: none;
+    transform: none;
+    border-radius: 0;
+}
+
+ion-radio.radio-checked::part(container) {
+    background: var(--ion-color-primary);
+    border-color: transparent;
+}
+
+ion-radio.radio-checked::part(mark) {
+    width: 6px;
+    height: 10px;
+    border-width: 0px 2px 2px 0px;
+    border-style: solid;
+    border-color: #fff;
+    transform: rotate(45deg);
+}
+
+ion-radio-group {
+    ion-row {
+        justify-content: flex-start;
+        gap: 10px;
+        align-items: center;
+        margin-left: 10px;
+        font-weight: bold;
+        color: var(--ion-color-dark);
+    }
+}
 
 ion-button {
     --background: none;
@@ -5,23 +43,27 @@ ion-button {
     --background-activated: none;
     color: var(--ion-color-danger);
     font-weight: bolder;
-    font-size:smaller;
+    font-size: smaller;
 }
-ion-checkbox{
+
+ion-checkbox {
     --size: 17px;
     --checkmark-width: 0px;
     --border-width: 1px;
     --border-color: black;
-    --border-color-checked:black;
+    --border-color-checked: black;
     --checkbox-background-checked: var(--ion-color-primary);
 }
-ion-thumbnail{
+
+ion-thumbnail {
     --size: 70px;
 }
+
 ion-toolbar {
     --background: var(--ion-color-primary);
     --color: var(--ion-color-primary-contrast);
 }
+
 ion-modal ion-toolbar {
     --background: white !important;
     color: black;
@@ -31,68 +73,84 @@ ion-modal ion-toolbar {
     font-size: 30px;
     color: var(-ion-color-success-contrast);
 }
-.colorTitle{
+
+.colorTitle {
     color: var(--ion-color-primary);
 }
-.colorText{
+
+.colorText {
     color: black;
 }
-.cartCardOrder{
+
+.cartCardOrder {
     border-radius: 0px;
 }
-.header{
+
+.header {
     height: 50px;
 }
-.cartTitleOrder{
+
+.cartTitleOrder {
     font-size: 17px;
     padding: 10px;
 }
-.cartSubTitleOrder{
+
+.cartSubTitleOrder {
     font-size: 13px;
-    font-weight:800;
+    font-weight: 800;
 }
-.cartSubTitleType{
+
+.cartSubTitleType {
     font-size: 14px;
     font-weight: 700;
 }
-.paddingCartCAC{
+
+.paddingCartCAC {
     --padding-start: 0;
     margin-top: -10px;
 }
-.cartTitleCAC{
+
+.cartTitleCAC {
     background-color: var(--ion-color-primary);
     font-size: 17px;
-    padding: 7px; 
+    padding: 7px;
     color: var(--ion-color-primary-contrast);
 
 }
-.cartCACName{
+
+.cartCACName {
     font-size: 12px;
     font-weight: 700;
 }
-.cartCACPrice{
+
+.cartCACPrice {
     font-weight: 700;
 }
-.cartCACOption{
+
+.cartCACOption {
     font-size: 12px;
 }
-.cartCACViewDetail{
+
+.cartCACViewDetail {
     width: 100%;
     margin-left: 85px;
     font-size: 14px;
     margin-top: -2px;
 }
-.cartCACAddPromo{
+
+.cartCACAddPromo {
     margin-top: -15px;
     font-size: 10px;
     color: var(--ion-color-medium);
 }
-.cartCardSubOrder{
+
+.cartCardSubOrder {
     font-weight: 700;
     margin-bottom: 4px;
 }
-ion-input.cartInput{
-   
+
+ion-input.cartInput {
+
     margin-top: 10px;
     margin-bottom: 10px;
     border: 1px solid var(--ion-color-medium);
@@ -102,54 +160,59 @@ ion-input.cartInput{
     --padding-end: 30px;
     --padding-top: 10px;
     --padding-start: 30px;
-    
+
 }
 
 .btnCheckout {
-    border: 1px solid;
+    border: 1px solid var(--ion-color-primary-contrast);
     border-radius: 20px;
     font-weight: 800;
-    background-color: var(--ion-color-danger) !important;
+    background-color: var(--ion-color-primary) !important;
     color: var(--ion-color-primary-contrast);
 }
 
-.checkoutPaymentMT{
+.checkoutPaymentMT {
     margin-left: 15px;
     margin-top: 10px;
     font-weight: 700;
 }
-.checkoutsubPaymentMT{
+
+.checkoutsubPaymentMT {
     margin-left: 48px;
     font-size: 10px;
     width: 250px;
 }
-.setQuantity{
-    border: 1px solid; 
+
+.setQuantity {
+    border: 1px solid;
     width: 20px;
     height: 20px;
-    border-radius:30px;
+    border-radius: 30px;
     margin-top: -50px;
 }
-.toolBarPromo{
+
+.toolBarPromo {
     height: 30px;
 }
 
-.inpPromoCode{
-   border: 1px solid;
-   width: 70%;
-   margin-left: 15%;
-   margin-top: -30px;
-   
+.inpPromoCode {
+    border: 1px solid;
+    width: 70%;
+    margin-left: 15%;
+    margin-top: -30px;
+
 }
+
 .pTitleAlertPromo {
     font-weight: 700;
     font-size: 20px;
     text-align: center;
     color: var(--ion-color-success-shade);
     margin-top: -20px;
-    
+
 }
-.btnTitleAlerPromo{
+
+.btnTitleAlerPromo {
     margin-left: 15%;
     width: 70%;
     font-weight: 600;
@@ -159,9 +222,11 @@ ion-input.cartInput{
     border-radius: 5px;
     margin-bottom: 90px;
 }
-.modalSchedule{
+
+.modalSchedule {
     --border-radius: 13px;
 }
+
 .modalPromo {
     --width: 78%;
     --height: 40%;
@@ -234,7 +299,7 @@ ion-back-button {
     }
 }
 
-.btnUpdate{
+.btnUpdate {
     background-color: var(--ion-color-primary);
     display: flex;
     justify-content: center;
@@ -243,4 +308,5 @@ ion-back-button {
     width: 150px;
     color: var(--ion-color-primary-contrast);
 }
+
 // End  SCSS Modal Edit Contact 

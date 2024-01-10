@@ -8,18 +8,13 @@ swiper-container {
 
     swiper-slide img {
         display: flex;
-        padding: 10%;
         justify-content: center;
-        margin-left: 46px;
-
-
+        width: 170px;
+        height: 300px;
     }
-
     .title {
-        text-align: center;
-    }
-
-    .paragrapb {
-        text-align: center;
+        h2{
+            font-weight: bold;
+        }
     }
 }
