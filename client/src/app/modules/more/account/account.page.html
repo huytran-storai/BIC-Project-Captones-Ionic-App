@@ -8,12 +8,12 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <ion-item>
+    <ion-item *ngIf="user">
         <ion-label>
             <h3>Thông tin đăng nhập:</h3>
-            <p>Email: useremail20020222@gmail.com</p>
-            <p>Sinh nhật: 01/07/2002</p>
-            <p>Ngày tạo: </p>
+            <p>Email : {{user?.email}}</p>
+            <p>Sinh nhật : {{user?.birthday}}</p>
+            <p>Ngày tạo : {{ user?.createdAt | date: 'yyyy-MM-dd HH:mm:ss' }} </p>
         </ion-label>
         <ion-button [routerLink]="['/edit-account']" slot="end" class="accountBtn "> Thay đổi </ion-button>
     </ion-item>
@@ -21,8 +21,8 @@
     <ion-item>
         <ion-label>
             <h3>Thông tin liên lạc:</h3>
-            <p>Họ và tên : Huy Tran</p>
-            <p>Số điện thoại : 222-222-222</p>
+            <p>Họ và tên : {{user?.lastname}} {{user?.username}}</p>
+            <p>Số điện thoại : {{user?.phone}}</p>
         </ion-label>
         <ion-button [routerLink]="['/edit-contact']" slot="end"> Thay đổi </ion-button>
     </ion-item>
@@ -30,7 +30,8 @@
     <ion-item>
         <ion-label>
             <h3>Thông tin giao hàng:</h3>
-            <p>Địa chỉ: 123 Dương Quang Hàm, phường 12, quận Gò Vấp, TPHCM</p>
+            <p *ngIf="user.address">Địa chỉ : {{user?.address}}</p>
+            <p *ngIf="!user.address">Vui lòng bổ sung thông tin</p>
         </ion-label>
         <ion-button [routerLink]="['/edit-contact']" slot="end"> Thay đổi </ion-button>
     </ion-item>
@@ -46,8 +47,8 @@
         </ion-card-content>
         <ion-col class="ion-justify-content-between ion-text-justify btn-sp">
             <ion-button fill="clear"><ion-icon
-                name="headset-outline"></ion-icon> Liên Hệ</ion-button>
-            <ion-button fill="clear"><ion-icon name="chatbox-ellipses-outline"></ion-icon> Chat Bot</ion-button>
+                name="headset-outline"></ion-icon>Liên Hệ</ion-button>
+            <ion-button fill="clear"><ion-icon name="chatbox-ellipses-outline"></ion-icon>Chat Bot</ion-button>
         </ion-col>
 
     </ion-card>

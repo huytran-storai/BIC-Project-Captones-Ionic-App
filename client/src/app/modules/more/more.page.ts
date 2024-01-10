@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-more',
@@ -6,10 +7,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./more.page.scss'],
 })
 export class MorePage implements OnInit {
-
-  constructor(private router: Router) { }
+  public user: any;
+  constructor(private router: Router,private userService: UserService,) { }
 
   ngOnInit() {
+    this.getUserData();
+  }
+
+  getUserData() {
+    this.userService.getUserData().subscribe(res => {
+      this.user = res?.user
+      console.log("check user cur on more", res)
+    } );
   }
 
   logout() {
