@@ -70,12 +70,12 @@ export class ProductDetailPage implements OnInit {
   }
 
   checkAdded(product: any): boolean {
-    const productId = product.id;
+    const productId = product.ProductId;
     this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
     let isConditionTrue = false;
 
     for (let i = 0; i < this.itemCart.length; i++) {
-      if (parseInt(productId) === parseInt(this.itemCart[i].id)) {
+      if (parseInt(productId) === parseInt(this.itemCart[i].ProductId)) {
         isConditionTrue = true;
         break;
       }
@@ -93,11 +93,11 @@ export class ProductDetailPage implements OnInit {
       storeDataGet.push(item)
       localStorage.setItem('localCart', JSON.stringify(storeDataGet));
     } else {
-      var productId = item.id;
+      var productId = item.ProductId;
       let index: number = -1;
       this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
       for (let i = 0; i < this.itemCart.length; i++) {
-        if (parseInt(productId) === parseInt(this.itemCart[i].id)) {
+        if (parseInt(productId) === parseInt(this.itemCart[i].ProductId)) {
           this.itemCart[i].productQuantityAddDefault += item.productQuantityAddDefault
           index = i;
           break;

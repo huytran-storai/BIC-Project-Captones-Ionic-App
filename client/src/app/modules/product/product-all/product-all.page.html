@@ -13,17 +13,17 @@
       <ion-card (click)="navigateToProductDetail(item)">
         <ion-row>
           <ion-col class="ion-justify-content-center product">
-            <img alt="{{item.Product_Image}}" [src]="item.Product_Image" />
+            <img alt="{{item.ProductImage}}" [src]="item.ProductImage" />
           </ion-col>
         </ion-row>
         <ion-card-header>
-          <ion-text class="price">{{item.Current_Price | number:'1.0-0'}} ₫</ion-text>
-          <ion-text class="product-name fix-2-row">{{item.Product_Name}}</ion-text>
+          <ion-text class="price">{{item.CurrentPrice | number:'1.0-0'}} ₫</ion-text>
+          <ion-text class="product-name fix-2-row">{{item.ProductName}}</ion-text>
         </ion-card-header>
         <ion-card-content>
           <ion-row class="ion-align-items-center ion-justify-content-between">
-            <ion-text>{{item.Unit_Capitity}}ml</ion-text>
-            <ion-text>{{item.Unit_Price | number:'1.0-0'}} ₫/lb</ion-text>
+            <ion-text>{{item.UnitCapitity}}ml</ion-text>
+            <ion-text>{{item.UnitPrice | number:'1.0-0'}} ₫/lb</ion-text>
           </ion-row>
           <ion-row class="ion-align-items-center add">
             <ion-button (click)="addProduct($event, item)"  class="btn" size="small" color="primary">{{

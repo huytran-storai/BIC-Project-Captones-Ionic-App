@@ -8,12 +8,12 @@
   <ion-row *ngIf="tags">
     <ion-col size="6" *ngFor="let tag of productTag">
       <ion-card>
-        <a [routerLink]="['/department/department-result', tag.Product_Category_Name]">
+        <a [routerLink]="['/department/department-result', tag.DepartmentName]">
           <ion-col>
             <ion-row class="product-img">
-              <img alt="{{tag.imageUrlTag}}" [src]="tag.imageUrlTag" />
+              <img alt="{{tag.DepartmentImage}}" [src]="tag.DepartmentImage" />
             </ion-row>
-            <p class="title ion-text-center">{{tag.Product_Category_Name}}</p>
+            <p class="title ion-text-center">{{tag.DepartmentName}}</p>
           </ion-col>
         </a>
       </ion-card>

@@ -82,7 +82,7 @@ export class DepartmentResultPage implements OnInit {
         this.productData = res.data.map((item: any) => item.attributes);
         if (this.productData && this.productData.length > 0) {
           this.productResult = this.productData.filter((product: any) => {
-            return product.drink_type === this.tagName;
+            return product.DrinkType === this.tagName;
           });
         } else {
           console.log('No data');
@@ -140,16 +140,16 @@ export class DepartmentResultPage implements OnInit {
   }
 
   navigateToProductDetail(item: any) {
-    this.router.navigate(['product-detail/', item.Product_Id]);
+    this.router.navigate(['product-detail/', item.ProductId]);
   }
 
   checkAdded(product: any): boolean {
-    const productId = product.id;
+    const productId = product.ProductId;
     this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
     let isConditionTrue = false;
 
     for (let i = 0; i < this.itemCart.length; i++) {
-      if (parseInt(productId) === parseInt(this.itemCart[i].id)) {
+      if (parseInt(productId) === parseInt(this.itemCart[i].ProductId)) {
         isConditionTrue = true;
         break;
       }
@@ -165,11 +165,11 @@ export class DepartmentResultPage implements OnInit {
       storeDataGet.push(items);
       localStorage.setItem('localCart', JSON.stringify(storeDataGet));
     } else {
-      var productId = items.id;
+      var productId = items.ProductId;
       let index: number = -1;
       this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
       for (let i = 0; i < this.itemCart.length; i++) {
-        if (parseInt(productId) === parseInt(this.itemCart[i].id)) {
+        if (parseInt(productId) === parseInt(this.itemCart[i].ProductId)) {
           this.itemCart[i].productQuantityAddDefault +=
             items.productQuantityAddDefault;
           index = i;
