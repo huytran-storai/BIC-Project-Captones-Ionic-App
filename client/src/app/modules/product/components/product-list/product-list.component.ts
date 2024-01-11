@@ -37,7 +37,7 @@ export class ProductListComponent implements OnInit {
   }
 
   navigateToProductDetail(item: any) {
-    this.router.navigate(['product-detail/', item.Product_Id]);
+    this.router.navigate(['product-detail/', item.ProductId]);
   }
 
   navigateToProductAll() {
@@ -53,12 +53,12 @@ export class ProductListComponent implements OnInit {
   }
 
   checkAdded(item: any): boolean {
-    const productId = item.Product_Id;
+    const productId = item.ProductId;
     this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
     let isConditionTrue = false;
 
     for (let i = 0; i < this.itemCart.length; i++) {
-      if (parseInt(productId) === parseInt(this.itemCart[i].Product_Id)) {
+      if (parseInt(productId) === parseInt(this.itemCart[i].ProductId)) {
         isConditionTrue = true;
         break;
       }
@@ -81,11 +81,11 @@ export class ProductListComponent implements OnInit {
       storeDataGet.push(item)
       localStorage.setItem('localCart', JSON.stringify(storeDataGet));
     } else {
-      var productId = item.Product_Id;
+      var productId = item.ProductId;
       let index: number = -1;
       this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
       for (let i = 0; i < this.itemCart.length; i++) {
-        if (parseInt(productId) === parseInt(this.itemCart[i].Product_Id)) {
+        if (parseInt(productId) === parseInt(this.itemCart[i].ProductId)) {
           this.itemCart[i].productQuantityAddDefault += item.productQuantityAddDefault
           index = i;
           break;

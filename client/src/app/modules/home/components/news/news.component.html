@@ -2,8 +2,8 @@
   [pagination]="{clickable:true, dynamicBullets:true}">
   <swiper-slide *ngFor="let item of blogData" class="bg-content">
     <ion-card>
-      <a href={{item.Blog_Url}}>
-        <img class="img" [src]="item.Blog_Image" alt={{item.Blog_Name}} />
+      <a href={{item.BlogUrl}}>
+        <img class="img" [src]="item.BlogImage" alt={{item.BlogName}} />
       </a>
     </ion-card>
   </swiper-slide>

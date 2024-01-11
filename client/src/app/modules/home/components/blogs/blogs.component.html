@@ -5,7 +5,7 @@
 <ion-col *ngFor="let item of blogsData">
   <ion-row class="content2">
     <ion-card>
-      <img class="poster2" [src]="item.Blog_Image" alt={{item.Blog_Name}}>
+      <img class="poster2" [src]="item.BlogImage" alt={{item.BlogName}}>
       <ion-card-title class="title-news">{{item.Blog_Name}}</ion-card-title>
       <ion-card-content>
         <p class="ion-no-margin">{{item.Description}}</p>
@@ -15,7 +15,7 @@
         </ion-row>
       </ion-card-content>
       <ion-row class="ion-align-items-center btn-read">
-        <a class="read-button" href={{item.Blog_Url}}>Đọc thêm</a>
+        <a class="read-button" href={{item.BlogUrl}}>Đọc thêm</a>
         <ion-icon name="arrow-forward-outline" class="icon-read-more"></ion-icon>
       </ion-row>
     </ion-card>

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title *ngIf="productDetail">{{productDetail.Product_Name}}</ion-title>
+    <ion-title *ngIf="productDetail">{{productDetail.ProductName}}</ion-title>
     <ion-buttons slot="start" (click)="Back()">
       <ion-icon size="large" icon="caret-back"></ion-icon>
     </ion-buttons>
@@ -12,13 +12,13 @@
     <ion-row class="ion-justify-content-center">
       <img class="img-sale" src="../../../../assets/iconSale.png" />
       <!-- <ion-text class="text-sale">SALE!</ion-text> -->
-      <img [src]="productDetail.Product_Image" alt={{productDetail.Product_Name}}/>
+      <img [src]="productDetail.ProductImage" alt={{productDetail.ProductName}}/>
     </ion-row>
     <ion-card-header class="pb-0">
       <ion-row>
         <ion-card-subtitle>{{productDetail.Product_Name}}</ion-card-subtitle>
         <ion-col class="col-price">
-          <ion-card-title class="original-price">{{productDetail.Old_Price | number:'1.0-0'}}₫ avg/ea</ion-card-title>
+          <ion-card-title class="original-price">{{productDetail.OldPrice | number:'1.0-0'}}₫ avg/ea</ion-card-title>
           <ion-card-title>{{productDetail.Current_Price | number:'1.0-0'}}₫ avg/ea</ion-card-title>
         </ion-col>
       </ion-row>
@@ -26,14 +26,14 @@
     <ion-card-content>
       <ion-row>
         <ion-col>
-          <ion-text class="text-unitCapitity">{{productDetail.Unit_Capitity}} lb </ion-text> | <ion-text
+          <ion-text class="text-unitCapitity">{{productDetail.UnitCapitity}} lb </ion-text> | <ion-text
             class="text-unitPrice">{{productDetail.Unit_Price | number:'1.0-0'}}₫/lb </ion-text>
         </ion-col>
       </ion-row>
       <ion-row class="ion-align-items-center">
         <ion-col>
           <ion-icon class="icon-location" name="location-outline"></ion-icon>
-          <ion-text class="address">{{productDetail.Product_Address}}</ion-text>
+          <ion-text class="address">{{productDetail.ProductAddress}}</ion-text>
         </ion-col>
       </ion-row>
       <ion-button (click)="addProduct(productDetail)">{{checkAdded(productDetail) ? 'Đã thêm' : 'Thêm'}}</ion-button>

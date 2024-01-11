@@ -95,13 +95,13 @@
         <a (click)="navigateToProductDetail(product)">
           <ion-row>
             <ion-col class="ion-justify-content-center product">
-              <img alt="{{product.Product_Name}}" [src]="product.Product_Image" />
+              <img alt="{{product.ProductName}}" [src]="product.ProductImage" />
             </ion-col>
           </ion-row>
 
           <ion-card-header>
-            <ion-text class="price">{{product.Current_Price | number:'1.0-0'}} ₫</ion-text>
-            <ion-text class="product-name fix-2-row">{{product.Product_Name}}</ion-text>
+            <ion-text class="price">{{product.CurrentPrice | number:'1.0-0'}} ₫</ion-text>
+            <ion-text class="product-name fix-2-row">{{product.ProductName}}</ion-text>
           </ion-card-header>
         </a>
         <ion-card-content>
