@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" >
   <ion-card class="cartCardOrder">
     <ion-card-title class="cartTitleOrder colorTitle">
       Nơi đặt hàng:
@@ -267,7 +267,81 @@
   </ion-card>
   <ion-grid [fixed]="true" style="text-align: center;">
     <ion-row>
-      <ion-col> <ion-button class="btnCheckout colorText" (click)="checkoutAccept()">Đặt hàng</ion-button></ion-col>
+      <ion-col> <ion-button class="btnCheckout colorText" (click)="orderButton()" id="openModalInfo">Đặt hàng</ion-button></ion-col>
     </ion-row>
   </ion-grid>
+  <!-- Modal  -->
+  <ion-modal [keepContentsMounted]="true" trigger="openModalInfo" #modal>
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="modal.dismiss()"><ion-icon name="close-outline"></ion-icon></ion-button>
+          </ion-buttons>
+          <ion-title>Thông tin thanh toán </ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding" > 
+        <ion-label class="fieldInfo" *ngIf="user">Tên: {{user?.username}}
+          <div class="bar"></div>
+        </ion-label>
+        <ion-label class="fieldInfo">Số điện thoại: {{user?.phone}}
+          <div class="bar"></div>
+        </ion-label>
+        <ion-label class="fieldInfo">Ngày đặt hàng: 27/10/2024
+          <div class="bar"></div>
+        </ion-label>
+        <ion-label class="fieldInfo">Địa chỉ giao hàng: 55 Dương Quảng Hàm 
+          <div class="bar"></div>
+        </ion-label>
+        <ion-label class="fieldInfo">Địa chỉ cửa hàng:
+          <div class="bar"></div>
+        </ion-label>
+        <ion-label class="fieldInfo">Tổng số tiền: ₫
+          <div class="bar"></div>
+        </ion-label>
+        <ion-label class="fieldInfo">Ngày dự tính nhận hàng:
+          <div class="bar"></div>
+        </ion-label>
+        <div class="momo">
+          <ion-item style="width: 100%;" lines="none">
+            <div class="infoContainer">
+              Thanh toán qua ví điện tử MoMo
+              <div class="momoInfo">SĐT: 0909123888</div>
+              <div class="momoInfo">Tên Admin: BIC STORE 24H</div>
+            </div>
+            <ion-thumbnail slot="end">
+              <img alt="Silhouette of mountains" src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" />
+            </ion-thumbnail>
+          </ion-item>
+        </div>
+
+        <div class="momo">
+          <ion-item style="width: 100%;" lines="none">
+            <div class="infoContainer">
+              Thanh toán qua Banking Online
+              <div class="momoInfo">STK: 0909123888</div>
+              <div class="momoInfo">TP Bank Ngân hàng Tiên Phong</div>
+            </div>
+            <ion-thumbnail slot="end">
+              <img alt="Silhouette of mountains" src="https://static.topcv.vn/company_logos/03iUoTBsAKb4OsGYfwinSrXWFQYDxZqd_1690868428____5adcb860e348f27de097637cfbd16f7f.jpg" />
+            </ion-thumbnail>
+          </ion-item>
+        </div>
+        <div class="btnGrPay">
+          <ion-button class="btnCancel" (click)="btnCancelCart()">HUỶ ĐƠN HÀNG</ion-button> 
+        <ion-button class="btnPaid" (click)="btnPaid()">TÔI ĐÃ THANH TOÁN</ion-button>
+        </div> 
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <ion-modal [keepContentsMounted]="true" trigger="modalPaid" #modal class="modalPaid">
+    <ng-template>
+      <ion-content class="ion-padding"> 
+        <div class="momo">
+
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

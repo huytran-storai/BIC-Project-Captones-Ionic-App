@@ -1,12 +1,13 @@
 import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { OverlayEventDetail } from '@ionic/core/components';
-import { IonModal,ModalController } from '@ionic/angular';
+import { AlertController, IonModal,ModalController } from '@ionic/angular';
 import { StoreService } from 'src/app/services/store.service';
 import { CartService } from 'src/app/services/cart.service';
 import { UserService } from 'src/app/services/user.service';
 import { MaskitoOptions, MaskitoElementPredicateAsync } from '@maskito/core';
 import { PurchasehistoryService } from 'src/app/services/purchasehistory.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout-order',
@@ -39,14 +40,21 @@ export class CheckOutOrderPage implements OnInit {
   newAddress: string = '';
   newPhone: string = '';
 
+  ngOnInit() {
+    this.loadCartItems();
+    this.getUserData()
+  }
+
   constructor(
     private location: Location,
     private modalController: ModalController,
     private storeService: StoreService,
     private userService: UserService,
     private cartService: CartService,
-    private historyService: PurchasehistoryService
-    
+    private historyService: PurchasehistoryService,
+    public alertController: AlertController,
+    private router: Router,
+
     ) { 
     const now = new Date();
     const year = now.getFullYear();
@@ -58,7 +66,6 @@ export class CheckOutOrderPage implements OnInit {
     }
 
     formatTime(value: number): string {
-     // Chuyển thời gian từ 1 thành 2 số
       return value < 10 ? `0${value}` : `${value}`;
     }
 
@@ -76,19 +83,12 @@ export class CheckOutOrderPage implements OnInit {
       this.calculateItem
       this.loadCartItems();
     }
-
-    ngOnInit() {
-      this.loadCartItems();
-    }
-  
   
     loadCartItems() {
       this.cartItems = this.cartService.getCartItems(); // Lấy thông tin giỏ hàng từ service
     }
 
-    getUserData() {
-      this.userService.getUserData().subscribe(res => this.user = res?.user);
-    }
+    
 
     getCurrentStore() {
       this.storeService.getCurrentStoreAddress().subscribe(
@@ -187,22 +187,63 @@ export class CheckOutOrderPage implements OnInit {
     this.location.replaceState('/home');
     window.location.reload();
   }
-  async showModal() {
-    const modal = await this.modalController.create({
-      component: CheckOutOrderPage,
-      cssClass: 'alert-modal',
-    });
-    return await modal.present();
-  }
 
- checkoutAccept() {
-  // const cartItems = this.cartService.getCartItems();
-  
-  // this.historyService.saveShoppingHistory(cartItems);
-  // localStorage.removeItem('localCart');
+ orderButton() {
+
 }
 
-  
-  
+btnPaid() {
+  this.alertController.create({
+    header: 'Thank you!',
+    message: 'Cảm ơn bạn đã sử dụng dịch vụ hệ thống của cửa hàng chúng tôi. Admin sẽ liên hệ xác nhận với bạn trong vòng 24h tới! BIC rất hân hạnh khi phục vụ đến bạn. Nếu bạn vần hỗ trợ vui lòng liện hệ hotline 19001918 để giúp đỡ !',
+    buttons: [
+      {
+        text:'HOÀN TẤT',
+        handler: () => {
+          localStorage.removeItem('localCart')
+          this.modalController.dismiss();
+          window.location.reload();
+          
+        }
+      }
+    ]
+  }).then(alert => {
+    alert.present();
+  });
+}
+
+
+btnCancelCart() {
+  this.alertController.create({
+    header: 'Tạm biệt',
+    message: 'Cảm ơn bạn đã sử dụng dịch vụ hệ thống của cửa hàng chúng tôi. Đơn hàng đã huỷ thành công, bạn có thể dặt lại sản phẩm ở mục "Lịch sử mua hàng" trên hệ thống. Nếu bạn vần hỗ trợ vui lòng liện hệ hotline 19001918 để giúp đỡ !',
+    buttons: [
+      {
+        text: 'HOÀN TẤT',
+        handler: () => {
+          localStorage.removeItem('localCart')
+          this.modalController.dismiss();
+          this.router.navigate(['./home'])
+          setTimeout(() => {
+            window.location.reload();
+          
+          }, 0);
+         
+        }
+      }
+    ]
+  }).then(alert => {
+    alert.present();
+  });
+}
+
+
+getUserData() {
+  this.userService.getUserData().subscribe(res => {
+    this.user = res?.user
+    console.log("check user cur", res)
+  } );
+}
+
 
 }
