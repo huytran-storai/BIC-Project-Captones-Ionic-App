@@ -12,10 +12,9 @@ import { ProductItem } from 'src/app/shared/models/ProductItem';
 })
 export class HomePage implements OnInit {
   public user: any;
-  public currentStore: StoreInfo = { name: "BIC 789 Store", address: "97 Le Quang Dinh, phuong 32, quan Binh Thanh, TPHCM" };
   public blogsData: any;
   public productData: any;
-  // public currentStore: StoreInfo = {name: "BIC 789 Store", address:"97 Le Quang Dinh, phuong 32, quan Binh Thanh, TPHCM"};
+  public currentStore: any;
   productLists: any;
 
   constructor(

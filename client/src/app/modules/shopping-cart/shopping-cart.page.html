@@ -16,8 +16,8 @@
     <ion-item lines="none" class="colorText">
       <ion-label class="ion-text-wrap" *ngIf="currentStore">
         <h2>
-          <p class="cartSubTitleOrder" *ngIf="currentStore">{{ currentStore.name }}</p>
-          <p style="font-size: 13px;" *ngIf="currentStore">{{ currentStore.address }}</p>
+          <p class="cartSubTitleOrder" *ngIf="currentStore">{{ currentStore.StoreName }}</p>
+          <p style="font-size: 13px;" *ngIf="currentStore">{{ currentStore.StoreAddress }}</p>
         </h2>
       </ion-label>
       <ion-label class="ion-text-wrap" *ngIf="!currentStore">
@@ -37,12 +37,12 @@
       <ion-card-content *ngFor="let prod of getCartDetails">
         <ion-item class="paddingCartCAC">
           <ion-thumbnail slot="start" style="margin-right: 8px;">
-            <img alt={{prod.Product_Name}} src="{{prod.Product_Image}}" />
+            <img alt={{prod.ProductName}} src="{{prod.ProductImage}}" />
           </ion-thumbnail>
           <ion-label class="cartCACName ion-text-wrap colorTextProd">
-            {{prod.Product_Name}}
+            {{prod.ProductName}}
             <ion-label>
-              <p class="cartCACPrice colorTextProd">{{prod.Current_Price | number:'1.0-0'}} ₫</p>
+              <p class="cartCACPrice colorTextProd">{{prod.CurrentPrice | number:'1.0-0'}} ₫</p>
             </ion-label>
           </ion-label>
           <div class="wrapper" style="margin-top: -40px">
@@ -57,7 +57,7 @@
             <ion-input style="font-size: 12px;" placeholder="Ghi chú..."></ion-input>
           </ion-col>
           <ion-col>
-            <div class="">{{prod.Current_Price * prod.productQuantityAddDefault | number:'1.0-0'}} ₫</div>
+            <div class="">{{prod.CurrentPrice * prod.productQuantityAddDefault | number:'1.0-0'}} ₫</div>
           </ion-col>
         </ion-row>
       </ion-card-content>

@@ -172,7 +172,7 @@ export class ShoppingCartPage implements OnInit {
   subTotal(): number {
     let subTotal = 0;
     for (const product of this.getCartDetails) {
-      subTotal += product.Current_Price * product.productQuantityAddDefault;
+      subTotal += product.CurrentPrice * product.productQuantityAddDefault;
     }
     return subTotal;
   }
