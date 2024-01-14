@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" >
+<ion-content [fullscreen]="true">
   <ion-card class="cartCardOrder">
     <ion-card-title class="cartTitleOrder colorTitle">
       Nơi đặt hàng:
@@ -93,8 +93,8 @@
                 <ion-label>
                   Tên họ
                 </ion-label>
-                <ion-input type="text" class="input-contact" value="{{contactInfo.lastName}}"
-                  [(ngModel)]="newLastName"></ion-input>
+                <ion-input type="text" class="input-contact" value="{{contactInfo.lastName}}" [(ngModel)]="newLastName">
+                </ion-input>
               </ion-col>
             </ion-row>
             <ion-row class="row-section">
@@ -102,8 +102,8 @@
                 <ion-label class="label-custom">
                   Địa chỉ
                 </ion-label>
-                <ion-input type="text" class="input-section" value="{{contactInfo.address}}"
-                  [(ngModel)]="newAddress"></ion-input>
+                <ion-input type="text" class="input-section" value="{{contactInfo.address}}" [(ngModel)]="newAddress">
+                </ion-input>
               </ion-col>
             </ion-row>
             <ion-row class="row-section">
@@ -172,7 +172,7 @@
         Mã giảm giá
       </ion-card-title>
     </ion-item>
-    <ion-item class=" cartCACAddPromo" lines="none">
+    <ion-item class="cartCACAddPromo" lines="none">
       <ion-button id="open-modal-promo" style="color: var(--ion-color-medium);">
         {{message}}
         <ion-icon name="add-outline">
@@ -182,8 +182,9 @@
       <ion-modal #modal trigger="open-modal-promo" class="modalPromo " (willDismiss)="onWillDismiss($event)">
         <ng-template class="containerPromo">
           <ion-toolbar class="toolBarPromo">
-            <ion-buttons slot="end" color="light" (click)="cancel()" class="close-icon"><ion-icon
-                name="close-outline"></ion-icon></ion-buttons>
+            <ion-buttons slot="end" color="light" (click)="cancel()" class="close-icon">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-buttons>
           </ion-toolbar>
           <ion-col style=" display: contents;">
             <p class="pTitleAlertPromo">
@@ -199,7 +200,6 @@
         </ng-template>
       </ion-modal>
     </ion-item>
-
     <!-- </ion-item> -->
   </ion-card>
   <ion-card style="border-radius: 0;" *ngIf="checkItemsCart">
@@ -267,7 +267,9 @@
   </ion-card>
   <ion-grid [fixed]="true" style="text-align: center;">
     <ion-row>
-      <ion-col> <ion-button class="btnCheckout colorText" (click)="orderButton()" id="openModalInfo">Đặt hàng</ion-button></ion-col>
+      <ion-col>
+        <ion-button class="btnCheckout colorText" (click)="orderButton()" id="openModalInfo">Đặt hàng</ion-button>
+      </ion-col>
     </ion-row>
   </ion-grid>
   <!-- Modal  -->
@@ -276,12 +278,14 @@
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-button (click)="modal.dismiss()"><ion-icon name="close-outline"></ion-icon></ion-button>
+            <ion-button (click)="modal.dismiss()">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
           </ion-buttons>
           <ion-title>Thông tin thanh toán </ion-title>
         </ion-toolbar>
       </ion-header>
-      <ion-content class="ion-padding" > 
+      <ion-content class="ion-padding">
         <ion-label class="fieldInfo" *ngIf="user">Tên: {{user?.username}}
           <div class="bar"></div>
         </ion-label>
@@ -291,7 +295,7 @@
         <ion-label class="fieldInfo">Ngày đặt hàng: 27/10/2024
           <div class="bar"></div>
         </ion-label>
-        <ion-label class="fieldInfo">Địa chỉ giao hàng: 55 Dương Quảng Hàm 
+        <ion-label class="fieldInfo">Địa chỉ giao hàng: 55 Dương Quảng Hàm
           <div class="bar"></div>
         </ion-label>
         <ion-label class="fieldInfo">Địa chỉ cửa hàng:
@@ -324,22 +328,22 @@
               <div class="momoInfo">TP Bank Ngân hàng Tiên Phong</div>
             </div>
             <ion-thumbnail slot="end">
-              <img alt="Silhouette of mountains" src="https://static.topcv.vn/company_logos/03iUoTBsAKb4OsGYfwinSrXWFQYDxZqd_1690868428____5adcb860e348f27de097637cfbd16f7f.jpg" />
+              <img alt="Silhouette of mountains"
+                src="https://static.topcv.vn/company_logos/03iUoTBsAKb4OsGYfwinSrXWFQYDxZqd_1690868428____5adcb860e348f27de097637cfbd16f7f.jpg" />
             </ion-thumbnail>
           </ion-item>
         </div>
         <div class="btnGrPay">
-          <ion-button class="btnCancel" (click)="btnCancelCart()">HUỶ ĐƠN HÀNG</ion-button> 
-        <ion-button class="btnPaid" (click)="btnPaid()">TÔI ĐÃ THANH TOÁN</ion-button>
-        </div> 
+          <ion-button class="btnCancel" (click)="btnCancelCart()">HUỶ ĐƠN HÀNG</ion-button>
+          <ion-button class="btnPaid" (click)="btnPaid()">TÔI ĐÃ THANH TOÁN</ion-button>
+        </div>
       </ion-content>
     </ng-template>
   </ion-modal>
   <ion-modal [keepContentsMounted]="true" trigger="modalPaid" #modal class="modalPaid">
     <ng-template>
-      <ion-content class="ion-padding"> 
+      <ion-content class="ion-padding">
         <div class="momo">
-
         </div>
       </ion-content>
     </ng-template>
