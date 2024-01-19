@@ -15,15 +15,17 @@ export class ProductDetailPage implements OnInit {
   public productData: any;
   productId: any;
   @Input() product: any;
-  ProductId: any;
+  id: any;
 
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.productId = params['ProductId']; 
-      this.getProductRenderDetail(this.productId);
+      console.log("===>", this.productId)
+      this.getProductRender();
     });
   }
+  
   
 
   constructor(
@@ -132,16 +134,21 @@ export class ProductDetailPage implements OnInit {
     this.router.navigate(['/shopping-cart']);
   }
 
-  getProductRenderDetail(ProductId: any) {
-    console.log("ID", ProductId);
-    this.productService.getProductById(ProductId).subscribe(
+  getProductRender() {
+    this.productService.getProducts().subscribe(
       (res: any) => {
-        (res.data && typeof res.data === 'object')
-          this.productDetail = res.data.attributes;
-          console.log("Product Detail:", this.productDetail);
+        this.productDetail = res.data.map((item: any) => item.attributes);
+        console.log("Product lists:", this.productDetail)
+
+        this.productInfor = this.productDetail.find((product: any) => product.ProductId === this.productId);
+          if (this.productInfor) {
+          console.log("Product Information:", this.productInfor);
+        } else {
+          console.error('Product not found!');
+        }
       },
       (err: any) => {
-        console.error('Lỗi data api:', err);
+        console.error('Error fetching current store data:', err);
       }
     );
   }

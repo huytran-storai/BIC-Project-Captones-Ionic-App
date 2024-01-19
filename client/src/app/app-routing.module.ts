@@ -78,10 +78,6 @@ const routes: Routes = [
     loadChildren: () => import('./modules/more/aboutourapp/intro/intro.module').then(m => m.IntroPageModule)
   },
   {
-    path: 'product-detail',
-    loadChildren: () => import('./modules/product/product-detail/product-detail.module').then(m => m.ProductDetailPageModule)
-  },
-  {
     path: 'product-all',
     loadChildren: () => import('./modules/product/product-all/product-all.module').then(m => m.ProductAllPageModule)
   },

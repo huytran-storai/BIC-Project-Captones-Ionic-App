@@ -93,7 +93,7 @@ export class FilterResultPage implements OnInit {
   getProductRender() {
     this.StoreService.getProducts().subscribe(
       (res: any) => {
-        this.productData = res.data.map((item: any) => item.attributes);
+        this.productData = res.data.map((item: any) => item);
         console.log("Product lists:", this.productData)
       },
       (err: any) => {

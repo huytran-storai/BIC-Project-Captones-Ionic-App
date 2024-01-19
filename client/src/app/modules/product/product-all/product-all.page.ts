@@ -31,7 +31,7 @@ export class ProductAllPage implements OnInit {
   getProductRender() {
     this.productService.getProducts().subscribe(
       (res: any) => {
-        this.productData = res.data.map((item: any) => item.attributes);
+        this.productData = res.data.map((item: any) => item);
         console.log("Product lists:", this.productData)
       },
       (err: any) => {
@@ -41,7 +41,7 @@ export class ProductAllPage implements OnInit {
   }
 
   navigateToProductDetail(item: any) {
-    this.router.navigate(['product-detail/', item.ProductName,item.ProductId]);
+    this.router.navigate(['product-detail/', item.ProductName,item.id]);
   }
 
   Back() {
