@@ -17,7 +17,7 @@
   </ion-row>
   <ion-row class="title-hello" *ngIf="user">
     <p class="hi-name" *ngIf="user.username">Hi, {{user.username}}!</p>
-    <p class="hi-name" *ngIf="user.username">ID, {{user.user_id}}!</p>
+
   </ion-row>
   <ion-row class="title-hello" *ngIf="!user">
     <p class="hi-name" [routerLink]="['/login']">Nhấn vào đây để đăng nhập</p>
