@@ -16,10 +16,10 @@
     </ion-row>
     <ion-card-header class="pb-0">
       <ion-row>
-        <ion-card-subtitle>{{productDetail.Product_Name}}</ion-card-subtitle>
+        <ion-card-subtitle>{{productDetail.ProductName}}</ion-card-subtitle>
         <ion-col class="col-price">
           <ion-card-title class="original-price">{{productDetail.OldPrice | number:'1.0-0'}}₫ avg/ea</ion-card-title>
-          <ion-card-title>{{productDetail.Current_Price | number:'1.0-0'}}₫ avg/ea</ion-card-title>
+          <ion-card-title>{{productDetail.CurrentPrice | number:'1.0-0'}}₫ avg/ea</ion-card-title>
         </ion-col>
       </ion-row>
     </ion-card-header>
@@ -27,7 +27,7 @@
       <ion-row>
         <ion-col>
           <ion-text class="text-unitCapitity">{{productDetail.UnitCapitity}} lb </ion-text> | <ion-text
-            class="text-unitPrice">{{productDetail.Unit_Price | number:'1.0-0'}}₫/lb </ion-text>
+            class="text-unitPrice">{{productDetail.UnitPrice | number:'1.0-0'}}₫/lb </ion-text>
         </ion-col>
       </ion-row>
       <ion-row class="ion-align-items-center">
@@ -58,7 +58,7 @@
         </ion-item>
         <ion-col class="ml-12" *ngIf="isDropdownOpen">
           <ion-button>
-            {{productDetail.taste}}
+            {{productDetail.Taste}}
           </ion-button>
         </ion-col>
       </ion-col>
