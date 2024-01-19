@@ -5,6 +5,7 @@ import { ModalController } from '@ionic/angular';
 import { register } from 'swiper/element/bundle';
 import { CartService } from 'src/app/services/cart.service';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 register();
 @Component({
@@ -20,6 +21,7 @@ export class ProductListComponent implements OnInit {
   public _numberOfItems: number | undefined;
   itemCart: any = [];
   public productData: any;
+  public user: any;
 
   constructor(
     private CartService: CartService,
@@ -27,13 +29,14 @@ export class ProductListComponent implements OnInit {
     private modalController: ModalController,
     private router: Router,
     private productService: StoreService,
+    private userService: UserService,
   ) {
   }
 
   ngOnInit(): void {
     // this.items = this.StoreService.getAllProducts();
     this.getProductRender();
-
+    this.getUserData();
   }
 
   navigateToProductDetail(item: any) {
@@ -73,6 +76,119 @@ export class ProductListComponent implements OnInit {
   }
 
   isConditionTrue: boolean = false;
+ 
+  getUserData() {
+    this.userService.getUserData().subscribe(res => {this.user = res?.user;
+      console.log("find user: ", this.user)});
+  }
+
+  // getProductRender() {
+  //   this.productService.getProducts().subscribe(
+  //     (res: any) => {
+  //       this.productData = res.data.map((item: any) => item.attributes);
+  //       console.log("Product lists:", this.productData)
+  //     },
+  //     (err: any) => {
+  //       console.error('Error fetching current store data:', err);
+  //     }
+  //   );
+  // }
+
+  getProductRender() {
+    this.productService.getProducts().subscribe(
+      (res: any) => {
+        this.productData = res.data.map((item: any) => item.attributes);
+        console.log("Product lists:", this.productData)
+      },
+      (err: any) => {
+        console.error('Error fetching current store data:', err);
+      }
+    );
+  }
+
+  addProductToCart(event: Event, product: any) {
+    event.stopPropagation();
+    const productData = {
+      ProductName: product.ProductName,
+      ProductPrice: product.CurrentPrice,
+      QuantityDefault: 1,
+      ProductImage: product.ProductImage,
+      ProductId: product.ProductId,
+      // UserId: `${this.user.UserId}`
+    };
+    this.CartService.pushProducts(productData).subscribe(
+      (response) => {
+        console.log('Product added to cart successfully:', response);
+        let itemProducts = response.data.id
+        console.log("Item ID:",itemProducts)
+      },
+      (error) => {
+        console.error('Error adding product to cart:', error);
+      }
+    );
+  }
+
+
+  // addProductToCart(event: Event, product: any) {
+  //   event.stopPropagation();
+    
+  //   const productData = {
+  //     ProductName: product.ProductName,
+  //     ProductPrice: product.CurrentPrice,
+  //     QuantityDefault: 1,
+  //     ProductImage: product.ProductImage,
+  //     ProductId: product.ProductId,
+  //     // UserId: this.user.UserId,
+  //   };
+  
+  //   // Chỉ cần gọi pushProducts một lần với cả UserId và productData
+  //   this.CartService.pushProducts({
+  //     UserId: this.user.UserId,
+  //     ProductData: productData
+  //   }).subscribe(
+  //     (response) => {
+  //       console.log('Product added to cart successfully:', response);
+  //       let itemProducts = response.data.id;
+  //       console.log("Item ID:", itemProducts);
+  //     },
+  //     (error) => {
+  //       console.error('Error adding product to cart:', error);
+  //     }
+  //   );
+  // }
+
+
+  themSL(event: Event, product: any) {
+    event.stopPropagation();
+    if (product) {
+      if (!product.QuantityDefault) {
+        product.QuantityDefault = product.QuantityDefault + 1;
+      } else {
+        product.QuantityDefault++;
+      }
+      const productData = {
+        QuantityDefault: product.QuantityDefault,
+        ProductId: product.ProductId,
+      };
+      this.CartService.addSL(productData).subscribe(
+        (response) => {
+          console.log('Add successfully:', response);
+          let itemProducts = response.data.ProductId;
+          console.log("Add Item ID:", itemProducts);
+        },
+        (error) => {
+          console.error('Error adding product to cart:', error);
+        }
+      );
+    } else {
+      console.error('Invalid product object:', product);
+    }
+  }
+  
+  
+
+  
+  
   addProduct(event: Event, item: any) {
     event.stopPropagation();
     let cartDataNull = localStorage.getItem('localCart');
@@ -104,16 +220,5 @@ export class ProductListComponent implements OnInit {
 
   }
 
-  getProductRender() {
-    this.productService.getProducts().subscribe(
-      (res: any) => {
-        this.productData = res.data.map((item: any) => item.attributes);
-        console.log("Product lists:", this.productData)
-      },
-      (err: any) => {
-        console.error('Error fetching current store data:', err);
-      }
-    );
-  }
 
 }

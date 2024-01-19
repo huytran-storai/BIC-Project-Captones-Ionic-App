@@ -51,6 +51,7 @@ export class HomePage implements OnInit {
 
   getUserData() {
     this.userService.getUserData().subscribe(res => this.user = res?.user);
+    console.log("find user: ", this.user)
   }
 
   getCurrentStore() {

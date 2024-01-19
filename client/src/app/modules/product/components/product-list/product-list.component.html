@@ -28,7 +28,9 @@
             <ion-row class="ion-align-items-center add">
               <ion-button (click)="addProduct($event, item)" class="btn" size="small" color="primary">{{
                 checkAdded(item) ? 'Đã thêm' : 'Thêm' }}</ion-button>
-            </ion-row>
+                <ion-button (click)="addProductToCart($event, item)" class="btn" size="small" color="primary">Post to cart</ion-button>
+                <ion-button (click)="themSL($event, item)" class="btn" size="small" color="primary">Add Quantity</ion-button>
+              </ion-row>
           </ion-card-content>
         </ion-card>
         <!-- product list -->

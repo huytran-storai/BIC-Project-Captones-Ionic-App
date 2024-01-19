@@ -33,22 +33,23 @@
       Các sản phẩm
     </ion-card-title>
     <!-- List of products in the shopping cart -->
-    <ng-container *ngIf="checkItemsCart; else notItem">
-      <ion-card-content *ngFor="let prod of getCartDetails">
+    <!-- <ng-container *ngIf="checkItemsCart; else notItem"> -->
+      <ion-card-content *ngFor="let prod of cartItems">
         <ion-item class="paddingCartCAC">
           <ion-thumbnail slot="start" style="margin-right: 8px;">
-            <img alt={{prod.ProductName}} src="{{prod.ProductImage}}" />
+            <img alt={{prod.attributes.ProductName}} src="{{prod.attributes.ProductImage}}" />
           </ion-thumbnail>
           <ion-label class="cartCACName ion-text-wrap colorTextProd">
-            {{prod.ProductName}}
+            {{prod.attributes.ProductName}}
             <ion-label>
-              <p class="cartCACPrice colorTextProd">{{prod.CurrentPrice | number:'1.0-0'}} ₫</p>
+              <p class="cartCACPrice colorTextProd">{{prod.attributes.UserId }}</p>
+              <p class="cartCACPrice colorTextProd">{{prod.attributes.ProductPrice | number:'1.0-0'}} ₫</p>
             </ion-label>
           </ion-label>
           <div class="wrapper" style="margin-top: -40px">
             <ion-button class="btnDec" (click)="decProduct(prod)"><ion-icon
                 name="remove-outline"></ion-icon></ion-button>
-            <ion-text class="cartQuantity">{{prod.productQuantityAddDefault}}</ion-text>
+            <ion-text class="cartQuantity">{{prod.attributes.QuantityDefault}}</ion-text>
             <ion-button class="btnInc" (click)="incProduct(prod)"><ion-icon name="add-outline"></ion-icon></ion-button>
           </div>
         </ion-item>
@@ -57,7 +58,7 @@
             <ion-input style="font-size: 12px;" placeholder="Ghi chú..."></ion-input>
           </ion-col>
           <ion-col>
-            <div class="">{{prod.CurrentPrice * prod.productQuantityAddDefault | number:'1.0-0'}} ₫</div>
+            <div class="">{{prod.attributes.ProductPrice * prod.attributes.QuantityDefault | number:'1.0-0'}} ₫</div>
           </ion-col>
         </ion-row>
       </ion-card-content>
@@ -93,10 +94,10 @@
         </ion-modal>
 
       </ion-item>
-    </ng-container>
+    <!-- </ng-container>
     <ng-template #notItem>
       <img src="../../../assets/empty_cart.png" class="imageEmptyCart">
-    </ng-template>
+    </ng-template> -->
   </ion-card>
   <!-- Order Summary -->
   <ion-card class="cartCardOrder" *ngIf="checkItemsCart">
