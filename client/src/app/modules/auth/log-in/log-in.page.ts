@@ -22,6 +22,11 @@ export class LogInPage {
     });
   }
 
+  ngOnInit() {
+
+  }
+  
+
   async login() {
     if (this.form.valid) {
       const emailControl = this.form.get('email');
@@ -48,6 +53,7 @@ export class LogInPage {
             loading.dismiss();
             this.router.navigate(['/home']);
           }, 1500);
+
         } catch (error) {
           loading.dismiss();
           console.error(error);
