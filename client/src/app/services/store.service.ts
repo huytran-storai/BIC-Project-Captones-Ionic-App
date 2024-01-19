@@ -17,8 +17,8 @@ export class StoreService {
     return sampleProductItems;
   }
 
-  getProductById(Product_Id: string) {
-    return this.http.get(`${this.apiUrl}/products/${Product_Id}`);
+  getProductById(ProductId: string) {
+    return this.http.get(`${this.apiUrl}/products/${ProductId}`);
   }
 
   getProducts() {

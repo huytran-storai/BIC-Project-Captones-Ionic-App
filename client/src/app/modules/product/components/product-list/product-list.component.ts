@@ -40,7 +40,7 @@ export class ProductListComponent implements OnInit {
   }
 
   navigateToProductDetail(item: any) {
-    this.router.navigate(['product-detail/', item.ProductId]);
+    this.router.navigate(['product-detail/', item.ProductName,item.ProductId]);
   }
 
   navigateToProductAll() {

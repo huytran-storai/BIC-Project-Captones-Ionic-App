@@ -15,12 +15,12 @@ export class ProductDetailPage implements OnInit {
   public productData: any;
   productId: any;
   @Input() product: any;
-  Product_Id: any;
+  ProductId: any;
 
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.productId = params['id']; 
+      this.productId = params['ProductId']; 
       this.getProductRenderDetail(this.productId);
     });
   }
@@ -132,9 +132,9 @@ export class ProductDetailPage implements OnInit {
     this.router.navigate(['/shopping-cart']);
   }
 
-  getProductRenderDetail(Product_Id: any) {
-    console.log("ID", Product_Id);
-    this.productService.getProductById(Product_Id).subscribe(
+  getProductRenderDetail(ProductId: any) {
+    console.log("ID", ProductId);
+    this.productService.getProductById(ProductId).subscribe(
       (res: any) => {
         // Kiểm tra nếu res.data là một đối tượng
         (res.data && typeof res.data === 'object')
