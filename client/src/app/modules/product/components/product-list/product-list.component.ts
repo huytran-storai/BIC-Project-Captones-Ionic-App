@@ -22,7 +22,8 @@ export class ProductListComponent implements OnInit {
   itemCart: any = [];
   public productData: any;
   public user: any;
-
+  isProductAdded: boolean = false;
+  
   constructor(
     private CartService: CartService,
     private StoreService: StoreService,
@@ -185,10 +186,6 @@ export class ProductListComponent implements OnInit {
     }
   }
   
-  
-
-  
-  
   addProduct(event: Event, item: any) {
     event.stopPropagation();
     let cartDataNull = localStorage.getItem('localCart');
@@ -217,8 +214,14 @@ export class ProductListComponent implements OnInit {
       }
 
     }
-
+    this.isProductAdded = true;
   }
-
-
+  cancelProduct(event: Event,item: any ) {
+    event.stopPropagation();
+    let cartData = JSON.parse(localStorage.getItem('localCart') || '[]');
+    cartData = cartData.filter((product: any) => product.ProductId !== item.ProductId);
+    localStorage.setItem('localCart', JSON.stringify(cartData));
+    this.isProductAdded = false;
+  }
+  
 }

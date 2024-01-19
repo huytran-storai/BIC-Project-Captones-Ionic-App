@@ -25,13 +25,11 @@ export class ShoppingCartPage implements OnInit {
   alerCtrl: any;
   message = 'Nhập mã giảm giá';
   name: string | undefined;
+  getCartDetails: any = [];
   public user: any;
   public currentStore: any;
-  groupedCartItems: any[] = [];
-  cartItems: any;
-  
-  constructor(
-    private CartService: CartService,
+
+  constructor(private CartService: CartService,
     private modalController: ModalController,
     private location: Location,
     private changeDetectorRef: ChangeDetectorRef,
@@ -44,61 +42,13 @@ export class ShoppingCartPage implements OnInit {
     this.getUserData()
     this.getCurrentStore()
     this.readLocalStorageCart();
-    this.renderProductsCart();
-    // this.groupByProductName;
-    this.groupedCartItems;
   }
 
 
   getUserData() {
     this.userService.getUserData().subscribe(res => this.user = res?.user);
   }
- 
-  // renderProductsCart() {
-  //   this.CartService.getProductsCart().subscribe(
-  //     (res: any) => {
-  //        this.cartItems = res.data.map((item: any) => item);
-  
-  //       // this.groupedCartItems = this.groupByProductName(cartItems);
-  
-  //       console.log("Grouped cart items:", this.cartItems);
-        
-  //     },
-  //     (err) => {
-  //       console.error('Error fetching current store data:', err);
-  //     }
-  //   );
-  // }
-  
-  renderProductsCart() {
-    this.CartService.getProductsCart().subscribe(
-      (res: any) => {
-        this.cartItems = res.data
-        // .filter((itemsCart: any) => itemsCart.attributes.UserId === 2)
-        .map((item: any) => item);
-          console.log("Grouped cart items:", this.cartItems);
-      },
-      (err) => {
-        console.error('Error fetching current store data:', err);
-      }
-    );
-  }
-  
-  // groupByProductName(cartItems: any[]): any[] {
-  //   const groupedItems: any[] = [];
-  
-  //   cartItems.forEach((item) => {
-  //     const existingItem = groupedItems.find((groupedItem) => groupedItem.ProductName === item.ProductName);
-  //     if (existingItem) {
-  //       existingItem.QuantityDefault += item.QuantityDefault;
-  //     } else {
-  //       groupedItems.push(item);
-  //     }
-  //   });
-  
-  //   return groupedItems;
-  // }
-  
+
   getCurrentStore() {
     this.storeService.getCurrentStoreAddress().subscribe(
       (res: any) => {
@@ -142,14 +92,14 @@ export class ShoppingCartPage implements OnInit {
     this.CartDetails()
     this.checkItemsCart
     this.calculateItem
-    this.renderProductsCart();
+    this.readLocalStorageCart();
   }
 
   readLocalStorageCart() {
     var cartValue = localStorage.getItem('localCart');
     if (cartValue !== null) {
-      // this.getCartDetails = JSON.parse(cartValue);
-      this.numberOfItems = this.groupedCartItems.length;
+      this.getCartDetails = JSON.parse(cartValue);
+      this.numberOfItems = this.getCartDetails.length;
       this.updateSubTotal();
     }
   }
@@ -181,32 +131,36 @@ export class ShoppingCartPage implements OnInit {
   }
 
   CartDetails() {
-      // this.getCartDetails = this.groupedCartItems
-      this.numberOfItems = this.groupedCartItems.length;
+    if (localStorage.getItem('localCart')) {
+      this.getCartDetails = JSON.parse(localStorage.getItem('localCart') || '[]')
+      this.numberOfItems = this.getCartDetails.length;
+    }
   }
-  
   incProduct(prod: any) {
-    prod.QuantityDefault += 1
+    prod.productQuantityAddDefault += 1
+    localStorage.setItem('localCart', JSON.stringify(this.getCartDetails));
     this.updateSubTotal();
   }
 
-  decProduct(prod: any) {
-    if (prod.QuantityDefault > 1) {
-      prod.QuantityDefault -= 1;
-    } else if (prod.QuantityDefault === 1) {
-      prod.QuantityDefault = 0;
-      this.groupedCartItems = this.groupedCartItems.filter((item: Cart) => item !== prod);
-      this.numberOfItems = this.groupedCartItems.length;
+  decProduct(prod: Cart) {
+    if (prod.productQuantityAddDefault > 1) {
+      prod.productQuantityAddDefault -= 1;
+      localStorage.setItem('localCart', JSON.stringify(this.getCartDetails));
+    } else if (prod.productQuantityAddDefault === 1) {
+      prod.productQuantityAddDefault = 0;
+      this.getCartDetails = this.getCartDetails.filter((item: Cart) => item !== prod);
+      this.numberOfItems = this.getCartDetails.length;
+      localStorage.setItem('localCart', JSON.stringify(this.getCartDetails));
       this.updateSubTotal();
     }
   }
 
   delProduct() {
-    this.groupedCartItems.length = 0;
+    this.getCartDetails.length = 0;
     this.numberOfItems = 0;
     this.modalController.dismiss();
     this.updateSubTotal()
-    localStorage.setItem('localCart', JSON.stringify(this.groupedCartItems));
+    localStorage.setItem('localCart', JSON.stringify(this.getCartDetails));
   }
 
   updateSubTotal() {
@@ -217,8 +171,8 @@ export class ShoppingCartPage implements OnInit {
 
   subTotal(): number {
     let subTotal = 0;
-    for (const product of this.groupedCartItems) {
-      subTotal += product.ProductPrice * product.QuantityDefault;
+    for (const product of this.getCartDetails) {
+      subTotal += product.CurrentPrice * product.productQuantityAddDefault;
     }
     return subTotal;
   }

@@ -136,7 +136,6 @@ export class ProductDetailPage implements OnInit {
     console.log("ID", ProductId);
     this.productService.getProductById(ProductId).subscribe(
       (res: any) => {
-        // Kiểm tra nếu res.data là một đối tượng
         (res.data && typeof res.data === 'object')
           this.productDetail = res.data.attributes;
           console.log("Product Detail:", this.productDetail);
