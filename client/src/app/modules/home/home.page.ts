@@ -26,13 +26,13 @@ export class HomePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    const storedUserData = localStorage.getItem('userData');
-    if (storedUserData) {
-      this.user = JSON.parse(storedUserData);
-    } else {
-      this.getUserData();
-    }
-    // this.getUserData();
+    // const storedUserData = localStorage.getItem('userData');
+    // if (storedUserData) {
+    //   this.user = JSON.parse(storedUserData);
+    // } else {
+    //   this.getUserData();
+    // }
+    this.getUserData();
 
     this.getCurrentStore();
     // this.getBlogsRender();
@@ -60,7 +60,7 @@ export class HomePage implements OnInit {
     this.userService.getUserData().subscribe(res => {
       this.user = res?.user;
       console.log("User data:", this.user);
-      localStorage.setItem('userData', JSON.stringify(this.user));
+      // localStorage.setItem('userData', JSON.stringify(this.user));
     });
   }
   
