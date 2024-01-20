@@ -22,8 +22,8 @@ export class ProductListComponent implements OnInit {
   itemCart: any = [];
   public productData: any;
   public user: any;
-  isProductAdded: boolean = false;
-  
+  checkExistItem: boolean = true
+
   constructor(
     private CartService: CartService,
     private StoreService: StoreService,
@@ -54,21 +54,6 @@ export class ProductListComponent implements OnInit {
       subTotal += product.Old_Price * product.productQuantityAddDefault;
     }
     return subTotal;
-  }
-
-  checkAdded(item: any): boolean {
-    const productId = item.ProductId;
-    this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
-    let isConditionTrue = false;
-
-    for (let i = 0; i < this.itemCart.length; i++) {
-      if (parseInt(productId) === parseInt(this.itemCart[i].ProductId)) {
-        isConditionTrue = true;
-        break;
-      }
-    }
-
-    return isConditionTrue;
   }
 
   redirectToProductDetail(event: Event, item: any) {
@@ -185,43 +170,30 @@ export class ProductListComponent implements OnInit {
       console.error('Invalid product object:', product);
     }
   }
+
+  isProductInCart(productId: number): boolean {
+    let cartData = JSON.parse(localStorage.getItem('localCart') || '[]');
+    return cartData.some((product: any) => product.ProductId === productId);
+  }
   
+
   addProduct(event: Event, item: any) {
     event.stopPropagation();
-    let cartDataNull = localStorage.getItem('localCart');
-    if (cartDataNull == null) {
-      let storeDataGet: any = []
-      storeDataGet.push(item)
-      localStorage.setItem('localCart', JSON.stringify(storeDataGet));
-    } else {
-      var productId = item.ProductId;
-      let index: number = -1;
       this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
-      for (let i = 0; i < this.itemCart.length; i++) {
-        if (parseInt(productId) === parseInt(this.itemCart[i].ProductId)) {
-          this.itemCart[i].productQuantityAddDefault += item.productQuantityAddDefault
-          index = i;
-          break;
-
-        }
-      }
-      if (index == -1) {
         this.itemCart.push(item)
         localStorage.setItem('localCart', JSON.stringify(this.itemCart))
-      }
-      else {
-        localStorage.setItem('localCart', JSON.stringify(this.itemCart))
-      }
-
-    }
-    this.isProductAdded = true;
+    item.inCart = true
+    
   }
-  cancelProduct(event: Event,item: any ) {
+  
+  cancelProduct(event: Event, item: any) {
     event.stopPropagation();
     let cartData = JSON.parse(localStorage.getItem('localCart') || '[]');
-    cartData = cartData.filter((product: any) => product.ProductId !== item.ProductId);
+    cartData = cartData.filter((productDel: any) => productDel.ProductId !== item.ProductId); //id = 1, => id = 2 ,id=3 ; => truyền lại cartData => cập nhật bằng setItem 
     localStorage.setItem('localCart', JSON.stringify(cartData));
-    this.isProductAdded = false;
   }
+  
+
+  
   
 }

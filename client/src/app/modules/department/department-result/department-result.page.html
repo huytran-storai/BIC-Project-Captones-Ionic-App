@@ -110,8 +110,8 @@
             <ion-text>{{product.strength}}%</ion-text>
           </ion-row>
           <ion-row class="ion-align-items-center add">
-            <ion-button (click)="addProduct(product)" class="btn" size="small" color="primary" >{{
-              checkAdded(product) ? 'Đã thêm' : 'Thêm' }}</ion-button>
+            <ion-button *ngIf="!isProductInCart(product.ProductId)" (click)="addProduct($event,product)" class="btn" size="small" color="primary">Thêm</ion-button>
+            <ion-button *ngIf="isProductInCart(product.ProductId)" (click)="cancelProduct($event,product)" class="btn" size="small" color="primary">Huỷ</ion-button>
           </ion-row>
         </ion-card-content>
       </ion-card>

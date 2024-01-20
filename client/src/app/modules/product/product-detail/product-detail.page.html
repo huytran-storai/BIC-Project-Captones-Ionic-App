@@ -35,8 +35,9 @@
           <ion-icon class="icon-location" name="location-outline"></ion-icon>
           <ion-text class="address">{{productInfor.ProductAddress}}</ion-text>
         </ion-col>
-      </ion-row>
-      <ion-button (click)="addProduct(productInfor)">{{checkAdded(productInfor) ? 'Đã thêm' : 'Thêm'}}</ion-button>
+      </ion-row> 
+      <ion-button *ngIf="!isProductInCart(productInfor.ProductId)" (click)="addProduct(productInfor)" class="btn" size="small" color="primary">Thêm</ion-button>
+      <ion-button *ngIf="isProductInCart(productInfor.ProductId)" (click)="cancelProduct(productInfor)" class="btn" size="small" color="primary">Huỷ</ion-button>
       <ion-row class="ion-align-items-center">
         <ion-col>
           <ion-text class="promo">{{productInfor.promotions}}</ion-text>

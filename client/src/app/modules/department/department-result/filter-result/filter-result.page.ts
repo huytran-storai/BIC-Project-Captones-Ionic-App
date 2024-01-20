@@ -31,38 +31,26 @@ export class FilterResultPage implements OnInit {
   }
 
   navigateToProductDetail(items: any) {
-    this.router.navigate(['product-detail/', items.id]); 
+    this.router.navigate(['product-detail/', items.ProductName,items.ProductId]); 
   }
 
   itemCart:any = []
   addProduct(event: Event,items: any){
     event.stopPropagation();
-    let cartDataNull = localStorage.getItem('localCart');
-    if(cartDataNull == null) {
-      let storeDataGet:any =[]
-      storeDataGet.push(items)
-      localStorage.setItem('localCart', JSON.stringify(storeDataGet));
-    } else {
-      var productId = items.id;
-      let index:number = -1;
       this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
-      for(let i = 0 ; i < this.itemCart.length; i++){
-        if(parseInt(productId) === parseInt(this.itemCart[i].id)){
-          this.itemCart[i].productQuantityAddDefault += items.productQuantityAddDefault
-          index = i;
-          break; 
-        }
-      }
-      if(index == -1){
         this.itemCart.push(items)
         localStorage.setItem('localCart', JSON.stringify(this.itemCart))
-      }
-      else{
-        localStorage.setItem('localCart', JSON.stringify(this.itemCart))
-      }
-    }
-    this.cartNumberFunc();
-   
+  }
+  cancelProduct(event: Event,items: any) {
+    event.stopPropagation();
+    let cartData = JSON.parse(localStorage.getItem('localCart') || '[]')
+    cartData = cartData.filter((product: any) => product.ProductId !== items.ProductId)
+    localStorage.setItem('localCart', JSON.stringify(cartData))
+  }
+
+  isProductInCart(productId: any): boolean {
+    let cartData = JSON.parse(localStorage.getItem('localCart') || '[]')
+    return cartData.some((product: any) => product.ProductId === productId)
   }
 
   cartNumber: number = 0;
@@ -75,25 +63,11 @@ export class FilterResultPage implements OnInit {
       this.cartNumber = 0;
     }
   }
-
-  checkAdded(product: any): boolean {
-    const productId = product.id;
-    this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
-    let isConditionTrue = false; 
   
-    for (let i = 0; i < this.itemCart.length; i++) {
-      if (parseInt(productId) === parseInt(this.itemCart[i].id)) {
-        isConditionTrue = true;
-        break;
-      }
-    }
-  
-    return isConditionTrue; 
-  }
   getProductRender() {
     this.StoreService.getProducts().subscribe(
       (res: any) => {
-        this.productData = res.data.map((item: any) => item);
+        this.productData = res.data.map((item: any) => item.attributes);
         console.log("Product lists:", this.productData)
       },
       (err: any) => {

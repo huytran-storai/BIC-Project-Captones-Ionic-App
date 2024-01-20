@@ -26,8 +26,8 @@
             <ion-text>{{item.UnitPrice | number:'1.0-0'}} ₫/lb</ion-text>
           </ion-row>
           <ion-row class="ion-align-items-center add">
-            <ion-button (click)="addProduct($event, item)"  class="btn" size="small" color="primary">{{
-              checkAdded(item) ? 'Đã thêm' : 'Thêm' }}</ion-button>
+            <ion-button *ngIf="!isProductInCart(item.ProductId)" (click)="addProduct($event,item)" class="btn" size="small" color="primary">Thêm</ion-button>
+            <ion-button *ngIf="isProductInCart(item.ProductId)" (click)="cancelProduct($event,item)" class="btn" size="small" color="primary">Huỷ</ion-button>
           </ion-row>
         </ion-card-content>
       </ion-card>

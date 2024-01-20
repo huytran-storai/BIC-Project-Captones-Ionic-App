@@ -17,32 +17,25 @@ export class ProductDetailPage implements OnInit {
   @Input() product: any;
   id: any;
 
-
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.productId = params['ProductId']; 
-      console.log("===>", this.productId)
+    this.route.params.subscribe((params) => {
+      this.productId = params['ProductId'];
+      console.log('===>', this.productId);
       this.getProductRender();
     });
   }
-  
-  
 
   constructor(
     private modalController: ModalController,
     private router: Router,
     private route: ActivatedRoute,
     private CartService: CartService,
-    private storeService: StoreService,
     private navCtrl: NavController,
-    private productService: StoreService,
-
-  ) { }
+    private productService: StoreService
+  ) {}
   Back() {
-    this.navCtrl.back()
+    this.navCtrl.back();
   }
-
-  
 
   isDropdownOpen = false;
 
@@ -71,50 +64,25 @@ export class ProductDetailPage implements OnInit {
     product.addedSugar = !product.addedSugar;
   }
 
-  checkAdded(product: any): boolean {
-    const productId = product.ProductId;
+  itemCart: any = [];
+
+  addProduct(productInfor: any) {
     this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
-    let isConditionTrue = false;
-
-    for (let i = 0; i < this.itemCart.length; i++) {
-      if (parseInt(productId) === parseInt(this.itemCart[i].ProductId)) {
-        isConditionTrue = true;
-        break;
-      }
-    }
-
-    return isConditionTrue;
+    this.itemCart.push(productInfor);
+    localStorage.setItem('localCart', JSON.stringify(this.itemCart));
   }
 
-  itemCart: any = []
+  cancelProduct(productInfor: any) {
+    let cartData = JSON.parse(localStorage.getItem('localCart') || '[]');
+    cartData = cartData.filter(
+      (productDel: any) => productDel.ProductId !== productInfor.ProductId
+    );
+    localStorage.setItem('localCart', JSON.stringify(cartData));
+  }
 
-  addProduct(item: any) {
-    let cartDataNull = localStorage.getItem('localCart');
-    if (cartDataNull == null) {
-      let storeDataGet: any = []
-      storeDataGet.push(item)
-      localStorage.setItem('localCart', JSON.stringify(storeDataGet));
-    } else {
-      var productId = item.ProductId;
-      let index: number = -1;
-      this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
-      for (let i = 0; i < this.itemCart.length; i++) {
-        if (parseInt(productId) === parseInt(this.itemCart[i].ProductId)) {
-          this.itemCart[i].productQuantityAddDefault += item.productQuantityAddDefault
-          index = i;
-          break;
-        }
-      }
-      if (index == -1) {
-        this.itemCart.push(item)
-        localStorage.setItem('localCart', JSON.stringify(this.itemCart))
-      }
-      else {
-        localStorage.setItem('localCart', JSON.stringify(this.itemCart))
-      }
-    }
-    this.cartNumberFunc();
-
+  isProductInCart(productId: number): boolean {
+    let cartData = JSON.parse(localStorage.getItem('localCart') || '[]');
+    return cartData.some((product: any) => product.ProductId === productId);
   }
 
   cartNumber: number = 0;
@@ -128,7 +96,6 @@ export class ProductDetailPage implements OnInit {
     }
   }
 
-
   async closeModalAndNavigateToCart() {
     await this.modalController.dismiss();
     this.router.navigate(['/shopping-cart']);
@@ -138,11 +105,13 @@ export class ProductDetailPage implements OnInit {
     this.productService.getProducts().subscribe(
       (res: any) => {
         this.productDetail = res.data.map((item: any) => item.attributes);
-        console.log("Product lists:", this.productDetail)
+        console.log('Product lists:', this.productDetail);
 
-        this.productInfor = this.productDetail.find((product: any) => product.ProductId === this.productId);
-          if (this.productInfor) {
-          console.log("Product Information:", this.productInfor);
+        this.productInfor = this.productDetail.find(
+          (product: any) => product.ProductId === this.productId
+        );
+        if (this.productInfor) {
+          console.log('Product Information:', this.productInfor);
         } else {
           console.error('Product not found!');
         }
@@ -152,5 +121,4 @@ export class ProductDetailPage implements OnInit {
       }
     );
   }
-
 }

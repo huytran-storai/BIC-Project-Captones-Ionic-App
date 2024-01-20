@@ -48,20 +48,6 @@ export class ProductAllPage implements OnInit {
     this.navCtrl.back()
   }
 
-  checkAdded(product: any): boolean {
-    const productId = product.ProductId;
-    this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
-    let isConditionTrue = false;
-
-    for (let i = 0; i < this.itemCart.length; i++) {
-      if (parseInt(productId) === parseInt(this.itemCart[i].ProductId)) {
-        isConditionTrue = true;
-        break;
-      }
-    }
-    return isConditionTrue;
-  }
-
   redirectToProductDetail(event: Event, items: any) {
     event.stopPropagation();
     this.navigateToProductDetail(items);
@@ -70,32 +56,22 @@ export class ProductAllPage implements OnInit {
   itemCart: any = []
   addProduct(event: Event, item: any) {
     event.stopPropagation();
-    let cartDataNull = localStorage.getItem('localCart');
-    if (cartDataNull == null) {
-      let storeDataGet: any = []
-      storeDataGet.push(item)
-      localStorage.setItem('localCart', JSON.stringify(storeDataGet));
-    } else {
-      var productId = item.ProductId;
-      let index: number = -1;
       this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
-      for (let i = 0; i < this.itemCart.length; i++) {
-        if (parseInt(productId) === parseInt(this.itemCart[i].ProductId)) {
-          this.itemCart[i].productQuantityAddDefault += item.productQuantityAddDefault
-          index = i;
-          break;
-        }
-      }
-      if (index == -1) {
         this.itemCart.push(item)
         localStorage.setItem('localCart', JSON.stringify(this.itemCart))
-      }
-      else {
-        localStorage.setItem('localCart', JSON.stringify(this.itemCart))
-      }
-    }
     this.cartNumberFunc();
 
+  }
+  cancelProduct(event: Event,item: any){
+    event.stopPropagation();
+    let cartData = JSON.parse(localStorage.getItem('localCart') || '[]')
+    cartData = cartData.filter((productDel: any) => productDel.ProductId !== item.ProductId)
+    localStorage.setItem('localCart', JSON.stringify(cartData))
+  }
+
+  isProductInCart(item: number): boolean{
+      let cartData = JSON.parse(localStorage.getItem('localCart') || '[]')
+      return cartData.some((product: any) => product.ProductId === item)
   }
 
   cartNumber: number = 0;
