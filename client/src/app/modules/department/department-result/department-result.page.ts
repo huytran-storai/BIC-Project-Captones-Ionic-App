@@ -143,45 +143,22 @@ export class DepartmentResultPage implements OnInit {
     this.router.navigate(['product-detail/', item.ProductName,item.ProductId]);
   }
 
-  checkAdded(product: any): boolean {
-    const productId = product.ProductId;
-    this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
-    let isConditionTrue = false;
-
-    for (let i = 0; i < this.itemCart.length; i++) {
-      if (parseInt(productId) === parseInt(this.itemCart[i].ProductId)) {
-        isConditionTrue = true;
-        break;
-      }
-    }
-
-    return isConditionTrue;
-  }
-
-  addProduct(items: any) {
-    let cartDataNull = localStorage.getItem('localCart');
-    if (cartDataNull == null) {
-      let storeDataGet: any = [];
-      storeDataGet.push(items);
-      localStorage.setItem('localCart', JSON.stringify(storeDataGet));
-    } else {
-      var productId = items.ProductId;
-      let index: number = -1;
+  addProduct(event: Event,items: any) {
+    event.stopPropagation();
       this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
-      for (let i = 0; i < this.itemCart.length; i++) {
-        if (parseInt(productId) === parseInt(this.itemCart[i].ProductId)) {
-          this.itemCart[i].productQuantityAddDefault +=
-            items.productQuantityAddDefault;
-          index = i;
-          break;
-        }
-      }
-      if (index == -1) {
         this.itemCart.push(items);
         localStorage.setItem('localCart', JSON.stringify(this.itemCart));
-      } else {
-        localStorage.setItem('localCart', JSON.stringify(this.itemCart));
-      }
-    }
+  }
+
+  cancelProduct(event: Event,items: any){
+    event.stopPropagation();
+    let cartData = JSON.parse(localStorage.getItem('localCart') || '[]')
+    cartData = cartData.filter((product: any) => product.ProductId !== items.ProductId)
+    localStorage.setItem('localCart', JSON.stringify(cartData))
+  }
+
+  isProductInCart(items: any):boolean{
+    let cartData = JSON.parse(localStorage.getItem('localCart') || '[]')
+    return cartData.some((product: any) => product.ProductId === items)
   }
 }
