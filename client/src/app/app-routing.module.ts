@@ -58,6 +58,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/more/aboutourapp/aboutourapp.module').then(m => m.AboutourappPageModule),
   },
   {
+    path: 'policy',
+    loadChildren: () => import('./modules/more/policy/policy.module').then(m => m.PolicyPageModule),
+  },
+  {
     path: 'add-address',
     loadChildren: () => import('./modules/more/account/add-address/add-address.module').then(m => m.AddAddressPageModule)
   },
