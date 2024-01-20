@@ -16,8 +16,8 @@
     <ion-item lines="none" class="colorText">
       <ion-label class="ion-text-wrap" *ngIf="currentStore">
         <h2>
-          <p class="cartSubTitleOrder" *ngIf="currentStore">{{ currentStore.name }}</p>
-          <p style="font-size: 13px;" *ngIf="currentStore">{{ currentStore.address }}</p>
+          <p class="cartSubTitleOrder" *ngIf="currentStore">{{ currentStore.StoreName }}</p>
+          <p style="font-size: 13px;" *ngIf="currentStore">{{ currentStore.StoreAddress }}</p>
         </h2>
       </ion-label>
       <ion-label class="ion-text-wrap" *ngIf="!currentStore">

@@ -12,10 +12,10 @@
 
 <ion-content [fullscreen]="true">
   <ion-content color="light">
-    <a (click)="navigateToProductDetail(product)" *ngFor="let product of items">
+    <a (click)="navigateToProductDetail(product)" *ngFor="let product of productData">
       <ion-list [inset]="true" class="list-result" *ngIf="items.length > 0">
           <ion-item>
-            <ion-label>{{ product.name }}</ion-label>
+            <ion-label>{{ product.ProductName }}</ion-label>
           </ion-item>
       </ion-list>
     </a>

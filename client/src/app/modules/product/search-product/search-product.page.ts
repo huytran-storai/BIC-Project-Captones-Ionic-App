@@ -29,7 +29,7 @@ export class SearchProductPage implements OnInit {
   }
 
   navigateToProductDetail(product: any) {
-    this.router.navigate(['product-detail/', product.id]);
+    this.router.navigate(['product-detail/', product.ProductName,product.ProductId]);
   }
 
   search(event: any): void {
@@ -50,8 +50,8 @@ export class SearchProductPage implements OnInit {
   getProductRender() {
     this.productService.getProducts().subscribe(
       (res: any) => {
-        this.productData = res?.data[0]?.attributes;
-        console.log("find store", this.productData)
+        this.productData = res.data.map((item: any) => item.attributes);
+        console.log("Render data in search", this.productData)
       },
       (err: any) => {
         console.error('Error fetching current store data:', err);
