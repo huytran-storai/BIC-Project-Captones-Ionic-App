@@ -84,6 +84,32 @@ ion-modal ion-toolbar {
 
 .cartCardOrder {
     border-radius: 0px;
+
+    h2 {
+        color: var(--ion-color-dark);
+    }
+
+    .cartTitleOrder {
+        font-size: 17px;
+        padding: 10px;
+        margin-bottom: -10px;
+    }
+
+    .cartCardSubOrder {
+        font-weight: 700;
+        margin-bottom: 4px;
+        color: var(--ion-color-medium-shade);
+    }
+
+    .titleTotal {
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    .cartSubTitleOrder {
+        font-size: 13px;
+        font-weight: 800;
+    }
 }
 
 .header {

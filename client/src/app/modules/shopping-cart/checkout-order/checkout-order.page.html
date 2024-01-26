@@ -265,6 +265,17 @@
       </ion-label>
     </ion-item>
   </ion-card>
+  <!-- Notes for your order -->
+  <ion-card class="cartCardOrder" *ngIf="checkItemsCart">
+    <ion-card-title class="cartTitleOrder colorText">
+      Ghi chú đơn hàng
+    </ion-card-title>
+    <ion-item lines="none">
+      <ion-input class="cartInput" placeholder="Vui lòng ghi chú không quá 250 kí tự....">
+      </ion-input>
+    </ion-item>
+  </ion-card>
+  <ng-template *ngIf="!checkItemsCart"></ng-template>
   <ion-grid [fixed]="true" style="text-align: center;">
     <ion-row>
       <ion-col>
