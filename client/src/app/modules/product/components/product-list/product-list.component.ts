@@ -22,7 +22,9 @@ export class ProductListComponent implements OnInit {
   itemCart: any = [];
   public productData: any;
   public user: any;
-  checkExistItem: boolean = true
+  checkExistItem: boolean = true;
+  cartItems: any[] = [];
+  strapiId!: string;
 
   constructor(
     private CartService: CartService,
@@ -30,9 +32,8 @@ export class ProductListComponent implements OnInit {
     private modalController: ModalController,
     private router: Router,
     private productService: StoreService,
-    private userService: UserService,
-  ) {
-  }
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     // this.items = this.StoreService.getAllProducts();
@@ -41,11 +42,11 @@ export class ProductListComponent implements OnInit {
   }
 
   navigateToProductDetail(item: any) {
-    this.router.navigate(['product-detail/', item.ProductName,item.ProductId]);
+    this.router.navigate(['product-detail/', item.attributes.ProductName, item.attributes.ProductId]);
   }
 
   navigateToProductAll() {
-    this.router.navigate(['product-all/',]);
+    this.router.navigate(['product-all/']);
   }
 
   subTotal(): number {
@@ -62,29 +63,24 @@ export class ProductListComponent implements OnInit {
   }
 
   isConditionTrue: boolean = false;
- 
-  getUserData() {
-    this.userService.getUserData().subscribe(res => {this.user = res?.user;
-      console.log("find user: ", this.user)});
-  }
 
-  // getProductRender() {
-  //   this.productService.getProducts().subscribe(
-  //     (res: any) => {
-  //       this.productData = res.data.map((item: any) => item.attributes);
-  //       console.log("Product lists:", this.productData)
-  //     },
-  //     (err: any) => {
-  //       console.error('Error fetching current store data:', err);
-  //     }
-  //   );
-  // }
+  getUserData() {
+    this.userService.getUserData().subscribe(
+      (res) => {
+        this.user = res?.user;
+        console.log('find user: ', this.user);
+      },
+      (error) => {
+        console.log('Get user data error', error);
+      }
+    );
+  }
 
   getProductRender() {
     this.productService.getProducts().subscribe(
       (res: any) => {
-        this.productData = res.data.map((item: any) => item.attributes);
-        console.log("Product lists:", this.productData)
+        this.productData = res.data.map((item: any) => item);
+        console.log('Product lists:', this.productData);
       },
       (err: any) => {
         console.error('Error fetching current store data:', err);
@@ -92,108 +88,90 @@ export class ProductListComponent implements OnInit {
     );
   }
 
-  addProductToCart(event: Event, product: any) {
-    event.stopPropagation();
-    const productData = {
-      ProductName: product.ProductName,
-      ProductPrice: product.CurrentPrice,
-      QuantityDefault: 1,
-      ProductImage: product.ProductImage,
-      ProductId: product.ProductId,
-      // UserId: `${this.user.UserId}`
-    };
-    this.CartService.pushProducts(productData).subscribe(
-      (response) => {
-        console.log('Product added to cart successfully:', response);
-        let itemProducts = response.data.id
-        console.log("Item ID:",itemProducts)
-      },
-      (error) => {
-        console.error('Error adding product to cart:', error);
-      }
-    );
-  }
 
-
-  // addProductToCart(event: Event, product: any) {
-  //   event.stopPropagation();
-    
-  //   const productData = {
-  //     ProductName: product.ProductName,
-  //     ProductPrice: product.CurrentPrice,
-  //     QuantityDefault: 1,
-  //     ProductImage: product.ProductImage,
-  //     ProductId: product.ProductId,
-  //     // UserId: this.user.UserId,
-  //   };
-  
-  //   // Chỉ cần gọi pushProducts một lần với cả UserId và productData
-  //   this.CartService.pushProducts({
-  //     UserId: this.user.UserId,
-  //     ProductData: productData
-  //   }).subscribe(
-  //     (response) => {
-  //       console.log('Product added to cart successfully:', response);
-  //       let itemProducts = response.data.id;
-  //       console.log("Item ID:", itemProducts);
-  //     },
-  //     (error) => {
-  //       console.error('Error adding product to cart:', error);
-  //     }
-  //   );
-  // }
-
-
-  themSL(event: Event, product: any) {
-    event.stopPropagation();
-    if (product) {
-      if (!product.QuantityDefault) {
-        product.QuantityDefault = product.QuantityDefault + 1;
-      } else {
-        product.QuantityDefault++;
-      }
+  isAddingMode: boolean = true;
+  addProduct(event: Event, item: any) {
+    if (this.user !== undefined && this.user !== null) {
+      event.stopPropagation();
       const productData = {
-        QuantityDefault: product.QuantityDefault,
-        ProductId: product.ProductId,
+        ProductName: item.attributes.ProductName,
+        ProductPrice: item.attributes.ProductPrice,
+        QuantityDefault: 1,
+        ProductImage: item.attributes.ProductImage,
+        ProductId: item.attributes.ProductId,
       };
-      this.CartService.addSL(productData).subscribe(
+      this.CartService.pushProducts(productData).subscribe(
         (response) => {
-          console.log('Add successfully:', response);
-          let itemProducts = response.data.ProductId;
-          console.log("Add Item ID:", itemProducts);
+          console.log('Product added to cart successfully:', response);
+          const strapiId = response.data.id;
+          console.log('Strapi ID:', strapiId);
+          this.saveStrapiId(strapiId);
+          //window.location.reload();
         },
+        
         (error) => {
           console.error('Error adding product to cart:', error);
         }
       );
-    } else {
-      console.error('Invalid product object:', product);
+    } 
+    else {
+      event.stopPropagation();
+      this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
+      this.itemCart.push(item);
+      localStorage.setItem('localCart', JSON.stringify(this.itemCart));
+      item.inCart = true;
     }
   }
 
-  isProductInCart(productId: number): boolean {
+  // save id từ return res 
+  saveStrapiId(strapiId: string): void {
+    this.strapiId = strapiId;
+  }
+  getStrapiId(): string {
+    return this.strapiId;
+  }
+
+  cancelProduct(event: Event, item: any) {
+    if(this.user !== undefined && this.user !== null) {
+      event.stopPropagation();
+      const strapiId = this.getStrapiId();
+      if (strapiId) {
+        event.stopPropagation();
+        this.CartService.deleteProduct(strapiId).subscribe(
+          (response) => {
+            console.log('Product deleted from cart successfully:', response);
+          },
+          (error) => {
+            console.error('Error deleting product from cart:', error);
+          }
+        );
+      } else {
+        console.error('Strapi ID is not available. Unable to delete product.');
+      }
+    } 
+    else {
+      event.stopPropagation();
+      let cartData = JSON.parse(localStorage.getItem('localCart') || '[]');
+      cartData = cartData.filter(
+        (productDel: any) => productDel.ProductId !== item.ProductId
+      ); //id = 1, => id = 2 ,id=3 ; => truyền lại cartData => cập nhật bằng setItem
+      localStorage.setItem('localCart', JSON.stringify(cartData));
+    }
+
+  }
+
+  changeButtonSta(productId: number): boolean {
     let cartData = JSON.parse(localStorage.getItem('localCart') || '[]');
     return cartData.some((product: any) => product.ProductId === productId);
   }
-  
 
-  addProduct(event: Event, item: any) {
-    event.stopPropagation();
-      this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
-        this.itemCart.push(item)
-        localStorage.setItem('localCart', JSON.stringify(this.itemCart))
-    item.inCart = true
-    
+  checkUser(): boolean {
+    if (this.user !== undefined && this.user !== null) {
+      return true;
+    } else {
+      return false;
+    }
   }
-  
-  cancelProduct(event: Event, item: any) {
-    event.stopPropagation();
-    let cartData = JSON.parse(localStorage.getItem('localCart') || '[]');
-    cartData = cartData.filter((productDel: any) => productDel.ProductId !== item.ProductId); //id = 1, => id = 2 ,id=3 ; => truyền lại cartData => cập nhật bằng setItem 
-    localStorage.setItem('localCart', JSON.stringify(cartData));
-  }
-  
 
-  
-  
+
 }

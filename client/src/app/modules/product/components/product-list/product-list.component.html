@@ -13,23 +13,30 @@
         <ion-card (click)="navigateToProductDetail(item)">
           <ion-row>
             <ion-col class="ion-justify-content-center product">
-              <img alt="{{item.ProductName}}" [src]="item.ProductImage" />
+              <img alt="{{item.attributes.ProductName}}" [src]="item.attributes.ProductImage" />
             </ion-col>
           </ion-row>
           <ion-card-header>
-            <ion-text class="price">{{item.CurrentPrice | number:'1.0-0'}} ₫</ion-text>
-            <ion-text class="product-name fix-2-row">{{item.ProductName}}</ion-text>
+            <ion-text class="price">{{item.attributes.ProductPrice | number:'1.0-0'}} ₫</ion-text>
+            <ion-text class="product-name fix-2-row">{{item.attributes.ProductName}}</ion-text>
           </ion-card-header>
           <ion-card-content>
             <ion-row class="ion-align-items-center ion-justify-content-between">
-              <ion-text>{{item.UnitCapitity}}lb</ion-text>
-              <ion-text>{{item.UnitPrice | number:'1.0-0'}}₫/lb</ion-text>
+              <ion-text>{{item.attributes.UnitCapitity}}lb</ion-text>
+              <ion-text>{{item.attributes.UnitPrice | number:'1.0-0'}}₫/lb</ion-text>
             </ion-row>
-            <ion-row class="ion-align-items-center add">
-              <ion-button *ngIf="!isProductInCart(item.ProductId)" (click)="addProduct($event, item)" class="btn" size="small" color="primary">Thêm</ion-button>
-              <ion-button *ngIf="isProductInCart(item.ProductId)" (click)="cancelProduct($event, item)" class="btn" size="small" color="primary">Huỷ</ion-button>
-
-
+            <ion-row *ngIf="!checkUser()" class="ion-align-items-center add">
+              <!-- Button add & delete local -->
+              <ion-button *ngIf="!changeButtonSta(item.attributes.ProductId)"
+                (click)="addProduct($event, item.attributes)" class="btn" size="small" color="primary">Thêm</ion-button>
+              <ion-button *ngIf="changeButtonSta(item.attributes.ProductId)"
+                (click)="cancelProduct($event, item.attributes)" class="btn" size="small"
+                color="primary">Huỷ</ion-button>
+            </ion-row>
+            <ion-row *ngIf="checkUser()" class="ion-align-items-center add">
+              <!-- Button add & delete local API-->
+              <ion-button (click)="addProduct($event,item)" class="btn" size="small" color="primary">Thêm</ion-button>
+              <ion-button (click)="cancelProduct($event, item)" class="btn" size="small" color="primary">Huỷ</ion-button>
             </ion-row>
           </ion-card-content>
         </ion-card>

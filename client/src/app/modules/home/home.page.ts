@@ -21,9 +21,8 @@ export class HomePage implements OnInit {
     private userService: UserService,
     private storeService: StoreService,
     private blogsService: BlogsService,
-    private productService: StoreService,
-
-  ) { }
+    private productService: StoreService
+  ) {}
 
   ngOnInit() {
     // const storedUserData = localStorage.getItem('userData');
@@ -40,16 +39,16 @@ export class HomePage implements OnInit {
     // this.getAllProducts();
     (function (d, m) {
       var kommunicateSettings = {
-        appId: "1161fc142cdd17f8662859181b2c974bc",
+        appId: '1161fc142cdd17f8662859181b2c974bc',
         popupWidget: true,
         automaticChatOpenOnNavigation: true,
         automaticChatOpen: true,
       };
-      var s = document.createElement("script");
-      s.type = "text/javascript";
+      var s = document.createElement('script');
+      s.type = 'text/javascript';
       s.async = true;
-      s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
-      var h = document.getElementsByTagName("head")[0];
+      s.src = 'https://widget.kommunicate.io/v2/kommunicate.app';
+      var h = document.getElementsByTagName('head')[0];
       h.appendChild(s);
       (window as any).kommunicate = m;
       m._globals = kommunicateSettings;
@@ -57,27 +56,31 @@ export class HomePage implements OnInit {
   }
 
   getUserData() {
-    this.userService.getUserData().subscribe(res => {
-      this.user = res?.user;
-      console.log("User data:", this.user);
-      // localStorage.setItem('userData', JSON.stringify(this.user));
-    });
+    this.userService.getUserData().subscribe(
+      (res) => {
+        this.user = res?.user;
+        console.log('User data:', this.user);
+        // localStorage.setItem('userData', JSON.stringify(this.user));
+      },
+      (error) => {
+        console.log('Error get user data:', error);
+      }
+    );
   }
+
   
 
   getCurrentStore() {
     this.storeService.getCurrentStoreAddress().subscribe(
       (res: any) => {
         this.currentStore = res?.data[0]?.attributes;
-        console.log("find store", this.currentStore)
+        console.log('find store', this.currentStore);
       },
       (err) => {
         console.error('Error fetching current store data:', err);
       }
     );
   }
-
-
 
   // getProductRender() {
   //   this.productService.getProducts().subscribe(

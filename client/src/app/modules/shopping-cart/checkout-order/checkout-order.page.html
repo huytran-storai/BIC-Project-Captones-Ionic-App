@@ -215,7 +215,7 @@
         <ion-label class="cartCACName ion-text-wrap colorText">
           {{item.ProductName}}
           <ion-label>
-            <p class="cartCACPrice colorText">{{item.CurrentPrice | number:'1.0-0'}} ₫</p>
+            <p class="cartCACPrice colorText">{{item.ProductPrice | number:'1.0-0'}} ₫</p>
           </ion-label>
         </ion-label>
         <p class="setQuantity cartCACPrice ion-text-center">
@@ -226,7 +226,7 @@
       <ion-item lines="full" lines="none">
         <ion-label class="cartCACViewDetail colorText">
           <ion-row class="ion-justify-content-between">
-            <div class="cartCACPrice">{{item.CurrentPrice * item.productQuantityAddDefault | number:'1.0-0'}} ₫</div>
+            <div class="cartCACPrice">{{item.ProductPrice * item.productQuantityAddDefault | number:'1.0-0'}} ₫</div>
           </ion-row>
         </ion-label>
       </ion-item>
