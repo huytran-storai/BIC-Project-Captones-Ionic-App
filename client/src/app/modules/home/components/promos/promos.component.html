@@ -1,13 +1,18 @@
+<!-- your-component.component.html -->
 <swiper-container [loop]="true" [speed]="1500" [autoplay]="{enable:true,delay:1500}" [slidesPerView]="1"
   [pagination]="{clickable:true, dynamicBullets:true}">
-  <swiper-slide class="bg-content">
+  <swiper-slide class="bg-content" *ngFor="let item of promoData">
     <ion-card>
-      <a href="#">
-        <img class="img" src="https://rogerdoumanianlaw.com/wp-content/uploads/2017/12/Fotolia_130912957_M.jpg" alt="ư343" />
-        <div class="title-promo"><p>Giảm 10% cho tháng sinh nhật 02</p></div>
-        <div class="recive-promo" id="promoText">#sinhnhatvuive</div>
-        <button (click)="copyToClipboard($event)">Copy</button>
-      </a>
+      <div (click)="copyToClipboard($event, item.PromoId)" id="present-alert">
+        <img class="img" alt="{{item.PromoTitle}}" [src]="item.PromoImg" />
+        <div class="title-promo">
+          <p>{{item.PromoTitle}}</p>
+        </div>
+        <div class="recive-promo" id="promoText"><i>{{item.PromoId}}</i> <button
+            (click)="copyToClipboard($event, item.PromoId)" id="present-alert"><ion-icon name="copy-outline"></ion-icon></button></div>
+      </div>
     </ion-card>
+    <ion-alert trigger="present-alert" header="A Short Title Is Best" subHeader="A Sub Header Is Optional"
+      [buttons]="alertButtons" (didDismiss)="setResult($event)"></ion-alert>
   </swiper-slide>
 </swiper-container>

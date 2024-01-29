@@ -27,24 +27,6 @@ export class CartService {
     return this.http.post(`${this.apiUrl}/cart-items`, requestData);
   }
 
-  // pushProducts(data: { 
-  //   // UserId: number,
-  //   ProductData: { 
-  //     ProductName: string, 
-  //     ProductPrice: number, 
-  //     QuantityDefault: number, 
-  //     ProductImage: string,
-  //   }
-  // }): Observable<any> {
-  //   const requestData = { 
-  //     // UserId: data.UserId,
-  //     ProductData: data.ProductData
-  //   };
-  //   console.log("request", requestData)
-  //   return this.http.post(`${this.apiUrl}/cart-items`, requestData);
-  // }
-  
-
   addSL(productData: { QuantityDefault: number}): Observable<any> {
     const requestDataSL = { 
       data: productData 
@@ -52,9 +34,6 @@ export class CartService {
     console.log('Request Data:', requestDataSL);
     return this.http.put(`${this.apiUrl}/cart-items/:id`, requestDataSL);
   }
-  
-  
-
   
   EmprtCart: any[] = [
   ]

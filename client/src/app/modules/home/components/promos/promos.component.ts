@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { register } from 'swiper/element/bundle';
-import { BlogsService } from 'src/app/services/blogs.service';
+import { PromosService } from 'src/app/services/promos.service';
 
 
 register();
@@ -10,9 +10,9 @@ register();
   styleUrls: ['./promos.component.scss'],
 })
 export class PromoComponent implements OnInit {
-  public blogData: any;
+  public promoData: any;
   constructor(
-    private BlogsService: BlogsService,
+    private PromosService: PromosService,
 
   ) { }
 
@@ -20,30 +20,45 @@ export class PromoComponent implements OnInit {
     this.getBlogRender()
   }
   getBlogRender() {
-    this.BlogsService.getBlog().subscribe(
+    this.PromosService.getPromocodes().subscribe(
       (res: any) => {
-        this.blogData = res.data.map((item: any) => item.attributes)
-        console.log('Find Blog:', this.blogData)
+        this.promoData = res.data.map((item: any) => item.attributes)
+        console.log('Find promoData:', this.promoData)
       },
       (err) => {
         console.error('Error fetching current store data:', err);
       }
     )
   }
-  copyToClipboard(event: Event) {
-    const promoTextElement = document.getElementById('promoText');
-    event.preventDefault();
-    if (promoTextElement) {
-      const textarea = document.createElement('textarea');
-      textarea.value = promoTextElement.innerText;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
-      console.log('Đã copy thành công');
-    } else {
-      console.error('Không tìm thấy phần tử có id là "promoText"');
-    }
-  }
   
+  copyToClipboard(event: Event, promoText: string) {
+    event.preventDefault();
+    const textarea = document.createElement('textarea');
+    textarea.value = promoText;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    console.log('Đã copy thành công:', promoText);
+  }
+  public alertButtons = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () => {
+        console.log('Alert canceled');
+      },
+    },
+    {
+      text: 'OK',
+      role: 'confirm',
+      handler: () => {
+        console.log('Alert confirmed');
+      },
+    },
+  ];
+
+  setResult(event: Event) {
+    
+  }
 }
