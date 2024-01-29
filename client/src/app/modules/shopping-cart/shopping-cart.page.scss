@@ -6,7 +6,9 @@ ion-modal {
     --height: 40%;
     --border-radius: 13px;
 }
-
+.ion-modal-pay{
+    --height:30% !important;
+}
 ion-modal ion-toolbar {
     --background: white !important;
     color: black;

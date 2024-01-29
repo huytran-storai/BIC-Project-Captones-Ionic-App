@@ -8,40 +8,64 @@ import { Subject,BehaviorSubject, Observable } from 'rxjs';
 export class CartService {
   private apiUrl = 'http://localhost:1337/api';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getProductsCart() {
     return this.http.get(`${this.apiUrl}/cart-items`);
   }
 
-  pushProducts(productData: { 
-    ProductName: string, 
-    ProductPrice: number, 
-    QuantityDefault: number, 
-    ProductImage: string,
-    ProductId: number
+  pushProducts(productData: {
+    ProductName: string;
+    ProductPrice: number;
+    QuantityDefault: number;
+    ProductImage: string;
+    ProductId: number;
   }): Observable<any> {
-    const requestData = { 
-      data: productData 
+    const requestData = {
+      data: productData,
     };
     return this.http.post(`${this.apiUrl}/cart-items`, requestData);
   }
 
-  addSL(productData: { QuantityDefault: number}): Observable<any> {
-    const requestDataSL = { 
-      data: productData 
+  postProductsAPI(productNames: any): Observable<any> {
+    const requestData = {
+      data: productNames,
     };
-    console.log('Request Data:', requestDataSL);
-    return this.http.put(`${this.apiUrl}/cart-items/:id`, requestDataSL);
+    return this.http.post(`${this.apiUrl}/cart-items`, requestData);
+  }
+
+  deleteProduct(strapiId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/cart-items/${strapiId}`);
   }
   
-  EmprtCart: any[] = [
-  ]
-  
+
+  increaseItem(productData: {
+    id: number;
+    productQuantityAddDefault: number;
+  }): Observable<any> {
+    const requestIncrease = {
+      data: productData,
+    };
+    return this.http.put(
+      `${this.apiUrl}/cart-items/${productData.id}`,
+      requestIncrease
+    );
+  }
+
+  deleteItem(productData: { id: number }): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/cart-items/${productData.id}`);
+  }
+
+  deleteAll(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/cart-items/${id}`);
+  }
+
+  EmprtCart: any[] = [];
+
   getCartItems(): any[] {
     const cartData = localStorage.getItem('localCart');
     return cartData ? JSON.parse(cartData) : [];
   }
-  
-  cartSubject = new Subject<any>()
+
+  cartSubject = new Subject<any>();
 }
