@@ -1,0 +1,13 @@
+<swiper-container [loop]="true" [speed]="1500" [autoplay]="{enable:true,delay:1500}" [slidesPerView]="1"
+  [pagination]="{clickable:true, dynamicBullets:true}">
+  <swiper-slide class="bg-content">
+    <ion-card>
+      <a href="#">
+        <img class="img" src="https://rogerdoumanianlaw.com/wp-content/uploads/2017/12/Fotolia_130912957_M.jpg" alt="ư343" />
+        <div class="title-promo"><p>Giảm 10% cho tháng sinh nhật 02</p></div>
+        <div class="recive-promo" id="promoText">#sinhnhatvuive</div>
+        <button (click)="copyToClipboard($event)">Copy</button>
+      </a>
+    </ion-card>
+  </swiper-slide>
+</swiper-container>
