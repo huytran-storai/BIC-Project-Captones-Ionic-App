@@ -7,13 +7,13 @@ import { ProductListComponent } from '../modules/product/components/product-list
 // import { ProductDetailsComponent } from '../modules/product/components/product-details/product-details.component';
 import { RouterModule } from '@angular/router';
 import { BlogsComponent } from '../modules/home/components/blogs/blogs.component';
-import { NewsComponent } from '../modules/home/components/news/news.component';
+import { PromoComponent } from '../modules/home/components/promos/promos.component';
 import { WinegroupComponent } from '../modules/home/components/winegroup/winegroup.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  declarations: [TabmenuComponent, ProductListComponent, BlogsComponent, NewsComponent, WinegroupComponent],
+  declarations: [TabmenuComponent, ProductListComponent, BlogsComponent, PromoComponent, WinegroupComponent],
   imports: [CommonModule, IonicModule, RouterModule],
-  exports: [TabmenuComponent, ProductListComponent, BlogsComponent, NewsComponent, WinegroupComponent],
+  exports: [TabmenuComponent, ProductListComponent, BlogsComponent, PromoComponent, WinegroupComponent],
 })
 export class ShareModule { }
