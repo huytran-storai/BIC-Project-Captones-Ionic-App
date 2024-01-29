@@ -42,10 +42,7 @@ export class ShoppingCartPage implements OnInit {
   ngOnInit(): void {
     this.getUserData();
     this.getCurrentStore();
-    this.readLocalStorageCart();
     this.renderCartDetail();
-    // this.checkUser();
-    this.postItemToStrapi();
   }
 
   getUserData() {
@@ -90,20 +87,8 @@ export class ShoppingCartPage implements OnInit {
   onInput(even: any) {}
 
   ionViewWillEnter() {
-    this.CartDetails();
     this.checkItemsCart;
     this.calculateItem;
-    this.readLocalStorageCart();
-    this.postItemToStrapi();
-  }
-
-  readLocalStorageCart() {
-    var cartValue = localStorage.getItem('localCart');
-    if (cartValue !== null) {
-      this.getCartDetails = JSON.parse(cartValue);
-      this.numberOfItems = this.getCartDetails.length;
-      this.updateSubTotal();
-    }
   }
 
   private calculateItem(numberOfItems: number | undefined): boolean {
@@ -132,31 +117,24 @@ export class ShoppingCartPage implements OnInit {
     return await modal.present();
   }
 
-  CartDetails() {
-    if (localStorage.getItem('localCart')) {
-      this.getCartDetails = JSON.parse(
-        localStorage.getItem('localCart') || '[]'
-      );
-      this.numberOfItems = this.getCartDetails.length;
-    }
-  }
+
   incProduct(prod: any) {
     prod.productQuantityAddDefault += 1;
-    localStorage.setItem('localCart', JSON.stringify(this.getCartDetails));
+
     this.updateSubTotal();
   }
 
   decProduct(prod: Cart) {
     if (prod.productQuantityAddDefault > 1) {
       prod.productQuantityAddDefault -= 1;
-      localStorage.setItem('localCart', JSON.stringify(this.getCartDetails));
+
     } else if (prod.productQuantityAddDefault === 1) {
       prod.productQuantityAddDefault = 0;
       this.getCartDetails = this.getCartDetails.filter(
         (item: Cart) => item !== prod
       );
       this.numberOfItems = this.getCartDetails.length;
-      localStorage.setItem('localCart', JSON.stringify(this.getCartDetails));
+
       this.updateSubTotal();
     }
   }
@@ -183,7 +161,6 @@ export class ShoppingCartPage implements OnInit {
     this.numberOfItems = 0;
     this.modalController.dismiss();
     this.updateSubTotal();
-    localStorage.setItem('localCart', JSON.stringify(this.getCartDetails));
   }
 
   updateSubTotal() {
@@ -209,10 +186,6 @@ export class ShoppingCartPage implements OnInit {
     return totalPrice;
   }
 
-  refreshPage() {
-    this.location.replaceState('/home');
-    window.location.reload();
-  }
   checkout() {
     this.router.navigate(['./login']);
     this.modalController.dismiss();
@@ -276,7 +249,7 @@ export class ShoppingCartPage implements OnInit {
           console.log('Error delete Item Success ', err);
         }
       );
-      window.location.reload();
+      // window.location.reload();
     } else if (prod.attributes.productQuantityAddDefault > 1) {
       prod.attributes.productQuantityAddDefault -= 1;
       const productData = {
@@ -292,52 +265,6 @@ export class ShoppingCartPage implements OnInit {
           console.log('Error Decrease item:', err);
         }
       );
-    }
-  }
-
-  postItemToStrapi() {
-    if (this.user !== undefined) {
-      const itemsLocal = JSON.parse(localStorage.getItem('localCart') || '[]');
-      if (itemsLocal.length > 0) {
-        let succesfulRequest = 0
-        const checkComplete = () => {
-          succesfulRequest++
-          if(succesfulRequest === itemsLocal.length){
-            window.location.reload();
-          }
-        }
-        itemsLocal.forEach(
-          (item: {
-            ProductName: any;
-            ProductPrice: any;
-            productQuantityAddDefault: any;
-            ProductImage: any;
-            ProductId: any;
-          }) => {
-            const productData = {
-              ProductName: item.ProductName,
-              ProductPrice: item.ProductPrice,
-              productQuantityAddDefault: item.productQuantityAddDefault,
-              ProductImage: item.ProductImage,
-              ProductId: item.ProductId,
-            };
-            this.CartService.postProductsAPI(productData).subscribe(
-              (res: any) => {
-                console.log('Post Successful Local to Strapi:', res);
-                localStorage.removeItem('localCart');
-                checkComplete();
-              },
-              (err: any) => {
-                console.log('Post Failed Local to Strapi:', err);
-                checkComplete();
-              }
-            );
-          },
-        );
-      } else {
-        console.log('No items found in local storage.');
-      }
-     
     }
   }
 

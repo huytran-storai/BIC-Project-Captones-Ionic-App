@@ -116,10 +116,6 @@ export class ProductListComponent implements OnInit {
     } 
     else {
       event.stopPropagation();
-      this.itemCart = JSON.parse(localStorage.getItem('localCart') || '[]');
-      this.itemCart.push(item);
-      localStorage.setItem('localCart', JSON.stringify(this.itemCart));
-      item.inCart = true;
     }
   }
 
@@ -151,18 +147,8 @@ export class ProductListComponent implements OnInit {
     } 
     else {
       event.stopPropagation();
-      let cartData = JSON.parse(localStorage.getItem('localCart') || '[]');
-      cartData = cartData.filter(
-        (productDel: any) => productDel.ProductId !== item.ProductId
-      ); //id = 1, => id = 2 ,id=3 ; => truyền lại cartData => cập nhật bằng setItem
-      localStorage.setItem('localCart', JSON.stringify(cartData));
     }
 
-  }
-
-  changeButtonSta(productId: number): boolean {
-    let cartData = JSON.parse(localStorage.getItem('localCart') || '[]');
-    return cartData.some((product: any) => product.ProductId === productId);
   }
 
   checkUser(): boolean {
@@ -172,6 +158,4 @@ export class ProductListComponent implements OnInit {
       return false;
     }
   }
-
-
 }
