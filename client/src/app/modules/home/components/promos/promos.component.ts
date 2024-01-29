@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { register } from 'swiper/element/bundle';
 import { PromosService } from 'src/app/services/promos.service';
-
+import { AlertController } from '@ionic/angular';
 
 register();
 @Component({
@@ -13,7 +13,7 @@ export class PromoComponent implements OnInit {
   public promoData: any;
   constructor(
     private PromosService: PromosService,
-
+    private alertController: AlertController
   ) { }
 
   ngOnInit(): void {
@@ -31,7 +31,7 @@ export class PromoComponent implements OnInit {
     )
   }
   
-  copyToClipboard(event: Event, promoText: string) {
+  async copyToClipboard(event: Event, promoText: string) {
     event.preventDefault();
     const textarea = document.createElement('textarea');
     textarea.value = promoText;
@@ -39,26 +39,13 @@ export class PromoComponent implements OnInit {
     textarea.select();
     document.execCommand('copy');
     document.body.removeChild(textarea);
-    console.log('Đã copy thành công:', promoText);
-  }
-  public alertButtons = [
-    {
-      text: 'Cancel',
-      role: 'cancel',
-      handler: () => {
-        console.log('Alert canceled');
-      },
-    },
-    {
-      text: 'OK',
-      role: 'confirm',
-      handler: () => {
-        console.log('Alert confirmed');
-      },
-    },
-  ];
+    // console.log('Đã copy thành công:', promoText);
+    const alert = await this.alertController.create({
+      header: 'Đã lưu mã khuyến mãi',
+      subHeader: promoText,
+      buttons: ['OK']
+    });
 
-  setResult(event: Event) {
-    
+    await alert.present();
   }
 }

@@ -3,16 +3,14 @@
   [pagination]="{clickable:true, dynamicBullets:true}">
   <swiper-slide class="bg-content" *ngFor="let item of promoData">
     <ion-card>
-      <div (click)="copyToClipboard($event, item.PromoId)" id="present-alert">
+      <div (click)="copyToClipboard($event, item.PromoId)">
         <img class="img" alt="{{item.PromoTitle}}" [src]="item.PromoImg" />
         <div class="title-promo">
           <p>{{item.PromoTitle}}</p>
         </div>
         <div class="recive-promo" id="promoText"><i>{{item.PromoId}}</i> <button
-            (click)="copyToClipboard($event, item.PromoId)" id="present-alert"><ion-icon name="copy-outline"></ion-icon></button></div>
+            (click)="copyToClipboard($event, item.PromoId)"><ion-icon name="copy-outline"></ion-icon></button></div>
       </div>
     </ion-card>
-    <ion-alert trigger="present-alert" header="A Short Title Is Best" subHeader="A Sub Header Is Optional"
-      [buttons]="alertButtons" (didDismiss)="setResult($event)"></ion-alert>
   </swiper-slide>
 </swiper-container>
