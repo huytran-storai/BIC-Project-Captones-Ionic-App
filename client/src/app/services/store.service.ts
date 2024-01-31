@@ -41,8 +41,24 @@ export class StoreService {
   //   return this.getProducts().pipe(filter(item => item.tags?.includes(tag)))
   // }
   
-
-  
+getInfoCheckOut(checkOutData: any): Observable<any>{
+  const requestCheckOut ={
+    data: checkOutData,
+  };
+  return this.http.post(`${this.apiUrl}/orders`, requestCheckOut)
+}
+// pushProducts(productData: {
+//   ProductName: string;
+//   ProductPrice: number;
+//   QuantityDefault: number;
+//   ProductImage: string;
+//   ProductId: number;
+// }): Observable<any> {
+//   const requestData = {
+//     data: productData,
+//   };
+//   return this.http.post(`${this.apiUrl}/cart-items`, requestData);
+// }
 
   getCurrentStoreAddress() {
     return this.http.get(`${this.apiUrl}/stores`);

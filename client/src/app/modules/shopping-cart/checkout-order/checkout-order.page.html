@@ -10,15 +10,15 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card class="cartCardOrder">
+  <ion-card class="cartCardOrder" *ngFor="let store of currentStore">
     <ion-card-title class="cartTitleOrder colorTitle">
       Nơi đặt hàng:
     </ion-card-title>
     <ion-item lines="none" class="colorText">
-      <ion-label class="ion-text-wrap" *ngIf="currentStore">
+      <ion-label class="ion-text-wrap">
         <h2>
-          <p class="cartSubTitleOrder" *ngIf="currentStore">{{ currentStore.name }}</p>
-          <p style="font-size: 13px;" *ngIf="currentStore">{{ currentStore.address }}</p>
+          <p class="cartSubTitleOrder" *ngIf="currentStore">{{store.StoreName}}</p>
+          <p style="font-size: 13px;" *ngIf="currentStore">{{store.StoreAddress}}</p>
         </h2>
       </ion-label>
       <ion-label class="ion-text-wrap" *ngIf="!currentStore">
@@ -34,18 +34,15 @@
     <ion-card-title class="cartTitleOrder colorTitle">
       Chọn hình thức giao hàng:
     </ion-card-title>
-    <ion-radio-group value="paylater">
-      <ion-row>
-        <ion-radio value="paylater" aria-label="Custom checkbox"></ion-radio>
-        <ion-text>Nhận tại cửa hàng chúng tôi</ion-text>
-      </ion-row> <br>
-      <ion-row>
-        <ion-radio value="paylafter" aria-label="Custom checkbox"></ion-radio>
-        <ion-text>Giao hàng theo địa chỉ của bạn</ion-text>
-      </ion-row> <br>
-    </ion-radio-group>
+    <ion-row *ngFor="let field of fieldCheckout">
+      <ion-radio-group value="paylater" [(ngModel)]="selectedMethodReceives" (ngModelChange)="updateDeliveryFee()">
+        <ion-row *ngFor="let methods of field.receives" >
+          <ion-radio [value]="methods.MethodReceives" aria-label="Custom checkbox"></ion-radio>
+          <ion-text>{{ methods.MethodReceives }}</ion-text>
+        </ion-row>
+      </ion-radio-group>
+    </ion-row> <br>
   </ion-card>
-  <!-- Payment Method: -->
   <ng-container *ngIf="checkItemsCart">
     <ion-card *ngIf="pickupChecked || deliveryChecked" class="cartCardOrder">
       <ion-card-title class="cartTitleOrder colorText">
@@ -55,17 +52,14 @@
       </ion-card-title>
       <ion-card-content class="ion-padding-vertical" style="padding-top: 0;">
         <ion-item lines="none" class="ion-no-padding-horizontal">
-          <!-- <ion-label> -->
-          <ion-row>
-            <ion-datetime-button datetime="datetime"></ion-datetime-button>
-          </ion-row>
-          <ion-modal [keepContentsMounted]="true" class="modalSchedule">
+          <ion-datetime-button datetime="datetime"></ion-datetime-button>
+          <ion-modal class="modalSchedule" [keepContentsMounted]="true">
             <ng-template>
-              <ion-datetime [showDefaultTitle]="true" [showDefaultButtons]="true" id="datetime" [min]="currentDate">
+              <ion-datetime id="datetime" [showDefaultTitle]="true" [showDefaultButtons]="true" [min]="currentDate"
+                (ionChange)="onDatetimeChange($event)" [(ngModel)]="DateTimePick">
               </ion-datetime>
             </ng-template>
           </ion-modal>
-          <!-- </ion-label> -->
         </ion-item>
       </ion-card-content>
     </ion-card>
@@ -154,16 +148,14 @@
     <ion-card-title class="cartTitleOrder colorTitle">
       Phương thức thanh toán:
     </ion-card-title>
-    <ion-radio-group value="paylater">
-      <ion-row>
-        <ion-radio value="paylater" aria-label="Custom checkbox"></ion-radio>
-        <ion-text>Thanh toán khi nhận hàng</ion-text>
-      </ion-row> <br>
-      <ion-row>
-        <ion-radio value="paylafter" aria-label="Custom checkbox"></ion-radio>
-        <ion-text>Chuyển khoản trước</ion-text>
-      </ion-row> <br>
-    </ion-radio-group>
+    <ion-row *ngFor="let field of fieldCheckout">
+      <ion-radio-group value="paylater" [(ngModel)]="selectedMethodPayments">
+        <ion-row *ngFor="let methods of field.payments">
+          <ion-radio [value]="methods.MethodPayment" aria-label="Custom checkbox"></ion-radio>
+          <ion-text>{{methods.MethodPayment}}</ion-text>
+        </ion-row> <br>
+      </ion-radio-group>
+    </ion-row>
   </ion-card>
   <!-- Discount  -->
   <ion-card class="cartCardOrder" *ngIf="checkItemsCart">
@@ -177,7 +169,8 @@
         {{message}}
         <ion-icon name="add-outline">
         </ion-icon>
-      </ion-button>
+      </ion-button> 
+      <p class="wrongTextAlert" *ngIf="wrongCode">{{sentAlertWrong}}</p>
       <!-- Modal for promo code add  -->
       <ion-modal #modal trigger="open-modal-promo" class="modalPromo " (willDismiss)="onWillDismiss($event)">
         <ng-template class="containerPromo">
@@ -190,10 +183,10 @@
             <p class="pTitleAlertPromo">
               Nhập mã ưu đãi
             </p>
-            <ion-input type="text" class="inpPromoCode" [(ngModel)]="name" autofocus="true" required="true">
+            <ion-input type="text" class="inpPromoCode" [(ngModel)]="inputPromo" autofocus="true" required="true">
             </ion-input>
-            <ion-button (click)="confirm()" style="text-align: center;" class="btnTitleAlerPromo" [routerLink]="'./'"
-              [disabled]="!checkInput()">
+            <ion-button (click)="getPromoRender()" style="text-align: center;" class="btnTitleAlerPromo"
+              [routerLink]="'./'" [disabled]="!checkInput()">
               OK
             </ion-button>
           </ion-col>
@@ -206,8 +199,7 @@
     <ion-card-title class="cartTitleCAC">
       Các sản phẩm
     </ion-card-title>
-    <ion-card-content *ngFor="let item of cartItems">
-
+    <ion-card-content *ngFor="let item of productData">
       <ion-item class="paddingCartCAC">
         <ion-thumbnail slot="start" style="margin-right: 8px;">
           <img alt={{item.ProductName}} src="{{item.ProductImage}}" />
@@ -257,9 +249,18 @@
             Chi phí giao hàng:
             <div>{{deliveryFee| number:'1.0-0'}} ₫</div>
           </ion-row>
+          <ion-row class="ion-justify-content-between cartCardSubOrder"  *ngIf="getPercentDiscount !== undefined">
+            Phần trăm giảm giá:
+            <div>{{getPercentDiscount}}%</div>
+          </ion-row>
+          <!-- <ion-row class="ion-justify-content-between cartCardSubOrder"  *ngIf="getPercentDiscount === undefined">
+            Phần trăm giảm giá:
+            <div *ngIf="wrongCode" class="wrongTextAlert">{{sentAlertWrong}}</div>
+          </ion-row> -->
+          
           <ion-row style="margin-bottom: 20px;" class="ion-justify-content-between cartCardSubOrder">
             Tổng tiền:
-            <div>{{subTotal() + tax + deliveryFee| number:'1.0-0'}} ₫</div>
+            <div>{{ (subTotal() + tax + deliveryFee) - (subTotal() + tax + deliveryFee) *  getPercentDiscount / 100| number:'1.0-0'}} ₫</div>
           </ion-row>
         </h3>
       </ion-label>
@@ -271,20 +272,30 @@
       Ghi chú đơn hàng
     </ion-card-title>
     <ion-item lines="none">
-      <ion-input class="cartInput" placeholder="Vui lòng ghi chú không quá 250 kí tự....">
+      <ion-input class="cartInput" placeholder="Vui lòng ghi chú không quá 250 kí tự...." [(ngModel)]="NoteCart">
       </ion-input>
     </ion-item>
   </ion-card>
   <ng-template *ngIf="!checkItemsCart"></ng-template>
   <ion-grid [fixed]="true" style="text-align: center;">
-    <ion-row>
+    <ion-row *ngIf="fieldCheckout">
       <ion-col>
-        <ion-button class="btnCheckout colorText" (click)="orderButton()" id="openModalInfo">Đặt hàng</ion-button>
+        <ion-button class="btnCheckout colorText" (click)="
+        checkOutBtn(
+        selectedMethodPayments,
+        selectedMethodReceives,
+        newFirstName,
+        newLastName,
+        newAddress,
+        newPhone,
+        NoteCart
+        )" id="openModalInfo">
+          Đặt hàng</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
   <!-- Modal  -->
-  <ion-modal [keepContentsMounted]="true" trigger="openModalInfo" #modal>
+  <ion-modal [keepContentsMounted]="true" trigger="openModalInfo" #modal *ngIf="emptyModal">
     <ng-template>
       <ion-header>
         <ion-toolbar>
@@ -296,26 +307,26 @@
           <ion-title>Thông tin thanh toán </ion-title>
         </ion-toolbar>
       </ion-header>
-      <ion-content class="ion-padding">
-        <ion-label class="fieldInfo" *ngIf="user">Tên: {{user?.username}}
+      <ion-content class="ion-padding" *ngIf="info">
+        <ion-label class="fieldInfo">Tên: {{info.FirstName}} {{info.LastName}}
           <div class="bar"></div>
         </ion-label>
-        <ion-label class="fieldInfo">Số điện thoại: {{user?.phone}}
+        <ion-label class="fieldInfo">Số điện thoại: {{info.PhoneCustomer}}
           <div class="bar"></div>
         </ion-label>
-        <ion-label class="fieldInfo">Ngày đặt hàng: 27/10/2024
+        <ion-label class="fieldInfo">Ngày đặt hàng: {{currentDate | date:'dd/MM/yyyy'}}
           <div class="bar"></div>
         </ion-label>
-        <ion-label class="fieldInfo">Địa chỉ giao hàng: 55 Dương Quảng Hàm
+        <ion-label class="fieldInfo">Địa chỉ giao hàng: {{info.AddressCustomer}}
           <div class="bar"></div>
         </ion-label>
-        <ion-label class="fieldInfo">Địa chỉ cửa hàng:
+        <ion-label class="fieldInfo" *ngFor="let store of currentStore">Địa chỉ cửa hàng: {{store.StoreAddress}}
           <div class="bar"></div>
         </ion-label>
-        <ion-label class="fieldInfo">Tổng số tiền: ₫
+        <ion-label class="fieldInfo">Tổng số tiền: {{ info.TotalPrice | number:'1.0-0'}} ₫
           <div class="bar"></div>
         </ion-label>
-        <ion-label class="fieldInfo">Ngày dự tính nhận hàng:
+        <ion-label class="fieldInfo">Ngày mong muốn nhận hàng: {{info.DeliveryDate | date:'dd/MM/yyyy'}}
           <div class="bar"></div>
         </ion-label>
         <div class="momo">
