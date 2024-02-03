@@ -199,7 +199,7 @@
     <ion-card-title class="cartTitleCAC">
       Các sản phẩm
     </ion-card-title>
-    <ion-card-content *ngFor="let item of productData">
+    <ion-card-content *ngFor="let item of productOrdered">
       <ion-item class="paddingCartCAC">
         <ion-thumbnail slot="start" style="margin-right: 8px;">
           <img alt={{item.ProductName}} src="{{item.ProductImage}}" />
@@ -235,7 +235,7 @@
         <h3>
           <ion-row class="ion-justify-content-between cartCardSubOrder">
             Tổng sản phẩm:
-            <div>{{numberOfItems}} item</div>
+            <div>{{productOrdered.length}} item</div>
           </ion-row>
           <ion-row class="ion-justify-content-between cartCardSubOrder">
             Giá tiền:

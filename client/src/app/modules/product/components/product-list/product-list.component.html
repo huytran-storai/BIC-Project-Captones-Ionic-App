@@ -25,18 +25,11 @@
               <ion-text>{{item.attributes.UnitCapitity}}lb</ion-text>
               <ion-text>{{item.attributes.UnitPrice | number:'1.0-0'}}₫/lb</ion-text>
             </ion-row>
-            <ion-row *ngIf="!checkUser()" class="ion-align-items-center add">
-              <!-- Button add & delete no login -->
-              <ion-button (click)="addProduct($event, item.attributes)" class="btn" size="small"
-                color="primary">Thêm</ion-button>
-              <ion-button (click)="cancelProduct($event, item.attributes)" class="btn" size="small"
-                color="primary">Huỷ</ion-button>
-            </ion-row>
-            <ion-row *ngIf="checkUser()" class="ion-align-items-center add">
+            <ion-row  class="ion-align-items-center add">
               <!-- Button add & delete logined-->
-              <ion-button (click)="addProduct($event,item)"
+              <ion-button *ngIf="!isProductInCart(item.attributes.ProductId)" (click)="addProduct($event,item)"
                 class="btn" size="small" color="primary">Thêm</ion-button>
-              <ion-button (click)="cancelProduct($event, item)"
+              <ion-button *ngIf="isProductInCart(item.attributes.ProductId)" (click)="cancelProduct($event, item)"
                 class="btn" size="small" color="primary">Huỷ</ion-button>
             </ion-row>
           </ion-card-content>

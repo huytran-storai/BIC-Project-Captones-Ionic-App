@@ -76,16 +76,20 @@ export class CheckOutOrderPage implements OnInit {
   wrongCode: boolean = false;
   sentAlertWrong: string = '';
   public returnDate: string = '';
+  public UserIdCurrent: any;
+  public productRender: any;
+  public productOrdered: any;
 
 
   ngOnInit() {
-    this.loadCartItems();
+    // this.loadCartItems();
     this.getUserData();
     this.getCurrentStore();
-    this.getProductRender();
+    // this.getProductRender();
     this.rednerInfoCheckOut();
     this.getPromoRender();
     this.updateDeliveryFee();
+    this.renderCartDetail();
   }
 
   constructor(
@@ -93,7 +97,7 @@ export class CheckOutOrderPage implements OnInit {
     private modalController: ModalController,
     private storeService: StoreService,
     private userService: UserService,
-    private cartService: CartService,
+    private CartService: CartService,
     public alertController: AlertController,
     private router: Router,
     private CheckOutService: CheckoutService,
@@ -126,12 +130,12 @@ export class CheckOutOrderPage implements OnInit {
     this.CartDetails();
     this.checkItemsCart;
     this.calculateItem;
-    this.loadCartItems();
+    // this.loadCartItems();
   }
 
-  loadCartItems() {
-    this.cartItems = this.cartService.getCartItems();
-  }
+  // loadCartItems() {
+  //   this.cartItems = this.cartService.getCartItems();
+  // }
 
   getCurrentStore() {
     this.storeService.getCurrentStoreAddress().subscribe(
@@ -165,7 +169,7 @@ export class CheckOutOrderPage implements OnInit {
   subTotalAmount: number | undefined;
   subTotal(): number {
     let subTotal = 0;
-    for (const product of this.cartItems) {
+    for (const product of this.productOrdered) {
       subTotal += product.ProductPrice * product.productQuantityAddDefault;
     }
     return subTotal;
@@ -254,18 +258,53 @@ export class CheckOutOrderPage implements OnInit {
   }
 
   getUserData() {
-    this.userService.getUserData().subscribe((res) => {
-      this.user = res?.user;
-      console.log('check user cur', res);
-    });
+    this.userService.getUserData().subscribe(
+      (res) => {
+        this.user = res?.user;
+        console.log('User data in shopping cart:', this.user);
+         this.UserIdCurrent = this.user.UserId
+      },
+      (error) => {
+        console.log('Error get user data:', error);
+      }
+    );
   }
 
-  getProductRender() {
+  // getProductRender() {
+  //   this.CheckOutService.getProductsCart().subscribe(
+  //     (res: any) => {
+  //       this.productData = res.data.map((item: any) => item.attributes);
+  //       console.log('productData', this.productData);
+  //       var modifiedProductData = this.productData.map(function (item: {
+  //         ProductName: any;
+  //         productQuantityAddDefault: any;
+  //       }) {
+  //         return {
+  //           ProductName: item.ProductName,
+  //           productQuantityAddDefault: item.productQuantityAddDefault,
+  //         };
+  //       });
+  //       console.log('modifiedProductData', modifiedProductData);
+  //       var toString = JSON.stringify(modifiedProductData, null, 2);
+  //       console.log('productData to string', toString);
+  //     },
+  //     (err: any) => {
+  //       console.error('Error fetching current store data:', err);
+  //     }
+  //   );
+  // }
+
+
+
+  renderCartDetail() {
     this.CheckOutService.getProductsCart().subscribe(
       (res: any) => {
-        this.productData = res.data.map((item: any) => item.attributes);
-        console.log('productData', this.productData);
-        var modifiedProductData = this.productData.map(function (item: {
+        this.productRender = res.data.map((item: any) => item.attributes);
+        console.log("Product lists:", this.productRender)
+        this.productOrdered = this.productRender.filter((item: any) => item.OrderedUserId === this.UserIdCurrent);
+        console.log("Product lists:", this.productOrdered)
+        console.log('UserIdCurrent in shopping cart:', this.UserIdCurrent);
+        var modifiedProductData = this.productOrdered.map(function (item: {
           ProductName: any;
           productQuantityAddDefault: any;
         }) {
@@ -274,12 +313,12 @@ export class CheckOutOrderPage implements OnInit {
             productQuantityAddDefault: item.productQuantityAddDefault,
           };
         });
-        console.log('modifiedProductData', modifiedProductData);
+        console.log('modifiedProductData renderCartDetail', modifiedProductData);
         var toString = JSON.stringify(modifiedProductData, null, 2);
-        console.log('productData to string', toString);
+        console.log('productData to string renderCartDetail', toString);
       },
       (err: any) => {
-        console.error('Error fetching current store data:', err);
+        console.log('Error Cart list API:', err);
       }
     );
   }
@@ -403,13 +442,13 @@ export class CheckOutOrderPage implements OnInit {
       this.emptyModal = false;
     } else {
       this.emptyModal = true;
-      var modifiedProductData = this.productData.map(function (item: {
+      var modifiedProductData = this.productOrdered.map(function (item: {
         ProductName: any;
         productQuantityAddDefault: any;
       }) {
         return {
           ProductName: item.ProductName,
-          ProductQuantityAddDefault: item.productQuantityAddDefault,
+          productQuantityAddDefault: item.productQuantityAddDefault,
         };
       });
       var Products = JSON.stringify(modifiedProductData, null, 1);

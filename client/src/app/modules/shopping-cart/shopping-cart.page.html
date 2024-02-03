@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar class="header">
-    <ion-title *ngIf="checkItemsCart && productRender.length > 0">Giỏ hàng</ion-title>
-    <ion-title *ngIf="!checkItemsCart || productRender.length === 0">Giỏ hàng trống<ion-text style="font-size: 12px;font-weight: 300">
+    <ion-title *ngIf="checkItemsCart && productOrdered.length > 0">Giỏ hàng</ion-title>
+    <ion-title *ngIf="!checkItemsCart || productOrdered.length === 0">Giỏ hàng trống<ion-text style="font-size: 12px;font-weight: 300">
         <br />
       </ion-text>
     </ion-title>
@@ -29,16 +29,15 @@
   </ion-card>
 
   <ion-card style="border-radius: 0;">
-    <!-- <ion-button (click)="postItemToStrapi()">Test post local to strapi</ion-button> -->
     <ion-card-title class="cartTitleCAC">
       Các sản phẩm
     </ion-card-title>
     
     <!-- List of products in the shopping cart -->
-    <ng-container *ngIf="!checkUser()">
+    <!-- <ng-container *ngIf="!checkUser()">
       <ng-container *ngIf="checkItemsCart; else notItem">
     
-        <ion-card-content *ngFor="let prod of getCartDetails">
+        <ion-card-content *ngFor="let prod of productOrdered">
           <ion-item class="paddingCartCAC">
             <ion-thumbnail slot="start" style="margin-right: 8px;">
               <img alt={{prod.ProductName}} src="{{prod.ProductImage}}" />
@@ -65,7 +64,7 @@
           </ion-row>
         </ion-card-content>
       
-        <ion-item style="font-weight: 700;" lines="none" class="colorText">
+         <ion-item style="font-weight: 700;" lines="none" class="colorText">
           Mã giảm giá
         </ion-item>
         <ion-item class=" cartCACAddPromo" lines="none">
@@ -74,17 +73,17 @@
             <ion-icon name="add-outline">
             </ion-icon>
           </ion-button>
-        </ion-item>
-      </ng-container>
+        </ion-item> -->
+      <!-- </ng-container>
       <ng-template #notItem>
         <img src="../../../assets/empty_cart.png" class="imageEmptyCart">
       </ng-template>
-    </ng-container>
+    </ng-container>  -->
+
     <!-- List of products in the shopping cart API-->
-  
-    <ng-container *ngIf="checkUser()">
-      <ng-container *ngIf="productRender.length > 0; else notItemAPI">
-        <ion-card-content *ngFor="let prod of productRender">
+    <ng-container >
+      <ng-container *ngIf="productOrdered.length > 0; else notItemAPI">
+        <ion-card-content *ngFor="let prod of productOrdered">
           <ion-item class="paddingCartCAC">
             <ion-thumbnail slot="start" style="margin-right: 8px;">
               <img alt={{prod.attributes.ProductName}} src="{{prod.attributes.ProductImage}}" />
@@ -112,16 +111,16 @@
             </ion-col>
           </ion-row>
         </ion-card-content>
-        <ion-item style="font-weight: 700;" lines="none" class="colorText">
+        <!-- <ion-item style="font-weight: 700;" lines="none" class="colorText">
           Mã giảm giá
-        </ion-item>
-        <ion-item class=" cartCACAddPromo" lines="none">
+        </ion-item> -->
+        <!-- <ion-item class=" cartCACAddPromo" lines="none">
           <ion-button id="open-modal-promo" style="color: var(--ion-color-medium);">
             {{message}}
             <ion-icon name="add-outline">
             </ion-icon>
           </ion-button>
-        </ion-item>
+        </ion-item> -->
       </ng-container>
       <ng-template #notItemAPI>
         <img src="../../../assets/empty_cart.png" class="imageEmptyCart">
@@ -129,7 +128,7 @@
     </ng-container>
   </ion-card>
   <!-- Order Summary -->
-<ng-container *ngIf="!checkUser()">
+<!-- <ng-container *ngIf="!checkUser()">
   <ion-card class="cartCardOrder" *ngIf="checkItemsCart">
     <ion-card-title class="cartTitleCAC">
       Tổng đơn hàng
@@ -157,11 +156,11 @@
       </ion-label>
     </ion-item>
   </ion-card>
-</ng-container>
+</ng-container> -->
 
   <!-- Order Summary API-->
-  <ng-container *ngIf="checkUser()">
-    <ion-card class="cartCardOrder" *ngIf="productRender.length > 0">
+  <ng-container >
+    <ion-card class="cartCardOrder" *ngIf="productOrdered.length > 0">
       <ion-card-title class="cartTitleCAC">
         Tổng đơn hàng
       </ion-card-title>
@@ -170,7 +169,7 @@
           <h3>
             <ion-row class="ion-justify-content-between titleTotal">
               Tổng sản phẩm:
-              <div *ngIf="productRender">{{productRender.length}} item</div>
+              <div *ngIf="productOrdered">{{productOrdered.length}} item</div>
             </ion-row>
             <ion-row class="ion-justify-content-between cartCardSubOrder">
               Giá tiền:
@@ -200,26 +199,25 @@
     </ion-item>
   </ion-card> -->
   <ng-template *ngIf="!checkItemsCart"></ng-template>
-  
   <ion-row class="ion-text-center">
     <ion-col>
       <!-- Button payment -->
-    <ng-container *ngIf="!checkUser()">
+    <!-- <ng-container *ngIf="!checkUser()">
       <ion-button id="openModalPay" class="btnCheckout colorText ion-text-center" [disabled]="!checkItemsCart">
         Tiến hành thanh toán
       </ion-button>
-    </ng-container>
+    </ng-container> -->
     
        <!-- Button payment API -->
-       <ng-container *ngIf="checkUser()">
-        <ion-button [routerLink]="['/checkout-order']" class="btnCheckout colorText ion-text-center" [disabled]="!productRender.length">
+       <ng-container >
+        <ion-button [routerLink]="['/checkout-order']" class="btnCheckout colorText ion-text-center" [disabled]="!productOrdered.length">
           Tiến hành thanh toán
         </ion-button>
        </ng-container>
     </ion-col>
   </ion-row>
 
-  <ion-modal #modal trigger="openModalPay" class="ion-modal-pay">
+  <!-- <ion-modal #modal trigger="openModalPay" class="ion-modal-pay">
     <ng-template class="container">
       <ion-toolbar>
         <ion-buttons slot="end" color="light" (click)="modal.dismiss()" class="close-icon"><ion-icon
@@ -234,7 +232,7 @@
         </ion-button>
       </ion-col>
     </ng-template>
-  </ion-modal>
+  </ion-modal> -->
 
 
   <ion-row class="ion-text-center">
@@ -242,12 +240,12 @@
       <ion-button class="ion-text-wrap colorText ion-text-start" [routerLink]="['/home']">Quay về</ion-button>
     </ion-col>
     <ion-col class="ion-justify-content-center" style="display: flex;">
-      <ng-container *ngIf="!checkUser()">
+      <!-- <ng-container *ngIf="!checkUser()">
         <ion-button id="open-modal-empty" class="ion-text-wrap colorText ion-text-end" [disabled]="!checkItemsCart">
           Xóa tất cả
-        </ion-button>
+        </ion-button> -->
         <!-- Modal Confirm Delete All Product -->
-        <ion-modal #modal trigger="open-modal-empty" class="ion-modal-pay">
+        <!-- <ion-modal #modal trigger="open-modal-empty" class="ion-modal-pay">
           <ng-template class="container">
             <ion-toolbar>
               <ion-buttons slot="end" color="light" (click)="modal.dismiss()" class="close-icon"><ion-icon
@@ -265,15 +263,15 @@
               </ion-button>
             </ion-col>
           </ng-template>
-        </ion-modal>
-      </ng-container>
+        </ion-modal> -->
+      <!-- </ng-container> -->
       
-      <ng-container *ngIf="checkUser()">
-        <ion-button id="open-modal-empty-API" class="ion-text-wrap colorText ion-text-end" [disabled]="!productRender.length">
-          Xóa tất cả API
+      <ng-container >
+        <ion-button id="open-modal-empty" class="ion-text-wrap colorText ion-text-end" [disabled]="!productOrdered.length">
+          Xóa tất cả
         </ion-button>
         <!-- Modal Confirm Delete All Product API-->
-        <ion-modal #modal trigger="open-modal-empty-API" class="ion-modal-pay">
+        <ion-modal #modal trigger="open-modal-empty" class="ion-modal-pay">
           <ng-template class="container">
             <ion-toolbar>
               <ion-buttons slot="end" color="light" (click)="modal.dismiss()" class="close-icon"><ion-icon
@@ -299,7 +297,7 @@
   </ion-row>
 
  <!-- Modal for promo code add  -->
- <ion-modal #modal trigger="open-modal-promo" class="ionModal " (willDismiss)="onWillDismiss($event)">
+ <!-- <ion-modal #modal trigger="open-modal-promo" class="ionModal " (willDismiss)="onWillDismiss($event)">
   <ng-template class="containerPromo">
     <ion-toolbar class="toolBarPromo">
       <ion-buttons slot="end" color="light" (click)="cancel()" class="close-icon"><ion-icon
@@ -317,7 +315,7 @@
       </ion-button>
     </ion-col>
   </ng-template>
-</ion-modal>
+</ion-modal> -->
 
 
 </ion-content>

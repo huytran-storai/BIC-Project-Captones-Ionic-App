@@ -28,6 +28,9 @@ export class ShoppingCartPage implements OnInit {
   public currentStore: any;
   public productRender: any = [];
   itemLocalJSON: any = [];
+  public productOrdered: any = [];
+  public UserIdCurrent: any
+  public idProductStrapi: any
 
   constructor(
     private CartService: CartService,
@@ -46,7 +49,16 @@ export class ShoppingCartPage implements OnInit {
   }
 
   getUserData() {
-    this.userService.getUserData().subscribe((res) => (this.user = res?.user));
+    this.userService.getUserData().subscribe(
+      (res) => {
+        this.user = res?.user;
+        console.log('User data in shopping cart:', this.user);
+         this.UserIdCurrent = this.user.UserId
+      },
+      (error) => {
+        console.log('Error get user data:', error);
+      }
+    );
   }
 
   getCurrentStore() {
@@ -140,7 +152,7 @@ export class ShoppingCartPage implements OnInit {
   }
 
   delAllProductAPI() {
-    const delProduct = this.productRender;
+    const delProduct = this.productOrdered;
     const idProduct = delProduct.map((item: { id: any }) => item.id);
     idProduct.forEach((id: any) => {
       this.CartService.deleteAll(id).subscribe(
@@ -178,7 +190,7 @@ export class ShoppingCartPage implements OnInit {
 
   subTotalAPI(): number {
     let totalPrice = 0;
-    for (const product of this.productRender) {
+    for (const product of this.productOrdered) {
       totalPrice +=
         product.attributes.ProductPrice *
         product.attributes.productQuantityAddDefault;
@@ -190,35 +202,38 @@ export class ShoppingCartPage implements OnInit {
     this.router.navigate(['./login']);
     this.modalController.dismiss();
   }
-  
+
+
   renderCartDetail() {
     this.CartService.getProductsCart().subscribe(
       (res: any) => {
-        const groupedProducts = this.groupProducts(res.data);
-        this.productRender = groupedProducts;
-        console.log('Cart list API', this.productRender);
-      },
+        this.productRender = res.data.map((item: any) => item);
+        console.log("Product lists:", this.productRender)
+        this.productOrdered = this.productRender.filter((item: any) => item.attributes.OrderedUserId === this.UserIdCurrent);
+        console.log("Product lists:", this.productOrdered)
+        console.log('UserIdCurrent in shopping cart:', this.UserIdCurrent);
+        },
       (err: any) => {
         console.log('Error Cart list API:', err);
       }
     );
   }
 
-  groupProducts(products: any[]): any[] {
-    const groupedProducts: any[] = [];
+  // groupProducts(products: any[]): any[] {
+  //   const groupedProducts: any[] = [];
   
-    products.forEach((product) => {
-      const existingProduct = groupedProducts.find((data) => data.attributes.ProductId === product.attributes.ProductId);
+  //   products.forEach((product) => {
+  //     const existingProduct = groupedProducts.find((data) => data.attributes.ProductId === product.attributes.ProductId);
   
-      if (existingProduct) {
-        existingProduct.attributes.productQuantityAddDefault += 1;
-      } else {
-        groupedProducts.push({ ...product, productQuantityAddDefault: 1 });
-      }
-    });
+  //     if (existingProduct) {
+  //       existingProduct.attributes.productQuantityAddDefault += 1;
+  //     } else {
+  //       groupedProducts.push({ ...product, productQuantityAddDefault: 1 });
+  //     }
+  //   });
   
-    return groupedProducts;
-  }
+  //   return groupedProducts;
+  // }
 
   incProductAPI(prod: any) {
     prod.attributes.productQuantityAddDefault += 1;
@@ -249,7 +264,7 @@ export class ShoppingCartPage implements OnInit {
           console.log('Error delete Item Success ', err);
         }
       );
-      // window.location.reload();
+      window.location.reload();
     } else if (prod.attributes.productQuantityAddDefault > 1) {
       prod.attributes.productQuantityAddDefault -= 1;
       const productData = {
