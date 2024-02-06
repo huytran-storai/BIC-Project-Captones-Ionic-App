@@ -53,7 +53,21 @@ export class ProductListComponent implements OnInit {
     this.getUserData();
     const initializationCart = localStorage.getItem('saveCartItems');
     this.renderStrapiId = initializationCart? JSON.parse(initializationCart): [];
+    this.checkIdLocalAgainAfterDeleteOnStrapi();
+  }
 
+  checkIdLocalAgainAfterDeleteOnStrapi() {
+    this.CartService.getProductsCart().subscribe(
+      (res: any) => {
+        this.productRender = res.data.map((item: any) => item);
+        this.productOrdered = this.productRender.map((item: any) => item.id );
+        let getIdItemCart = this.renderStrapiId.filter((value : any) => this.productOrdered.includes(value.strapiId))
+        localStorage.setItem('saveCartItems', JSON.stringify(getIdItemCart));
+      },
+      (err: any) => {
+        console.log('Error Cart list API:', err);
+      }
+    );
   }
 
   navigateToProductDetail(item: any) {
@@ -159,10 +173,13 @@ export class ProductListComponent implements OnInit {
   }
 
   isProductInCart(item: number): boolean{
+    if (this.user !== undefined && this.user !== null) {
       let cartData = JSON.parse(localStorage.getItem('saveCartItems') || '[]')
       return cartData.some((product: any) => product.saveProductId === item)
+    } else {
+      return false;
+    }
   }
-
 
   cancelProduct(event: Event, item: any) {
     event.stopPropagation();

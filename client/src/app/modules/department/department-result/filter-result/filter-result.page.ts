@@ -16,6 +16,8 @@ export class FilterResultPage implements OnInit {
   public user: any;
   public UserIdCurrent: any;
   public renderStrapiId: any;
+  public productRender: any;
+  public productOrdered: any;
 
   constructor(
     private StoreService: StoreService,
@@ -34,6 +36,21 @@ export class FilterResultPage implements OnInit {
     this.getUserData();
     const initializationCart = localStorage.getItem('saveCartItems');
     this.renderStrapiId = initializationCart? JSON.parse(initializationCart): [];
+    this.checkIdLocalAgainAfterDeleteOnStrapi();
+  }
+
+  checkIdLocalAgainAfterDeleteOnStrapi() {
+    this.CartService.getProductsCart().subscribe(
+      (res: any) => {
+        this.productRender = res.data.map((item: any) => item);
+        this.productOrdered = this.productRender.map((item: any) => item.id );
+        let getIdItemCart = this.renderStrapiId.filter((value : any) => this.productOrdered.includes(value.strapiId))
+        localStorage.setItem('saveCartItems', JSON.stringify(getIdItemCart));
+      },
+      (err: any) => {
+        console.log('Error Cart list API:', err);
+      }
+    );
   }
 
   getUserData() {
@@ -79,7 +96,6 @@ export class FilterResultPage implements OnInit {
         existingCartItems.push({ ...item, strapiId, saveProductId });
         localStorage.setItem('saveCartItems',JSON.stringify(existingCartItems));
         this.renderStrapiId = existingCartItems;
-        window.location.reload();
       },
       (error) => {
         console.error('Error adding product to cart:', error);
@@ -139,9 +155,13 @@ export class FilterResultPage implements OnInit {
 
 
   isProductInCart(item: number): boolean{
-    let cartData = JSON.parse(localStorage.getItem('saveCartItems') || '[]')
-    return cartData.some((product: any) => product.saveProductId === item)
-}
+    if (this.user !== undefined && this.user !== null) {
+      let cartData = JSON.parse(localStorage.getItem('saveCartItems') || '[]')
+      return cartData.some((product: any) => product.saveProductId === item)
+    } else {
+      return false;
+    }
+  }
 
   cartNumber: number = 0;
   cartNumberFunc() {

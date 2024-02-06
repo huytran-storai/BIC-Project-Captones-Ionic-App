@@ -15,7 +15,11 @@ export class HomePage implements OnInit {
   public blogsData: any;
   public productData: any;
   public currentStore: any;
-  productLists: any;
+  public productLists: any;
+  public CartService: any;
+  public productRender: any;
+  public productOrdered: any;
+  public UserIdCurrent: any;
 
   constructor(
     private userService: UserService,
@@ -32,7 +36,6 @@ export class HomePage implements OnInit {
     //   this.getUserData();
     // }
     this.getUserData();
-
     this.getCurrentStore();
     // this.getBlogsRender();
     // this.getProductRender();
@@ -53,6 +56,7 @@ export class HomePage implements OnInit {
       (window as any).kommunicate = m;
       m._globals = kommunicateSettings;
     })(document, (window as any).kommunicate || {});
+    
   }
 
   getUserData() {
@@ -81,16 +85,4 @@ export class HomePage implements OnInit {
       }
     );
   }
-
-  // getProductRender() {
-  //   this.productService.getProducts().subscribe(
-  //     (res: any) => {
-  //       this.productData = res.data.map((item: any) => item.attributes);
-  //       console.log("Product lists:", this.productData)
-  //     },
-  //     (err: any) => {
-  //       console.error('Error fetching current store data:', err);
-  //     }
-  //   );
-  // }
 }
