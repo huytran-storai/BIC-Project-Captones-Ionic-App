@@ -6,6 +6,7 @@ import { register } from 'swiper/element/bundle';
 import { CartService } from 'src/app/services/cart.service';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { ShoppingCartPage } from 'src/app/modules/shopping-cart/shopping-cart.page';
 
 register();
 @Component({
@@ -126,7 +127,6 @@ export class ProductListComponent implements OnInit {
         existingCartItems.push({ ...item, strapiId, saveProductId });
         localStorage.setItem('saveCartItems',JSON.stringify(existingCartItems));
         this.renderStrapiId = existingCartItems;
-        window.location.reload();
       },
       (error) => {
         console.error('Error adding product to cart:', error);
