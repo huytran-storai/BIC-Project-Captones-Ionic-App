@@ -8,10 +8,9 @@ import { Subject,BehaviorSubject, Observable, tap } from 'rxjs';
 export class CartService {
   private apiUrl = 'http://localhost:1337/api';
   private cartItemsSubject: Subject<any> = new Subject<any>();
-
+  private checkoutSubject = new Subject<void>();
+  checkout$ = this.checkoutSubject.asObservable();
   constructor(private http: HttpClient) {}
-
-  
 
   // pushProducts(productData: {
   //   ProductName: string;
@@ -25,6 +24,10 @@ export class CartService {
   //   };
   //   return this.http.post(`${this.apiUrl}/cart-items`, requestData);
   // }
+
+  emitCheckoutEvent() {
+    this.checkoutSubject.next();
+   }
 
   pushProducts(productData: {
     ProductName: string;
@@ -60,7 +63,12 @@ export class CartService {
   }
 
   deleteProduct(strapiId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/cart-items/${strapiId}`);
+    return this.http.delete(`${this.apiUrl}/cart-items/${strapiId}`)
+    .pipe(
+      tap((response: any) => {
+        this.cartItemsSubject.next(response);
+      })
+    );
   }
   
 
@@ -78,11 +86,21 @@ export class CartService {
   }
 
   deleteItem(productData: { id: number }): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/cart-items/${productData.id}`);
+    return this.http.delete(`${this.apiUrl}/cart-items/${productData.id}`)
+    .pipe(
+      tap((response: any) => {
+        this.cartItemsSubject.next(response);
+      })
+    );
   }
 
   deleteAll(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/cart-items/${id}`);
+    return this.http.delete(`${this.apiUrl}/cart-items/${id}`)
+    .pipe(
+      tap((response: any) => {
+        this.cartItemsSubject.next(response);
+      })
+    );
   }
 
   EmprtCart: any[] = [];

@@ -85,4 +85,18 @@ export class HomePage implements OnInit {
       }
     );
   }
+
+
+
+  // getProductRender() {
+  //   this.productService.getProducts().subscribe(
+  //     (res: any) => {
+  //       this.productData = res.data.map((item: any) => item.attributes);
+  //       console.log("Product lists:", this.productData)
+  //     },
+  //     (err: any) => {
+  //       console.error('Error fetching current store data:', err);
+  //     }
+  //   );
+  // }
 }

@@ -144,44 +144,29 @@ export class ShoppingCartPage implements OnInit {
     this.updateSubTotal();
   }
 
-  decProduct(prod: Cart) {
-    if (prod.productQuantityAddDefault > 1) {
-      prod.productQuantityAddDefault -= 1;
+  // decProduct(prod: Cart) {
+  //   if (prod.productQuantityAddDefault > 1) {
+  //     prod.productQuantityAddDefault -= 1;
 
-    } else if (prod.productQuantityAddDefault === 1) {
-      prod.productQuantityAddDefault = 0;
-      this.getCartDetails = this.getCartDetails.filter(
-        (item: Cart) => item !== prod
-      );
-      this.numberOfItems = this.getCartDetails.length;
+  //   } else if (prod.productQuantityAddDefault === 1) {
+  //     prod.productQuantityAddDefault = 0;
+  //     this.getCartDetails = this.getCartDetails.filter(
+  //       (item: Cart) => item !== prod
+  //     );
+  //     this.numberOfItems = this.getCartDetails.length;
 
-      this.updateSubTotal();
-    }
-  }
+  //     this.updateSubTotal();
+  //   }
+  // }
 
-  delAllProductAPI() {
-    const delProduct = this.productOrdered;
-    const idProduct = delProduct.map((item: { id: any }) => item.id);
-    idProduct.forEach((id: any) => {
-      this.CartService.deleteAll(id).subscribe(
-        (response) => {
-          console.log('Product deleted from cart successfully:', response);
-          window.location.reload();
-          this.modalController.dismiss();
-        },
-        (error) => {
-          console.error('Error deleting product from cart:', error);
-        }
-      );
-    });
-  }
+
   
-  delAllProduct() {
-    this.getCartDetails.length = 0;
-    this.numberOfItems = 0;
-    this.modalController.dismiss();
-    this.updateSubTotal();
-  }
+  // delAllProduct() {
+  //   this.getCartDetails.length = 0;
+  //   this.numberOfItems = 0;
+  //   this.modalController.dismiss();
+  //   this.updateSubTotal();
+  // }
 
   updateSubTotal() {
     this.subTotalAmount = this.subTotal();
@@ -226,6 +211,9 @@ export class ShoppingCartPage implements OnInit {
   //     }
   //   );
   // }
+  orderedClick() {
+     this.CartService.emitCheckoutEvent();
+    }
 
   renderCartDetail() {
     this.CartService.getProductsCart().subscribe(
@@ -280,6 +268,9 @@ export class ShoppingCartPage implements OnInit {
       const productData = {
         id: prod.id,
       };
+      const getLocalStorage = JSON.parse(localStorage.getItem('saveCartItems') || '[]');
+      const getIdDeleteStorage = getLocalStorage.filter((item: any) => item.strapiId !== productData.id)
+      localStorage.setItem('saveCartItems', JSON.stringify(getIdDeleteStorage));
       this.CartService.deleteItem(productData).subscribe(
         (res: any) => {
           console.log('Delete Item Success ', res);
@@ -288,8 +279,8 @@ export class ShoppingCartPage implements OnInit {
           console.log('Error delete Item Success ', err);
         }
       );
-      window.location.reload();
-    } else if (prod.attributes.productQuantityAddDefault > 1) {
+    } 
+    else if (prod.attributes.productQuantityAddDefault > 1) {
       prod.attributes.productQuantityAddDefault -= 1;
       const productData = {
         id: prod.id,
@@ -305,6 +296,23 @@ export class ShoppingCartPage implements OnInit {
         }
       );
     }
+  }
+
+  delAllProductAPI() {
+    const delProduct = this.productOrdered;
+    const idProduct = delProduct.map((item: { id: any }) => item.id);
+    idProduct.forEach((id: any) => {
+      this.CartService.deleteAll(id).subscribe(
+        (response) => {
+          console.log('Product deleted from cart successfully:', response);
+          this.modalController.dismiss();
+        },
+        (error) => {
+          console.error('Error deleting product from cart:', error);
+        }
+      );
+    });
+    localStorage.removeItem("saveCartItems");
   }
 
   checkUser(): boolean {

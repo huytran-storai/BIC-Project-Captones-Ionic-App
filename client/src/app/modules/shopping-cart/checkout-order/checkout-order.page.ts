@@ -53,7 +53,7 @@ export class CheckOutOrderPage implements OnInit {
   PromoCode: string = '';
   NoteCart: string = '';
   public _numberOfItems: number | undefined;
-  checkItemsCart: boolean = false;
+  // checkItemsCart: boolean = false;
   public currentStore: any;
   public user: any;
   public deliveryFee: number = 0 ;
@@ -90,6 +90,10 @@ export class CheckOutOrderPage implements OnInit {
     this.getPromoRender();
     this.updateDeliveryFee();
     this.renderCartDetail();
+
+    this.CartService.checkout$.subscribe(() => {
+      this.renderCartDetail();
+    });
   }
 
   constructor(
@@ -127,9 +131,9 @@ export class CheckOutOrderPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.CartDetails();
-    this.checkItemsCart;
-    this.calculateItem;
+    // this.CartDetails();
+    // this.checkItemsCart;
+    // this.calculateItem;
     // this.loadCartItems();
   }
 
@@ -149,22 +153,22 @@ export class CheckOutOrderPage implements OnInit {
     );
   }
 
-  private calculateItem(numberOfItems: number | undefined): boolean {
-    if (numberOfItems === 0) {
-      return false;
-    } else {
-      return true;
-    }
-  }
+  // private calculateItem(numberOfItems: number | undefined): boolean {
+  //   if (numberOfItems === 0) {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
 
-  get numberOfItems(): number | undefined {
-    return this._numberOfItems;
-  }
+  // get numberOfItems(): number | undefined {
+  //   return this._numberOfItems;
+  // }
 
-  set numberOfItems(value: number | undefined) {
-    this._numberOfItems = value;
-    this.checkItemsCart = this.calculateItem(value);
-  }
+  // set numberOfItems(value: number | undefined) {
+  //   this._numberOfItems = value;
+  //   // this.checkItemsCart = this.calculateItem(value);
+  // }
 
   subTotalAmount: number | undefined;
   subTotal(): number {
@@ -175,12 +179,12 @@ export class CheckOutOrderPage implements OnInit {
     return subTotal;
   }
 
-  CartDetails() {
-    if (localStorage.getItem('localCart')) {
-      this.cartItems = JSON.parse(localStorage.getItem('localCart') || '[]');
-      this.numberOfItems = this.cartItems.length;
-    }
-  }
+  // CartDetails() {
+  //   if (localStorage.getItem('localCart')) {
+  //     this.cartItems = JSON.parse(localStorage.getItem('localCart') || '[]');
+  //     this.numberOfItems = this.cartItems.length;
+  //   }
+  // }
 
   checkInput() {
     if (this.inputPromo !== '' && this.inputPromo !== undefined) {
@@ -453,7 +457,7 @@ export class CheckOutOrderPage implements OnInit {
       });
       var Products = JSON.stringify(modifiedProductData, null, 1);
       const subTotal = this.subTotal();
-      const numberOfItems = (this.numberOfItems = this.cartItems.length);
+      const numberOfItems = this.productOrdered.length
       const checkOutData = {
         NoteOrder: NoteCart,
         MethodPayment: selectedMethodPayments,

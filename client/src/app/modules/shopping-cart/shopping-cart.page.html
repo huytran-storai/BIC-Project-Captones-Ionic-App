@@ -1,10 +1,12 @@
 <ion-header>
   <ion-toolbar class="header">
-    <ion-title *ngIf="checkItemsCart && productOrdered.length > 0">Giỏ hàng</ion-title>
-    <ion-title *ngIf="!checkItemsCart || productOrdered.length === 0">Giỏ hàng trống<ion-text style="font-size: 12px;font-weight: 300">
+    <ion-title *ngIf="productOrdered.length > 0">Giỏ hàng
+      <ion-text  style="font-size: 12px;font-weight: 300">
         <br />
+        {{productOrdered.length}} sản phẩm
       </ion-text>
     </ion-title>
+    <ion-title *ngIf="productOrdered.length === 0">Giỏ hàng trống</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -210,7 +212,7 @@
     
        <!-- Button payment API -->
        <ng-container >
-        <ion-button [routerLink]="['/checkout-order']" class="btnCheckout colorText ion-text-center" [disabled]="!productOrdered.length">
+        <ion-button (click)="orderedClick()" [routerLink]="['/checkout-order']" class="btnCheckout colorText ion-text-center" [disabled]="!productOrdered.length">
           Tiến hành thanh toán
         </ion-button>
        </ng-container>

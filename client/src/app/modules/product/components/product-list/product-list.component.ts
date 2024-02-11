@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ProductItem } from 'src/app/shared/models/ProductItem';
 import { StoreService } from 'src/app/services/store.service';
 import { AlertController, ModalController } from '@ionic/angular';
@@ -37,7 +37,7 @@ export class ProductListComponent implements OnInit {
   saveItemCart: any = [];
   public renderStrapiId: any;
   public saveRenderStrapiId: any;
-
+ 
   constructor(
     private CartService: CartService,
     private StoreService: StoreService,

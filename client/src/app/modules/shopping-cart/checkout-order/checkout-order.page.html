@@ -30,7 +30,7 @@
   </ion-card>
 
   <!-- Order Type: -->
-  <ion-card class="cartCardOrder" *ngIf="checkItemsCart">
+  <ion-card class="cartCardOrder" >
     <ion-card-title class="cartTitleOrder colorTitle">
       Chọn hình thức giao hàng:
     </ion-card-title>
@@ -43,7 +43,7 @@
       </ion-radio-group>
     </ion-row> <br>
   </ion-card>
-  <ng-container *ngIf="checkItemsCart">
+  <ng-container >
     <ion-card *ngIf="pickupChecked || deliveryChecked" class="cartCardOrder">
       <ion-card-title class="cartTitleOrder colorText">
         <ion-row>
@@ -65,7 +65,7 @@
     </ion-card>
   </ng-container>
   <!-- Contact Information -->
-  <ion-card class="cartCardOrder" *ngIf="checkItemsCart">
+  <ion-card class="cartCardOrder" >
     <ion-item lines="none">
       <ion-card-title style="margin-left: -10px;" class="cartTitleOrder colorTitle">
         Thông tin liên lạc
@@ -144,7 +144,7 @@
     </ion-item>
   </ion-card>
   <!-- Payment Method: -->
-  <ion-card class="cartCardOrder" *ngIf="checkItemsCart">
+  <ion-card class="cartCardOrder" >
     <ion-card-title class="cartTitleOrder colorTitle">
       Phương thức thanh toán:
     </ion-card-title>
@@ -158,7 +158,7 @@
     </ion-row>
   </ion-card>
   <!-- Discount  -->
-  <ion-card class="cartCardOrder" *ngIf="checkItemsCart">
+  <ion-card class="cartCardOrder" >
     <ion-item lines="none" style="margin-left: -13px;">
       <ion-card-title lines="none" class="colorTitle cartTitleOrder">
         Mã giảm giá
@@ -195,7 +195,7 @@
     </ion-item>
     <!-- </ion-item> -->
   </ion-card>
-  <ion-card style="border-radius: 0;" *ngIf="checkItemsCart">
+  <ion-card style="border-radius: 0;" >
     <ion-card-title class="cartTitleCAC">
       Các sản phẩm
     </ion-card-title>
@@ -226,7 +226,7 @@
     </ion-card-content>
   </ion-card>
   <!-- Order Summary -->
-  <ion-card class="cartCardOrder" *ngIf="checkItemsCart">
+  <ion-card class="cartCardOrder" >
     <ion-card-title class="cartTitleOrder colorText cartTitleCAC">
       Tổng đơn hàng
     </ion-card-title>
@@ -267,7 +267,7 @@
     </ion-item>
   </ion-card>
   <!-- Notes for your order -->
-  <ion-card class="cartCardOrder" *ngIf="checkItemsCart">
+  <ion-card class="cartCardOrder" >
     <ion-card-title class="cartTitleOrder colorText">
       Ghi chú đơn hàng
     </ion-card-title>
@@ -276,7 +276,7 @@
       </ion-input>
     </ion-item>
   </ion-card>
-  <ng-template *ngIf="!checkItemsCart"></ng-template>
+  <ng-template></ng-template>
   <ion-grid [fixed]="true" style="text-align: center;">
     <ion-row *ngIf="fieldCheckout">
       <ion-col>

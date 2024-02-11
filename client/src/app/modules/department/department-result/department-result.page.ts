@@ -84,6 +84,7 @@ export class DepartmentResultPage implements OnInit {
   ngOnInit() {
     this.renderProductResult();
     this.checkIdLocalAgainAfterDeleteOnStrapi();
+    this.getUserData();
   }
 
   checkIdLocalAgainAfterDeleteOnStrapi() {
@@ -270,5 +271,5 @@ export class DepartmentResultPage implements OnInit {
       return false;
     }
   }
-  
+
 }
