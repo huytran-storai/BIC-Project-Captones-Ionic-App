@@ -266,7 +266,7 @@ export class CheckOutOrderPage implements OnInit {
       (res) => {
         this.user = res?.user;
         console.log('User data in shopping cart:', this.user);
-         this.UserIdCurrent = this.user.UserId
+         this.UserIdCurrent = this.user.id
       },
       (error) => {
         console.log('Error get user data:', error);

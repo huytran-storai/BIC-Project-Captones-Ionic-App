@@ -61,7 +61,7 @@ export class ShoppingCartPage implements OnInit {
       (res) => {
         this.user = res?.user;
         console.log('User data in shopping cart:', this.user);
-         this.UserIdCurrent = this.user.UserId
+         this.UserIdCurrent = this.user.id
       },
       (error) => {
         console.log('Error get user data:', error);
@@ -268,9 +268,9 @@ export class ShoppingCartPage implements OnInit {
       const productData = {
         id: prod.id,
       };
-      const getLocalStorage = JSON.parse(localStorage.getItem('saveCartItems') || '[]');
+      const getLocalStorage = JSON.parse(localStorage.getItem(`${this.UserIdCurrent}`) || '[]');
       const getIdDeleteStorage = getLocalStorage.filter((item: any) => item.strapiId !== productData.id)
-      localStorage.setItem('saveCartItems', JSON.stringify(getIdDeleteStorage));
+      localStorage.setItem(`${this.UserIdCurrent}`, JSON.stringify(getIdDeleteStorage));
       this.CartService.deleteItem(productData).subscribe(
         (res: any) => {
           console.log('Delete Item Success ', res);
@@ -312,7 +312,7 @@ export class ShoppingCartPage implements OnInit {
         }
       );
     });
-    localStorage.removeItem("saveCartItems");
+    localStorage.removeItem(`${this.user.id}`);
   }
 
   checkUser(): boolean {

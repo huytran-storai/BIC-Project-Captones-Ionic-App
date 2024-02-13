@@ -51,7 +51,7 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
     this.getProductRender();
     this.getUserData();
-    const initializationCart = localStorage.getItem('saveCartItems');
+    const initializationCart = localStorage.getItem(`${this.UserIdCurrent}`);
     this.renderStrapiId = initializationCart? JSON.parse(initializationCart): [];
     this.checkIdLocalAgainAfterDeleteOnStrapi();
   }
@@ -62,7 +62,7 @@ export class ProductListComponent implements OnInit {
         this.productRender = res.data.map((item: any) => item);
         this.productOrdered = this.productRender.map((item: any) => item.id );
         let getIdItemCart = this.renderStrapiId.filter((value : any) => this.productOrdered.includes(value.strapiId))
-        localStorage.setItem('saveCartItems', JSON.stringify(getIdItemCart));
+        localStorage.setItem(`${this.UserIdCurrent}`, JSON.stringify(getIdItemCart));
       },
       (err: any) => {
         console.log('Error Cart list API:', err);
@@ -100,7 +100,7 @@ export class ProductListComponent implements OnInit {
       (res) => {
         this.user = res?.user;
         console.log('find user: ', this.user);
-        this.UserIdCurrent = this.user.UserId;
+        this.UserIdCurrent = this.user.id;
         console.log('find UserIdCurrent: ', this.UserIdCurrent);
       },
       (error) => {
@@ -136,10 +136,10 @@ export class ProductListComponent implements OnInit {
       (response) => {
         const strapiId = response.data.id;
         const saveProductId = response.data.attributes.ProductId;
-        const savedCartItemsString = localStorage.getItem('saveCartItems');
+        const savedCartItemsString = localStorage.getItem(`${this.UserIdCurrent}`);
         const existingCartItems = savedCartItemsString? JSON.parse(savedCartItemsString): [];
         existingCartItems.push({ ...item, strapiId, saveProductId });
-        localStorage.setItem('saveCartItems',JSON.stringify(existingCartItems));
+        localStorage.setItem(`${this.UserIdCurrent}`,JSON.stringify(existingCartItems));
         this.renderStrapiId = existingCartItems;
       },
       (error) => {
@@ -174,7 +174,7 @@ export class ProductListComponent implements OnInit {
 
   isProductInCart(item: number): boolean{
     if (this.user !== undefined && this.user !== null) {
-      let cartData = JSON.parse(localStorage.getItem('saveCartItems') || '[]')
+      let cartData = JSON.parse(localStorage.getItem(`${this.UserIdCurrent}`) || '[]')
       return cartData.some((product: any) => product.saveProductId === item)
     } else {
       return false;
@@ -193,7 +193,7 @@ export class ProductListComponent implements OnInit {
           (response) => {
             // console.log('Product deleted from cart successfully:', response);
             this.renderStrapiId = this.renderStrapiId.filter((cart: any) => cart.saveProductId !== item.attributes.ProductId);
-            localStorage.setItem('saveCartItems', JSON.stringify(this.renderStrapiId));
+            localStorage.setItem(`${this.UserIdCurrent}`, JSON.stringify(this.renderStrapiId));
           },
           (error) => {
             console.error('Error deleting product from cart:', error);
