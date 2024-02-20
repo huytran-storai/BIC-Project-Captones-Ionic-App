@@ -12,22 +12,14 @@ export class CartService {
   checkout$ = this.checkoutSubject.asObservable();
   constructor(private http: HttpClient) {}
 
-  // pushProducts(productData: {
-  //   ProductName: string;
-  //   ProductPrice: number;
-  //   QuantityDefault: number;
-  //   ProductImage: string;
-  //   ProductId: number;
-  // }): Observable<any> {
-  //   const requestData = {
-  //     data: productData,
-  //   };
-  //   return this.http.post(`${this.apiUrl}/cart-items`, requestData);
-  // }
-
   emitCheckoutEvent() {
     this.checkoutSubject.next();
-   }
+    this.checkoutSubject.pipe( // Sử dụng pipe ở đây
+      tap((response: any) => {
+        this.cartItemsSubject.next(response);
+      })
+    ).subscribe(); // Khi đã kết hợp các toán tử, bạn cần subscribe để kích hoạt observable
+}
 
   pushProducts(productData: {
     ProductName: string;

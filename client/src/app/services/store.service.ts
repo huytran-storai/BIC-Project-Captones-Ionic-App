@@ -47,6 +47,7 @@ getInfoCheckOut(checkOutData: any): Observable<any>{
   };
   return this.http.post(`${this.apiUrl}/orders`, requestCheckOut)
 }
+
 // pushProducts(productData: {
 //   ProductName: string;
 //   ProductPrice: number;

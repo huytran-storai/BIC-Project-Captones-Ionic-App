@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-card class="cartCardOrder" *ngIf="detaillHistory">
+  <ion-card class="cartCardOrder" *ngFor="let detaillHistory of historyInfo">
     <ion-card-title class="cartTitleCAC">
       Chi tiết đặt hàng
     </ion-card-title>
@@ -17,10 +17,10 @@
         <h3>
           <ion-row class="ion-justify-content-between row-with-border">
             <img width="80" height="30" src="../../../../assets/icon/bIc.png" alt="Mô tả về hình ảnh">
-            <ion-label class="ion-text-wrap" *ngIf="currentStore">
+            <ion-label class="ion-text-wrap" *ngFor="let currentStore of currentStore">
               <h2>
-                <p class="cartSubTitleOrder" *ngIf="currentStore">{{ currentStore.name }}</p>
-                <p style="font-size: 13px;" *ngIf="currentStore">{{ currentStore.address }}</p>
+                <p class="cartSubTitleOrder" >{{ currentStore.StoreName }}</p>
+                <p style="font-size: 13px;" >{{ currentStore.StoreAddress }}</p>
               </h2>
             </ion-label>
             <ion-label class="ion-text-wrap" *ngIf="!currentStore">
@@ -35,13 +35,13 @@
           </ion-row>
           <ion-row class="ion-justify-content-between row-with-border">
             Trang thái đặt hàng:
-            <div [ngStyle]="{'color': detaillHistory.status === 'Huỷ' ? 'red' : 'green' }">{{detaillHistory.status}}</div>
+            <div [ngStyle]="{'color': detaillHistory.attributes.Status === 'Xử lý' ? '#D0D824' : detaillHistory.attributes.Status === 'Huỷ' ? 'red' : 'green' }">{{detaillHistory.attributes.Status}}</div>
           </ion-row>
         </h3>
       </ion-label>
     </ion-item>
-  </ion-card>
-  <ion-card class="cartCardOrder" *ngIf="detaillHistory">
+  </ion-card> 
+  <ion-card class="cartCardOrder" *ngFor="let detaillHistory of historyInfo">
     <ion-card-title class="cartTitleCAC">
       Tóm tắt đặt hàng
     </ion-card-title>
@@ -50,19 +50,19 @@
         <h3>
           <ion-row class="ion-justify-content-between row-with-border ">
             Giá trị đặt hàng:
-            <div>{{detaillHistory.pricetotal | number:'1.0-0'}} ₫</div>
+            <div>{{detaillHistory.attributes.TotalPrice - detaillHistory.attributes.TaxOrder - detaillHistory.attributes.DeliveryFee | number:'1.0-0'}} ₫</div>
           </ion-row>
           <ion-row class="ion-justify-content-between row-with-border" >
             Tổng thuế:
-            <div>₫</div>
+            <div>{{detaillHistory.attributes.TaxOrder | number:'1.0-0'}} ₫</div>
           </ion-row>
           <ion-row class="ion-justify-content-between row-with-border">
             Phí dịch vụ:
-            <div>₫</div>
+            <div>{{detaillHistory.attributes.DeliveryFee | number:'1.0-0'}} ₫</div>
           </ion-row>
           <ion-row class="ion-justify-content-between " style="margin-top: 8px;margin-bottom: 8px;" >
             Tổng giá đơn hàng:
-            <div>{{detaillHistory.pricetotal | number:'1.0-0'}} ₫</div>
+            <div>{{detaillHistory.attributes.TotalPrice | number:'1.0-0'}} ₫</div>
           </ion-row>
         </h3>
       </ion-label>
@@ -93,14 +93,22 @@
           <ion-col size="6"><strong>Sản phẩm</strong></ion-col>
           <ion-col size="3"><strong>Tổng giá</strong></ion-col>
         </ion-row>
-        <ion-row class="row-with-border"  style="height: fit-content;" *ngFor="let detaillHistory of detaillHistory.products">
-          <ion-col  size="3">{{detaillHistory.quantity}}</ion-col>
-          <ion-col  size="6">{{detaillHistory.name}}</ion-col>
-          <ion-col  size="3">{{detaillHistory.price * detaillHistory.quantity | number:'1.0-0'}}₫</ion-col>
-        </ion-row>
+        <!-- <ion-row class="row-with-border"  style="height: fit-content;" *ngFor="let detail of historyInfo.attributes.test">
+          <ion-col  size="3">{{detail.productQuantityAddDefault}}</ion-col>
+          <ion-col  size="6">{{detail.ProductName}}</ion-col>
+          <ion-col  size="3">{{detaillHistory.attributes.MethodPayment}}₫</ion-col>
+        </ion-row> -->
+        <ion-row class="row-with-border" style="height: fit-content;" *ngIf="historyInfo">
+          <ng-container *ngFor="let detail of historyInfo">
+            <ng-container *ngFor="let testDetail of detail.attributes?.OrderedProducts">
+              <ion-col size="3" >{{testDetail.productQuantityAddDefault}}</ion-col>
+              <ion-col size="6" >{{testDetail.ProductName }}</ion-col>
+              <ion-col size="3" >{{testDetail.TotalPrice | number:'1.0-0'}} ₫</ion-col>
+            </ng-container>
+          </ng-container>
+      </ion-row>
         <ion-row class="ion-margin ion-justify-content-center" >
           <ion-button id="open-modal-byagain" class="buyAgain" shape="round">Mua lại</ion-button>
-          <!-- <ion-button  class="buyAgain" shape="round" (click)="butAgain(detaillHistory)">Mua lại</ion-button> -->
         </ion-row>
       </ion-label>
   </ion-card>
@@ -118,7 +126,7 @@
         <p class="pTitleAlert">
           Bạn muốn có muốn mua lại tất cả sản phẩm trong lịch sử đặt hàng này?
         </p>
-        <ion-button style="text-align: center;" class="btnTitleAlert" [routerLink]="'./'">
+        <ion-button style="text-align: center;" class="btnTitleAlert" [routerLink]="'./'" (click)="butAgain(historyInfo)">
           Đồng ý
         </ion-button>
       </ion-col>

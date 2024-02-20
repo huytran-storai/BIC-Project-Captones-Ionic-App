@@ -16,11 +16,11 @@
         <ion-col size="3"><strong>Trang thái</strong></ion-col>
       </ion-row>
 
-    <ion-row *ngFor="let item of items" class="row-with-border" (click)="navigateDetailHistory(item)">
+    <ion-row *ngFor="let item of infoHistory" class="row-with-border" (click)="navigateDetailHistory(item)">
       <ion-col size="2">{{ item.id }}</ion-col>
-      <ion-col size="3">{{ item.date }}</ion-col>
-      <ion-col>{{ item.pricetotal | number:'1.0-0'}}₫</ion-col>
-      <ion-col class="statusCustom" [ngStyle]="{'color': item.status === 'Huỷ' ? 'red' : 'green' }" size="3">{{ item.status }}<ion-icon name="chevron-forward-outline" ></ion-icon></ion-col>
+      <ion-col size="3">{{ item.attributes.createdAt | date:'dd/MM/yyyy'}}</ion-col>
+      <ion-col>{{ item.attributes.TotalPrice | number:'1.0-0'}}₫</ion-col>
+      <ion-col class="statusCustom" [ngStyle]="{'color': item.attributes.Status === 'Huỷ' ? 'red' : item.attributes.Status === 'Hoàn thành' ? 'green' : '#D0D824' }" size="3">{{ item.attributes.Status }}<ion-icon name="chevron-forward-outline" ></ion-icon></ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

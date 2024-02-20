@@ -210,7 +210,7 @@ export const sample_histoy: Histories[] = [
     products: [
       { name: 'GIN BOMBAY SAPPHIRE', originalPrice: 100000, price: 200000,quantity: 10 },]
   },
-  { id: '3', date: '1/12/23', 
+  { id: '288', date: '1/12/23', 
     pricetotal: 100000000, 
     status: 'Chấp thuận', 
     paymentMethod: 'offline' , 

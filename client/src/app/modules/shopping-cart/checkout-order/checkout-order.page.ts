@@ -90,10 +90,15 @@ export class CheckOutOrderPage implements OnInit {
     this.getPromoRender();
     this.updateDeliveryFee();
     this.renderCartDetail();
-
-    this.CartService.checkout$.subscribe(() => {
-      this.renderCartDetail();
-    });
+    this.infoCheckOut();
+    this.CheckOutService.getCartItemsObservable().subscribe(
+      (response) => {
+        this.renderCartDetail();
+      },
+      (error) => {
+        console.error('Error getting cart items:', error);
+      }
+    );
   }
 
   constructor(
@@ -131,15 +136,7 @@ export class CheckOutOrderPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    // this.CartDetails();
-    // this.checkItemsCart;
-    // this.calculateItem;
-    // this.loadCartItems();
   }
-
-  // loadCartItems() {
-  //   this.cartItems = this.cartService.getCartItems();
-  // }
 
   getCurrentStore() {
     this.storeService.getCurrentStoreAddress().subscribe(
@@ -153,38 +150,14 @@ export class CheckOutOrderPage implements OnInit {
     );
   }
 
-  // private calculateItem(numberOfItems: number | undefined): boolean {
-  //   if (numberOfItems === 0) {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // }
-
-  // get numberOfItems(): number | undefined {
-  //   return this._numberOfItems;
-  // }
-
-  // set numberOfItems(value: number | undefined) {
-  //   this._numberOfItems = value;
-  //   // this.checkItemsCart = this.calculateItem(value);
-  // }
-
   subTotalAmount: number | undefined;
   subTotal(): number {
     let subTotal = 0;
     for (const product of this.productOrdered) {
-      subTotal += product.ProductPrice * product.productQuantityAddDefault;
+      subTotal += product.attributes.ProductPrice * product.attributes.productQuantityAddDefault;
     }
     return subTotal;
   }
-
-  // CartDetails() {
-  //   if (localStorage.getItem('localCart')) {
-  //     this.cartItems = JSON.parse(localStorage.getItem('localCart') || '[]');
-  //     this.numberOfItems = this.cartItems.length;
-  //   }
-  // }
 
   checkInput() {
     if (this.inputPromo !== '' && this.inputPromo !== undefined) {
@@ -273,53 +246,15 @@ export class CheckOutOrderPage implements OnInit {
       }
     );
   }
-
-  // getProductRender() {
-  //   this.CheckOutService.getProductsCart().subscribe(
-  //     (res: any) => {
-  //       this.productData = res.data.map((item: any) => item.attributes);
-  //       console.log('productData', this.productData);
-  //       var modifiedProductData = this.productData.map(function (item: {
-  //         ProductName: any;
-  //         productQuantityAddDefault: any;
-  //       }) {
-  //         return {
-  //           ProductName: item.ProductName,
-  //           productQuantityAddDefault: item.productQuantityAddDefault,
-  //         };
-  //       });
-  //       console.log('modifiedProductData', modifiedProductData);
-  //       var toString = JSON.stringify(modifiedProductData, null, 2);
-  //       console.log('productData to string', toString);
-  //     },
-  //     (err: any) => {
-  //       console.error('Error fetching current store data:', err);
-  //     }
-  //   );
-  // }
-
-
-
+  
   renderCartDetail() {
     this.CheckOutService.getProductsCart().subscribe(
       (res: any) => {
-        this.productRender = res.data.map((item: any) => item.attributes);
+        this.productRender = res.data.map((item: any) => item);
         console.log("Product lists:", this.productRender)
-        this.productOrdered = this.productRender.filter((item: any) => item.OrderedUserId === this.UserIdCurrent);
+        this.productOrdered = this.productRender.filter((item: any) => item.attributes.OrderedUserId === this.UserIdCurrent);
         console.log("Product lists:", this.productOrdered)
         console.log('UserIdCurrent in shopping cart:', this.UserIdCurrent);
-        var modifiedProductData = this.productOrdered.map(function (item: {
-          ProductName: any;
-          productQuantityAddDefault: any;
-        }) {
-          return {
-            ProductName: item.ProductName,
-            productQuantityAddDefault: item.productQuantityAddDefault,
-          };
-        });
-        console.log('modifiedProductData renderCartDetail', modifiedProductData);
-        var toString = JSON.stringify(modifiedProductData, null, 2);
-        console.log('productData to string renderCartDetail', toString);
       },
       (err: any) => {
         console.log('Error Cart list API:', err);
@@ -446,16 +381,24 @@ export class CheckOutOrderPage implements OnInit {
       this.emptyModal = false;
     } else {
       this.emptyModal = true;
-      var modifiedProductData = this.productOrdered.map(function (item: {
-        ProductName: any;
-        productQuantityAddDefault: any;
+      var modifiedProductData = this.productOrdered.map(function (item: {attributes: {
+          ProductName: any; 
+          productQuantityAddDefault: any; 
+          ProductId: any;
+          TotalPrice: any
+          ProductPrice: any
+          ProductImage: any
+      }
       }) {
         return {
-          ProductName: item.ProductName,
-          productQuantityAddDefault: item.productQuantityAddDefault,
+          ProductName: item.attributes.ProductName,
+          productQuantityAddDefault: item.attributes.productQuantityAddDefault,
+          ProductId: item.attributes.ProductId,
+          TotalPrice: item.attributes.ProductPrice * item.attributes.productQuantityAddDefault,
+          ProductImage: item.attributes.ProductImage
         };
       });
-      var Products = JSON.stringify(modifiedProductData, null, 1);
+      var Products = modifiedProductData
       const subTotal = this.subTotal();
       const numberOfItems = this.productOrdered.length
       const checkOutData = {
@@ -471,9 +414,41 @@ export class CheckOutOrderPage implements OnInit {
         TotalPrice: (subTotal + this.tax + this.deliveryFee) - (subTotal + this.tax + this.deliveryFee) * (this.getPercentDiscount / 100),
         TotalItem: numberOfItems,
         PromoApplied: this.inputPromo,
-        OrderedProducts: Products.replace(/[\[\]{}]/g, ''),
+        DeliveryFee: this.deliveryFee,
+        OrderedProducts: Products,
       };
-
+      this.alertController
+      .create({
+        header: 'Thank you!',
+        message:
+          'Cảm ơn bạn đã sử dụng dịch vụ hệ thống của cửa hàng chúng tôi. Admin sẽ liên hệ xác nhận với bạn trong vòng 24h tới! BIC rất hân hạnh khi phục vụ đến bạn. Nếu bạn vần hỗ trợ vui lòng liện hệ hotline 19001918 để giúp đỡ !',
+        buttons: [
+          {
+            text: 'HOÀN TẤT',
+            handler: () => {
+              this.modalController.dismiss();
+              this.router.navigate(['./home']);
+              const delProduct = this.productOrdered;
+              const idProduct = delProduct.map((item: { id: any }) => item.id);
+              idProduct.forEach((id: any) => {
+              this.CartService.deleteAll(id).subscribe(
+              (response) => {
+                console.log('Product deleted from cart successfully:', response);
+                // this.modalController.dismiss();
+                },
+              (error) => {
+                console.error('Error deleting product from cart:', error);
+              }
+              );
+              });
+              localStorage.removeItem(`${this.user.id}`);
+            },
+          },
+        ],
+      })
+      .then((alert) => {
+        alert.present();
+      });
       this.storeService.getInfoCheckOut(checkOutData).subscribe(
         (res: any) => {
           console.log('Res successful post information to orders:', res);
@@ -484,5 +459,22 @@ export class CheckOutOrderPage implements OnInit {
         }
       );
     }
+  }
+
+  delAllProductAPI() {
+    const delProduct = this.productOrdered;
+    const idProduct = delProduct.map((item: { id: any }) => item.id);
+    idProduct.forEach((id: any) => {
+      this.CartService.deleteAll(id).subscribe(
+        (response) => {
+          console.log('Product deleted from cart successfully:', response);
+          this.modalController.dismiss();
+        },
+        (error) => {
+          console.error('Error deleting product from cart:', error);
+        }
+      );
+    });
+    localStorage.removeItem(`${this.user.id}`);
   }
 }

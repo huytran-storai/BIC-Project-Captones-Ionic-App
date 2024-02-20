@@ -202,23 +202,23 @@
     <ion-card-content *ngFor="let item of productOrdered">
       <ion-item class="paddingCartCAC">
         <ion-thumbnail slot="start" style="margin-right: 8px;">
-          <img alt={{item.ProductName}} src="{{item.ProductImage}}" />
+          <img alt={{item.attributes.ProductName}} src="{{item.attributes.ProductImage}}" />
         </ion-thumbnail>
         <ion-label class="cartCACName ion-text-wrap colorText">
-          {{item.ProductName}}
+          {{item.attributes.ProductName}}
           <ion-label>
-            <p class="cartCACPrice colorText">{{item.ProductPrice | number:'1.0-0'}} ₫</p>
+            <p class="cartCACPrice colorText">{{item.attributes.ProductPrice | number:'1.0-0'}} ₫</p>
           </ion-label>
         </ion-label>
         <p class="setQuantity cartCACPrice ion-text-center">
-          {{item.productQuantityAddDefault}}
+          {{item.attributes.productQuantityAddDefault}}
         </p>
       </ion-item>
 
       <ion-item lines="full" lines="none">
         <ion-label class="cartCACViewDetail colorText">
           <ion-row class="ion-justify-content-between">
-            <div class="cartCACPrice">{{item.ProductPrice * item.productQuantityAddDefault | number:'1.0-0'}} ₫</div>
+            <div class="cartCACPrice">{{item.attributes.ProductPrice * item.attributes.productQuantityAddDefault | number:'1.0-0'}} ₫</div>
           </ion-row>
         </ion-label>
       </ion-item>
@@ -280,17 +280,9 @@
   <ion-grid [fixed]="true" style="text-align: center;">
     <ion-row *ngIf="fieldCheckout">
       <ion-col>
-        <ion-button class="btnCheckout colorText" (click)="
-        checkOutBtn(
-        selectedMethodPayments,
-        selectedMethodReceives,
-        newFirstName,
-        newLastName,
-        newAddress,
-        newPhone,
-        NoteCart
-        )" id="openModalInfo">
-          Đặt hàng</ion-button>
+        <ion-button class="btnCheckout colorText"  id="openModalInfo" >
+          Đặt hàng
+        </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -307,26 +299,26 @@
           <ion-title>Thông tin thanh toán </ion-title>
         </ion-toolbar>
       </ion-header>
-      <ion-content class="ion-padding" *ngIf="info">
-        <ion-label class="fieldInfo">Tên: {{info.FirstName}} {{info.LastName}}
+      <ion-content class="ion-padding">
+        <ion-label class="fieldInfo">Tên: {{ contactInfo.firstName }} {{ contactInfo.lastName }}
           <div class="bar"></div>
         </ion-label>
-        <ion-label class="fieldInfo">Số điện thoại: {{info.PhoneCustomer}}
+        <ion-label class="fieldInfo">Số điện thoại: {{contactInfo.phone}}
           <div class="bar"></div>
         </ion-label>
         <ion-label class="fieldInfo">Ngày đặt hàng: {{currentDate | date:'dd/MM/yyyy'}}
           <div class="bar"></div>
         </ion-label>
-        <ion-label class="fieldInfo">Địa chỉ giao hàng: {{info.AddressCustomer}}
+        <ion-label class="fieldInfo">Địa chỉ giao hàng: {{contactInfo.address}}
           <div class="bar"></div>
         </ion-label>
         <ion-label class="fieldInfo" *ngFor="let store of currentStore">Địa chỉ cửa hàng: {{store.StoreAddress}}
           <div class="bar"></div>
         </ion-label>
-        <ion-label class="fieldInfo">Tổng số tiền: {{ info.TotalPrice | number:'1.0-0'}} ₫
+        <ion-label class="fieldInfo">Tổng số tiền: {{ (subTotal() + tax + deliveryFee) - (subTotal() + tax + deliveryFee) *  getPercentDiscount / 100| number:'1.0-0'}} ₫
           <div class="bar"></div>
         </ion-label>
-        <ion-label class="fieldInfo">Ngày mong muốn nhận hàng: {{info.DeliveryDate | date:'dd/MM/yyyy'}}
+        <ion-label class="fieldInfo">Ngày mong muốn nhận hàng: {{DateTimePick | date:'dd/MM/yyyy'}}
           <div class="bar"></div>
         </ion-label>
         <div class="momo">
@@ -357,7 +349,16 @@
         </div>
         <div class="btnGrPay">
           <ion-button class="btnCancel" (click)="btnCancelCart()">HUỶ ĐƠN HÀNG</ion-button>
-          <ion-button class="btnPaid" (click)="btnPaid()">TÔI ĐÃ THANH TOÁN</ion-button>
+          <ion-button class="btnPaid" (click)="
+          checkOutBtn(
+          selectedMethodPayments,
+          selectedMethodReceives,
+          newFirstName,
+          newLastName,
+          newAddress,
+          newPhone,
+          NoteCart
+          )">TÔI ĐÃ THANH TOÁN</ion-button>
         </div>
       </ion-content>
     </ng-template>

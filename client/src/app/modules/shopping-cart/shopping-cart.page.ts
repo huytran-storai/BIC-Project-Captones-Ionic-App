@@ -211,6 +211,7 @@ export class ShoppingCartPage implements OnInit {
   //     }
   //   );
   // }
+
   orderedClick() {
      this.CartService.emitCheckoutEvent();
     }
@@ -221,7 +222,7 @@ export class ShoppingCartPage implements OnInit {
         this.productRender = res.data.map((item: any) => item);
         console.log("Product lists:", this.productRender)
         this.productOrdered = this.productRender.filter((item: any) => item.attributes.OrderedUserId === this.UserIdCurrent);
-        console.log("Product lists:", this.productOrdered)
+        console.log("Product lists productOrdered:", this.productOrdered)
         console.log('UserIdCurrent in shopping cart:', this.UserIdCurrent);
       },
       (err: any) => {
