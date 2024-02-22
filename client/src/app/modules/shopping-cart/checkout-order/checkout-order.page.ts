@@ -68,7 +68,7 @@ export class CheckOutOrderPage implements OnInit {
   public infoCheckOut: any;
   DateTimePick!: string;
   public info: any;
-  emptyModal: boolean = true;
+  isModalOpen: boolean = false;
   tax = 65000;
   inputPromo: string = '';
   public promoData: any;
@@ -127,15 +127,20 @@ export class CheckOutOrderPage implements OnInit {
     return value < 10 ? `0${value}` : `${value}`;
   }
 
+closeModal(){
+  this.isModalOpen = false
+}
+
+openModal(){
+  this.isModalOpen = true
+}
+
   updateContact() {
     this.contactInfo.firstName = this.newFirstName;
     this.contactInfo.lastName = this.newLastName;
     this.contactInfo.address = this.newAddress;
     this.contactInfo.phone = this.newPhone;
     this.modalController.dismiss();
-  }
-
-  ionViewWillEnter() {
   }
 
   getCurrentStore() {
@@ -209,6 +214,23 @@ export class CheckOutOrderPage implements OnInit {
       });
   }
 
+  delAllProductAPI() {
+    const delProduct = this.productOrdered;
+    const idProduct = delProduct.map((item: { id: any }) => item.id);
+    idProduct.forEach((id: any) => {
+      this.CartService.deleteAll(id).subscribe(
+        (response) => {
+          console.log('Product deleted from cart successfully:', response);
+          this.modalController.dismiss();
+        },
+        (error) => {
+          console.error('Error deleting product from cart:', error);
+        }
+      );
+    });
+    localStorage.removeItem(`${this.user.id}`);
+  }
+
   btnCancelCart() {
     this.alertController
       .create({
@@ -219,12 +241,13 @@ export class CheckOutOrderPage implements OnInit {
           {
             text: 'HOÀN TẤT',
             handler: () => {
+              this.delAllProductAPI()
               localStorage.removeItem('localCart');
               // this.modalController.dismiss();
               this.router.navigate(['./home']);
-              setTimeout(() => {
-                window.location.reload();
-              }, 0);
+              // setTimeout(() => {
+              //   window.location.reload();
+              // }, 0);
             },
           },
         ],
@@ -341,35 +364,137 @@ export class CheckOutOrderPage implements OnInit {
     }
   }
 
-  checkOutBtn(
-    selectedMethodPayments: string,
-    selectedMethodReceives: string,
-    newFirstName: string,
-    newLastName: string,
-    newAddress: string,
-    newPhone: string,
-    NoteCart: string,
-  ) {
-    if (
-      newFirstName === '' ||
-      newLastName === '' ||
-      newAddress === '' ||
-      newPhone === '' ||
-      this.returnDate === ''
-    ) {
+  // checkOutBtn(
+  //   selectedMethodPayments: string,
+  //   selectedMethodReceives: string,
+  //   newFirstName: string,
+  //   newLastName: string,
+  //   newAddress: string,
+  //   newPhone: string,
+  //   NoteCart: string,
+  // ) {
+  //   if (!newFirstName || !newLastName || !newAddress || !newPhone || !this.returnDate) {
+  //     this.alertController
+  //       .create({
+  //         header: 'Thông báo',
+  //         message:
+  //           'Xin vui lòng nhập đủ Thông tin liên lạc và Thời gian nhận hàng để tiếp tục đặt hàng.',
+  //         buttons: [
+  //           {
+  //             text: 'ĐỒNG Ý',
+  //             handler: () => {
+  //               setTimeout(() => {
+  //                 this.modalController.dismiss().then(() => {
+  //                   // this.emptyModal = false;
+  //                 });
+  //               }, 0);
+  //             },
+  //           },
+  //         ],
+  //       })
+  //       .then((alert) => {
+  //         alert.present();
+  //       });
+  //     // this.emptyModal = false;
+  //   } else {
+  //     // this.emptyModal = true;
+  //     var modifiedProductData = this.productOrdered.map(function (item: {attributes: {
+  //         ProductName: any; 
+  //         productQuantityAddDefault: any; 
+  //         ProductId: any;
+  //         TotalPrice: any
+  //         ProductPrice: any
+  //         ProductImage: any
+  //     }
+  //     }) {
+  //       return {
+  //         ProductName: item.attributes.ProductName,
+  //         productQuantityAddDefault: item.attributes.productQuantityAddDefault,
+  //         ProductId: item.attributes.ProductId,
+  //         TotalPrice: item.attributes.ProductPrice * item.attributes.productQuantityAddDefault,
+  //         ProductImage: item.attributes.ProductImage
+  //       };
+  //     });
+  //     var Products = modifiedProductData
+  //     const subTotal = this.subTotal();
+  //     const numberOfItems = this.productOrdered.length
+  //     const checkOutData = {
+  //       NoteOrder: NoteCart,
+  //       MethodPayment: selectedMethodPayments,
+  //       AddressType: selectedMethodReceives,
+  //       TaxOrder: this.tax,
+  //       FirstName: newFirstName,
+  //       LastName: newLastName,
+  //       AddressCustomer: newAddress,
+  //       PhoneCustomer: newPhone,
+  //       DeliveryDate: this.DateTimePick,
+  //       TotalPrice: (subTotal + this.tax + this.deliveryFee) - (subTotal + this.tax + this.deliveryFee) * (this.getPercentDiscount / 100),
+  //       TotalItem: numberOfItems,
+  //       PromoApplied: this.inputPromo,
+  //       DeliveryFee: this.deliveryFee,
+  //       OrderedProducts: Products,
+  //     };
+  //     this.alertController
+  //     .create({
+  //       header: 'Thank you!',
+  //       message:
+  //         'Cảm ơn bạn đã sử dụng dịch vụ hệ thống của cửa hàng chúng tôi. Admin sẽ liên hệ xác nhận với bạn trong vòng 24h tới! BIC rất hân hạnh khi phục vụ đến bạn. Nếu bạn vần hỗ trợ vui lòng liện hệ hotline 19001918 để giúp đỡ !',
+  //       buttons: [
+  //         {
+  //           text: 'HOÀN TẤT',
+  //           handler: () => {
+  //             this.router.navigate(['./home']);
+  //             this.modalController.dismiss();
+  //             const delProduct = this.productOrdered;
+  //             const idProduct = delProduct.map((item: { id: any }) => item.id);
+  //             idProduct.forEach((id: any) => {
+  //             this.CartService.deleteAll(id).subscribe(
+  //             (response) => {
+  //               console.log('Product deleted from cart successfully:', response);
+  //               },
+  //             (error) => {
+  //               console.error('Error deleting product from cart:', error);
+  //             }
+  //             );
+  //             });
+  //             localStorage.removeItem(`${this.user.id}`);
+  //           },
+  //         },
+  //       ],
+  //     })
+  //     .then((alert) => {
+  //       alert.present();
+  //     });
+  //     this.storeService.getInfoCheckOut(checkOutData).subscribe(
+  //       (res: any) => {
+  //         console.log('Res successful post information to orders:', res);
+  //         this.info = res.data.attributes;
+  //       },
+  //       (err: any) => {
+  //         console.error('Error post information to orders:', err);
+  //       }
+  //     );
+  //   }
+  // }
+
+  onCheckoutOrDismiss() {
+    const newFirstName = this.contactInfo.firstName;
+    const newLastName = this.contactInfo.lastName;
+    const newAddress = this.contactInfo.address;
+    const newPhone = this.contactInfo.phone;
+  
+    if (!newFirstName || !newLastName || !newAddress || !newPhone) {
       this.alertController
         .create({
           header: 'Thông báo',
           message:
-            'Xin vui lòng nhập đủ Thông tin liên lạc và Thời gian nhận hàng để tiếp tục đặt hàng.',
+            'Xin vui lòng nhập đủ Thông tin liên lạc để tiếp tục đặt hàng.',
           buttons: [
             {
               text: 'ĐỒNG Ý',
               handler: () => {
                 setTimeout(() => {
-                  this.modalController.dismiss().then(() => {
-                    this.emptyModal = false;
-                  });
+                  this.modalController.dismiss();
                 }, 0);
               },
             },
@@ -378,46 +503,48 @@ export class CheckOutOrderPage implements OnInit {
         .then((alert) => {
           alert.present();
         });
-      this.emptyModal = false;
     } else {
-      this.emptyModal = true;
-      var modifiedProductData = this.productOrdered.map(function (item: {attributes: {
-          ProductName: any; 
-          productQuantityAddDefault: any; 
-          ProductId: any;
-          TotalPrice: any
-          ProductPrice: any
-          ProductImage: any
-      }
-      }) {
-        return {
-          ProductName: item.attributes.ProductName,
-          productQuantityAddDefault: item.attributes.productQuantityAddDefault,
-          ProductId: item.attributes.ProductId,
-          TotalPrice: item.attributes.ProductPrice * item.attributes.productQuantityAddDefault,
-          ProductImage: item.attributes.ProductImage
-        };
-      });
-      var Products = modifiedProductData
-      const subTotal = this.subTotal();
-      const numberOfItems = this.productOrdered.length
-      const checkOutData = {
-        NoteOrder: NoteCart,
-        MethodPayment: selectedMethodPayments,
-        AddressType: selectedMethodReceives,
-        TaxOrder: this.tax,
-        FirstName: newFirstName,
-        LastName: newLastName,
-        AddressCustomer: newAddress,
-        PhoneCustomer: newPhone,
-        DeliveryDate: this.DateTimePick,
-        TotalPrice: (subTotal + this.tax + this.deliveryFee) - (subTotal + this.tax + this.deliveryFee) * (this.getPercentDiscount / 100),
-        TotalItem: numberOfItems,
-        PromoApplied: this.inputPromo,
-        DeliveryFee: this.deliveryFee,
-        OrderedProducts: Products,
+      this.submitOrder();
+    }
+  }
+
+  submitOrder() {
+    var modifiedProductData = this.productOrdered.map((item: { attributes: {
+      ProductName: any;
+      productQuantityAddDefault: any;
+      ProductId: any;
+      TotalPrice: any;
+      ProductPrice: any;
+      ProductImage: any;
+    }}) => {
+      return {
+        ProductName: item.attributes.ProductName,
+        productQuantityAddDefault: item.attributes.productQuantityAddDefault,
+        ProductId: item.attributes.ProductId,
+        TotalPrice: item.attributes.ProductPrice * item.attributes.productQuantityAddDefault,
+        ProductImage: item.attributes.ProductImage
       };
-      this.alertController
+    });
+    var Products = modifiedProductData
+    const subTotal = this.subTotal();
+    const numberOfItems = this.productOrdered.length
+    const checkOutData = {
+      NoteOrder: this.NoteCart,
+      MethodPayment: this.selectedMethodPayments,
+      AddressType: this.selectedMethodReceives,
+      TaxOrder: this.tax,
+      FirstName: this.contactInfo.firstName,
+      LastName: this.contactInfo.lastName,
+      AddressCustomer: this.contactInfo.address,
+      PhoneCustomer: this.contactInfo.phone,
+      DeliveryDate: this.DateTimePick,
+      TotalPrice: (subTotal + this.tax + this.deliveryFee) - (subTotal + this.tax + this.deliveryFee) * (this.getPercentDiscount / 100),
+      TotalItem: numberOfItems,
+      PromoApplied: this.inputPromo,
+      DeliveryFee: this.deliveryFee,
+      OrderedProducts: Products,
+    };
+    this.alertController
       .create({
         header: 'Thank you!',
         message:
@@ -426,20 +553,19 @@ export class CheckOutOrderPage implements OnInit {
           {
             text: 'HOÀN TẤT',
             handler: () => {
-              this.modalController.dismiss();
               this.router.navigate(['./home']);
+              this.modalController.dismiss();
               const delProduct = this.productOrdered;
               const idProduct = delProduct.map((item: { id: any }) => item.id);
               idProduct.forEach((id: any) => {
-              this.CartService.deleteAll(id).subscribe(
-              (response) => {
-                console.log('Product deleted from cart successfully:', response);
-                // this.modalController.dismiss();
-                },
-              (error) => {
-                console.error('Error deleting product from cart:', error);
-              }
-              );
+                this.CartService.deleteAll(id).subscribe(
+                  (response) => {
+                    console.log('Product deleted from cart successfully:', response);
+                  },
+                  (error) => {
+                    console.error('Error deleting product from cart:', error);
+                  }
+                );
               });
               localStorage.removeItem(`${this.user.id}`);
             },
@@ -449,32 +575,17 @@ export class CheckOutOrderPage implements OnInit {
       .then((alert) => {
         alert.present();
       });
-      this.storeService.getInfoCheckOut(checkOutData).subscribe(
-        (res: any) => {
-          console.log('Res successful post information to orders:', res);
-          this.info = res.data.attributes;
-        },
-        (err: any) => {
-          console.error('Error post information to orders:', err);
-        }
-      );
-    }
+    this.storeService.getInfoCheckOut(checkOutData).subscribe(
+      (res: any) => {
+        console.log('Res successful post information to orders:', res);
+        this.info = res.data.attributes;
+      },
+      (err: any) => {
+        console.error('Error post information to orders:', err);
+      }
+    );
   }
+  
 
-  delAllProductAPI() {
-    const delProduct = this.productOrdered;
-    const idProduct = delProduct.map((item: { id: any }) => item.id);
-    idProduct.forEach((id: any) => {
-      this.CartService.deleteAll(id).subscribe(
-        (response) => {
-          console.log('Product deleted from cart successfully:', response);
-          this.modalController.dismiss();
-        },
-        (error) => {
-          console.error('Error deleting product from cart:', error);
-        }
-      );
-    });
-    localStorage.removeItem(`${this.user.id}`);
-  }
+
 }

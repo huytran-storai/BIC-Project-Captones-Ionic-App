@@ -280,19 +280,19 @@
   <ion-grid [fixed]="true" style="text-align: center;">
     <ion-row *ngIf="fieldCheckout">
       <ion-col>
-        <ion-button class="btnCheckout colorText"  id="openModalInfo" >
+        <ion-button class="btnCheckout colorText"  id="openModalInfo" (click)="openModal()">
           Đặt hàng
         </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
   <!-- Modal  -->
-  <ion-modal [keepContentsMounted]="true" trigger="openModalInfo" #modal *ngIf="emptyModal">
+  <ion-modal [keepContentsMounted]="true" trigger="openModalInfo" #modal *ngIf="isModalOpen">
     <ng-template>
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-button (click)="modal.dismiss()">
+            <ion-button (click)="closeModal()">
               <ion-icon name="close-outline"></ion-icon>
             </ion-button>
           </ion-buttons>
@@ -349,16 +349,8 @@
         </div>
         <div class="btnGrPay">
           <ion-button class="btnCancel" (click)="btnCancelCart()">HUỶ ĐƠN HÀNG</ion-button>
-          <ion-button class="btnPaid" (click)="
-          checkOutBtn(
-          selectedMethodPayments,
-          selectedMethodReceives,
-          newFirstName,
-          newLastName,
-          newAddress,
-          newPhone,
-          NoteCart
-          )">TÔI ĐÃ THANH TOÁN</ion-button>
+          <ion-button class="btnPaid"  (click)="onCheckoutOrDismiss()"
+          >TÔI ĐÃ THANH TOÁN</ion-button>
         </div>
       </ion-content>
     </ng-template>
