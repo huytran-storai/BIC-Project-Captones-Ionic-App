@@ -60,8 +60,11 @@ export class ShoppingCartPage implements OnInit {
     this.userService.getUserData().subscribe(
       (res) => {
         this.user = res?.user;
-        console.log('User data in shopping cart:', this.user);
-         this.UserIdCurrent = this.user.id
+        if(this.user){
+          this.UserIdCurrent = this.user.id
+        } else {
+          console.log('User data is undefined or null');
+        }
       },
       (error) => {
         console.log('Error get user data:', error);
@@ -144,30 +147,6 @@ export class ShoppingCartPage implements OnInit {
     this.updateSubTotal();
   }
 
-  // decProduct(prod: Cart) {
-  //   if (prod.productQuantityAddDefault > 1) {
-  //     prod.productQuantityAddDefault -= 1;
-
-  //   } else if (prod.productQuantityAddDefault === 1) {
-  //     prod.productQuantityAddDefault = 0;
-  //     this.getCartDetails = this.getCartDetails.filter(
-  //       (item: Cart) => item !== prod
-  //     );
-  //     this.numberOfItems = this.getCartDetails.length;
-
-  //     this.updateSubTotal();
-  //   }
-  // }
-
-
-  
-  // delAllProduct() {
-  //   this.getCartDetails.length = 0;
-  //   this.numberOfItems = 0;
-  //   this.modalController.dismiss();
-  //   this.updateSubTotal();
-  // }
-
   updateSubTotal() {
     this.subTotalAmount = this.subTotal();
     this.changeDetectorRef.detectChanges();
@@ -196,22 +175,6 @@ export class ShoppingCartPage implements OnInit {
     this.modalController.dismiss();
   }
 
-
-  // renderCartDetail() {
-  //   this.CartService.getProductsCart().subscribe(
-  //     (res: any) => {
-  //       this.productRender = res.data.map((item: any) => item);
-  //       console.log("Product lists:", this.productRender)
-  //       this.productOrdered = this.productRender.filter((item: any) => item.attributes.OrderedUserId === this.UserIdCurrent);
-  //       console.log("Product lists:", this.productOrdered)
-  //       console.log('UserIdCurrent in shopping cart:', this.UserIdCurrent);
-  //       },
-  //     (err: any) => {
-  //       console.log('Error Cart list API:', err);
-  //     }
-  //   );
-  // }
-
   orderedClick() {
      this.CartService.emitCheckoutEvent();
     }
@@ -220,33 +183,13 @@ export class ShoppingCartPage implements OnInit {
     this.CartService.getProductsCart().subscribe(
       (res: any) => {
         this.productRender = res.data.map((item: any) => item);
-        console.log("Product lists:", this.productRender)
         this.productOrdered = this.productRender.filter((item: any) => item.attributes.OrderedUserId === this.UserIdCurrent);
-        console.log("Product lists productOrdered:", this.productOrdered)
-        console.log('UserIdCurrent in shopping cart:', this.UserIdCurrent);
       },
       (err: any) => {
         console.log('Error Cart list API:', err);
       }
     );
   }
-  
-
-  // groupProducts(products: any[]): any[] {
-  //   const groupedProducts: any[] = [];
-  
-  //   products.forEach((product) => {
-  //     const existingProduct = groupedProducts.find((data) => data.attributes.ProductId === product.attributes.ProductId);
-  
-  //     if (existingProduct) {
-  //       existingProduct.attributes.productQuantityAddDefault += 1;
-  //     } else {
-  //       groupedProducts.push({ ...product, productQuantityAddDefault: 1 });
-  //     }
-  //   });
-  
-  //   return groupedProducts;
-  // }
 
   incProductAPI(prod: any) {
     prod.attributes.productQuantityAddDefault += 1;

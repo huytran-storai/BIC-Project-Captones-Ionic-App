@@ -53,10 +53,9 @@ export class CheckOutOrderPage implements OnInit {
   PromoCode: string = '';
   NoteCart: string = '';
   public _numberOfItems: number | undefined;
-  // checkItemsCart: boolean = false;
   public currentStore: any;
   public user: any;
-  public deliveryFee: number = 0 ;
+  public deliveryFee: number = 0;
   contactInfo: any = {};
   newFirstName: string = '';
   newLastName: string = '';
@@ -65,7 +64,6 @@ export class CheckOutOrderPage implements OnInit {
   selectedMethodReceives: string = 'Giao hàng theo địa chỉ của bạn';
   selectedMethodPayments: string = 'Thanh toán khi nhận hàng';
   public productData: any;
-  public infoCheckOut: any;
   DateTimePick!: string;
   public info: any;
   isModalOpen: boolean = false;
@@ -79,19 +77,19 @@ export class CheckOutOrderPage implements OnInit {
   public UserIdCurrent: any;
   public productRender: any;
   public productOrdered: any;
-
+  public deleteProductInCK: any;
 
   ngOnInit() {
     // this.loadCartItems();
     this.getUserData();
     this.getCurrentStore();
     // this.getProductRender();
-    this.rednerInfoCheckOut();
+    // this.rednerInfoCheckOut();
     this.getPromoRender();
     this.updateDeliveryFee();
     this.renderCartDetail();
-    this.infoCheckOut();
-    this.CheckOutService.getCartItemsObservable().subscribe(
+    // this.infoCheckOut();
+    this.CartService.getCartItemsObservable().subscribe(
       (response) => {
         this.renderCartDetail();
       },
@@ -127,13 +125,13 @@ export class CheckOutOrderPage implements OnInit {
     return value < 10 ? `0${value}` : `${value}`;
   }
 
-closeModal(){
-  this.isModalOpen = false
-}
+  closeModal() {
+    this.modalController.dismiss();
+  }
 
-openModal(){
-  this.isModalOpen = true
-}
+  openModal() {
+    this.isModalOpen = true;
+  }
 
   updateContact() {
     this.contactInfo.firstName = this.newFirstName;
@@ -158,8 +156,13 @@ openModal(){
   subTotalAmount: number | undefined;
   subTotal(): number {
     let subTotal = 0;
+    if (!Array.isArray(this.productOrdered)) {
+      return 0;
+    }
     for (const product of this.productOrdered) {
-      subTotal += product.attributes.ProductPrice * product.attributes.productQuantityAddDefault;
+      subTotal +=
+        product.attributes.ProductPrice *
+        product.attributes.productQuantityAddDefault;
     }
     return subTotal;
   }
@@ -192,28 +195,6 @@ openModal(){
     window.location.reload();
   }
 
-  btnPaid() {
-    this.alertController
-      .create({
-        header: 'Thank you!',
-        message:
-          'Cảm ơn bạn đã sử dụng dịch vụ hệ thống của cửa hàng chúng tôi. Admin sẽ liên hệ xác nhận với bạn trong vòng 24h tới! BIC rất hân hạnh khi phục vụ đến bạn. Nếu bạn vần hỗ trợ vui lòng liện hệ hotline 19001918 để giúp đỡ !',
-        buttons: [
-          {
-            text: 'HOÀN TẤT',
-            handler: () => {
-              localStorage.removeItem('localCart');
-              // this.modalController.dismiss();
-              window.location.reload();
-            },
-          },
-        ],
-      })
-      .then((alert) => {
-        alert.present();
-      });
-  }
-
   delAllProductAPI() {
     const delProduct = this.productOrdered;
     const idProduct = delProduct.map((item: { id: any }) => item.id);
@@ -232,22 +213,18 @@ openModal(){
   }
 
   btnCancelCart() {
+    this.delAllProductAPI();
+    localStorage.removeItem('localCart');
     this.alertController
       .create({
         header: 'Tạm biệt',
         message:
-          'Cảm ơn bạn đã sử dụng dịch vụ hệ thống của cửa hàng chúng tôi. Đơn hàng đã huỷ thành công, bạn có thể dặt lại sản phẩm ở mục "Lịch sử mua hàng" trên hệ thống. Nếu bạn vần hỗ trợ vui lòng liện hệ hotline 19001918 để giúp đỡ !',
+          'Cảm ơn bạn đã sử dụng dịch vụ hệ thống của cửa hàng chúng tôi. Đơn hàng đã huỷ thành công, bạn có thể đặt lại sản phẩm ở mục "Lịch sử mua hàng" trên hệ thống. Nếu bạn vần hỗ trợ vui lòng liện hệ hotline 19001918 để giúp đỡ !',
         buttons: [
           {
             text: 'HOÀN TẤT',
             handler: () => {
-              this.delAllProductAPI()
-              localStorage.removeItem('localCart');
-              // this.modalController.dismiss();
               this.router.navigate(['./home']);
-              // setTimeout(() => {
-              //   window.location.reload();
-              // }, 0);
             },
           },
         ],
@@ -261,23 +238,26 @@ openModal(){
     this.userService.getUserData().subscribe(
       (res) => {
         this.user = res?.user;
-        console.log('User data in shopping cart:', this.user);
-         this.UserIdCurrent = this.user.id
+        if (this.user) {
+          this.UserIdCurrent = this.user.id;
+        } else {
+          console.log('none');
+        }
       },
       (error) => {
         console.log('Error get user data:', error);
       }
     );
   }
-  
+
   renderCartDetail() {
-    this.CheckOutService.getProductsCart().subscribe(
+    this.CartService.getProductsCart().subscribe(
       (res: any) => {
         this.productRender = res.data.map((item: any) => item);
-        console.log("Product lists:", this.productRender)
-        this.productOrdered = this.productRender.filter((item: any) => item.attributes.OrderedUserId === this.UserIdCurrent);
-        console.log("Product lists:", this.productOrdered)
-        console.log('UserIdCurrent in shopping cart:', this.UserIdCurrent);
+        console.log('Product lists:', this.productRender);
+        this.productOrdered = this.productRender.filter(
+          (item: any) => item.attributes.OrderedUserId === this.UserIdCurrent
+        );
       },
       (err: any) => {
         console.log('Error Cart list API:', err);
@@ -299,31 +279,19 @@ openModal(){
           if (this.inputPromo === PromoCode.PromoCode) {
             found = true;
             this.getPercentDiscount = PromoCode.DiscountPromo;
-            console.log('getDiscount', this.getPercentDiscount);
           }
         });
-        if(this.inputPromo === ''){
-          this.sentAlertWrong = " ";
-        }
-        else if (!found) {
+        if (this.inputPromo === '') {
+          this.sentAlertWrong = ' ';
+        } else if (!found) {
           this.wrongCode = true;
-          this.sentAlertWrong = "Mã ưu đãi không hợp lệ";
-      }
+          this.sentAlertWrong = 'Mã ưu đãi không hợp lệ';
+        }
+        if(this.inputPromo !== '' && found){
         this.modalController.dismiss(this.inputPromo, 'confirm');
+        }
       },
       (err) => {
-        console.error('Error fetching current store data:', err);
-      }
-    );
-  }
-
-  rednerInfoCheckOut() {
-    this.CheckOutService.getInfoCheckOut().subscribe(
-      (res: any) => {
-        this.infoCheckOut = res.data.map((item: any) => item.attributes);
-        console.log('rednerInfoCheckOut', this.infoCheckOut);
-      },
-      (err: any) => {
         console.error('Error fetching current store data:', err);
       }
     );
@@ -358,131 +326,18 @@ openModal(){
 
   updateDeliveryFee() {
     if (this.selectedMethodReceives === 'Giao hàng theo địa chỉ của bạn') {
-      this.deliveryFee = 30000; 
+      this.deliveryFee = 30000;
     } else if (this.selectedMethodReceives === 'Nhận tại của hàng chúng tôi') {
-      this.deliveryFee = 0; 
+      this.deliveryFee = 0;
     }
   }
-
-  // checkOutBtn(
-  //   selectedMethodPayments: string,
-  //   selectedMethodReceives: string,
-  //   newFirstName: string,
-  //   newLastName: string,
-  //   newAddress: string,
-  //   newPhone: string,
-  //   NoteCart: string,
-  // ) {
-  //   if (!newFirstName || !newLastName || !newAddress || !newPhone || !this.returnDate) {
-  //     this.alertController
-  //       .create({
-  //         header: 'Thông báo',
-  //         message:
-  //           'Xin vui lòng nhập đủ Thông tin liên lạc và Thời gian nhận hàng để tiếp tục đặt hàng.',
-  //         buttons: [
-  //           {
-  //             text: 'ĐỒNG Ý',
-  //             handler: () => {
-  //               setTimeout(() => {
-  //                 this.modalController.dismiss().then(() => {
-  //                   // this.emptyModal = false;
-  //                 });
-  //               }, 0);
-  //             },
-  //           },
-  //         ],
-  //       })
-  //       .then((alert) => {
-  //         alert.present();
-  //       });
-  //     // this.emptyModal = false;
-  //   } else {
-  //     // this.emptyModal = true;
-  //     var modifiedProductData = this.productOrdered.map(function (item: {attributes: {
-  //         ProductName: any; 
-  //         productQuantityAddDefault: any; 
-  //         ProductId: any;
-  //         TotalPrice: any
-  //         ProductPrice: any
-  //         ProductImage: any
-  //     }
-  //     }) {
-  //       return {
-  //         ProductName: item.attributes.ProductName,
-  //         productQuantityAddDefault: item.attributes.productQuantityAddDefault,
-  //         ProductId: item.attributes.ProductId,
-  //         TotalPrice: item.attributes.ProductPrice * item.attributes.productQuantityAddDefault,
-  //         ProductImage: item.attributes.ProductImage
-  //       };
-  //     });
-  //     var Products = modifiedProductData
-  //     const subTotal = this.subTotal();
-  //     const numberOfItems = this.productOrdered.length
-  //     const checkOutData = {
-  //       NoteOrder: NoteCart,
-  //       MethodPayment: selectedMethodPayments,
-  //       AddressType: selectedMethodReceives,
-  //       TaxOrder: this.tax,
-  //       FirstName: newFirstName,
-  //       LastName: newLastName,
-  //       AddressCustomer: newAddress,
-  //       PhoneCustomer: newPhone,
-  //       DeliveryDate: this.DateTimePick,
-  //       TotalPrice: (subTotal + this.tax + this.deliveryFee) - (subTotal + this.tax + this.deliveryFee) * (this.getPercentDiscount / 100),
-  //       TotalItem: numberOfItems,
-  //       PromoApplied: this.inputPromo,
-  //       DeliveryFee: this.deliveryFee,
-  //       OrderedProducts: Products,
-  //     };
-  //     this.alertController
-  //     .create({
-  //       header: 'Thank you!',
-  //       message:
-  //         'Cảm ơn bạn đã sử dụng dịch vụ hệ thống của cửa hàng chúng tôi. Admin sẽ liên hệ xác nhận với bạn trong vòng 24h tới! BIC rất hân hạnh khi phục vụ đến bạn. Nếu bạn vần hỗ trợ vui lòng liện hệ hotline 19001918 để giúp đỡ !',
-  //       buttons: [
-  //         {
-  //           text: 'HOÀN TẤT',
-  //           handler: () => {
-  //             this.router.navigate(['./home']);
-  //             this.modalController.dismiss();
-  //             const delProduct = this.productOrdered;
-  //             const idProduct = delProduct.map((item: { id: any }) => item.id);
-  //             idProduct.forEach((id: any) => {
-  //             this.CartService.deleteAll(id).subscribe(
-  //             (response) => {
-  //               console.log('Product deleted from cart successfully:', response);
-  //               },
-  //             (error) => {
-  //               console.error('Error deleting product from cart:', error);
-  //             }
-  //             );
-  //             });
-  //             localStorage.removeItem(`${this.user.id}`);
-  //           },
-  //         },
-  //       ],
-  //     })
-  //     .then((alert) => {
-  //       alert.present();
-  //     });
-  //     this.storeService.getInfoCheckOut(checkOutData).subscribe(
-  //       (res: any) => {
-  //         console.log('Res successful post information to orders:', res);
-  //         this.info = res.data.attributes;
-  //       },
-  //       (err: any) => {
-  //         console.error('Error post information to orders:', err);
-  //       }
-  //     );
-  //   }
-  // }
 
   onCheckoutOrDismiss() {
     const newFirstName = this.contactInfo.firstName;
     const newLastName = this.contactInfo.lastName;
     const newAddress = this.contactInfo.address;
     const newPhone = this.contactInfo.phone;
-  
+
     if (!newFirstName || !newLastName || !newAddress || !newPhone) {
       this.alertController
         .create({
@@ -509,25 +364,31 @@ openModal(){
   }
 
   submitOrder() {
-    var modifiedProductData = this.productOrdered.map((item: { attributes: {
-      ProductName: any;
-      productQuantityAddDefault: any;
-      ProductId: any;
-      TotalPrice: any;
-      ProductPrice: any;
-      ProductImage: any;
-    }}) => {
-      return {
-        ProductName: item.attributes.ProductName,
-        productQuantityAddDefault: item.attributes.productQuantityAddDefault,
-        ProductId: item.attributes.ProductId,
-        TotalPrice: item.attributes.ProductPrice * item.attributes.productQuantityAddDefault,
-        ProductImage: item.attributes.ProductImage
-      };
-    });
-    var Products = modifiedProductData
+    var modifiedProductData = this.productOrdered.map(
+      (item: {
+        attributes: {
+          ProductName: any;
+          productQuantityAddDefault: any;
+          ProductId: any;
+          TotalPrice: any;
+          ProductPrice: any;
+          ProductImage: any;
+        };
+      }) => {
+        return {
+          ProductName: item.attributes.ProductName,
+          productQuantityAddDefault: item.attributes.productQuantityAddDefault,
+          ProductId: item.attributes.ProductId,
+          TotalPrice:
+            item.attributes.ProductPrice *
+            item.attributes.productQuantityAddDefault,
+          ProductImage: item.attributes.ProductImage,
+        };
+      }
+    );
+    var Products = modifiedProductData;
     const subTotal = this.subTotal();
-    const numberOfItems = this.productOrdered.length
+    const numberOfItems = this.productOrdered.length;
     const checkOutData = {
       NoteOrder: this.NoteCart,
       MethodPayment: this.selectedMethodPayments,
@@ -538,7 +399,12 @@ openModal(){
       AddressCustomer: this.contactInfo.address,
       PhoneCustomer: this.contactInfo.phone,
       DeliveryDate: this.DateTimePick,
-      TotalPrice: (subTotal + this.tax + this.deliveryFee) - (subTotal + this.tax + this.deliveryFee) * (this.getPercentDiscount / 100),
+      TotalPrice:
+        subTotal +
+        this.tax +
+        this.deliveryFee -
+        (subTotal + this.tax + this.deliveryFee) *
+          (this.getPercentDiscount / 100),
       TotalItem: numberOfItems,
       PromoApplied: this.inputPromo,
       DeliveryFee: this.deliveryFee,
@@ -553,6 +419,22 @@ openModal(){
           {
             text: 'HOÀN TẤT',
             handler: () => {
+              this.storeService.getInfoCheckOut(checkOutData).subscribe(
+                (res: any) => {
+                  console.log(
+                    'Res successful post information to orders:',
+                    res
+                  );
+                  this.info = res.data.attributes;
+                },
+                (err: any) => {
+                  console.error('Error post information to orders:', err);
+                }
+              );
+              this.contactInfo.firstName = '';
+              this.contactInfo.lastName = '';
+              this.contactInfo.phone = '';
+              this.contactInfo.address = '';
               this.router.navigate(['./home']);
               this.modalController.dismiss();
               const delProduct = this.productOrdered;
@@ -560,7 +442,10 @@ openModal(){
               idProduct.forEach((id: any) => {
                 this.CartService.deleteAll(id).subscribe(
                   (response) => {
-                    console.log('Product deleted from cart successfully:', response);
+                    console.log(
+                      'Product deleted from cart successfully:',
+                      response
+                    );
                   },
                   (error) => {
                     console.error('Error deleting product from cart:', error);
@@ -575,17 +460,5 @@ openModal(){
       .then((alert) => {
         alert.present();
       });
-    this.storeService.getInfoCheckOut(checkOutData).subscribe(
-      (res: any) => {
-        console.log('Res successful post information to orders:', res);
-        this.info = res.data.attributes;
-      },
-      (err: any) => {
-        console.error('Error post information to orders:', err);
-      }
-    );
   }
-  
-
-
 }

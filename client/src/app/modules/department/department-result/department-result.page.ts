@@ -105,12 +105,14 @@ export class DepartmentResultPage implements OnInit {
     this.userService.getUserData().subscribe(
       (res) => {
         this.user = res?.user;
-        console.log('find user: ', this.user);
-        this.UserIdCurrent = this.user.id;
-        console.log('find UserIdCurrent: ', this.UserIdCurrent);
+        if(this.user){
+          this.UserIdCurrent = this.user.id
+        } else {
+          console.log('User data is undefined or null');
+        }
       },
       (error) => {
-        console.log('Get user data error', error);
+        console.log('Error get user data:', error);
       }
     );
   }

@@ -233,11 +233,11 @@
     <ion-item lines="none" class="colorText">
       <ion-label>
         <h3>
-          <ion-row class="ion-justify-content-between cartCardSubOrder">
+          <ion-row class="ion-justify-content-between cartCardSubOrder" *ngIf="productOrdered">
             Tổng sản phẩm:
             <div>{{productOrdered.length}} item</div>
           </ion-row>
-          <ion-row class="ion-justify-content-between cartCardSubOrder">
+          <ion-row class="ion-justify-content-between cartCardSubOrder" *ngIf="productOrdered">
             Giá tiền:
             <div>{{subTotal()| number:'1.0-0'}} ₫</div>
           </ion-row>
@@ -253,10 +253,6 @@
             Phần trăm giảm giá:
             <div>{{getPercentDiscount}}%</div>
           </ion-row>
-          <!-- <ion-row class="ion-justify-content-between cartCardSubOrder"  *ngIf="getPercentDiscount === undefined">
-            Phần trăm giảm giá:
-            <div *ngIf="wrongCode" class="wrongTextAlert">{{sentAlertWrong}}</div>
-          </ion-row> -->
           
           <ion-row style="margin-bottom: 20px;" class="ion-justify-content-between cartCardSubOrder">
             Tổng tiền:
@@ -280,14 +276,14 @@
   <ion-grid [fixed]="true" style="text-align: center;">
     <ion-row *ngIf="fieldCheckout">
       <ion-col>
-        <ion-button class="btnCheckout colorText"  id="openModalInfo" (click)="openModal()">
+        <ion-button class="btnCheckout colorText"  id="openModalInfo" >
           Đặt hàng
         </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
   <!-- Modal  -->
-  <ion-modal [keepContentsMounted]="true" trigger="openModalInfo" #modal *ngIf="isModalOpen">
+  <ion-modal [keepContentsMounted]="true" trigger="openModalInfo" #modal >
     <ng-template>
       <ion-header>
         <ion-toolbar>
@@ -351,14 +347,6 @@
           <ion-button class="btnCancel" (click)="btnCancelCart()">HUỶ ĐƠN HÀNG</ion-button>
           <ion-button class="btnPaid"  (click)="onCheckoutOrDismiss()"
           >TÔI ĐÃ THANH TOÁN</ion-button>
-        </div>
-      </ion-content>
-    </ng-template>
-  </ion-modal>
-  <ion-modal [keepContentsMounted]="true" trigger="modalPaid" #modal class="modalPaid">
-    <ng-template>
-      <ion-content class="ion-padding">
-        <div class="momo">
         </div>
       </ion-content>
     </ng-template>

@@ -10,10 +10,6 @@ export class CheckoutService {
   private cartItemsSubject: Subject<any> = new Subject<any>();
   constructor(private http: HttpClient) {}
 
-  getProductsCart(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/cart-items`);
-  }
-
   getInfoCheckOut(){
     return this.http.get(`${this.apiUrl}/orders`)
   }
