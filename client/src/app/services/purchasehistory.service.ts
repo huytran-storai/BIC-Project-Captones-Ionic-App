@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { sample_histoy } from 'src/data';
-import { Histories } from '../shared/models/Histories';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +10,7 @@ export class PurchasehistoryService {
 
   constructor(private http: HttpClient) { }
 
-  getHistory() : Histories[]{
-    return sample_histoy
-  }
-
-  getHistoryById(id: any): Histories | undefined {
-    return sample_histoy.find(item => item.id === id);
-  }
-
-  getHistoryList(){
+  getHistoryList(): Observable<any>{
     return this.http.get(`${this.apiUrl}/orders/`)
   }
   
@@ -31,12 +22,4 @@ export class PurchasehistoryService {
       return [];
     }
   }
-
-  // getProductById(ProductId: string) {
-  //   return this.http.get(`${this.apiUrl}/products/${ProductId}`);
-  // }
-
-  // getProducts() {
-  //   return this.http.get(`${this.apiUrl}/products`);
-  // }
 }

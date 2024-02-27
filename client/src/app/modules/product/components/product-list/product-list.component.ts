@@ -99,9 +99,11 @@ export class ProductListComponent implements OnInit {
     this.userService.getUserData().subscribe(
       (res) => {
         this.user = res?.user;
-        console.log('find user: ', this.user);
-        this.UserIdCurrent = this.user.id;
-        console.log('find UserIdCurrent: ', this.UserIdCurrent);
+        if(this.user){
+          this.UserIdCurrent = this.user.id;
+        } else {
+          console.log('User data is undefined or null');
+        }
       },
       (error) => {
         console.log('Get user data error', error);
@@ -183,15 +185,12 @@ export class ProductListComponent implements OnInit {
 
   cancelProduct(event: Event, item: any) {
     event.stopPropagation();
-    // console.log('this.renderStrapiId in cancel button', this.renderStrapiId);
     const cartItem = this.renderStrapiId.find((cart: any) => cart.saveProductId === item.attributes.ProductId);
     if (cartItem) {
       const strapiIdToDelete = cartItem.strapiId;
-      // console.log('strapiIdToDelete:', strapiIdToDelete);
       if (strapiIdToDelete) {
         this.CartService.deleteProduct(strapiIdToDelete).subscribe(
           (response) => {
-            // console.log('Product deleted from cart successfully:', response);
             this.renderStrapiId = this.renderStrapiId.filter((cart: any) => cart.saveProductId !== item.attributes.ProductId);
             localStorage.setItem(`${this.UserIdCurrent}`, JSON.stringify(this.renderStrapiId));
           },

@@ -29,17 +29,8 @@ export class HomePage implements OnInit {
   ) {}
 
   ngOnInit() {
-    // const storedUserData = localStorage.getItem('userData');
-    // if (storedUserData) {
-    //   this.user = JSON.parse(storedUserData);
-    // } else {
-    //   this.getUserData();
-    // }
     this.getUserData();
     this.getCurrentStore();
-    // this.getBlogsRender();
-    // this.getProductRender();
-    // this.getAllProducts();
     (function (d, m) {
       var kommunicateSettings = {
         appId: '1161fc142cdd17f8662859181b2c974bc',
@@ -64,7 +55,6 @@ export class HomePage implements OnInit {
       (res) => {
         this.user = res?.user;
         console.log('User data:', this.user);
-        // localStorage.setItem('userData', JSON.stringify(this.user));
       },
       (error) => {
         console.log('Error get user data:', error);
@@ -85,18 +75,4 @@ export class HomePage implements OnInit {
       }
     );
   }
-
-
-
-  // getProductRender() {
-  //   this.productService.getProducts().subscribe(
-  //     (res: any) => {
-  //       this.productData = res.data.map((item: any) => item.attributes);
-  //       console.log("Product lists:", this.productData)
-  //     },
-  //     (err: any) => {
-  //       console.error('Error fetching current store data:', err);
-  //     }
-  //   );
-  // }
 }

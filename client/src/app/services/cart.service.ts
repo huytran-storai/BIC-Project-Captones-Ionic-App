@@ -14,11 +14,11 @@ export class CartService {
 
   emitCheckoutEvent() {
     this.checkoutSubject.next();
-    this.checkoutSubject.pipe( // Sử dụng pipe ở đây
+    this.checkoutSubject.pipe( 
       tap((response: any) => {
         this.cartItemsSubject.next(response);
       })
-    ).subscribe(); // Khi đã kết hợp các toán tử, bạn cần subscribe để kích hoạt observable
+    ).subscribe(); 
 }
 
   pushProducts(productData: {
@@ -42,10 +42,6 @@ export class CartService {
   getCartItemsObservable(): Observable<any> {
     return this.cartItemsSubject.asObservable();
   }
-  
-  getProductsCart(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/cart-items`);
-  }
 
   postProductsAPI(productNames: any): Observable<any> {
     const requestData = {
@@ -62,7 +58,6 @@ export class CartService {
       })
     );
   }
-  
 
   increaseItem(productData: {
     id: number;
@@ -93,6 +88,10 @@ export class CartService {
         this.cartItemsSubject.next(response);
       })
     );
+  }
+
+  getProductsCart(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/cart-items`);
   }
 
   EmprtCart: any[] = [];

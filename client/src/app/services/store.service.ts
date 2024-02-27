@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ProductItem } from '../shared/models/ProductItem';
 import { sampleProductItems, sample_tags, } from 'src/data';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable,tap,Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,8 @@ import { filter } from 'rxjs/operators';
 export class StoreService {
   // private apiUrl = 'https://attractive-star-afacd2432f.strapiapp.com/api';
   private apiUrl = 'http://localhost:1337/api';
+  private cartItemsSubject: Subject<any> = new Subject<any>();
+  
   constructor(private http: HttpClient) { }
 
   getAllProducts(): ProductItem[] {
@@ -36,30 +38,26 @@ export class StoreService {
   getAllTags(): Tag[] {
     return sample_tags;
   }
-
-  // getAllProductsByTagName(tag: string){
-  //   return this.getProducts().pipe(filter(item => item.tags?.includes(tag)))
-  // }
   
 getInfoCheckOut(checkOutData: any): Observable<any>{
   const requestCheckOut ={
     data: checkOutData,
   };
   return this.http.post(`${this.apiUrl}/orders`, requestCheckOut)
+  .pipe(
+    tap((response: any) => {
+      this.cartItemsSubject.next(response);
+    })
+  );
 }
 
-// pushProducts(productData: {
-//   ProductName: string;
-//   ProductPrice: number;
-//   QuantityDefault: number;
-//   ProductImage: string;
-//   ProductId: number;
-// }): Observable<any> {
-//   const requestData = {
-//     data: productData,
-//   };
-//   return this.http.post(`${this.apiUrl}/cart-items`, requestData);
-// }
+getHistoryList(): Observable<any>{
+  return this.http.get(`${this.apiUrl}/orders/`)
+}
+
+getCartItemsObservable(): Observable<any> {
+  return this.cartItemsSubject.asObservable();
+}
 
   getCurrentStoreAddress() {
     return this.http.get(`${this.apiUrl}/stores`);
