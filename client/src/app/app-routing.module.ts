@@ -62,22 +62,6 @@ const routes: Routes = [
     loadChildren: () => import('./modules/more/policy/policy.module').then(m => m.PolicyPageModule),
   },
   {
-    path: 'add-address',
-    loadChildren: () => import('./modules/more/account/add-address/add-address.module').then(m => m.AddAddressPageModule)
-  },
-  {
-    path: 'edit-account',
-    loadChildren: () => import('./modules/more/account/edit-account/edit-account.module').then(m => m.EditAccountPageModule)
-  },
-  {
-    path: 'edit-address-book',
-    loadChildren: () => import('./modules/more/account/edit-address-book/edit-address-book.module').then(m => m.EditAddressBookPageModule)
-  },
-  {
-    path: 'edit-contact',
-    loadChildren: () => import('./modules/more/account/edit-contact/edit-contact.module').then(m => m.EditContactPageModule)
-  },
-  {
     path: 'intro',
     loadChildren: () => import('./modules/more/aboutourapp/intro/intro.module').then(m => m.IntroPageModule)
   },

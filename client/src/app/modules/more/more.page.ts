@@ -11,25 +11,18 @@ export class MorePage implements OnInit {
   constructor(private router: Router,private userService: UserService,) { }
 
   ngOnInit() {
-    const storedUserData = localStorage.getItem('userData');
-    if (storedUserData) {
-      this.user = JSON.parse(storedUserData);
-    } else {
-      this.getUserData();
-    }
+    this.getUserData();
   }
 
   getUserData() {
     this.userService.getUserData().subscribe(res => {
       this.user = res?.user
-      localStorage.setItem('userData', JSON.stringify(this.user));
+      console.warn(this.user)
     } );
   }
 
   logout() {
-    localStorage.removeItem('userData');
     this.router.navigate(['/login']).then(() => {
-      console.log("log out");
       window.location.reload();
     });
   }

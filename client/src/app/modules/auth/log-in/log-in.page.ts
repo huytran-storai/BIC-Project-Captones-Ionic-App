@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { ToastController, LoadingController } from '@ionic/angular';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegularExpression } from 'src/app/shared/validate/constants';
@@ -14,7 +14,7 @@ export class LogInPage {
   form: FormGroup;
   showPassword: boolean = false;
 
-  constructor(private router: Router, private authService: UserRegisterService, private userService: UserService, private alertController: AlertController,
+  constructor(private router: Router, private authService: UserRegisterService, private userService: UserService, private toastController: ToastController,
     private loadingController: LoadingController,) {
     this.form = new FormGroup({
       'email': new FormControl(null, [Validators.required, Validators.email]),
@@ -53,16 +53,26 @@ export class LogInPage {
             loading.dismiss();
             this.router.navigate(['/home']);
           }, 1500);
+          const toast = await this.toastController.create({
+            message: `Đăng nhập thành công.`,
+            duration: 2000,
+            position: 'top',
+            color: 'success'
+          });
+      
+          toast.present();
 
         } catch (error) {
           loading.dismiss();
           console.error(error);
-          const alert = await this.alertController.create({
-            header: 'Đăng nhập thất bại.',
-            message: 'Mật khẩu hoặc tài khoản chưa đúng',
-            buttons: ['Thử lại!'],
+          const toast = await this.toastController.create({
+            message: `Đăng nhập thất bại.`,
+            duration: 1000,
+            position: 'bottom',
+            color: 'danger'
           });
-          await alert.present();
+      
+          toast.present();
         }
       }
     }
