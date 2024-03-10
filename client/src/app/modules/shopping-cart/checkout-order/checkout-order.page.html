@@ -200,6 +200,8 @@
       Các sản phẩm
     </ion-card-title>
     <ion-card-content *ngFor="let item of productOrdered">
+      <!-- dùng ngFor để lập productOrdered thông qua item sau đó dùng item.attrubutes để lấy ra các thông tin của sản phẩm
+      Lưu ý việc có attributes hay không phụ thuộc và hàm this.productRender-->
       <ion-item class="paddingCartCAC">
         <ion-thumbnail slot="start" style="margin-right: 8px;">
           <img alt={{item.attributes.ProductName}} src="{{item.attributes.ProductImage}}" />

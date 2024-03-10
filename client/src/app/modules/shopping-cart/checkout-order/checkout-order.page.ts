@@ -48,7 +48,7 @@ export class CheckOutOrderPage implements OnInit {
   payOnline: boolean = false;
   payAfter: boolean = true;
   currentDate: string;
-  modal!: IonModal;
+  modal!: IonModal; 
   message = 'Nhập mã giảm giá';
   PromoCode: string = '';
   NoteCart: string = '';
@@ -67,12 +67,12 @@ export class CheckOutOrderPage implements OnInit {
   DateTimePick!: string;
   public info: any;
   isModalOpen: boolean = false;
-  tax = 65000;
+  Tax = 65000;
   inputPromo: string = '';
-  public promoData: any;
+  public promoData: any; // Giữ giá trị của mã giảm giá
   public getPercentDiscount: number = 0;
-  wrongCode: boolean = false;
-  sentAlertWrong: string = '';
+  wrongCode: boolean = false; // Trả về kết quả True hoặc False khi mã giảm giá sai
+  sentAlertWrong: string = ''; 
   public returnDate: string = '';
   public UserIdCurrent: any;
   public productRender: any;
@@ -393,7 +393,7 @@ export class CheckOutOrderPage implements OnInit {
       NoteOrder: this.NoteCart,
       MethodPayment: this.selectedMethodPayments,
       AddressType: this.selectedMethodReceives,
-      TaxOrder: this.tax,
+      TaxOrder: this.Tax,
       FirstName: this.contactInfo.firstName,
       LastName: this.contactInfo.lastName,
       AddressCustomer: this.contactInfo.address,
@@ -401,9 +401,9 @@ export class CheckOutOrderPage implements OnInit {
       DeliveryDate: this.DateTimePick,
       TotalPrice:
         subTotal +
-        this.tax +
+        this.Tax +
         this.deliveryFee -
-        (subTotal + this.tax + this.deliveryFee) *
+        (subTotal + this.Tax + this.deliveryFee) *
           (this.getPercentDiscount / 100),
       TotalItem: numberOfItems,
       PromoApplied: this.inputPromo,

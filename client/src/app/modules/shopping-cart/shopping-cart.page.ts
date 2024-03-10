@@ -246,6 +246,7 @@ export class ShoppingCartPage implements OnInit {
     const delProduct = this.productOrdered;
     const idProduct = delProduct.map((item: { id: any }) => item.id);
     idProduct.forEach((id: any) => {
+      // Lập trong idProduct sau đó gọi hàm deleteAll để xoá các id đã lập qua trong idProduct
       this.CartService.deleteAll(id).subscribe(
         (response) => {
           console.log('Product deleted from cart successfully:', response);
@@ -267,3 +268,5 @@ export class ShoppingCartPage implements OnInit {
     }
   }
 }
+
+

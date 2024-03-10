@@ -59,9 +59,9 @@ export class ProductListComponent implements OnInit {
   checkIdLocalAgainAfterDeleteOnStrapi() {
     this.CartService.getProductsCart().subscribe(
       (res: any) => {
-        this.productRender = res.data.map((item: any) => item);
-        this.productOrdered = this.productRender.map((item: any) => item.id );
-        let getIdItemCart = this.renderStrapiId.filter((value : any) => this.productOrdered.includes(value.strapiId))
+        this.productRender = res.data.map((item: any) => item); // Lấy dữ liệu sản phẩm và lưu vào biến productRender
+        this.productOrdered = this.productRender.map((item: any) => item.id ); // Tạo mảng productOrdered chỉ chứa các id của sản phẩm
+        let getIdItemCart = this.renderStrapiId.filter((value : any) => this.productOrdered.includes(value.strapiId))// Lọc ra những id sản phẩm đã được render từ Strapi và nằm trong danh sách sản phẩm được lưu trên local
         localStorage.setItem(`${this.UserIdCurrent}`, JSON.stringify(getIdItemCart));
       },
       (err: any) => {
