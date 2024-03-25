@@ -134,8 +134,8 @@ export class CheckOutOrderPage implements OnInit {
   }
 
   updateContact() {
-    this.contactInfo.firstName = this.newFirstName;
-    this.contactInfo.lastName = this.newLastName;
+    this.contactInfo.firstname = this.newFirstName;
+    this.contactInfo.lastname = this.newLastName;
     this.contactInfo.address = this.newAddress;
     this.contactInfo.phone = this.newPhone;
     this.modalController.dismiss();
@@ -240,6 +240,7 @@ export class CheckOutOrderPage implements OnInit {
         this.user = res?.user;
         if (this.user) {
           this.UserIdCurrent = this.user.id;
+          console.log('user', this.user);
         } else {
           console.log('none');
         }
@@ -333,12 +334,11 @@ export class CheckOutOrderPage implements OnInit {
   }
 
   onCheckoutOrDismiss() {
-    const newFirstName = this.contactInfo.firstName;
-    const newLastName = this.contactInfo.lastName;
+    const newusername = this.contactInfo.username;
     const newAddress = this.contactInfo.address;
     const newPhone = this.contactInfo.phone;
 
-    if (!newFirstName || !newLastName || !newAddress || !newPhone) {
+    if (!newusername || !newAddress || !newPhone) {
       this.alertController
         .create({
           header: 'Thông báo',

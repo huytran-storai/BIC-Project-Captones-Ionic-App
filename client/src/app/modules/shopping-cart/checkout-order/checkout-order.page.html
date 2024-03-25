@@ -74,39 +74,39 @@
 
       <ion-modal #modal trigger="openEditContact" (willDismiss)="onWillDismiss($event)">
         <ng-template class="containerPromo">
-          <ion-content>
+          <ion-content >
             <ion-row class="row-contact" style="margin-top: 10px;">
-              <ion-col size="4">
+              <ion-col size="4"  *ngIf="user.firstname">
                 <ion-label>
                   Tên đầu
                 </ion-label>
-                <ion-input type="text" class="input-contact" value="{{contactInfo.firstName}}"
+                <ion-input type="text" class="input-contact" value="{{user.firstname}}"
                   [(ngModel)]="newFirstName"></ion-input>
               </ion-col>
-              <ion-col size="4">
+              <ion-col size="4" *ngIf="user.lastname">
                 <ion-label>
-                  Tên họ
+                  Tên cuối
                 </ion-label>
-                <ion-input type="text" class="input-contact" value="{{contactInfo.lastName}}" [(ngModel)]="newLastName">
+                <ion-input type="text" class="input-contact" value="{{user.lastname}}" [(ngModel)]="newLastName">
                 </ion-input>
               </ion-col>
             </ion-row>
             <ion-row class="row-section">
-              <ion-col>
+              <ion-col *ngIf="user.address">
                 <ion-label class="label-custom">
                   Địa chỉ
                 </ion-label>
-                <ion-input type="text" class="input-section" value="{{contactInfo.address}}" [(ngModel)]="newAddress">
+                <ion-input type="text" class="input-section" value="{{user.address}}" [(ngModel)]="newAddress">
                 </ion-input>
               </ion-col>
             </ion-row>
             <ion-row class="row-section">
-              <ion-col>
+              <ion-col *ngIf="user.phone">
                 <ion-label class="label-custom">
                   Số điện thoại
                 </ion-label>
                 <ion-input class="input-section" [maskito]="phoneMask" [maskitoElement]="maskPredicate"
-                  value="{{contactInfo.phone}}" [(ngModel)]="newPhone"></ion-input>
+                  value="{{user.phone}}" [(ngModel)]="newPhone"></ion-input>
               </ion-col>
             </ion-row>
             <ion-row class="row-section">
@@ -126,19 +126,19 @@
 
     </ion-item>
     <ion-item lines="none" class="colorText"
-      *ngIf="contactInfo.firstName || contactInfo.lastName || contactInfo.address || contactInfo.phone">
+      *ngIf="user.firstname || user.lastname || user.address || user.phone">
       <ion-label class="ion-text-wrap">
-        <h3 *ngIf="contactInfo.firstName || contactInfo.lastName">
-          <p class="cartSubTitleOrder">Tên đầu, tên họ</p>
-          <p style="font-size: 13px;margin-bottom: 10px;">{{ contactInfo.firstName }} {{ contactInfo.lastName }}</p>
+        <h3 *ngIf="user.username">
+          <p class="cartSubTitleOrder">Tên</p>
+          <p style="font-size: 13px;margin-bottom: 10px;">{{ user.firstname }} {{user.lastname}}</p>
         </h3>
-        <h3 *ngIf="contactInfo.address">
+        <h3 *ngIf="user.address">
           <p class="cartSubTitleOrder">Địa chỉ</p>
-          <p style="font-size: 13px;margin-bottom: 10px;">{{contactInfo.address}}</p>
+          <p style="font-size: 13px;margin-bottom: 10px;">{{user.address}}</p>
         </h3>
-        <h3 *ngIf="contactInfo.phone">
+        <h3 *ngIf="user.phone">
           <p class="cartSubTitleOrder">Số điện thoại</p>
-          <p style="font-size: 13px">{{contactInfo.phone}}</p>
+          <p style="font-size: 13px">{{user.phone}}</p>
         </h3>
       </ion-label>
     </ion-item>
