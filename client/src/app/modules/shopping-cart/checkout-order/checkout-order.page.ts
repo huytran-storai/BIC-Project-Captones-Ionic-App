@@ -57,8 +57,7 @@ export class CheckOutOrderPage implements OnInit {
   public user: any;
   public deliveryFee: number = 0;
   contactInfo: any = {};
-  newFirstName: string = '';
-  newLastName: string = '';
+  newName: string = '';
   newAddress: string = '';
   newPhone: string = '';
   selectedMethodReceives: string = 'Giao hàng theo địa chỉ của bạn';
@@ -131,14 +130,6 @@ export class CheckOutOrderPage implements OnInit {
 
   openModal() {
     this.isModalOpen = true;
-  }
-
-  updateContact() {
-    this.contactInfo.firstname = this.newFirstName;
-    this.contactInfo.lastname = this.newLastName;
-    this.contactInfo.address = this.newAddress;
-    this.contactInfo.phone = this.newPhone;
-    this.modalController.dismiss();
   }
 
   getCurrentStore() {
@@ -240,13 +231,35 @@ export class CheckOutOrderPage implements OnInit {
         this.user = res?.user;
         if (this.user) {
           this.UserIdCurrent = this.user.id;
-          console.log('user', this.user);
+          this.newName = this.user.name;
+          this.newAddress = this.user.address;
+          this.newPhone = this.user.phone;
         } else {
           console.log('none');
         }
       },
       (error) => {
         console.log('Error get user data:', error);
+      }
+    );
+  }
+
+  updateContact() {
+    const updateInforUser = {
+      id: this.UserIdCurrent,
+      name: this.newName,
+      address: this.newAddress,
+      phone: this.newPhone,
+    };
+    this.userService.updateInforUser(this.UserIdCurrent, updateInforUser).subscribe(
+      () => {
+        this.user.name = this.newName;
+        this.user.address = this.newAddress;
+        this.user.phone = this.newPhone;
+        this.modalController.dismiss();
+      },
+      (error) => {
+        console.log('Lỗi khi cập nhật thông tin người dùng:', error);
       }
     );
   }
@@ -288,8 +301,8 @@ export class CheckOutOrderPage implements OnInit {
           this.wrongCode = true;
           this.sentAlertWrong = 'Mã ưu đãi không hợp lệ';
         }
-        if(this.inputPromo !== '' && found){
-        this.modalController.dismiss(this.inputPromo, 'confirm');
+        if (this.inputPromo !== '' && found) {
+          this.modalController.dismiss(this.inputPromo, 'confirm');
         }
       },
       (err) => {
