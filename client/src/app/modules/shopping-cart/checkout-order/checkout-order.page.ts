@@ -96,6 +96,7 @@ export class CheckOutOrderPage implements OnInit {
         console.error('Error getting cart items:', error);
       }
     );
+    this.checkPaymentMethod();
   }
 
   constructor(
@@ -338,6 +339,16 @@ export class CheckOutOrderPage implements OnInit {
     },
   ];
 
+  checkPaymentMethod(){
+    if(this.selectedMethodPayments === 'Chuyển khoản trước'){
+      return true;
+    } else if (this.selectedMethodPayments === 'Thanh toán khi nhận hàng'){
+      return false;
+    }
+    return false; 
+    
+  }
+
   updateDeliveryFee() {
     if (this.selectedMethodReceives === 'Giao hàng theo địa chỉ của bạn') {
       this.deliveryFee = 30000;
@@ -347,16 +358,12 @@ export class CheckOutOrderPage implements OnInit {
   }
 
   onCheckoutOrDismiss() {
-    const newusername = this.contactInfo.username;
-    const newAddress = this.contactInfo.address;
-    const newPhone = this.contactInfo.phone;
-
-    if (!newusername || !newAddress || !newPhone) {
+    if (!this.DateTimePick) {
       this.alertController
         .create({
           header: 'Thông báo',
           message:
-            'Xin vui lòng nhập đủ Thông tin liên lạc để tiếp tục đặt hàng.',
+            'Xin vui lòng nhập Ngày nhận hàng để tiếp tục đặt hàng.',
           buttons: [
             {
               text: 'ĐỒNG Ý',

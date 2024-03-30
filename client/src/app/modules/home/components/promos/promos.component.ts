@@ -17,9 +17,9 @@ export class PromoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getBlogRender()
+    this.getPromosRender()
   }
-  getBlogRender() {
+  getPromosRender() {
     this.PromosService.getPromocodes().subscribe(
       (res: any) => {
         this.promoData = res.data.map((item: any) => item.attributes)

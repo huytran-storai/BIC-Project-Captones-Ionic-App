@@ -371,6 +371,13 @@ ion-back-button {
     flex-direction: column;
     margin-right: 60px;
 }
+.inforPaid{
+    font-size: 15px;
+    font-weight: bold;
+}
+.payLaterPriceTotal{
+    color: var(--ion-color-danger-tint);
+}
 
 .btnCancel {
     background-color: var(--ion-color-light-shade) !important;
