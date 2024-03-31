@@ -2,6 +2,7 @@ import { StoreService } from 'src/app/services/store.service';
 import { Component, OnInit } from '@angular/core';
 import { ProductItem } from '../../../shared/models/ProductItem';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-search-product',
@@ -19,6 +20,7 @@ export class SearchProductPage implements OnInit {
     private StoreService: StoreService,
     private router: Router,
     private productService: StoreService,
+    private loadingController: LoadingController
 
   ) {
   }
@@ -47,13 +49,19 @@ export class SearchProductPage implements OnInit {
     }
   }
 
-  getProductRender() {
+  async getProductRender() {
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     this.productService.getProducts().subscribe(
       (res: any) => {
+        loading.dismiss();
         this.productData = res.data.map((item: any) => item.attributes);
         console.log("Render data in search", this.productData)
       },
       (err: any) => {
+        loading.dismiss();
         console.error('Error fetching current store data:', err);
       }
     );

@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 import { modalController } from '@ionic/core';
 import { UserService } from 'src/app/services/user.service';
 import { CartService } from 'src/app/services/cart.service';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
+
 @Component({
   selector: 'app-department-result',
   templateUrl: './department-result.page.html',
@@ -64,6 +65,7 @@ export class DepartmentResultPage implements OnInit {
     private CartService: CartService,
     private modalController: ModalController,
     public alertController: AlertController,
+    private loadingController: LoadingController
   ) {
     this.departments.forEach((department) => {
       this.selectedDepartment[department] = false;
@@ -101,9 +103,14 @@ export class DepartmentResultPage implements OnInit {
     );
   }
 
-  getUserData() {
+  async getUserData() {
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     this.userService.getUserData().subscribe(
       (res) => {
+        loading.dismiss();
         this.user = res?.user;
         if(this.user){
           this.UserIdCurrent = this.user.id
@@ -112,14 +119,20 @@ export class DepartmentResultPage implements OnInit {
         }
       },
       (error) => {
+        loading.dismiss();
         console.log('Error get user data:', error);
       }
     );
   }
 
-  renderProductResult() {
+  async renderProductResult() {
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     this.productService.getProducts().subscribe(
       (res: any) => {
+        loading.dismiss();
         this.route.params.subscribe((params) => {
           this.tagName = params['tagName'];
         });
@@ -132,7 +145,9 @@ export class DepartmentResultPage implements OnInit {
           console.log('No data');
         }
       },
-      (err: any) => {}
+      (err: any) => {
+        loading.dismiss();
+      }
     );
   }
 
@@ -187,7 +202,7 @@ export class DepartmentResultPage implements OnInit {
     this.router.navigate(['product-detail/', item.attributes.ProductName,item.attributes.ProductId]);
   }
 
-  addProduct(event: Event, item: any) {
+  async addProduct(event: Event, item: any) {
     if (this.user !== undefined && this.user !== null) {
     event.stopPropagation();
     const productData = {
@@ -198,8 +213,13 @@ export class DepartmentResultPage implements OnInit {
       ProductId: item.attributes.ProductId,
       OrderedUserId: this.UserIdCurrent,
     };
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     this.CartService.pushProducts(productData).subscribe(
       (response) => {
+        loading.dismiss();
         const strapiId = response.data.id;
         const saveProductId = response.data.attributes.ProductId;
         const savedCartItemsString = localStorage.getItem(`${this.user.id}`);
@@ -209,6 +229,7 @@ export class DepartmentResultPage implements OnInit {
         this.renderStrapiId = existingCartItems;
       },
       (error) => {
+        loading.dismiss();
         console.error('Error adding product to cart:', error);
       }
     );
@@ -239,28 +260,33 @@ export class DepartmentResultPage implements OnInit {
   }
 
 
-  cancelProduct(event: Event, item: any) {
+  async cancelProduct(event: Event, item: any) {
     event.stopPropagation();
-    // console.log('this.renderStrapiId in cancel button', this.renderStrapiId);
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     const cartItem = this.renderStrapiId.find((cart: any) => cart.saveProductId === item.attributes.ProductId);
     if (cartItem) {
       const strapiIdToDelete = cartItem.strapiId;
-      // console.log('strapiIdToDelete:', strapiIdToDelete);
       if (strapiIdToDelete) {
         this.CartService.deleteProduct(strapiIdToDelete).subscribe(
           (response) => {
-            // console.log('Product deleted from cart successfully:', response);
+            loading.dismiss();
             this.renderStrapiId = this.renderStrapiId.filter((cart: any) => cart.saveProductId !== item.attributes.ProductId);
             localStorage.setItem(`${this.user.id}`, JSON.stringify(this.renderStrapiId));
           },
           (error) => {
+            loading.dismiss();
             console.error('Error deleting product from cart:', error);
           }
         );
       } else {
+        loading.dismiss();
         console.error('Strapi ID is not available. Unable to delete product.');
       }
     } else {
+      loading.dismiss();
       console.error('CartItem not found in renderStrapiId.');
     }
   }

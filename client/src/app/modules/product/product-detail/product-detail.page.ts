@@ -1,10 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
-import { AlertController, ModalController, NavController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController, NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { StoreService } from 'src/app/services/store.service';
 import { UserService } from 'src/app/services/user.service';
+
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.page.html',
@@ -58,6 +59,7 @@ export class ProductDetailPage implements OnInit {
     private productService: StoreService,
     private userService: UserService,
     public alertController: AlertController,
+    private loadingController: LoadingController,
   ) {}
   Back() {
     this.navCtrl.back();
@@ -115,9 +117,13 @@ export class ProductDetailPage implements OnInit {
   //   localStorage.setItem('localCart', JSON.stringify(this.itemCart));
   // }
 
-  addProduct(event: Event, item: any) {
+  async addProduct(event: Event, item: any) {
     if (this.user !== undefined && this.user !== null) {
     event.stopPropagation();
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     const productData = {
       ProductName: item.attributes.ProductName,
       ProductPrice: item.attributes.ProductPrice,
@@ -128,6 +134,7 @@ export class ProductDetailPage implements OnInit {
     };
     this.CartService.pushProducts(productData).subscribe(
       (response) => {
+        loading.dismiss();
         const strapiId = response.data.id;
         const saveProductId = response.data.attributes.ProductId;
         const savedCartItemsString = localStorage.getItem(`${this.UserIdCurrent}`);
@@ -137,6 +144,7 @@ export class ProductDetailPage implements OnInit {
         this.renderStrapiId = existingCartItems;
       },
       (error) => {
+        loading.dismiss();
         console.error('Error adding product to cart:', error);
       }
     );
@@ -175,25 +183,33 @@ export class ProductDetailPage implements OnInit {
     }
   }
 
-  cancelProduct(event: Event, item: any) {
+  async cancelProduct(event: Event, item: any) {
     event.stopPropagation();
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     const cartItem = this.renderStrapiId.find((cart: any) => cart.saveProductId === item.ProductId);
     if (cartItem) {
       const strapiIdToDelete = cartItem.strapiId;
       if (strapiIdToDelete) {
         this.CartService.deleteProduct(strapiIdToDelete).subscribe(
           (response) => {
+            loading.dismiss();
             this.renderStrapiId = this.renderStrapiId.filter((cart: any) => cart.saveProductId !== item.ProductId);
             localStorage.setItem(`${this.UserIdCurrent}`, JSON.stringify(this.renderStrapiId));
           },
           (error) => {
+            loading.dismiss();
             console.error('Error deleting product from cart:', error);
           }
         );
       } else {
+        loading.dismiss();
         console.error('Strapi ID is not available. Unable to delete product.');
       }
     } else {
+      loading.dismiss();
       console.error('CartItem not found in renderStrapiId.');
     }
   }
@@ -213,9 +229,14 @@ export class ProductDetailPage implements OnInit {
     this.router.navigate(['/shopping-cart']);
   }
 
-  getProductRender() {
+  async getProductRender() {
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     this.productService.getProducts().subscribe(
       (res: any) => {
+        loading.dismiss();
         this.productDetail = res.data.map((item: any) => item);
         console.log('Product lists:', this.productDetail);
 
@@ -229,6 +250,7 @@ export class ProductDetailPage implements OnInit {
         }
       },
       (err: any) => {
+        loading.dismiss();
         console.error('Error fetching current store data:', err);
       }
     );

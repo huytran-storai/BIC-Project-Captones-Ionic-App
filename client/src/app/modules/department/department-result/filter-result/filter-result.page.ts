@@ -3,8 +3,9 @@ import { StoreService } from 'src/app/services/store.service';
 import { ProductItem } from 'src/app/shared/models/ProductItem';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
-import { NavController,AlertController,ModalController } from '@ionic/angular';
+import { NavController,AlertController,ModalController, LoadingController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user.service';
+
 @Component({
   selector: 'app-filter-result',
   templateUrl: './filter-result.page.html',
@@ -27,7 +28,8 @@ export class FilterResultPage implements OnInit {
     public alertController: AlertController,
     private modalController: ModalController,
     private productService: StoreService,
-    private userService: UserService
+    private userService: UserService,
+    private loadingController: LoadingController,
   ) { }
 
   ngOnInit() {
@@ -53,9 +55,14 @@ export class FilterResultPage implements OnInit {
     );
   }
 
-  getUserData() {
+  async getUserData() {
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     this.userService.getUserData().subscribe(
       (res) => {
+        loading.dismiss();
         this.user = res?.user;
         if(this.user){
           this.UserIdCurrent = this.user.id
@@ -64,6 +71,7 @@ export class FilterResultPage implements OnInit {
         }
       },
       (error) => {
+        loading.dismiss();
         console.log('Error get user data:', error);
       }
     );
@@ -78,7 +86,7 @@ export class FilterResultPage implements OnInit {
   }
 
   itemCart:any = []
-  addProduct(event: Event, item: any) {
+  async addProduct(event: Event, item: any) {
     if (this.user !== undefined && this.user !== null) {
     event.stopPropagation();
     const productData = {
@@ -89,8 +97,13 @@ export class FilterResultPage implements OnInit {
       ProductId: item.attributes.ProductId,
       OrderedUserId: this.UserIdCurrent,
     };
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     this.CartService.pushProducts(productData).subscribe(
       (response) => {
+        loading.dismiss();
         const strapiId = response.data.id;
         const saveProductId = response.data.attributes.ProductId;
         const savedCartItemsString = localStorage.getItem(`${this.user.id}`);
@@ -100,6 +113,7 @@ export class FilterResultPage implements OnInit {
         this.renderStrapiId = existingCartItems;
       },
       (error) => {
+        loading.dismiss();
         console.error('Error adding product to cart:', error);
       }
     );
@@ -129,28 +143,33 @@ export class FilterResultPage implements OnInit {
     }
   }
 
-  cancelProduct(event: Event, item: any) {
+  async cancelProduct(event: Event, item: any) {
     event.stopPropagation();
-    // console.log('this.renderStrapiId in cancel button', this.renderStrapiId);
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     const cartItem = this.renderStrapiId.find((cart: any) => cart.saveProductId === item.attributes.ProductId);
     if (cartItem) {
       const strapiIdToDelete = cartItem.strapiId;
-      // console.log('strapiIdToDelete:', strapiIdToDelete);
       if (strapiIdToDelete) {
         this.CartService.deleteProduct(strapiIdToDelete).subscribe(
           (response) => {
-            // console.log('Product deleted from cart successfully:', response);
+            loading.dismiss();
             this.renderStrapiId = this.renderStrapiId.filter((cart: any) => cart.saveProductId !== item.attributes.ProductId);
             localStorage.setItem(`${this.user.id}`, JSON.stringify(this.renderStrapiId));
           },
           (error) => {
+            loading.dismiss();
             console.error('Error deleting product from cart:', error);
           }
         );
       } else {
+        loading.dismiss();
         console.error('Strapi ID is not available. Unable to delete product.');
       }
     } else {
+      loading.dismiss();
       console.error('CartItem not found in renderStrapiId.');
     }
   }
@@ -176,13 +195,19 @@ export class FilterResultPage implements OnInit {
     }
   }
   
-  getProductRender() {
+  async getProductRender() {
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     this.productService.getProducts().subscribe(
       (res: any) => {
+        loading.dismiss();
         this.productData = res.data.map((item: any) => item);
         console.log('Product lists:', this.productData);
       },
       (err: any) => {
+        loading.dismiss();
         console.error('Error fetching current store data:', err);
       }
     );

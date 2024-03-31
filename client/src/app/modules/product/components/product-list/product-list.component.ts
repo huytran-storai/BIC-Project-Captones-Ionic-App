@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ProductItem } from 'src/app/shared/models/ProductItem';
 import { StoreService } from 'src/app/services/store.service';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { register } from 'swiper/element/bundle';
 import { CartService } from 'src/app/services/cart.service';
 import { Router } from '@angular/router';
@@ -45,7 +45,8 @@ export class ProductListComponent implements OnInit {
     public alertController: AlertController,
     private router: Router,
     private productService: StoreService,
-    private userService: UserService
+    private userService: UserService,
+    private loadingController: LoadingController
   ) {}
 
   ngOnInit(): void {
@@ -111,9 +112,14 @@ export class ProductListComponent implements OnInit {
     );
   }
 
-  getProductRender() {
+  async getProductRender() {
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     this.productService.getProducts().subscribe(
       (res: any) => {
+        loading.dismiss();
         this.productData = res.data.map((item: any) => item);
         console.log('Product lists:', this.productData);
       },
@@ -123,9 +129,14 @@ export class ProductListComponent implements OnInit {
     );
   }
 
-  addProduct(event: Event, item: any) {
+  async addProduct(event: Event, item: any) {
     if (this.user !== undefined && this.user !== null) {
     event.stopPropagation();
+    const loading = await this.loadingController.create({ 
+      // spinner: 'dots',
+      cssClass: 'loading',
+    })
+    await loading.present();
     const productData = {
       ProductName: item.attributes.ProductName,
       ProductPrice: item.attributes.ProductPrice,
@@ -136,6 +147,7 @@ export class ProductListComponent implements OnInit {
     };
     this.CartService.pushProducts(productData).subscribe(
       (response) => {
+        loading.dismiss(); 
         const strapiId = response.data.id;
         const saveProductId = response.data.attributes.ProductId;
         const savedCartItemsString = localStorage.getItem(`${this.UserIdCurrent}`);
@@ -145,6 +157,7 @@ export class ProductListComponent implements OnInit {
         this.renderStrapiId = existingCartItems;
       },
       (error) => {
+        loading.dismiss();
         console.error('Error adding product to cart:', error);
       }
     );
@@ -183,14 +196,19 @@ export class ProductListComponent implements OnInit {
     }
   }
 
-  cancelProduct(event: Event, item: any) {
+  async cancelProduct(event: Event, item: any) {
     event.stopPropagation();
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     const cartItem = this.renderStrapiId.find((cart: any) => cart.saveProductId === item.attributes.ProductId);
     if (cartItem) {
       const strapiIdToDelete = cartItem.strapiId;
       if (strapiIdToDelete) {
         this.CartService.deleteProduct(strapiIdToDelete).subscribe(
           (response) => {
+            loading.dismiss();
             this.renderStrapiId = this.renderStrapiId.filter((cart: any) => cart.saveProductId !== item.attributes.ProductId);
             localStorage.setItem(`${this.UserIdCurrent}`, JSON.stringify(this.renderStrapiId));
           },
@@ -199,9 +217,11 @@ export class ProductListComponent implements OnInit {
           }
         );
       } else {
+        loading.dismiss();
         console.error('Strapi ID is not available. Unable to delete product.');
       }
     } else {
+      loading.dismiss();
       console.error('CartItem not found in renderStrapiId.');
     }
   }

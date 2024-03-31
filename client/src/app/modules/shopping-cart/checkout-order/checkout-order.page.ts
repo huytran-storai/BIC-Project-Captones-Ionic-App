@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { OverlayEventDetail } from '@ionic/core/components';
-import { AlertController, IonModal, ModalController } from '@ionic/angular';
+import { AlertController, IonModal, LoadingController, ModalController } from '@ionic/angular';
 import { StoreService } from 'src/app/services/store.service';
 import { CartService } from 'src/app/services/cart.service';
 import { UserService } from 'src/app/services/user.service';
@@ -10,7 +10,7 @@ import { PurchasehistoryService } from 'src/app/services/purchasehistory.service
 import { Router } from '@angular/router';
 import { CheckoutService } from 'src/app/services/checkout.service';
 import { PromosService } from 'src/app/services/promos.service';
-// import { type } from 'os';
+
 
 @Component({
   selector: 'app-checkout-order',
@@ -108,7 +108,8 @@ export class CheckOutOrderPage implements OnInit {
     public alertController: AlertController,
     private router: Router,
     private CheckOutService: CheckoutService,
-    private PromosService: PromosService
+    private PromosService: PromosService,
+    private loadingController: LoadingController,
   ) {
     const now = new Date();
     const year = now.getFullYear();
@@ -133,13 +134,19 @@ export class CheckOutOrderPage implements OnInit {
     this.isModalOpen = true;
   }
 
-  getCurrentStore() {
+  async getCurrentStore() {
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     this.storeService.getCurrentStoreAddress().subscribe(
       (res: any) => {
+        loading.dismiss();
         this.currentStore = res.data.map((item: any) => item.attributes);
         console.log('find store', this.currentStore);
       },
       (err) => {
+        loading.dismiss();
         console.error('Error fetching current store data:', err);
       }
     );
@@ -187,16 +194,22 @@ export class CheckOutOrderPage implements OnInit {
     window.location.reload();
   }
 
-  delAllProductAPI() {
+  async delAllProductAPI() {
     const delProduct = this.productOrdered;
     const idProduct = delProduct.map((item: { id: any }) => item.id);
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     idProduct.forEach((id: any) => {
       this.CartService.deleteAll(id).subscribe(
         (response) => {
+          loading.dismiss();
           console.log('Product deleted from cart successfully:', response);
           this.modalController.dismiss();
         },
         (error) => {
+          loading.dismiss();
           console.error('Error deleting product from cart:', error);
         }
       );
@@ -245,21 +258,27 @@ export class CheckOutOrderPage implements OnInit {
     );
   }
 
-  updateContact() {
+  async updateContact() {
     const updateInforUser = {
       id: this.UserIdCurrent,
       name: this.newName,
       address: this.newAddress,
       phone: this.newPhone,
     };
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     this.userService.updateInforUser(this.UserIdCurrent, updateInforUser).subscribe(
       () => {
         this.user.name = this.newName;
         this.user.address = this.newAddress;
         this.user.phone = this.newPhone;
         this.modalController.dismiss();
+        loading.dismiss();
       },
       (error) => {
+        loading.dismiss();
         console.log('Lỗi khi cập nhật thông tin người dùng:', error);
       }
     );
@@ -438,9 +457,14 @@ export class CheckOutOrderPage implements OnInit {
         buttons: [
           {
             text: 'HOÀN TẤT',
-            handler: () => {
+            handler: async () => {
+              const loading = await this.loadingController.create({ 
+                cssClass: 'loading',
+              })
+              await loading.present();
               this.storeService.getInfoCheckOut(checkOutData).subscribe(
                 (res: any) => {
+                  loading.dismiss();
                   console.log(
                     'Res successful post information to orders:',
                     res
@@ -448,6 +472,7 @@ export class CheckOutOrderPage implements OnInit {
                   this.info = res.data.attributes;
                 },
                 (err: any) => {
+                  loading.dismiss();
                   console.error('Error post information to orders:', err);
                 }
               );

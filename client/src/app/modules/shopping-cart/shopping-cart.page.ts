@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
-import { AlertController, IonModal, ModalController } from '@ionic/angular';
+import { AlertController, IonModal, LoadingController, ModalController } from '@ionic/angular';
 import { Cart } from 'src/app/shared/models/Cart';
 import { CartService } from 'src/app/services/cart.service';
 import { StoreService } from 'src/app/services/store.service';
@@ -39,7 +39,8 @@ export class ShoppingCartPage implements OnInit {
     private changeDetectorRef: ChangeDetectorRef,
     private userService: UserService,
     private storeService: StoreService,
-    private router: Router
+    private router: Router,
+    private loadingController: LoadingController,
   ) {}
 
   ngOnInit(): void {
@@ -56,9 +57,14 @@ export class ShoppingCartPage implements OnInit {
     );
   }
 
-  getUserData() {
+  async getUserData() {
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     this.userService.getUserData().subscribe(
       (res) => {
+        loading.dismiss();
         this.user = res?.user;
         if(this.user){
           this.UserIdCurrent = this.user.id
@@ -67,18 +73,25 @@ export class ShoppingCartPage implements OnInit {
         }
       },
       (error) => {
+        loading.dismiss();
         console.log('Error get user data:', error);
       }
     );
   }
 
-  getCurrentStore() {
+  async getCurrentStore() {
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     this.storeService.getCurrentStoreAddress().subscribe(
       (res: any) => {
+        loading.dismiss();
         this.currentStore = res?.data[0]?.attributes;
         // console.log('find store', this.currentStore);
       },
       (err) => {
+        loading.dismiss();
         console.error('Error fetching current store data:', err);
       }
     );
@@ -179,35 +192,47 @@ export class ShoppingCartPage implements OnInit {
      this.CartService.emitCheckoutEvent();
     }
 
-  renderCartDetail() {
+  async renderCartDetail() {
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     this.CartService.getProductsCart().subscribe(
       (res: any) => {
+        loading.dismiss();
         this.productRender = res.data.map((item: any) => item);
         this.productOrdered = this.productRender.filter((item: any) => item.attributes.OrderedUserId === this.UserIdCurrent);
       },
       (err: any) => {
+        loading.dismiss();
         console.log('Error Cart list API:', err);
       }
     );
   }
 
-  incProductAPI(prod: any) {
+  async incProductAPI(prod: any) {
     prod.attributes.productQuantityAddDefault += 1;
     const productData = {
       id: prod.id,
       productQuantityAddDefault: prod.attributes.productQuantityAddDefault,
     };
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     this.CartService.increaseItem(productData).subscribe(
       (res) => {
+        loading.dismiss();
         console.log('Increase Item Success ', res);
       },
       (err) => {
+        loading.dismiss();
         console.log('Error increase item:', err);
       }
     );
   }
 
-  decProductAPI(prod: any) {
+  async decProductAPI(prod: any) {
     if (prod.attributes.productQuantityAddDefault == 1) {
       const productData = {
         id: prod.id,
@@ -215,11 +240,17 @@ export class ShoppingCartPage implements OnInit {
       const getLocalStorage = JSON.parse(localStorage.getItem(`${this.UserIdCurrent}`) || '[]');
       const getIdDeleteStorage = getLocalStorage.filter((item: any) => item.strapiId !== productData.id)
       localStorage.setItem(`${this.UserIdCurrent}`, JSON.stringify(getIdDeleteStorage));
+      const loading = await this.loadingController.create({ 
+        cssClass: 'loading',
+      })
+      await loading.present();
       this.CartService.deleteItem(productData).subscribe(
         (res: any) => {
+          loading.dismiss();
           console.log('Delete Item Success ', res);
         },
         (err: any) => {
+          loading.dismiss();
           console.log('Error delete Item Success ', err);
         }
       );
@@ -231,11 +262,17 @@ export class ShoppingCartPage implements OnInit {
         productQuantityAddDefault: prod.attributes.productQuantityAddDefault,
       };
       console.log('prod incrase:', prod);
+      const loading = await this.loadingController.create({ 
+        cssClass: 'loading',
+      })
+      await loading.present();
       this.CartService.increaseItem(productData).subscribe(
         (res) => {
+          loading.dismiss();
           console.log('Decrease Item Success ', res);
         },
         (err) => {
+          loading.dismiss();
           console.log('Error Decrease item:', err);
         }
       );
@@ -245,13 +282,19 @@ export class ShoppingCartPage implements OnInit {
   delAllProductAPI() {
     const delProduct = this.productOrdered;
     const idProduct = delProduct.map((item: { id: any }) => item.id);
-    idProduct.forEach((id: any) => {
+    idProduct.forEach(async (id: any) => {
+      const loading = await this.loadingController.create({ 
+        cssClass: 'loading',
+      })
+      await loading.present();
       this.CartService.deleteAll(id).subscribe(
         (response) => {
+          loading.dismiss();
           console.log('Product deleted from cart successfully:', response);
           this.modalController.dismiss();
         },
         (error) => {
+          loading.dismiss();
           console.error('Error deleting product from cart:', error);
         }
       );

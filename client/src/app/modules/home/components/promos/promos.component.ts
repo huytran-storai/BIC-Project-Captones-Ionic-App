@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { register } from 'swiper/element/bundle';
 import { PromosService } from 'src/app/services/promos.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 
 register();
 @Component({
@@ -13,19 +13,26 @@ export class PromoComponent implements OnInit {
   public promoData: any;
   constructor(
     private PromosService: PromosService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private loadingController: LoadingController,
   ) { }
 
   ngOnInit(): void {
     this.getPromosRender()
   }
-  getPromosRender() {
+  async getPromosRender() {
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     this.PromosService.getPromocodes().subscribe(
       (res: any) => {
+        loading.dismiss();
         this.promoData = res.data.map((item: any) => item.attributes)
         console.log('Find promoData:', this.promoData)
       },
       (err) => {
+        loading.dismiss();
         console.error('Error fetching current store data:', err);
       }
     )
