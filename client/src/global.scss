@@ -1,6 +1,10 @@
  :root{
     --ion-font-family: ui-sans-serif !important;
 }
+ion-loading.loading {
+    --background: none;
+    --spinner-color: var(--ion-color-primary);
+  }
 @import "@ionic/angular/css/core.css";
 
 /* Basic CSS for apps built with Ionic */

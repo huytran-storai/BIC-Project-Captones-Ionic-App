@@ -4,6 +4,7 @@ import { UserService } from 'src/app/services/user.service';
 import { StoreService } from 'src/app/services/store.service';
 import { BlogsService } from 'src/app/services/blogs.service';
 import { ProductItem } from 'src/app/shared/models/ProductItem';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +26,8 @@ export class HomePage implements OnInit {
     private userService: UserService,
     private storeService: StoreService,
     private blogsService: BlogsService,
-    private productService: StoreService
+    private productService: StoreService,
+    private loadingController: LoadingController
   ) {}
 
   ngOnInit() {
@@ -50,13 +52,19 @@ export class HomePage implements OnInit {
     
   }
 
-  getUserData() {
+  async getUserData() {
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     this.userService.getUserData().subscribe(
       (res) => {
+        loading.dismiss();
         this.user = res?.user;
         console.log('User data:', this.user);
       },
       (error) => {
+        loading.dismiss();
         console.log('Error get user data:', error);
       }
     );
@@ -64,13 +72,19 @@ export class HomePage implements OnInit {
 
   
 
-  getCurrentStore() {
+  async getCurrentStore() {
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     this.storeService.getCurrentStoreAddress().subscribe(
       (res: any) => {
+        loading.dismiss();
         this.currentStore = res?.data[0]?.attributes;
         console.log('find store', this.currentStore);
       },
       (err) => {
+        loading.dismiss();
         console.error('Error fetching current store data:', err);
       }
     );

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, ModalController, NavController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController, NavController } from '@ionic/angular';
 import { CartService } from 'src/app/services/cart.service';
 import { PurchasehistoryService } from 'src/app/services/purchasehistory.service';
 import { StoreService } from 'src/app/services/store.service';
@@ -34,6 +34,7 @@ export class DetailHistoryPage implements OnInit {
     public alertController: AlertController,
     private modalController: ModalController,
     private router: Router,
+    private loadingController:LoadingController
     ) { }
 
   ngOnInit() {
@@ -50,21 +51,32 @@ console.log(this.getProduct)
     this.getUserData();
   }
 
-  getCurrentStore() {
+  async getCurrentStore() {
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     this.storeService.getCurrentStoreAddress().subscribe(
       (res: any) => {
+        loading.dismiss();
         this.currentStore = res.data.map((item: any) => item.attributes);
         console.log('find store', this.currentStore);
       },
       (err) => {
+        loading.dismiss();
         console.error('Error fetching current store data:', err);
       }
     );
   }
 
-  getUserData() {
+  async getUserData() {
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     this.UserService.getUserData().subscribe(
       (res) => {
+        loading.dismiss();
         this.user = res?.user;
         if(this.user){
           this.UserIdCurrent = this.user.id
@@ -73,14 +85,20 @@ console.log(this.getProduct)
         }
       },
       (error) => {
+        loading.dismiss();
         console.log('Error get user data:', error);
       }
     );
   }
 
-  getProductRender() {
+  async getProductRender() {
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     this.PurchasehistoryService.getHistoryList().subscribe(
       (res: any) => {
+        loading.dismiss();
         this.historyDetail = res.data.map((item: any) => item);
         this.historyInfo = this.historyDetail.filter((product: any) => {
        
@@ -100,6 +118,7 @@ console.log(this.getProduct)
         }
       },
       (err: any) => {
+        loading.dismiss();
         console.error('Error fetching current store ', err);
       }
     );
@@ -109,7 +128,7 @@ console.log(this.getProduct)
     this.navCtrl.back()
   }
 
-  butAgain(order: any) {
+  async butAgain(order: any) {
     if(this.UserIdCurrent !== undefined && this.UserIdCurrent !== null){
       const products = order[0]
       const productsAddAgain = products.attributes.OrderedProducts.map((item: any) => {
@@ -122,15 +141,21 @@ console.log(this.getProduct)
         }
       })
       console.log("productsAddAgain",productsAddAgain)
+      const loading = await this.loadingController.create({ 
+        cssClass: 'loading',
+      })
+      await loading.present();
       const productsObject = productsAddAgain.forEach((item: any) => {
         this.CartService.pushProducts(item).subscribe(
           (response) => {
+            loading.dismiss();
             const strapiId = response.data.id;
             console.log('respone:', response);
             this.modalController.dismiss();
             this.router.navigate(['./shopping-cart']);
           },
           (error) => {
+            loading.dismiss();
             console.error('Error adding product to cart:', error);
           }
         );

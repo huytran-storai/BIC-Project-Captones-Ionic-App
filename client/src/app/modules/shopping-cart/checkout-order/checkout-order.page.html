@@ -74,39 +74,32 @@
 
       <ion-modal #modal trigger="openEditContact" (willDismiss)="onWillDismiss($event)">
         <ng-template class="containerPromo">
-          <ion-content>
-            <ion-row class="row-contact" style="margin-top: 10px;">
-              <ion-col size="4">
-                <ion-label>
-                  Tên đầu
+          <ion-content >
+            <ion-row class="row-section">
+              <ion-col *ngIf="user.name">
+                <ion-label class="label-custom">
+                  Tên
                 </ion-label>
-                <ion-input type="text" class="input-contact" value="{{contactInfo.firstName}}"
-                  [(ngModel)]="newFirstName"></ion-input>
-              </ion-col>
-              <ion-col size="4">
-                <ion-label>
-                  Tên họ
-                </ion-label>
-                <ion-input type="text" class="input-contact" value="{{contactInfo.lastName}}" [(ngModel)]="newLastName">
+                <ion-input type="text" class="input-section" [(ngModel)]="newName">
                 </ion-input>
               </ion-col>
             </ion-row>
             <ion-row class="row-section">
-              <ion-col>
+              <ion-col *ngIf="user.address">
                 <ion-label class="label-custom">
                   Địa chỉ
                 </ion-label>
-                <ion-input type="text" class="input-section" value="{{contactInfo.address}}" [(ngModel)]="newAddress">
+                <ion-input type="text" class="input-section"  [(ngModel)]="newAddress">
                 </ion-input>
               </ion-col>
             </ion-row>
             <ion-row class="row-section">
-              <ion-col>
+              <ion-col *ngIf="user.phone">
                 <ion-label class="label-custom">
                   Số điện thoại
                 </ion-label>
                 <ion-input class="input-section" [maskito]="phoneMask" [maskitoElement]="maskPredicate"
-                  value="{{contactInfo.phone}}" [(ngModel)]="newPhone"></ion-input>
+                 [(ngModel)]="newPhone"></ion-input>
               </ion-col>
             </ion-row>
             <ion-row class="row-section">
@@ -125,20 +118,19 @@
 
 
     </ion-item>
-    <ion-item lines="none" class="colorText"
-      *ngIf="contactInfo.firstName || contactInfo.lastName || contactInfo.address || contactInfo.phone">
+    <ion-item lines="none" class="colorText">
       <ion-label class="ion-text-wrap">
-        <h3 *ngIf="contactInfo.firstName || contactInfo.lastName">
-          <p class="cartSubTitleOrder">Tên đầu, tên họ</p>
-          <p style="font-size: 13px;margin-bottom: 10px;">{{ contactInfo.firstName }} {{ contactInfo.lastName }}</p>
+        <h3 >
+          <p class="cartSubTitleOrder">Tên</p>
+          <p style="font-size: 13px;margin-bottom: 10px;">{{user.name}}</p>
         </h3>
-        <h3 *ngIf="contactInfo.address">
+        <h3 >
           <p class="cartSubTitleOrder">Địa chỉ</p>
-          <p style="font-size: 13px;margin-bottom: 10px;">{{contactInfo.address}}</p>
+          <p style="font-size: 13px;margin-bottom: 10px;">{{user.address}}</p>
         </h3>
-        <h3 *ngIf="contactInfo.phone">
+        <h3 >
           <p class="cartSubTitleOrder">Số điện thoại</p>
-          <p style="font-size: 13px">{{contactInfo.phone}}</p>
+          <p style="font-size: 13px">{{user.phone}}</p>
         </h3>
       </ion-label>
     </ion-item>
@@ -296,16 +288,16 @@
         </ion-toolbar>
       </ion-header>
       <ion-content class="ion-padding">
-        <ion-label class="fieldInfo">Tên: {{ contactInfo.firstName }} {{ contactInfo.lastName }}
+        <ion-label class="fieldInfo">Tên: {{user.name}}
           <div class="bar"></div>
         </ion-label>
-        <ion-label class="fieldInfo">Số điện thoại: {{contactInfo.phone}}
+        <ion-label class="fieldInfo">Số điện thoại: {{user.phone}}
           <div class="bar"></div>
         </ion-label>
         <ion-label class="fieldInfo">Ngày đặt hàng: {{currentDate | date:'dd/MM/yyyy'}}
           <div class="bar"></div>
         </ion-label>
-        <ion-label class="fieldInfo">Địa chỉ giao hàng: {{contactInfo.address}}
+        <ion-label class="fieldInfo">Địa chỉ giao hàng: {{user.address}}
           <div class="bar"></div>
         </ion-label>
         <ion-label class="fieldInfo" *ngFor="let store of currentStore">Địa chỉ cửa hàng: {{store.StoreAddress}}
@@ -317,36 +309,48 @@
         <ion-label class="fieldInfo">Ngày mong muốn nhận hàng: {{DateTimePick | date:'dd/MM/yyyy'}}
           <div class="bar"></div>
         </ion-label>
-        <div class="momo">
-          <ion-item style="width: 100%;" lines="none">
-            <div class="infoContainer">
-              Thanh toán qua ví điện tử MoMo
-              <div class="momoInfo">SĐT: 0909123888</div>
-              <div class="momoInfo">Tên Admin: BIC STORE 24H</div>
-            </div>
-            <ion-thumbnail slot="end">
-              <img alt="Silhouette of mountains" src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" />
-            </ion-thumbnail>
-          </ion-item>
-        </div>
-
-        <div class="momo">
-          <ion-item style="width: 100%;" lines="none">
-            <div class="infoContainer">
-              Thanh toán qua Banking Online
-              <div class="momoInfo">STK: 0909123888</div>
-              <div class="momoInfo">TP Bank Ngân hàng Tiên Phong</div>
-            </div>
-            <ion-thumbnail slot="end">
-              <img alt="Silhouette of mountains"
-                src="https://static.topcv.vn/company_logos/03iUoTBsAKb4OsGYfwinSrXWFQYDxZqd_1690868428____5adcb860e348f27de097637cfbd16f7f.jpg" />
-            </ion-thumbnail>
-          </ion-item>
-        </div>
+  
+        <div *ngIf="checkPaymentMethod()">
+          <div class="momo">
+              <ion-item style="width: 100%;" lines="none">
+                  <div class="infoContainer">
+                      Thanh toán qua ví điện tử MoMo
+                      <div class="momoInfo">SĐT: 0909123888</div>
+                      <div class="momoInfo">Tên Admin: BIC STORE 24H</div>
+                  </div>
+                  <ion-thumbnail slot="end">
+                      <img alt="MoMo Logo" src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" />
+                  </ion-thumbnail>
+              </ion-item>
+          </div>
+          <div class="momo">
+              <ion-item style="width: 100%;" lines="none">
+                  <div class="infoContainer">
+                      Thanh toán qua Banking Online
+                      <div class="momoInfo">STK: 0909123888</div>
+                      <div class="momoInfo">TP Bank Ngân hàng Tiên Phong</div>
+                  </div>
+                  <ion-thumbnail slot="end">
+                      <img alt="TP Bank Logo" src="https://static.topcv.vn/company_logos/03iUoTBsAKb4OsGYfwinSrXWFQYDxZqd_1690868428____5adcb860e348f27de097637cfbd16f7f.jpg" />
+                  </ion-thumbnail>
+              </ion-item>
+          </div>
+      </div>
+      <div *ngIf="!checkPaymentMethod()">
+          <div style="border: solid 1px;">
+              <ion-item style="width: 100%;" lines="none">
+                <div>
+                  <p class="inforPaid">Bạn sẽ thanh toán <span class="payLaterPriceTotal">{{ (subTotal() + tax + deliveryFee) - (subTotal() + tax + deliveryFee) *  getPercentDiscount / 100| number:'1.0-0'}}₫</span>
+                    khi nhận hàng.</p>
+                </div>
+              </ion-item>
+          </div>
+      </div>
+      
         <div class="btnGrPay">
           <ion-button class="btnCancel" (click)="btnCancelCart()">HUỶ ĐƠN HÀNG</ion-button>
-          <ion-button class="btnPaid"  (click)="onCheckoutOrDismiss()"
-          >TÔI ĐÃ THANH TOÁN</ion-button>
+          <ion-button class="btnPaid" (click)="onCheckoutOrDismiss()"
+          >{{checkPaymentMethod()? 'TÔI ĐÃ THANH TOÁN' : 'XÁC NHẬN ĐẶT HÀNG'}}</ion-button>
         </div>
       </ion-content>
     </ng-template>

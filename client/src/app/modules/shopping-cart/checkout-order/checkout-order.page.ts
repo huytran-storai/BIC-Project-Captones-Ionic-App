@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { OverlayEventDetail } from '@ionic/core/components';
-import { AlertController, IonModal, ModalController } from '@ionic/angular';
+import { AlertController, IonModal, LoadingController, ModalController } from '@ionic/angular';
 import { StoreService } from 'src/app/services/store.service';
 import { CartService } from 'src/app/services/cart.service';
 import { UserService } from 'src/app/services/user.service';
@@ -10,7 +10,7 @@ import { PurchasehistoryService } from 'src/app/services/purchasehistory.service
 import { Router } from '@angular/router';
 import { CheckoutService } from 'src/app/services/checkout.service';
 import { PromosService } from 'src/app/services/promos.service';
-// import { type } from 'os';
+
 
 @Component({
   selector: 'app-checkout-order',
@@ -57,8 +57,7 @@ export class CheckOutOrderPage implements OnInit {
   public user: any;
   public deliveryFee: number = 0;
   contactInfo: any = {};
-  newFirstName: string = '';
-  newLastName: string = '';
+  newName: string = '';
   newAddress: string = '';
   newPhone: string = '';
   selectedMethodReceives: string = 'Giao hàng theo địa chỉ của bạn';
@@ -97,6 +96,7 @@ export class CheckOutOrderPage implements OnInit {
         console.error('Error getting cart items:', error);
       }
     );
+    this.checkPaymentMethod();
   }
 
   constructor(
@@ -108,7 +108,8 @@ export class CheckOutOrderPage implements OnInit {
     public alertController: AlertController,
     private router: Router,
     private CheckOutService: CheckoutService,
-    private PromosService: PromosService
+    private PromosService: PromosService,
+    private loadingController: LoadingController,
   ) {
     const now = new Date();
     const year = now.getFullYear();
@@ -133,21 +134,19 @@ export class CheckOutOrderPage implements OnInit {
     this.isModalOpen = true;
   }
 
-  updateContact() {
-    this.contactInfo.firstName = this.newFirstName;
-    this.contactInfo.lastName = this.newLastName;
-    this.contactInfo.address = this.newAddress;
-    this.contactInfo.phone = this.newPhone;
-    this.modalController.dismiss();
-  }
-
-  getCurrentStore() {
+  async getCurrentStore() {
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     this.storeService.getCurrentStoreAddress().subscribe(
       (res: any) => {
+        loading.dismiss();
         this.currentStore = res.data.map((item: any) => item.attributes);
         console.log('find store', this.currentStore);
       },
       (err) => {
+        loading.dismiss();
         console.error('Error fetching current store data:', err);
       }
     );
@@ -195,16 +194,22 @@ export class CheckOutOrderPage implements OnInit {
     window.location.reload();
   }
 
-  delAllProductAPI() {
+  async delAllProductAPI() {
     const delProduct = this.productOrdered;
     const idProduct = delProduct.map((item: { id: any }) => item.id);
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
     idProduct.forEach((id: any) => {
       this.CartService.deleteAll(id).subscribe(
         (response) => {
+          loading.dismiss();
           console.log('Product deleted from cart successfully:', response);
           this.modalController.dismiss();
         },
         (error) => {
+          loading.dismiss();
           console.error('Error deleting product from cart:', error);
         }
       );
@@ -240,12 +245,41 @@ export class CheckOutOrderPage implements OnInit {
         this.user = res?.user;
         if (this.user) {
           this.UserIdCurrent = this.user.id;
+          this.newName = this.user.name;
+          this.newAddress = this.user.address;
+          this.newPhone = this.user.phone;
         } else {
           console.log('none');
         }
       },
       (error) => {
         console.log('Error get user data:', error);
+      }
+    );
+  }
+
+  async updateContact() {
+    const updateInforUser = {
+      id: this.UserIdCurrent,
+      name: this.newName,
+      address: this.newAddress,
+      phone: this.newPhone,
+    };
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
+    this.userService.updateInforUser(this.UserIdCurrent, updateInforUser).subscribe(
+      () => {
+        this.user.name = this.newName;
+        this.user.address = this.newAddress;
+        this.user.phone = this.newPhone;
+        this.modalController.dismiss();
+        loading.dismiss();
+      },
+      (error) => {
+        loading.dismiss();
+        console.log('Lỗi khi cập nhật thông tin người dùng:', error);
       }
     );
   }
@@ -287,8 +321,8 @@ export class CheckOutOrderPage implements OnInit {
           this.wrongCode = true;
           this.sentAlertWrong = 'Mã ưu đãi không hợp lệ';
         }
-        if(this.inputPromo !== '' && found){
-        this.modalController.dismiss(this.inputPromo, 'confirm');
+        if (this.inputPromo !== '' && found) {
+          this.modalController.dismiss(this.inputPromo, 'confirm');
         }
       },
       (err) => {
@@ -324,6 +358,16 @@ export class CheckOutOrderPage implements OnInit {
     },
   ];
 
+  checkPaymentMethod(){
+    if(this.selectedMethodPayments === 'Chuyển khoản trước'){
+      return true;
+    } else if (this.selectedMethodPayments === 'Thanh toán khi nhận hàng'){
+      return false;
+    }
+    return false; 
+    
+  }
+
   updateDeliveryFee() {
     if (this.selectedMethodReceives === 'Giao hàng theo địa chỉ của bạn') {
       this.deliveryFee = 30000;
@@ -333,17 +377,12 @@ export class CheckOutOrderPage implements OnInit {
   }
 
   onCheckoutOrDismiss() {
-    const newFirstName = this.contactInfo.firstName;
-    const newLastName = this.contactInfo.lastName;
-    const newAddress = this.contactInfo.address;
-    const newPhone = this.contactInfo.phone;
-
-    if (!newFirstName || !newLastName || !newAddress || !newPhone) {
+    if (!this.DateTimePick) {
       this.alertController
         .create({
           header: 'Thông báo',
           message:
-            'Xin vui lòng nhập đủ Thông tin liên lạc để tiếp tục đặt hàng.',
+            'Xin vui lòng nhập Ngày nhận hàng để tiếp tục đặt hàng.',
           buttons: [
             {
               text: 'ĐỒNG Ý',
@@ -418,9 +457,14 @@ export class CheckOutOrderPage implements OnInit {
         buttons: [
           {
             text: 'HOÀN TẤT',
-            handler: () => {
+            handler: async () => {
+              const loading = await this.loadingController.create({ 
+                cssClass: 'loading',
+              })
+              await loading.present();
               this.storeService.getInfoCheckOut(checkOutData).subscribe(
                 (res: any) => {
+                  loading.dismiss();
                   console.log(
                     'Res successful post information to orders:',
                     res
@@ -428,6 +472,7 @@ export class CheckOutOrderPage implements OnInit {
                   this.info = res.data.attributes;
                 },
                 (err: any) => {
+                  loading.dismiss();
                   console.error('Error post information to orders:', err);
                 }
               );
