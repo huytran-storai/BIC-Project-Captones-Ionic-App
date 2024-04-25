@@ -55,15 +55,12 @@
         <ion-content>
           <ion-toolbar>
             <ion-title>Cập nhật thông tin </ion-title>
+            <ion-buttons slot="end">
+              <ion-button color="light" (click)="modal.dismiss()"><ion-icon name="close-outline"></ion-icon></ion-button>
+            </ion-buttons>
           </ion-toolbar>
           <ion-content class="containerPromo">
-            <ion-toolbar class="toolBarPromo">
-              <ion-buttons slot="end" color="light" (click)="cancel()" class="close-icon">
-                <ion-icon name="close-outline"></ion-icon>
-              </ion-buttons>
-            </ion-toolbar>
-        
-            <form >
+            <form>
               <ion-list>
                 <ion-item>
                   <ion-label position="floating">Tên họ</ion-label>
