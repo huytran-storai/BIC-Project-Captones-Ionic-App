@@ -56,15 +56,12 @@ export class HomePage implements OnInit {
     const loading = await this.loadingController.create({ 
       cssClass: 'loading',
     })
-    await loading.present();
     this.userService.getUserData().subscribe(
       (res) => {
-        loading.dismiss();
         this.user = res?.user;
         console.log('User data:', this.user);
       },
       (error) => {
-        loading.dismiss();
         console.log('Error get user data:', error);
       }
     );
@@ -73,18 +70,12 @@ export class HomePage implements OnInit {
   
 
   async getCurrentStore() {
-    const loading = await this.loadingController.create({ 
-      cssClass: 'loading',
-    })
-    await loading.present();
     this.storeService.getCurrentStoreAddress().subscribe(
       (res: any) => {
-        loading.dismiss();
         this.currentStore = res?.data[0]?.attributes;
         console.log('find store', this.currentStore);
       },
       (err) => {
-        loading.dismiss();
         console.error('Error fetching current store data:', err);
       }
     );

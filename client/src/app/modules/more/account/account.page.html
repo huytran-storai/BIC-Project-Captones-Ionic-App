@@ -16,7 +16,7 @@
             <p>Sinh nhật : {{user?.birthday}}</p>
             <p>Ngày tạo : {{ user?.createdAt | date: 'yyyy-MM-dd HH:mm:ss' }} </p>
         </ion-label>
-        <ion-button slot="end" class="accountBtn" id="open-modal-promo"> Thay đổi </ion-button>
+        <ion-button slot="end" class="accountBtn" id="open-modal"> Thay đổi </ion-button>
     </ion-item>
 
     <ion-item>
@@ -50,55 +50,61 @@
         </ion-col>
     </ion-card>
 
-    <ion-modal #modal trigger="open-modal-promo" class="modalPromo">
-        <ng-template class="containerPromo">
-          <ion-toolbar class="toolBarPromo">
-            <ion-buttons slot="end" color="light" (click)="cancel()" class="close-icon">
-              <ion-icon name="close-outline"></ion-icon>
-            </ion-buttons>
+    <ion-modal #modal trigger="open-modal">
+      <ng-template>
+        <ion-content>
+          <ion-toolbar>
+            <ion-title>Cập nhật thông tin </ion-title>
           </ion-toolbar>
-      
-          <form >
-            <ion-list>
-              <ion-item>
-                <ion-label position="floating">Tên họ</ion-label>
-                <ion-input type="text"  name="username"></ion-input>
-              </ion-item>
-
-              <ion-item>
-                <ion-label position="floating">Tên đầu</ion-label>
-                <ion-input type="text"  name="username"></ion-input>
-              </ion-item>
-      
-              <ion-item>
-                <ion-label position="floating">Số điện thoại</ion-label>
-                <ion-input type="email"  name="email"></ion-input>
-              </ion-item>
-
-              <ion-item>
-                <ion-label position="floating">Địa chỉ giao hàng</ion-label>
-                <ion-input type="email"  name="email"></ion-input>
-              </ion-item>
-
-              <ion-item>
-                <ion-label position="floating">Mật khẩu hiện tại</ion-label>
-                <ion-input type="email"  name="email"></ion-input>
-              </ion-item>
-
-              <ion-item>
-                <ion-label position="floating">Mật khẩu thay đổi</ion-label>
-                <ion-input type="email"  name="email"></ion-input>
-              </ion-item>
-
-              <ion-item>
-                <ion-label position="floating">Xác nhận lại mật khẩu</ion-label>
-                <ion-input type="email"  name="email"></ion-input>
-              </ion-item>
-      
-            </ion-list>
-            <ion-button expand="full" type="submit">Cập nhật</ion-button>
-          </form>
-        </ng-template>
-      </ion-modal>
-      
+          <ion-content class="containerPromo">
+            <ion-toolbar class="toolBarPromo">
+              <ion-buttons slot="end" color="light" (click)="cancel()" class="close-icon">
+                <ion-icon name="close-outline"></ion-icon>
+              </ion-buttons>
+            </ion-toolbar>
+        
+            <form >
+              <ion-list>
+                <ion-item>
+                  <ion-label position="floating">Tên họ</ion-label>
+                  <ion-input type="text"  name="username"></ion-input>
+                </ion-item>
+  
+                <ion-item>
+                  <ion-label position="floating">Tên đầu</ion-label>
+                  <ion-input type="text"  name="username"></ion-input>
+                </ion-item>
+        
+                <ion-item>
+                  <ion-label position="floating">Số điện thoại</ion-label>
+                  <ion-input type="email"  name="email"></ion-input>
+                </ion-item>
+  
+                <ion-item>
+                  <ion-label position="floating">Địa chỉ giao hàng</ion-label>
+                  <ion-input type="email"  name="email"></ion-input>
+                </ion-item>
+  
+                <ion-item>
+                  <ion-label position="floating">Mật khẩu hiện tại</ion-label>
+                  <ion-input type="email"  name="email"></ion-input>
+                </ion-item>
+  
+                <ion-item>
+                  <ion-label position="floating">Mật khẩu thay đổi</ion-label>
+                  <ion-input type="email"  name="email"></ion-input>
+                </ion-item>
+  
+                <ion-item>
+                  <ion-label position="floating">Xác nhận lại mật khẩu</ion-label>
+                  <ion-input type="email"  name="email"></ion-input>
+                </ion-item>
+        
+              </ion-list>
+              <ion-button expand="full" type="submit">Cập nhật</ion-button>
+            </form>
+          </ion-content>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
 </ion-content>
