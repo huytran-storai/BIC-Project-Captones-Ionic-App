@@ -1,16 +1,20 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Location } from '@angular/common';
-import { OverlayEventDetail } from '@ionic/core/components';
-import { AlertController, IonModal, LoadingController, ModalController } from '@ionic/angular';
-import { StoreService } from 'src/app/services/store.service';
-import { CartService } from 'src/app/services/cart.service';
-import { UserService } from 'src/app/services/user.service';
-import { MaskitoOptions, MaskitoElementPredicateAsync } from '@maskito/core';
-import { PurchasehistoryService } from 'src/app/services/purchasehistory.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  AlertController,
+  IonModal,
+  LoadingController,
+  ModalController,
+} from '@ionic/angular';
+import { OverlayEventDetail } from '@ionic/core/components';
+import { MaskitoElementPredicate, MaskitoOptions } from '@maskito/core';
+import { CartService } from 'src/app/services/cart.service';
 import { CheckoutService } from 'src/app/services/checkout.service';
 import { PromosService } from 'src/app/services/promos.service';
-
+import { StoreService } from 'src/app/services/store.service';
+import { UserService } from 'src/app/services/user.service';
+import phoneMask from 'src/app/shared/mask/phone-mask';
 
 @Component({
   selector: 'app-checkout-order',
@@ -18,30 +22,10 @@ import { PromosService } from 'src/app/services/promos.service';
   styleUrls: ['./checkout-order.page.scss'],
 })
 export class CheckOutOrderPage implements OnInit {
-  readonly phoneMask: MaskitoOptions = {
-    mask: [
-      '+',
-      '8',
-      '4',
-      ' ',
-      '(',
-      /\d/,
-      /\d/,
-      /\d/,
-      /\d/,
-      ')',
-      ' ',
-      /\d/,
-      /\d/,
-      /\d/,
-      ' ',
-      /\d/,
-      /\d/,
-      /\d/,
-    ],
-  };
-  readonly maskPredicate: MaskitoElementPredicateAsync = async (el) =>
+  readonly phoneMask: MaskitoOptions = phoneMask;
+  readonly maskPredicate: MaskitoElementPredicate = async (el) =>
     (el as HTMLIonInputElement).getInputElement();
+
   cartItems: any[] = [];
   pickupChecked: boolean = true;
   deliveryChecked: boolean = false;
@@ -109,7 +93,7 @@ export class CheckOutOrderPage implements OnInit {
     private router: Router,
     private CheckOutService: CheckoutService,
     private PromosService: PromosService,
-    private loadingController: LoadingController,
+    private loadingController: LoadingController
   ) {
     const now = new Date();
     const year = now.getFullYear();
@@ -135,9 +119,9 @@ export class CheckOutOrderPage implements OnInit {
   }
 
   async getCurrentStore() {
-    const loading = await this.loadingController.create({ 
+    const loading = await this.loadingController.create({
       cssClass: 'loading',
-    })
+    });
     await loading.present();
     this.storeService.getCurrentStoreAddress().subscribe(
       (res: any) => {
@@ -197,9 +181,9 @@ export class CheckOutOrderPage implements OnInit {
   async delAllProductAPI() {
     const delProduct = this.productOrdered;
     const idProduct = delProduct.map((item: { id: any }) => item.id);
-    const loading = await this.loadingController.create({ 
+    const loading = await this.loadingController.create({
       cssClass: 'loading',
-    })
+    });
     await loading.present();
     idProduct.forEach((id: any) => {
       this.CartService.deleteAll(id).subscribe(
@@ -265,23 +249,25 @@ export class CheckOutOrderPage implements OnInit {
       address: this.newAddress,
       phone: this.newPhone,
     };
-    const loading = await this.loadingController.create({ 
+    const loading = await this.loadingController.create({
       cssClass: 'loading',
-    })
+    });
     await loading.present();
-    this.userService.updateInforUser(this.UserIdCurrent, updateInforUser).subscribe(
-      () => {
-        this.user.name = this.newName;
-        this.user.address = this.newAddress;
-        this.user.phone = this.newPhone;
-        this.modalController.dismiss();
-        loading.dismiss();
-      },
-      (error) => {
-        loading.dismiss();
-        console.log('Lỗi khi cập nhật thông tin người dùng:', error);
-      }
-    );
+    this.userService
+      .updateInforUser(this.UserIdCurrent, updateInforUser)
+      .subscribe(
+        () => {
+          this.user.name = this.newName;
+          this.user.address = this.newAddress;
+          this.user.phone = this.newPhone;
+          this.modalController.dismiss();
+          loading.dismiss();
+        },
+        (error) => {
+          loading.dismiss();
+          console.log('Lỗi khi cập nhật thông tin người dùng:', error);
+        }
+      );
   }
 
   renderCartDetail() {
@@ -358,14 +344,13 @@ export class CheckOutOrderPage implements OnInit {
     },
   ];
 
-  checkPaymentMethod(){
-    if(this.selectedMethodPayments === 'Chuyển khoản trước'){
+  checkPaymentMethod() {
+    if (this.selectedMethodPayments === 'Chuyển khoản trước') {
       return true;
-    } else if (this.selectedMethodPayments === 'Thanh toán khi nhận hàng'){
+    } else if (this.selectedMethodPayments === 'Thanh toán khi nhận hàng') {
       return false;
     }
-    return false; 
-    
+    return false;
   }
 
   updateDeliveryFee() {
@@ -381,8 +366,7 @@ export class CheckOutOrderPage implements OnInit {
       this.alertController
         .create({
           header: 'Thông báo',
-          message:
-            'Xin vui lòng nhập Ngày nhận hàng để tiếp tục đặt hàng.',
+          message: 'Xin vui lòng nhập Ngày nhận hàng để tiếp tục đặt hàng.',
           buttons: [
             {
               text: 'ĐỒNG Ý',
@@ -458,9 +442,9 @@ export class CheckOutOrderPage implements OnInit {
           {
             text: 'HOÀN TẤT',
             handler: async () => {
-              const loading = await this.loadingController.create({ 
+              const loading = await this.loadingController.create({
                 cssClass: 'loading',
-              })
+              });
               await loading.present();
               this.storeService.getInfoCheckOut(checkOutData).subscribe(
                 (res: any) => {

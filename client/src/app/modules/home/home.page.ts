@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { StoreInfo } from 'src/app/shared/models/StoreInfo';
-import { UserService } from 'src/app/services/user.service';
-import { StoreService } from 'src/app/services/store.service';
-import { BlogsService } from 'src/app/services/blogs.service';
-import { ProductItem } from 'src/app/shared/models/ProductItem';
 import { LoadingController } from '@ionic/angular';
+import { BlogsService } from 'src/app/services/blogs.service';
+import { StoreService } from 'src/app/services/store.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -49,16 +47,15 @@ export class HomePage implements OnInit {
       (window as any).kommunicate = m;
       m._globals = kommunicateSettings;
     })(document, (window as any).kommunicate || {});
-    
   }
 
   async getUserData() {
-    const loading = await this.loadingController.create({ 
+    const loading = await this.loadingController.create({
       cssClass: 'loading',
     })
     this.userService.getUserData().subscribe(
-      (res) => {
-        this.user = res?.user;
+      (data) => {
+        this.user = data;
         console.log('User data:', this.user);
       },
       (error) => {
@@ -67,9 +64,14 @@ export class HomePage implements OnInit {
     );
   }
 
-  
-
   async getCurrentStore() {
+<<<<<<< HEAD
+=======
+    const loading = await this.loadingController.create({
+      cssClass: 'loading',
+    });
+    await loading.present();
+>>>>>>> a9027d7 (feat: Login & Registration  (User))
     this.storeService.getCurrentStoreAddress().subscribe(
       (res: any) => {
         this.currentStore = res?.data[0]?.attributes;

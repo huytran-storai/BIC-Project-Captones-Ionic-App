@@ -4,19 +4,29 @@ import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-import { ShareModule } from './components/shared-components.module';
-import { UserRegisterService } from './services/user-register.service';
 import { HttpClientModule } from '@angular/common/http';
-import { MaskitoModule } from '@maskito/angular';
 import { IonicStorageModule } from '@ionic/storage-angular';
-
+import { CookieService } from 'ngx-cookie-service';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { ShareModule } from './components/shared-components.module';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot({ innerHTMLTemplatesEnabled: true }), AppRoutingModule, MaskitoModule, ShareModule, HttpClientModule, IonicStorageModule.forRoot()],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, UserRegisterService],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot({ innerHTMLTemplatesEnabled: true }),
+    AppRoutingModule,
+    ShareModule,
+    HttpClientModule,
+    IonicStorageModule.forRoot(),
+  ],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    AuthService,
+    CookieService,
+  ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

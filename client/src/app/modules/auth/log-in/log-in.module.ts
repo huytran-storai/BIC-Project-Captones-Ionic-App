@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
 import { LogInPageRoutingModule } from './log-in-routing.module';
 
+import { AuthService } from 'src/app/services/auth.service';
 import { LogInPage } from './log-in.page';
-import { UserRegisterService } from 'src/app/services/user-register.service';
 
 @NgModule({
   imports: [
@@ -15,9 +15,9 @@ import { UserRegisterService } from 'src/app/services/user-register.service';
     FormsModule,
     IonicModule,
     LogInPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  providers: [UserRegisterService],
-  declarations: [LogInPage]
+  providers: [AuthService],
+  declarations: [LogInPage],
 })
 export class LogInPageModule {}

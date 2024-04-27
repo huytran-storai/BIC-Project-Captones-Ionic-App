@@ -1,25 +1,20 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
-
+import { MaskitoDirective } from '@maskito/angular';
 import { SignUpPageRoutingModule } from './sign-up-routing.module';
-
 import { SignUpPage } from './sign-up.page';
-
-import { MaskitoModule } from '@maskito/angular';
-
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MaskitoModule,
+    MaskitoDirective,
     SignUpPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  declarations: [SignUpPage]
+  declarations: [SignUpPage],
 })
-export class SignUpPageModule { }
+export class SignUpPageModule {}
