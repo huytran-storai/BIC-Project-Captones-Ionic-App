@@ -65,13 +65,6 @@ export class HomePage implements OnInit {
   }
 
   async getCurrentStore() {
-<<<<<<< HEAD
-=======
-    const loading = await this.loadingController.create({
-      cssClass: 'loading',
-    });
-    await loading.present();
->>>>>>> a9027d7 (feat: Login & Registration  (User))
     this.storeService.getCurrentStoreAddress().subscribe(
       (res: any) => {
         this.currentStore = res?.data[0]?.attributes;
