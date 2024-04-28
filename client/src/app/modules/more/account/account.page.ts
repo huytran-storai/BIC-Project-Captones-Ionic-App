@@ -17,26 +17,24 @@ export class AccountPage implements OnInit {
     this.getUserData();
   }
 
-  // onWillDismiss(event: Event) {
-  //   const ev = event as CustomEvent<OverlayEventDetail<string>>;
-  //   if (ev.detail.role === 'confirm') {
-  //     this.message = `${ev.detail.data}`;
-  //   }
-  // }
-
-  cancel() {
-    this.modalController.dismiss(null, 'cancel');
-  }
-
-  getUserData() {
-    this.userService.getUserData().subscribe(res => {
-      this.user = res?.user
-      console.log("check user cur", res)
-    } );
+  async getUserData() {
+    this.userService.getUserData().subscribe(
+      (data) => {
+        this.user = data;
+        console.log('User data:', this.user);
+      },
+      (error) => {
+        console.log('Error get user data:', error);
+      }
+    );
   }
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
+  }
+
+  cancel() {
+    this.modalController.dismiss(null, 'cancel');
   }
 
 }

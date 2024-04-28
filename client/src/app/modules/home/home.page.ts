@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
-import { BlogsService } from 'src/app/services/blogs.service';
 import { StoreService } from 'src/app/services/store.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -23,9 +21,6 @@ export class HomePage implements OnInit {
   constructor(
     private userService: UserService,
     private storeService: StoreService,
-    private blogsService: BlogsService,
-    private productService: StoreService,
-    private loadingController: LoadingController
   ) {}
 
   ngOnInit() {
@@ -50,9 +45,6 @@ export class HomePage implements OnInit {
   }
 
   async getUserData() {
-    const loading = await this.loadingController.create({
-      cssClass: 'loading',
-    })
     this.userService.getUserData().subscribe(
       (data) => {
         this.user = data;

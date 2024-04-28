@@ -84,9 +84,11 @@ const routes: Routes = [
   {
     path: 'detail-history/:id',
     loadChildren: () => import('./modules/more/detail-history/detail-history.module').then( m => m.DetailHistoryPageModule)
+  },
+  {
+    path: 'reset-password',
+    loadChildren: () => import('./modules/auth/reset-password/reset-password.module').then( m => m.ResetPasswordPageModule)
   }
-
-
 
 ];
 

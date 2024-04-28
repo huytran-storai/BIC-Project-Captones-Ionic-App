@@ -14,11 +14,16 @@ export class MorePage implements OnInit {
     this.getUserData();
   }
 
-  getUserData() {
-    this.userService.getUserData().subscribe(res => {
-      this.user = res?.user
-      console.warn(this.user)
-    } );
+  async getUserData() {
+    this.userService.getUserData().subscribe(
+      (data) => {
+        this.user = data;
+        console.log('User data:', this.user);
+      },
+      (error) => {
+        console.log('Error get user data:', error);
+      }
+    );
   }
 
   logout() {
