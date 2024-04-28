@@ -6,8 +6,8 @@
 
 <ion-content [fullscreen]="true">
   <ion-list style="font-weight: 400;">
-    <ion-item [routerLink]="['/account']"><a>Tài khoản của tôi</a></ion-item>
-    <!-- <ion-item [routerLink]="['/account']" *ngIf="user"><a>Tài khoản của tôi</a></ion-item> -->
+    <!-- <ion-item [routerLink]="['/account']"><a>Tài khoản của tôi</a></ion-item> -->
+    <ion-item [routerLink]="['/account']" *ngIf="user"><a>Tài khoản của tôi</a></ion-item>
     <ion-item [routerLink]="['/purchase-history']" *ngIf="user"><a>Lịch sử mua</a></ion-item>
     <ion-item [routerLink]="['/aboutourapp']"><a>Về chúng tôi</a></ion-item>
     <ion-item [routerLink]="['/chatboxbic']"><a>Trung tâm hỗ trợ</a></ion-item>
