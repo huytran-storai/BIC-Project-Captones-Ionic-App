@@ -10,7 +10,7 @@
     <ion-item [routerLink]="['/account']" *ngIf="user"><a>Tài khoản của tôi</a></ion-item>
     <ion-item [routerLink]="['/purchase-history']" *ngIf="user"><a>Lịch sử mua</a></ion-item>
     <ion-item [routerLink]="['/aboutourapp']"><a>Về chúng tôi</a></ion-item>
-    <ion-item [routerLink]="['/chatboxbic']"><a>Trung tâm hỗ trợ</a></ion-item>
+    <!-- <ion-item [routerLink]="['/chatboxbic']"><a>Trung tâm hỗ trợ</a></ion-item> -->
     <ion-item [routerLink]="['/policy']"><a>Chính sách và bảo mật</a></ion-item>
     <ion-row class="ion-margin ion-justify-content-center" style="margin-top: 40%">
       <ion-button class="moreScreenButton" type="button" color="primary" *ngIf="user; else showLogin" (click)="logout()">
