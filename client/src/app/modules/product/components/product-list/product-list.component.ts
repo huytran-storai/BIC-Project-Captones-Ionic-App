@@ -133,7 +133,6 @@ export class ProductListComponent implements OnInit {
     if (this.user !== undefined && this.user !== null) {
     event.stopPropagation();
     const loading = await this.loadingController.create({ 
-      // spinner: 'dots',
       cssClass: 'loading',
     })
     await loading.present();
@@ -148,6 +147,7 @@ export class ProductListComponent implements OnInit {
     this.CartService.pushProducts(productData).subscribe(
       (response) => {
         loading.dismiss(); 
+        console.log("add to cart at product list")
         const strapiId = response.data.id;
         const saveProductId = response.data.attributes.ProductId;
         const savedCartItemsString = localStorage.getItem(`${this.UserIdCurrent}`);
@@ -209,6 +209,7 @@ export class ProductListComponent implements OnInit {
         this.CartService.deleteProduct(strapiIdToDelete).subscribe(
           (response) => {
             loading.dismiss();
+            console.log("delete item success")
             this.renderStrapiId = this.renderStrapiId.filter((cart: any) => cart.saveProductId !== item.attributes.ProductId);
             localStorage.setItem(`${this.UserIdCurrent}`, JSON.stringify(this.renderStrapiId));
           },

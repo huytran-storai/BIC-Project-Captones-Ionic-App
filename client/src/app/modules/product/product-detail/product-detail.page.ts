@@ -135,6 +135,7 @@ export class ProductDetailPage implements OnInit {
     this.CartService.pushProducts(productData).subscribe(
       (response) => {
         loading.dismiss();
+        console.log("add to cart at product detail")
         const strapiId = response.data.id;
         const saveProductId = response.data.attributes.ProductId;
         const savedCartItemsString = localStorage.getItem(`${this.UserIdCurrent}`);
