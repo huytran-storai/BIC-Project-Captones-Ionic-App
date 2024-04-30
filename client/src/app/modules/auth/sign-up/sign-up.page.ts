@@ -65,7 +65,7 @@ export class SignUpPage {
 
         loading.present();
 
-        const response = await lastValueFrom(
+        const res = await lastValueFrom(
           this.authService.register({
             username: email,
             email,
@@ -75,9 +75,10 @@ export class SignUpPage {
           })
         );
 
-        if (JSON.stringify(response) !== '{"jwt":"","user":{}}') {
+        if (JSON.stringify(res) !== '{}') {
           setTimeout(() => {
-            this.userService.setUserData(response);
+            const { jwt, user } = res;
+            this.userService.setUserData(jwt!, user!);
             loading.dismiss();
             this.router.navigate(['/home']);
           }, 1500);

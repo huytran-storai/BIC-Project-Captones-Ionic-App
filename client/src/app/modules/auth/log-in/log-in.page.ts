@@ -48,16 +48,17 @@ export class LogInPage {
 
         loading.present();
 
-        const response = await lastValueFrom(
+        const res = await lastValueFrom(
           this.authService.login({
             identifier: email,
             password,
           })
         );
 
-        if (JSON.stringify(response) !== '{"jwt":"","user":{}}') {
+        if (JSON.stringify(res) !== '{}') {
           setTimeout(() => {
-            this.userService.setUserData(response);
+            const { jwt, user } = res;
+            this.userService.setUserData(jwt!, user!);
             loading.dismiss();
             this.router.navigate(['/home']);
           }, 1500);

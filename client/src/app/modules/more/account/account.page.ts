@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, IonModal, ModalController } from '@ionic/angular';
+import { IonModal, ModalController } from '@ionic/angular';
 
 import { UserService } from 'src/app/services/user.service';
 @Component({
@@ -11,7 +11,10 @@ export class AccountPage implements OnInit {
   public user: any;
   modal!: IonModal;
   showPassword: boolean = false;
-  constructor(private userService: UserService,private modalController: ModalController,) { }
+  constructor(
+    private userService: UserService,
+    private modalController: ModalController
+  ) {}
 
   ngOnInit() {
     this.getUserData();

@@ -6,7 +6,7 @@ import { Observable, catchError, of } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:1337/api/auth/local';
+  private authApiUrl = 'http://localhost:1337/api/auth';
 
   constructor(private http: HttpClient) {}
 
@@ -28,10 +28,12 @@ export class AuthService {
       }),
     };
     return this.http
-      .post<UserData>(this.apiUrl, JSON.stringify(credentials), httpOptions)
-      .pipe(
-        catchError(this.handleError<UserData>('login', { jwt: '', user: {} }))
-      );
+      .post<UserData>(
+        `${this.authApiUrl}/local`,
+        JSON.stringify(credentials),
+        httpOptions
+      )
+      .pipe(catchError(this.handleError('login', {})));
   }
 
   register(user: {
@@ -48,19 +50,15 @@ export class AuthService {
     };
     return this.http
       .post<UserData>(
-        `${this.apiUrl}/register`,
+        `${this.authApiUrl}/local/register`,
         JSON.stringify(user),
         httpOptions
       )
-      .pipe(
-        catchError(
-          this.handleError<UserData>('registration', { jwt: '', user: {} })
-        )
-      );
+      .pipe(catchError(this.handleError('registration', {})));
   }
 }
 
 interface UserData {
-  jwt: string;
-  user: any; // Replace 'any' with the appropriate type for your user object
+  jwt?: string;
+  user?: any; // Replace 'any' with the appropriate type for your user object
 }
