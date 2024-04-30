@@ -56,6 +56,40 @@ export class AuthService {
       )
       .pipe(catchError(this.handleError('registration', {})));
   }
+
+  forgotPassword(email: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http
+      .post(
+        `${this.authApiUrl}/forgot-password`,
+        JSON.stringify({ email }),
+        httpOptions
+      )
+      .pipe(catchError(this.handleError('forgotPassword', { ok: false })));
+  }
+
+  resetPassword(
+    code: string,
+    password: string,
+    passwordConfirmation: string
+  ): Observable<UserData> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http
+      .post(
+        `${this.authApiUrl}/reset-password`,
+        JSON.stringify({ code, password, passwordConfirmation }),
+        httpOptions
+      )
+      .pipe(catchError(this.handleError('resetPassword', {})));
+  }
 }
 
 interface UserData {

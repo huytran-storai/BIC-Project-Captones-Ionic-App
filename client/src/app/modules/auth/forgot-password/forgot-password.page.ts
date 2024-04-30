@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { lastValueFrom } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.page.html',
@@ -8,24 +10,25 @@ import { Router } from '@angular/router';
 })
 export class ForgotPasswordPage implements OnInit {
   form: FormGroup;
-  constructor(private router: Router) {
+  constructor(private authService: AuthService, private router: Router) {
     this.form = new FormGroup({
-      'email': new FormControl(null, [Validators.required, Validators.email])
+      email: new FormControl(null, [Validators.required, Validators.email]),
     });
   }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 
-  login() {
+  async forgotPassword() {
     if (this.form.valid) {
-      this.router.navigate(['/login']);
+      const emailControl = this.form.get('email');
+      if (emailControl) {
+        const email = emailControl.value;
+        const res = (await lastValueFrom(
+          this.authService.forgotPassword(email)
+        )) as { ok: boolean };
+        if (res.ok) {
+        }
+      }
     }
   }
-
-  resetPassWord() {
-
-  }
-
 }
