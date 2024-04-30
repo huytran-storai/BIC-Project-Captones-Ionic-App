@@ -12,11 +12,10 @@ export class UserService {
 
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 
-  setUserData({ jwt, user }: { jwt: string; user: any }): void {
+  setUserData(jwt: string, user: any): void {
     this.cookieService.set('auth_token', jwt);
     this.cookieService.set('id', user.id);
     this.cookieService.set('email', user.email);
-    console.log(this.cookieService.check('auth_token'));
     this.userData.next(user);
   }
 
