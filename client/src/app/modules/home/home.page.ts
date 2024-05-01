@@ -35,7 +35,7 @@ export class HomePage implements OnInit {
     this.getCurrentStore();
     (function (d, m) {
       var kommunicateSettings = {
-        appId: '1161fc142cdd17f8662859181b2c974bc',
+        appId: '3a571fc34243aaf79d9d6597521f99ce',
         popupWidget: true,
         automaticChatOpenOnNavigation: true,
         automaticChatOpen: true,
