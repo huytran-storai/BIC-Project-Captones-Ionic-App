@@ -13,6 +13,11 @@ export class CheckoutService {
   getInfoCheckOut(){
     return this.http.get(`${this.apiUrl}/orders`)
   }
+
+  getInfoPayment(){
+    return this.http.get(`${this.apiUrl}/payment-managements`)
+  }
+
   deleteAll(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/cart-items/${id}`)
     .pipe(
