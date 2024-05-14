@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { StoreService } from 'src/app/services/store.service';
 import { ProductItem } from 'src/app/shared/models/ProductItem';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
-import { NavController,AlertController,ModalController, LoadingController } from '@ionic/angular';
+import {
+  NavController,
+  AlertController,
+  ModalController,
+  LoadingController,
+} from '@ionic/angular';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,13 +17,15 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./filter-result.page.scss'],
 })
 export class FilterResultPage implements OnInit {
-  items: ProductItem[] = [];
   public productData: any;
   public user: any;
   public UserIdCurrent: any;
   public renderStrapiId: any;
   public productRender: any;
   public productOrdered: any;
+  productResult: any[] = [];
+  public productOfSelectedTypes: any;
+  public productOfSelectedBrands: any;
 
   constructor(
     private StoreService: StoreService,
@@ -30,14 +37,29 @@ export class FilterResultPage implements OnInit {
     private productService: StoreService,
     private userService: UserService,
     private loadingController: LoadingController,
-  ) { }
+    private route: ActivatedRoute
+  ) {
+
+  }
 
   ngOnInit() {
-    this.items = this.StoreService.getAllProducts();
-    this.getProductRender()
+    this.route.queryParams.subscribe((params) => {
+      const selectedTypes = params['types']; // Lấy các loại nước từ query parameters
+      const selectedBrands = params['brands'];
+      console.log('đã chọn:', selectedTypes);
+      console.log('Đã chọn thương hiệu:', selectedBrands);
+      this.productOfSelectedTypes = selectedTypes;
+      this.productOfSelectedBrands = selectedBrands;
+      // Lọc danh sách sản phẩm dựa trên các loại nước đã chọn
+      // this.products = this.filterProducts(selectedTypes);
+    });
+    // this.items = this.StoreService.getAllProducts();
+    this.getProductRender();
     this.getUserData();
     const initializationCart = localStorage.getItem(`${this.user.id}`);
-    this.renderStrapiId = initializationCart? JSON.parse(initializationCart): [];
+    this.renderStrapiId = initializationCart
+      ? JSON.parse(initializationCart)
+      : [];
     this.checkIdLocalAgainAfterDeleteOnStrapi();
   }
 
@@ -45,8 +67,10 @@ export class FilterResultPage implements OnInit {
     this.CartService.getProductsCart().subscribe(
       (res: any) => {
         this.productRender = res.data.map((item: any) => item);
-        this.productOrdered = this.productRender.map((item: any) => item.id );
-        let getIdItemCart = this.renderStrapiId.filter((value : any) => this.productOrdered.includes(value.strapiId))
+        this.productOrdered = this.productRender.map((item: any) => item.id);
+        let getIdItemCart = this.renderStrapiId.filter((value: any) =>
+          this.productOrdered.includes(value.strapiId)
+        );
         localStorage.setItem(`${this.user.id}`, JSON.stringify(getIdItemCart));
       },
       (err: any) => {
@@ -56,16 +80,16 @@ export class FilterResultPage implements OnInit {
   }
 
   async getUserData() {
-    const loading = await this.loadingController.create({ 
+    const loading = await this.loadingController.create({
       cssClass: 'loading',
-    })
+    });
     await loading.present();
     this.userService.getUserData().subscribe(
       (res) => {
         loading.dismiss();
         this.user = res?.user;
-        if(this.user){
-          this.UserIdCurrent = this.user.id
+        if (this.user) {
+          this.UserIdCurrent = this.user.id;
         } else {
           console.log('User data is undefined or null');
         }
@@ -77,48 +101,56 @@ export class FilterResultPage implements OnInit {
     );
   }
 
-  Back(){
-    this.navCtrl.back()
+  Back() {
+    this.navCtrl.back();
   }
 
-  navigateToProductDetail(items: any) {
-    this.router.navigate(['product-detail/', items.attributes.ProductName,items.attributes.ProductId]); 
+  navigateToProductDetail(item: any) {
+    this.router.navigate([
+      'product-detail/',
+      item.attributes.ProductName,
+      item.attributes.ProductId,
+    ]);
   }
 
-  itemCart:any = []
+  itemCart: any = [];
   async addProduct(event: Event, item: any) {
     if (this.user !== undefined && this.user !== null) {
-    event.stopPropagation();
-    const productData = {
-      ProductName: item.attributes.ProductName,
-      ProductPrice: item.attributes.ProductPrice,
-      QuantityDefault: 1,
-      ProductImage: item.attributes.ProductImage,
-      ProductId: item.attributes.ProductId,
-      OrderedUserId: this.UserIdCurrent,
-    };
-    const loading = await this.loadingController.create({ 
-      cssClass: 'loading',
-    })
-    await loading.present();
-    this.CartService.pushProducts(productData).subscribe(
-      (response) => {
-        loading.dismiss();
-        const strapiId = response.data.id;
-        const saveProductId = response.data.attributes.ProductId;
-        const savedCartItemsString = localStorage.getItem(`${this.user.id}`);
-        const existingCartItems = savedCartItemsString? JSON.parse(savedCartItemsString): [];
-        existingCartItems.push({ ...item, strapiId, saveProductId });
-        localStorage.setItem(`${this.user.id}`,JSON.stringify(existingCartItems));
-        this.renderStrapiId = existingCartItems;
-      },
-      (error) => {
-        loading.dismiss();
-        console.error('Error adding product to cart:', error);
-      }
-    );
-    }
-    else {
+      event.stopPropagation();
+      const productData = {
+        ProductName: item.attributes.ProductName,
+        ProductPrice: item.attributes.ProductPrice,
+        QuantityDefault: 1,
+        ProductImage: item.attributes.ProductImage,
+        ProductId: item.attributes.ProductId,
+        OrderedUserId: this.UserIdCurrent,
+      };
+      const loading = await this.loadingController.create({
+        cssClass: 'loading',
+      });
+      await loading.present();
+      this.CartService.pushProducts(productData).subscribe(
+        (response) => {
+          loading.dismiss();
+          const strapiId = response.data.id;
+          const saveProductId = response.data.attributes.ProductId;
+          const savedCartItemsString = localStorage.getItem(`${this.user.id}`);
+          const existingCartItems = savedCartItemsString
+            ? JSON.parse(savedCartItemsString)
+            : [];
+          existingCartItems.push({ ...item, strapiId, saveProductId });
+          localStorage.setItem(
+            `${this.user.id}`,
+            JSON.stringify(existingCartItems)
+          );
+          this.renderStrapiId = existingCartItems;
+        },
+        (error) => {
+          loading.dismiss();
+          console.error('Error adding product to cart:', error);
+        }
+      );
+    } else {
       event.stopPropagation();
       this.alertController
         .create({
@@ -145,19 +177,26 @@ export class FilterResultPage implements OnInit {
 
   async cancelProduct(event: Event, item: any) {
     event.stopPropagation();
-    const loading = await this.loadingController.create({ 
+    const loading = await this.loadingController.create({
       cssClass: 'loading',
-    })
+    });
     await loading.present();
-    const cartItem = this.renderStrapiId.find((cart: any) => cart.saveProductId === item.attributes.ProductId);
+    const cartItem = this.renderStrapiId.find(
+      (cart: any) => cart.saveProductId === item.attributes.ProductId
+    );
     if (cartItem) {
       const strapiIdToDelete = cartItem.strapiId;
       if (strapiIdToDelete) {
         this.CartService.deleteProduct(strapiIdToDelete).subscribe(
           (response) => {
             loading.dismiss();
-            this.renderStrapiId = this.renderStrapiId.filter((cart: any) => cart.saveProductId !== item.attributes.ProductId);
-            localStorage.setItem(`${this.user.id}`, JSON.stringify(this.renderStrapiId));
+            this.renderStrapiId = this.renderStrapiId.filter(
+              (cart: any) => cart.saveProductId !== item.attributes.ProductId
+            );
+            localStorage.setItem(
+              `${this.user.id}`,
+              JSON.stringify(this.renderStrapiId)
+            );
           },
           (error) => {
             loading.dismiss();
@@ -174,11 +213,12 @@ export class FilterResultPage implements OnInit {
     }
   }
 
-
-  isProductInCart(item: number): boolean{
+  isProductInCart(item: number): boolean {
     if (this.user !== undefined && this.user !== null) {
-      let cartData = JSON.parse(localStorage.getItem(`${this.user.id}`) || '[]')
-      return cartData.some((product: any) => product.saveProductId === item)
+      let cartData = JSON.parse(
+        localStorage.getItem(`${this.user.id}`) || '[]'
+      );
+      return cartData.some((product: any) => product.saveProductId === item);
     } else {
       return false;
     }
@@ -194,17 +234,39 @@ export class FilterResultPage implements OnInit {
       this.cartNumber = 0;
     }
   }
-  
+
+  filterProducts(selectedTypes: string) {
+    // Viết code để lọc danh sách sản phẩm dựa trên các loại nước đã chọn
+  }
+
   async getProductRender() {
-    const loading = await this.loadingController.create({ 
+    const loading = await this.loadingController.create({
       cssClass: 'loading',
-    })
+    });
     await loading.present();
     this.productService.getProducts().subscribe(
       (res: any) => {
         loading.dismiss();
         this.productData = res.data.map((item: any) => item);
-        console.log('Product lists:', this.productData);
+        const selectedTypesArray = this.productOfSelectedTypes.split(',');
+        const selectedBrandsArray = this.productOfSelectedBrands.split(','); 
+
+        if (selectedTypesArray.length > 0 && selectedBrandsArray[0] === "") {
+          this.productResult = this.productData.filter((product: any) => {
+            return selectedTypesArray.includes(product.attributes.DrinkType)
+          });
+        } 
+        else if (
+          selectedTypesArray.length > 0 &&
+          selectedBrandsArray.length > 0
+        ) {
+          this.productResult = this.productData.filter((product: any) => {
+            return (
+              selectedTypesArray.includes(product.attributes.DrinkType) &&
+              selectedBrandsArray.includes(product.attributes.Brand)
+            );
+          });
+        }
       },
       (err: any) => {
         loading.dismiss();
@@ -212,6 +274,4 @@ export class FilterResultPage implements OnInit {
       }
     );
   }
-
-
 }

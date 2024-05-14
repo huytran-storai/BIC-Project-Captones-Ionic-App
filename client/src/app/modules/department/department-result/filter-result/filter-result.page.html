@@ -9,7 +9,7 @@
 
 <ion-content>
   <ion-row>
-    <ion-col size="6" *ngFor="let item of productData" class="bg-content">
+    <ion-col size="6" *ngFor="let item of productResult" class="bg-content">
       <!-- Fix lỗi click add bị vô luôn detail product  -->
       <ion-card (click)="navigateToProductDetail(item)">
         <ion-row>

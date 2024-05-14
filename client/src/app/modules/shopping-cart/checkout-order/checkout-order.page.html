@@ -311,19 +311,19 @@
         </ion-label>
   
         <div *ngIf="checkPaymentMethod()">
-          <div class="momo">
+          <div class="momo" *ngFor="let inforPay of inforPayment">
               <ion-item style="width: 100%;" lines="none">
                   <div class="infoContainer">
-                      Thanh toán qua ví điện tử MoMo
-                      <div class="momoInfo">SĐT: 0909123888</div>
-                      <div class="momoInfo">Tên Admin: BIC STORE 24H</div>
+                      {{inforPay.namePayment}}
+                      <div class="momoInfo">Mã: {{inforPay.paymentCode}}</div>
+                      <div class="momoInfo">Tên: {{inforPay.cardDetail}}</div>
                   </div>
                   <ion-thumbnail slot="end">
-                      <img alt="MoMo Logo" src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" />
+                    <img alt="{{inforPay.imgPayment}}" [src]="inforPay.imgPayment" />
                   </ion-thumbnail>
               </ion-item>
           </div>
-          <div class="momo">
+          <!-- <div class="momo">
               <ion-item style="width: 100%;" lines="none">
                   <div class="infoContainer">
                       Thanh toán qua Banking Online
@@ -334,8 +334,9 @@
                       <img alt="TP Bank Logo" src="https://static.topcv.vn/company_logos/03iUoTBsAKb4OsGYfwinSrXWFQYDxZqd_1690868428____5adcb860e348f27de097637cfbd16f7f.jpg" />
                   </ion-thumbnail>
               </ion-item>
-          </div>
+          </div> -->
       </div>
+
       <div *ngIf="!checkPaymentMethod()">
           <div style="border: solid 1px;">
               <ion-item style="width: 100%;" lines="none">

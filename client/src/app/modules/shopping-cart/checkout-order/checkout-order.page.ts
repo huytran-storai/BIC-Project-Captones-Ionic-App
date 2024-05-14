@@ -77,6 +77,7 @@ export class CheckOutOrderPage implements OnInit {
   public productRender: any;
   public productOrdered: any;
   public deleteProductInCK: any;
+  public inforPayment:any;
 
   ngOnInit() {
     // this.loadCartItems();
@@ -87,6 +88,7 @@ export class CheckOutOrderPage implements OnInit {
     this.getPromoRender();
     this.updateDeliveryFee();
     this.renderCartDetail();
+    this.getInforPayment();
     // this.infoCheckOut();
     this.CartService.getCartItemsObservable().subscribe(
       (response) => {
@@ -505,5 +507,23 @@ export class CheckOutOrderPage implements OnInit {
       .then((alert) => {
         alert.present();
       });
+  }
+
+  async getInforPayment() {
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
+    this.CheckOutService.getInfoPayment().subscribe(
+      (res: any) => {
+        loading.dismiss();
+        this.inforPayment = res.data.map((item: any) => item.attributes);
+        console.log('find infor payment', this.inforPayment);
+      },
+      (err) => {
+        loading.dismiss();
+        console.error('Error fetching information payment data:', err);
+      }
+    );
   }
 }

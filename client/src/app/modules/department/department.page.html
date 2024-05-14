@@ -1,6 +1,84 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title class="ion-justify-content-center">Danh Mục</ion-title>
+    <ion-buttons slot="end">
+      <ion-button id="open-modal"> <ion-icon name="options-outline" slot="end"></ion-icon></ion-button>
+    </ion-buttons>
+        <!-- Modal Filter -->
+        <ion-modal #modal trigger="open-modal">
+          <ng-template>
+            <ion-header>
+              <ion-toolbar>
+                <ion-title class="titleFilter">Tìm kiếm</ion-title>
+                <ion-buttons slot="end">
+                  <ion-button (click)="modal.dismiss()"><ion-icon name="close-outline" class="iconClose"
+                      size="large"></ion-icon></ion-button>
+                </ion-buttons>
+              </ion-toolbar>
+            </ion-header>
+            <ion-content>
+              <!-- List department -->
+              <h3 class="typeFilter">Danh Mục</h3>
+              <div class="bar"></div>
+              <ion-list>
+                <ion-item *ngFor="let depart of productTag; let i = index" lines="full">
+                  <ion-checkbox slot="start" [(ngModel)]="selectedDepartments[depart.DepartmentName]" (ionChange)="handleChange(depart)"></ion-checkbox>
+                  <ion-label>{{ depart.DepartmentName }}</ion-label>
+                  <!-- <ng-container *ngIf="i === 2 && !showMoreDepartment">
+                    <ion-buttons (click)="toggleShowMoreDepartment()" class="btnSee">Xem thêm</ion-buttons>
+                  </ng-container>
+                  <ng-container *ngIf="i === 3 && showMoreDepartment">
+                    <ion-buttons (click)="toggleShowMoreDepartment()" class="btnSee">Rút gọn</ion-buttons>
+                  </ng-container> -->
+                </ion-item>
+              </ion-list>
+              <!-- End list department -->
+              <!-- List brand -->
+              <h3 class="typeFilter">Nhãn hàng</h3>
+              <div class="bar"></div>
+              <ion-list>
+                <ion-item *ngFor="let brand of BrandDrink; let i = index" lines="full">
+                  <ion-checkbox slot="start" [(ngModel)]="selectedBrand[brand]"></ion-checkbox>
+                  <ion-label>{{ brand }}</ion-label>
+                  <!-- <ng-container *ngIf="i === 2 && !showMoreBrand">
+                    <ion-buttons (click)="toggleShowMoreBrand()" class="btnSee" >Xem thêm</ion-buttons>
+                  </ng-container>
+                  <ng-container *ngIf="i === brandShow.length - 1 && showMoreBrand">
+                    <ion-buttons (click)="toggleShowMoreBrand()" class="btnSee">Rút gọn</ion-buttons>
+                  </ng-container> -->
+                </ion-item>
+              </ion-list>
+              <!-- End list brand -->
+               <!-- List lifestyle -->
+    
+               <!-- <h3 class="typeFilter">Hương vị</h3>
+               <div class="bar"></div>
+               <ion-list>
+                 <ion-item *ngFor="let lifestyle of lifestyleShow; let i = index" lines="full">
+                   <ion-checkbox slot="start" [(ngModel)]="selectedLifestyle[lifestyle]"></ion-checkbox>
+                   <ion-label>{{ lifestyle }}</ion-label>
+                   <ng-container *ngIf="i === 2 && !showMoreLifestyles">
+                     <ion-buttons (click)="toggleShowMoreLifestyle()" class="btnSee">Xem thêm</ion-buttons>
+                   </ng-container>
+                   <ng-container *ngIf="i === lifestyleShow.length - 1 && showMoreLifestyles">
+                     <ion-buttons (click)="toggleShowMoreLifestyle()" class="btnSee">Rút gọn</ion-buttons>
+                   </ng-container>
+                 </ion-item>
+               </ion-list> -->
+    
+               <!-- End list lifestyle -->
+              <div  class="centerBtn">
+                <ion-button  (click)="toggleReset()" class="btnActionFilter btnReset">CHỌN LẠI</ion-button>
+                <ion-button  (click)=" logSelectedDepartments()" 
+                class="btnActionFilter btnApply" 
+                [disabled]="!areAnyCheckboxesSelected()">
+                  TÌM KIẾM
+                </ion-button>
+              </div>
+            </ion-content>
+          </ng-template>
+        </ion-modal>
+        <!-- End modal Filter -->
   </ion-toolbar>
 </ion-header>
 
