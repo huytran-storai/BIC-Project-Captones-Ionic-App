@@ -1,7 +1,11 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ProductItem } from 'src/app/shared/models/ProductItem';
 import { StoreService } from 'src/app/services/store.service';
-import { AlertController, LoadingController, ModalController } from '@ionic/angular';
+import {
+  AlertController,
+  LoadingController,
+  ModalController,
+} from '@ionic/angular';
 import { register } from 'swiper/element/bundle';
 import { CartService } from 'src/app/services/cart.service';
 import { Router } from '@angular/router';
@@ -30,14 +34,14 @@ export class ProductListComponent implements OnInit {
   public UserIdCurrent: any;
   public productRender: any;
   public productOrdered: any;
-  public forEachSaveProductId: any
-  public forEachStrapiId: any
-  public getStrapiIdDelete: any
+  public forEachSaveProductId: any;
+  public forEachStrapiId: any;
+  public getStrapiIdDelete: any;
   public itemID!: number;
   saveItemCart: any = [];
   public renderStrapiId: any;
   public saveRenderStrapiId: any;
- 
+
   constructor(
     private CartService: CartService,
     private StoreService: StoreService,
@@ -49,21 +53,35 @@ export class ProductListComponent implements OnInit {
     private loadingController: LoadingController
   ) {}
 
+  // ngOnInit(): void {
+  //   this.getProductRender();
+  //   this.getUserData();
+  //   const initializationCart = localStorage.getItem(`${this.UserIdCurrent}`);
+  //   this.renderStrapiId = initializationCart? JSON.parse(initializationCart): [];
+  //   this.checkIdLocalAgainAfterDeleteOnStrapi();
+  // }
+
   ngOnInit(): void {
     this.getProductRender();
     this.getUserData();
     const initializationCart = localStorage.getItem(`${this.UserIdCurrent}`);
-    this.renderStrapiId = initializationCart? JSON.parse(initializationCart): [];
-    this.checkIdLocalAgainAfterDeleteOnStrapi();
+    this.CartService.cartItems$.subscribe((cartItems: any) => {
+      this.renderStrapiId = cartItems;
+    });
   }
 
   checkIdLocalAgainAfterDeleteOnStrapi() {
     this.CartService.getProductsCart().subscribe(
       (res: any) => {
         this.productRender = res.data.map((item: any) => item);
-        this.productOrdered = this.productRender.map((item: any) => item.id );
-        let getIdItemCart = this.renderStrapiId.filter((value : any) => this.productOrdered.includes(value.strapiId))
-        localStorage.setItem(`${this.UserIdCurrent}`, JSON.stringify(getIdItemCart));
+        this.productOrdered = this.productRender.map((item: any) => item.id);
+        let getIdItemCart = this.renderStrapiId.filter((value: any) =>
+          this.productOrdered.includes(value.strapiId)
+        );
+        localStorage.setItem(
+          `${this.UserIdCurrent}`,
+          JSON.stringify(getIdItemCart)
+        );
       },
       (err: any) => {
         console.log('Error Cart list API:', err);
@@ -100,7 +118,7 @@ export class ProductListComponent implements OnInit {
     this.userService.getUserData().subscribe(
       (res) => {
         this.user = res?.user;
-        if(this.user){
+        if (this.user) {
           this.UserIdCurrent = this.user.id;
         } else {
           console.log('User data is undefined or null');
@@ -113,9 +131,9 @@ export class ProductListComponent implements OnInit {
   }
 
   async getProductRender() {
-    const loading = await this.loadingController.create({ 
+    const loading = await this.loadingController.create({
       cssClass: 'loading',
-    })
+    });
     await loading.present();
     this.productService.getProducts().subscribe(
       (res: any) => {
@@ -129,40 +147,132 @@ export class ProductListComponent implements OnInit {
     );
   }
 
-  async addProduct(event: Event, item: any) {
+  // async addProduct(event: Event, item: any) {
+  //   if (this.user !== undefined && this.user !== null) {
+  //   event.stopPropagation();
+  //   const loading = await this.loadingController.create({
+  //     cssClass: 'loading',
+  //   })
+  //   await loading.present();
+  //   const productData = {
+  //     ProductName: item.attributes.ProductName,
+  //     ProductPrice: item.attributes.ProductPrice,
+  //     QuantityDefault: 1,
+  //     ProductImage: item.attributes.ProductImage,
+  //     ProductId: item.attributes.ProductId,
+  //     OrderedUserId: this.UserIdCurrent,
+  //   };
+  //   this.CartService.pushProducts(productData).subscribe(
+  //     (response) => {
+  //       loading.dismiss();
+  //       // console.log("add to cart at product list")
+  //       // const strapiId = response.data.id;
+  //       // const saveProductId = response.data.attributes.ProductId;
+  //       // const savedCartItemsString = localStorage.getItem(`${this.UserIdCurrent}`);
+  //       // const existingCartItems = savedCartItemsString? JSON.parse(savedCartItemsString): [];
+  //       // existingCartItems.push({ ...item, strapiId, saveProductId });
+  //       // localStorage.setItem(`${this.UserIdCurrent}`,JSON.stringify(existingCartItems));
+  //       // this.renderStrapiId = existingCartItems;
+
+  //       console.log("add to cart at product list")
+  //       const strapiId = response.data.id;
+  //       const saveProductId = response.data.attributes.ProductId;
+  //       const savedCartItemsString = localStorage.getItem(`${this.UserIdCurrent}`);
+  //       const existingCartItems = savedCartItemsString? JSON.parse(savedCartItemsString): [];
+  //       console.log("existingCartItems at list:", existingCartItems)
+  //       existingCartItems.push({ ...item, strapiId, saveProductId });
+  //       localStorage.setItem(`${this.UserIdCurrent}`,JSON.stringify(existingCartItems));
+  //       this.renderStrapiId = existingCartItems;
+  //       console.log("renderStrapiId at list:", this.renderStrapiId)
+  //     },
+  //     (error) => {
+  //       loading.dismiss();
+  //       console.error('Error adding product to cart:', error);
+  //     }
+  //   );
+  //   }
+  //   else {
+  //     event.stopPropagation();
+  //     this.alertController
+  //       .create({
+  //         header: 'Thông báo',
+  //         message: 'Vui lòng đăng nhập để thêm sản phẩm',
+  //         buttons: [
+  //           {
+  //             text: 'Đăng nhập',
+  //             handler: () => {
+  //               this.modalController.dismiss();
+  //               this.router.navigate(['./login']);
+  //               setTimeout(() => {
+  //                 window.location.reload();
+  //               }, 0);
+  //             },
+  //           },
+  //         ],
+  //       })
+  //       .then((alert) => {
+  //         alert.present();
+  //       });
+  //   }
+  // }
+
+
+
+  // async cancelProduct(event: Event, item: any) {
+  //   event.stopPropagation();
+  //   const loading = await this.loadingController.create({
+  //     cssClass: 'loading',
+  //   })
+  //   await loading.present();
+  //   const cartItem = this.renderStrapiId.find((cart: any) => cart.saveProductId === item.attributes.ProductId);
+  //   if (cartItem) {
+  //     const strapiIdToDelete = cartItem.strapiId;
+  //     if (strapiIdToDelete) {
+  //       this.CartService.deleteProduct(strapiIdToDelete).subscribe(
+  //         (response) => {
+  //           loading.dismiss();
+  //           console.log("delete item success")
+  //           this.renderStrapiId = this.renderStrapiId.filter((cart: any) => cart.saveProductId !== item.attributes.ProductId);
+  //           localStorage.setItem(`${this.UserIdCurrent}`, JSON.stringify(this.renderStrapiId));
+  //         },
+  //         (error) => {
+  //           console.error('Error deleting product from cart:', error);
+  //         }
+  //       );
+  //     } else {
+  //       loading.dismiss();
+  //       console.error('Strapi ID is not available. Unable to delete product.');
+  //     }
+  //   } else {
+  //     loading.dismiss();
+  //     console.error('CartItem not found in renderStrapiId.');
+  //   }
+  // }
+
+  addProduct(event: Event, item: any) {
     if (this.user !== undefined && this.user !== null) {
-    event.stopPropagation();
-    const loading = await this.loadingController.create({ 
-      cssClass: 'loading',
-    })
-    await loading.present();
-    const productData = {
-      ProductName: item.attributes.ProductName,
-      ProductPrice: item.attributes.ProductPrice,
-      QuantityDefault: 1,
-      ProductImage: item.attributes.ProductImage,
-      ProductId: item.attributes.ProductId,
-      OrderedUserId: this.UserIdCurrent,
-    };
-    this.CartService.pushProducts(productData).subscribe(
-      (response) => {
-        loading.dismiss(); 
-        console.log("add to cart at product list")
-        const strapiId = response.data.id;
-        const saveProductId = response.data.attributes.ProductId;
-        const savedCartItemsString = localStorage.getItem(`${this.UserIdCurrent}`);
-        const existingCartItems = savedCartItemsString? JSON.parse(savedCartItemsString): [];
-        existingCartItems.push({ ...item, strapiId, saveProductId });
-        localStorage.setItem(`${this.UserIdCurrent}`,JSON.stringify(existingCartItems));
-        this.renderStrapiId = existingCartItems;
-      },
-      (error) => {
-        loading.dismiss();
-        console.error('Error adding product to cart:', error);
-      }
-    );
-    }
-    else {
+      event.stopPropagation();
+      this.loadingController.create({ cssClass: 'loading' }).then((loading) => {
+        loading.present();
+        const productData = {
+          ProductName: item.attributes.ProductName,
+          ProductPrice: item.attributes.ProductPrice,
+          QuantityDefault: 1,
+          ProductImage: item.attributes.ProductImage,
+          ProductId: item.attributes.ProductId,
+          OrderedUserId: this.UserIdCurrent,
+        };
+        this.CartService.pushProducts(productData).subscribe(
+          () => {
+            loading.dismiss();
+          },
+          (error) => {
+            loading.dismiss();
+            console.error('Error adding product to cart:', error);
+          }
+        );
+      });
+    } else {
       event.stopPropagation();
       this.alertController
         .create({
@@ -187,46 +297,113 @@ export class ProductListComponent implements OnInit {
     }
   }
 
-  isProductInCart(item: number): boolean{
+  // isProductInCart(item: number): boolean {
+  //   return this.renderStrapiId.some(
+  //     (product: any) => product.ProductId === item
+  //   );
+  // }
+
+  // isProductInCart(item: number): boolean {
+  //   if (this.user !== undefined && this.user !== null) {
+  //     const cartData = JSON.parse(localStorage.getItem(`${this.UserIdCurrent}`) || '[]');
+  //     // Sử dụng renderStrapiId để kiểm tra trạng thái giỏ hàng
+  //     return this.renderStrapiId.some((product: any) => product.ProductId === item) ||
+  //            cartData.some((product: any) => product.saveProductId === item);
+  //   } else {
+  //     return false;
+  //   }
+  // }
+
+  isProductInCart(item: number): boolean {
     if (this.user !== undefined && this.user !== null) {
-      let cartData = JSON.parse(localStorage.getItem(`${this.UserIdCurrent}`) || '[]')
-      return cartData.some((product: any) => product.saveProductId === item)
+      const cartData = this.getCartItemsFromLocalStorage();
+      return this.renderStrapiId.some((product: any) => product.ProductId === item) ||
+             cartData.some((product: any) => product.saveProductId === item);
     } else {
       return false;
     }
   }
+  
+
+    // isProductInCart(item: number): boolean{
+  //   if (this.user !== undefined && this.user !== null) {
+  //     let cartData = JSON.parse(localStorage.getItem(`${this.UserIdCurrent}`) || '[]')
+  //     return cartData.some((product: any) => product.saveProductId === item)
+  //   } else {
+  //     return false;
+  //   }
+  // }
+
+  // async cancelProduct(event: Event, item: any) {
+  //   if (this.user !== undefined && this.user !== null) {
+  //     event.stopPropagation();
+  //     const loading = await this.loadingController.create({ cssClass: 'loading' });
+  //     await loading.present();
+  //     const cartItem = this.renderStrapiId.find((cart: any) => cart.ProductId === item.attributes.ProductId);
+  //     if (cartItem) {
+  //       const strapiIdToDelete = cartItem.strapiId;
+  //       if (strapiIdToDelete) {
+  //         this.CartService.deleteProduct(strapiIdToDelete).subscribe(
+  //           () => {
+  //             this.renderStrapiId = this.renderStrapiId.filter((cart: any) => cart.ProductId !== item.attributes.ProductId);
+  //             localStorage.setItem(`${this.UserIdCurrent}`, JSON.stringify(this.renderStrapiId));
+  //             loading.dismiss();
+  //           },
+  //           (error) => {
+  //             loading.dismiss();
+  //             console.error('Error deleting product from cart:', error);
+  //           }
+  //         );
+  //       } else {
+  //         loading.dismiss();
+  //         console.error('Strapi ID is not available. Unable to delete product.');
+  //       }
+  //     } else {
+  //       loading.dismiss();
+  //       console.error('CartItem not found in renderStrapiId.');
+  //     }
+  //   }
+  // }
 
   async cancelProduct(event: Event, item: any) {
-    event.stopPropagation();
-    const loading = await this.loadingController.create({ 
-      cssClass: 'loading',
-    })
-    await loading.present();
-    const cartItem = this.renderStrapiId.find((cart: any) => cart.saveProductId === item.attributes.ProductId);
-    if (cartItem) {
-      const strapiIdToDelete = cartItem.strapiId;
-      if (strapiIdToDelete) {
-        this.CartService.deleteProduct(strapiIdToDelete).subscribe(
-          (response) => {
-            loading.dismiss();
-            console.log("delete item success")
-            this.renderStrapiId = this.renderStrapiId.filter((cart: any) => cart.saveProductId !== item.attributes.ProductId);
-            localStorage.setItem(`${this.UserIdCurrent}`, JSON.stringify(this.renderStrapiId));
-          },
-          (error) => {
-            console.error('Error deleting product from cart:', error);
-          }
-        );
+    if (this.user !== undefined && this.user !== null) {
+      event.stopPropagation();
+      const loading = await this.loadingController.create({ cssClass: 'loading' });
+      await loading.present();
+      const cartItem = this.renderStrapiId.find((cart: any) => cart.ProductId === item.attributes.ProductId);
+      if (cartItem) {
+        const strapiIdToDelete = cartItem.strapiId;
+        if (strapiIdToDelete) {
+          this.CartService.deleteProduct(strapiIdToDelete).subscribe(
+            () => {
+              this.renderStrapiId = this.renderStrapiId.filter((cart: any) => cart.ProductId !== item.attributes.ProductId);
+              this.updateLocalStorage(this.renderStrapiId);
+              loading.dismiss();
+            },
+            (error) => {
+              loading.dismiss();
+              console.error('Error deleting product from cart:', error);
+            }
+          );
+        } else {
+          loading.dismiss();
+          console.error('Strapi ID is not available. Unable to delete product.');
+        }
       } else {
         loading.dismiss();
-        console.error('Strapi ID is not available. Unable to delete product.');
+        console.error('CartItem not found in renderStrapiId.');
       }
-    } else {
-      loading.dismiss();
-      console.error('CartItem not found in renderStrapiId.');
     }
   }
 
+  private getCartItemsFromLocalStorage(): any[] {
+    const cartData = localStorage.getItem(`${this.UserIdCurrent}`);
+    return cartData ? JSON.parse(cartData) : [];
+  }
+
+  private updateLocalStorage(cartItems: any[]) {
+    localStorage.setItem(`${this.UserIdCurrent}`, JSON.stringify(cartItems));
+  }
 
   checkUser(): boolean {
     if (this.user !== undefined && this.user !== null) {
