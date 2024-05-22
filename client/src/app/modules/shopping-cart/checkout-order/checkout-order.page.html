@@ -76,8 +76,8 @@
         <ng-template class="containerPromo">
           <ion-content >
             <ion-row class="row-section">
-              <ion-col *ngIf="user.name">
-                <ion-label class="label-custom">
+              <ion-col >
+                <ion-label class="label-custom" >
                   Tên
                 </ion-label>
                 <ion-input type="text" class="input-section" [(ngModel)]="newName">
@@ -85,8 +85,8 @@
               </ion-col>
             </ion-row>
             <ion-row class="row-section">
-              <ion-col *ngIf="user.address">
-                <ion-label class="label-custom">
+              <ion-col >
+                <ion-label class="label-custom" >
                   Địa chỉ
                 </ion-label>
                 <ion-input type="text" class="input-section"  [(ngModel)]="newAddress">
@@ -94,8 +94,8 @@
               </ion-col>
             </ion-row>
             <ion-row class="row-section">
-              <ion-col *ngIf="user.phone">
-                <ion-label class="label-custom">
+              <ion-col>
+                <ion-label class="label-custom"  >
                   Số điện thoại
                 </ion-label>
                 <ion-input class="input-section" [maskito]="phoneMask" [maskitoElement]="maskPredicate"

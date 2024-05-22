@@ -176,11 +176,11 @@
             </ion-row>
             <ion-row class="ion-justify-content-between cartCardSubOrder">
               Thuế:
-              <div>{{tax| number:'1.0-0'}} ₫</div>
+              <div>{{subTotalAPI() / 10 | number:'1.0-0'}} ₫</div>
             </ion-row>
             <ion-row style="margin-bottom: 20px;" class="ion-justify-content-between titleTotal">
               Tổng tiền:
-              <div>{{subTotalAPI() + tax | number:'1.0-0'}} ₫</div>
+              <div>{{subTotalAPI() + (subTotalAPI() / 10) | number:'1.0-0'}} ₫</div>
             </ion-row>
           </h3>
         </ion-label>

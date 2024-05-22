@@ -66,7 +66,6 @@ export class CheckOutOrderPage implements OnInit {
   DateTimePick!: string;
   public info: any;
   isModalOpen: boolean = false;
-  tax = 65000;
   inputPromo: string = '';
   public promoData: any;
   public getPercentDiscount: number = 0;
@@ -80,16 +79,12 @@ export class CheckOutOrderPage implements OnInit {
   public inforPayment:any;
 
   ngOnInit() {
-    // this.loadCartItems();
     this.getUserData();
     this.getCurrentStore();
-    // this.getProductRender();
-    // this.rednerInfoCheckOut();
     this.getPromoRender();
     this.updateDeliveryFee();
     this.renderCartDetail();
     this.getInforPayment();
-    // this.infoCheckOut();
     this.CartService.getCartItemsObservable().subscribe(
       (response) => {
         this.renderCartDetail();
@@ -155,18 +150,23 @@ export class CheckOutOrderPage implements OnInit {
   }
 
   subTotalAmount: number | undefined;
+  tax: any;
   subTotal(): number {
     let subTotal = 0;
     if (!Array.isArray(this.productOrdered)) {
       return 0;
     }
     for (const product of this.productOrdered) {
-      subTotal +=
-        product.attributes.ProductPrice *
-        product.attributes.productQuantityAddDefault;
+      subTotal += product.attributes.ProductPrice * product.attributes.productQuantityAddDefault;
     }
+    this.tax = subTotal / 10
     return subTotal;
+    
   }
+
+
+
+  
 
   checkInput() {
     if (this.inputPromo !== '' && this.inputPromo !== undefined) {
@@ -278,6 +278,9 @@ export class CheckOutOrderPage implements OnInit {
         this.user.phone = this.newPhone;
         this.modalController.dismiss();
         loading.dismiss();
+        console.log('name:', this.user.name);
+        console.log('phone:', this.user.phone);
+        console.log('address:', this.user.address);
       },
       (error) => {
         loading.dismiss();
@@ -379,7 +382,7 @@ export class CheckOutOrderPage implements OnInit {
   }
 
   onCheckoutOrDismiss() {
-    if (!this.DateTimePick) {
+    if (!this.DateTimePick || this.user.name === "" || this.user.phone === "" || this.user.address === "") {
       this.alertController
         .create({
           header: 'Thông báo',
@@ -435,16 +438,13 @@ export class CheckOutOrderPage implements OnInit {
       MethodPayment: this.selectedMethodPayments,
       AddressType: this.selectedMethodReceives,
       TaxOrder: this.tax,
-      FirstName: this.contactInfo.firstName,
-      LastName: this.contactInfo.lastName,
-      AddressCustomer: this.contactInfo.address,
-      PhoneCustomer: this.contactInfo.phone,
+      name: this.user.name,
+      // LastName: this.contactInfo.lastName,
+      AddressCustomer: this.user.address,
+      phone: this.user.phone,
       DeliveryDate: this.DateTimePick,
       TotalPrice:
-        subTotal +
-        this.tax +
-        this.deliveryFee -
-        (subTotal + this.tax + this.deliveryFee) *
+        subTotal  + this.deliveryFee - (subTotal + this.deliveryFee) *
           (this.getPercentDiscount / 100),
       TotalItem: numberOfItems,
       PromoApplied: this.inputPromo,
@@ -478,10 +478,10 @@ export class CheckOutOrderPage implements OnInit {
                   console.error('Error post information to orders:', err);
                 }
               );
-              this.contactInfo.firstName = '';
-              this.contactInfo.lastName = '';
-              this.contactInfo.phone = '';
-              this.contactInfo.address = '';
+              // this.contactInfo.name = '';
+              // this.contactInfo.lastName = '';
+              // this.contactInfo.phone = '';
+              // this.contactInfo.address = '';
               this.router.navigate(['./home']);
               this.modalController.dismiss();
               const delProduct = this.productOrdered;

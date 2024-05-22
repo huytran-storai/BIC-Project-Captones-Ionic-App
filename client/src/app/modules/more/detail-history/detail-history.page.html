@@ -35,7 +35,7 @@
           </ion-row>
           <ion-row class="ion-justify-content-between row-with-border">
             Trang thái đặt hàng:
-            <div [ngStyle]="{'color': detaillHistory.attributes.Status === 'Xử lý' ? '#D0D824' : detaillHistory.attributes.Status === 'Huỷ' ? 'red' : 'green' }">{{detaillHistory.attributes.Status}}</div>
+            <div [ngStyle]="{'color': detaillHistory.attributes.Status === 'Đang xử lý' ? '#D0D824' : detaillHistory.attributes.Status === 'Huỷ' ? 'red' : 'green' }">{{detaillHistory.attributes.Status}}</div>
           </ion-row>
         </h3>
       </ion-label>
