@@ -17,7 +17,6 @@ export class ShoppingCartPage implements OnInit {
   @ViewChild(IonModal)
   modal!: IonModal;
   CartItem = '';
-  tax = 65000;
   checkItemsCart: boolean = false;
   public _numberOfItems: number | undefined;
   alerCtrl: any;

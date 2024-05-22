@@ -16,13 +16,13 @@
             <p>Sinh nhật : {{user?.birthday}}</p>
             <p>Ngày tạo : {{ user?.createdAt | date: 'yyyy-MM-dd HH:mm:ss' }} </p>
         </ion-label>
-        <ion-button slot="end" class="accountBtn" id="open-modal"> Thay đổi </ion-button>
+        <ion-button slot="end" class="accountBtn" id="open-updateInfor"> Thay đổi </ion-button>
     </ion-item>
 
     <ion-item>
         <ion-label>
             <h3>Thông tin liên lạc:</h3>
-            <p>Họ và tên : {{user?.lastname}} {{user?.username}}</p>
+            <p>Họ và tên : {{user.name}}</p>
             <p>Số điện thoại : {{user?.phone}}</p>
         </ion-label>
     </ion-item>
@@ -50,7 +50,7 @@
         </ion-col>
     </ion-card>
 
-    <ion-modal #modal trigger="open-modal">
+    <ion-modal #modal trigger="open-updateInfor">
       <ng-template>
         <ion-content>
           <ion-toolbar>
@@ -62,7 +62,7 @@
           <ion-content class="containerPromo">
             <form>
               <ion-list>
-                <ion-item>
+                <!-- <ion-item>
                   <ion-label position="floating">Tên họ</ion-label>
                   <ion-input type="text"  name="username"></ion-input>
                 </ion-item>
@@ -70,19 +70,22 @@
                 <ion-item>
                   <ion-label position="floating">Tên đầu</ion-label>
                   <ion-input type="text"  name="username"></ion-input>
+                </ion-item> -->
+                <ion-item>
+                  <ion-label position="floating">Tên</ion-label>
+                  <ion-input [(ngModel)]="newName" type="text"  name="username"></ion-input>
                 </ion-item>
-        
                 <ion-item>
                   <ion-label position="floating">Số điện thoại</ion-label>
-                  <ion-input type="email"  name="email"></ion-input>
+                  <ion-input [(ngModel)]="newPhone" type="email"  name="email"></ion-input>
                 </ion-item>
   
                 <ion-item>
                   <ion-label position="floating">Địa chỉ giao hàng</ion-label>
-                  <ion-input type="email"  name="email"></ion-input>
+                  <ion-input [(ngModel)]="newAddress" type="text"  name="address"></ion-input>
                 </ion-item>
   
-                <ion-item>
+                <!-- <ion-item>
                   <ion-label position="floating">Mật khẩu hiện tại</ion-label>
                   <ion-input type="email"  name="email"></ion-input>
                 </ion-item>
@@ -95,10 +98,10 @@
                 <ion-item>
                   <ion-label position="floating">Xác nhận lại mật khẩu</ion-label>
                   <ion-input type="email"  name="email"></ion-input>
-                </ion-item>
+                </ion-item> -->
         
               </ion-list>
-              <ion-button expand="full" type="submit">Cập nhật</ion-button>
+              <ion-button (click)="updateContact()" expand="full" type="submit">Cập nhật</ion-button>
             </form>
           </ion-content>
         </ion-content>
