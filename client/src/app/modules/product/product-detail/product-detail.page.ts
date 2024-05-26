@@ -240,8 +240,18 @@ export class ProductDetailPage implements OnInit {
           OrderedUserId: this.UserIdCurrent,
         };
         this.CartService.pushProducts(productData).subscribe(
-          () => {
+          (response) => {
             loading.dismiss();
+            console.log("add to cart at product detail")
+            const strapiId = response.data.id;
+            const saveProductId = response.data.attributes.ProductId;
+            const savedCartItemsString = localStorage.getItem(`${this.UserIdCurrent}`);
+            const existingCartItems = savedCartItemsString? JSON.parse(savedCartItemsString): [];
+            console.log("existingCartItems at detail:", existingCartItems)
+            existingCartItems.push({ ...item, strapiId, saveProductId });
+            localStorage.setItem(`${this.UserIdCurrent}`,JSON.stringify(existingCartItems));
+            this.renderStrapiId = existingCartItems;
+            console.log("renderStrapiId at detail:", this.renderStrapiId)
           },
           (error) => {
             loading.dismiss();
@@ -334,6 +344,7 @@ export class ProductDetailPage implements OnInit {
   // }
 
   async cancelProduct(event: Event, item: any) {
+    event.stopPropagation();
     if (this.user !== undefined && this.user !== null) {
       event.stopPropagation();
       const loading = await this.loadingController.create({ cssClass: 'loading' });
