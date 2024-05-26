@@ -29,7 +29,7 @@ export class ProductListComponent implements OnInit {
   public user: any;
   checkExistItem: boolean = true;
   cartItems: any[] = [];
-  strapiId!: string;
+  // strapiId!: string;
   isConditionTrue: boolean = false;
   public UserIdCurrent: any;
   public productRender: any;
@@ -41,6 +41,7 @@ export class ProductListComponent implements OnInit {
   saveItemCart: any = [];
   public renderStrapiId: any;
   public saveRenderStrapiId: any;
+  public item: any;
 
   constructor(
     private CartService: CartService,
@@ -63,11 +64,14 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProductRender();
-    this.getUserData();
     const initializationCart = localStorage.getItem(`${this.UserIdCurrent}`);
+    this.renderStrapiId = initializationCart
+      ? JSON.parse(initializationCart)
+      : [];
     this.CartService.cartItems$.subscribe((cartItems: any) => {
       this.renderStrapiId = cartItems;
     });
+    this.getUserData();
   }
 
   checkIdLocalAgainAfterDeleteOnStrapi() {
@@ -139,7 +143,6 @@ export class ProductListComponent implements OnInit {
       (res: any) => {
         loading.dismiss();
         this.productData = res.data.map((item: any) => item);
-        console.log('Product lists:', this.productData);
       },
       (err: any) => {
         console.error('Error fetching current store data:', err);
@@ -216,8 +219,6 @@ export class ProductListComponent implements OnInit {
   //   }
   // }
 
-
-
   // async cancelProduct(event: Event, item: any) {
   //   event.stopPropagation();
   //   const loading = await this.loadingController.create({
@@ -263,8 +264,19 @@ export class ProductListComponent implements OnInit {
           OrderedUserId: this.UserIdCurrent,
         };
         this.CartService.pushProducts(productData).subscribe(
-          () => {
+          (response) => {
             loading.dismiss();
+            console.log('add to cart at product list');
+            const strapiId = response.data.id;
+            console.log('strapiId', strapiId);
+            const saveProductId = response.data.attributes.ProductId;
+            const savedCartItemsString = localStorage.getItem( `${this.UserIdCurrent}`);
+            const existingCartItems = savedCartItemsString? JSON.parse(savedCartItemsString) : [];
+            console.log('existingCartItems at list:', existingCartItems);
+            existingCartItems.push({ ...item, strapiId, saveProductId });
+            localStorage.setItem( `${this.UserIdCurrent}`, JSON.stringify(existingCartItems));
+            this.renderStrapiId = existingCartItems;
+            console.log('renderStrapiId at list:', this.renderStrapiId);
           },
           (error) => {
             loading.dismiss();
@@ -314,18 +326,29 @@ export class ProductListComponent implements OnInit {
   //   }
   // }
 
+  // isProductInCart(item: number): boolean {
+  //   if (this.user !== undefined && this.user !== null) {
+  //     const cartData = this.getCartItemsFromLocalStorage();
+  //     return this.renderStrapiId.some((product: any) => product.ProductId === item) ||
+  //            cartData.some((product: any) => product.saveProductId === item);
+  //   } else {
+  //     return false;
+  //   }
+  // }
+
   isProductInCart(item: number): boolean {
+    // console.log("productInfor", this.productInfor)
     if (this.user !== undefined && this.user !== null) {
-      const cartData = this.getCartItemsFromLocalStorage();
-      return this.renderStrapiId.some((product: any) => product.ProductId === item) ||
-             cartData.some((product: any) => product.saveProductId === item);
+      let cartData = JSON.parse(
+        localStorage.getItem(`${this.UserIdCurrent}`) || '[]'
+      );
+      return cartData.some((product: any) => product.saveProductId === item);
     } else {
       return false;
     }
   }
-  
 
-    // isProductInCart(item: number): boolean{
+  // isProductInCart(item: number): boolean{
   //   if (this.user !== undefined && this.user !== null) {
   //     let cartData = JSON.parse(localStorage.getItem(`${this.UserIdCurrent}`) || '[]')
   //     return cartData.some((product: any) => product.saveProductId === item)
@@ -365,18 +388,27 @@ export class ProductListComponent implements OnInit {
   //   }
   // }
 
+  private updateLocalStorage(cartItems: any[]) {
+    localStorage.setItem(`${this.UserIdCurrent}`, JSON.stringify(cartItems));
+  }
+
   async cancelProduct(event: Event, item: any) {
+    event.stopPropagation();
     if (this.user !== undefined && this.user !== null) {
-      event.stopPropagation();
-      const loading = await this.loadingController.create({ cssClass: 'loading' });
+      const loading = await this.loadingController.create({
+        cssClass: 'loading',
+      });
       await loading.present();
-      const cartItem = this.renderStrapiId.find((cart: any) => cart.ProductId === item.attributes.ProductId);
+      const cartItem = this.renderStrapiId.find((cart: any) => cart.attributes.ProductId === item.attributes.ProductId );
+      console.log("cartItem", cartItem)
       if (cartItem) {
         const strapiIdToDelete = cartItem.strapiId;
+        console.log("strapiIdToDelete strapiId", strapiIdToDelete)
         if (strapiIdToDelete) {
           this.CartService.deleteProduct(strapiIdToDelete).subscribe(
             () => {
-              this.renderStrapiId = this.renderStrapiId.filter((cart: any) => cart.ProductId !== item.attributes.ProductId);
+              this.renderStrapiId = this.renderStrapiId.filter(
+                (cart: any) => cart.attributes.ProductId !== item.attributes.ProductId);
               this.updateLocalStorage(this.renderStrapiId);
               loading.dismiss();
             },
@@ -387,7 +419,9 @@ export class ProductListComponent implements OnInit {
           );
         } else {
           loading.dismiss();
-          console.error('Strapi ID is not available. Unable to delete product.');
+          console.error(
+            'Strapi ID is not available. Unable to delete product.'
+          );
         }
       } else {
         loading.dismiss();
@@ -396,14 +430,10 @@ export class ProductListComponent implements OnInit {
     }
   }
 
-  private getCartItemsFromLocalStorage(): any[] {
-    const cartData = localStorage.getItem(`${this.UserIdCurrent}`);
-    return cartData ? JSON.parse(cartData) : [];
-  }
-
-  private updateLocalStorage(cartItems: any[]) {
-    localStorage.setItem(`${this.UserIdCurrent}`, JSON.stringify(cartItems));
-  }
+  // private getCartItemsFromLocalStorage(): any[] {
+  //   const cartData = localStorage.getItem(`${this.UserIdCurrent}`);
+  //   return cartData ? JSON.parse(cartData) : [];
+  // }
 
   checkUser(): boolean {
     if (this.user !== undefined && this.user !== null) {

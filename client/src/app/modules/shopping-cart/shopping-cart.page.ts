@@ -97,13 +97,13 @@ export class ShoppingCartPage implements OnInit {
     );
   }
 
-  checkInput() {
-    if (this.name !== '' && this.name !== undefined) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  // checkInput() {
+  //   if (this.name !== '' && this.name !== undefined) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
   onWillDismiss(event: Event) {
     const ev = event as CustomEvent<OverlayEventDetail<string>>;
@@ -120,7 +120,7 @@ export class ShoppingCartPage implements OnInit {
     this.modal.dismiss(this.name, 'confirm');
   }
 
-  onInput(even: any) {}
+  // onInput(even: any) {}
 
   ionViewWillEnter() {
     this.checkItemsCart;
@@ -154,11 +154,11 @@ export class ShoppingCartPage implements OnInit {
   }
 
 
-  incProduct(prod: any) {
-    prod.productQuantityAddDefault += 1;
+  // incProduct(prod: any) {
+  //   prod.productQuantityAddDefault += 1;
 
-    this.updateSubTotal();
-  }
+  //   this.updateSubTotal();
+  // }
 
   updateSubTotal() {
     this.subTotalAmount = this.subTotal();
@@ -202,32 +202,11 @@ export class ShoppingCartPage implements OnInit {
         loading.dismiss();
         this.productRender = res.data.map((item: any) => item);
         this.productOrdered = this.productRender.filter((item: any) => item.attributes.OrderedUserId === this.UserIdCurrent);
+        console.log("productOrdered", this.productOrdered)
       },
       (err: any) => {
         loading.dismiss();
         console.log('Error Cart list API:', err);
-      }
-    );
-  }
-
-  async incProductAPI(prod: any) {
-    prod.attributes.productQuantityAddDefault += 1;
-    const productData = {
-      id: prod.id,
-      productQuantityAddDefault: prod.attributes.productQuantityAddDefault,
-    };
-    const loading = await this.loadingController.create({ 
-      cssClass: 'loading',
-    })
-    await loading.present();
-    this.CartService.increaseItem(productData).subscribe(
-      (res) => {
-        loading.dismiss();
-        console.log('Increase Item Success ', res);
-      },
-      (err) => {
-        loading.dismiss();
-        console.log('Error increase item:', err);
       }
     );
   }
@@ -277,6 +256,28 @@ export class ShoppingCartPage implements OnInit {
         }
       );
     }
+  }
+
+  async incProductAPI(prod: any) {
+    prod.attributes.productQuantityAddDefault += 1;
+    const productData = {
+      id: prod.id,
+      productQuantityAddDefault: prod.attributes.productQuantityAddDefault,
+    };
+    const loading = await this.loadingController.create({ 
+      cssClass: 'loading',
+    })
+    await loading.present();
+    this.CartService.increaseItem(productData).subscribe(
+      (res) => {
+        loading.dismiss();
+        console.log('Increase Item Success ', res);
+      },
+      (err) => {
+        loading.dismiss();
+        console.log('Error increase item:', err);
+      }
+    );
   }
 
   delAllProductAPI() {

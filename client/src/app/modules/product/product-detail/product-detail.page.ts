@@ -18,9 +18,9 @@ export class ProductDetailPage implements OnInit {
   productId: any;
   @Input() product: any;
   id: any;
-  public user: any
+  public user: any;
   public UserIdCurrent: any;
-  public renderStrapiId: any; 
+  public renderStrapiId: any;
   public productRender: any;
   public productOrdered: any;
 
@@ -41,8 +41,10 @@ export class ProductDetailPage implements OnInit {
       this.productId = params['ProductId'];
       this.getProductRender();
     });
-    this.renderStrapiId = this.getCartItemsFromLocalStorage();
-    // const initializationCart = localStorage.getItem(`${this.UserIdCurrent}`);
+    const initializationCart = localStorage.getItem(`${this.UserIdCurrent}`);
+    this.renderStrapiId = initializationCart
+      ? JSON.parse(initializationCart)
+      : [];
     this.CartService.cartItems$.subscribe((cartItems: any) => {
       this.renderStrapiId = cartItems;
     });
@@ -53,9 +55,14 @@ export class ProductDetailPage implements OnInit {
     this.CartService.getProductsCart().subscribe(
       (res: any) => {
         this.productRender = res.data.map((item: any) => item);
-        this.productOrdered = this.productRender.map((item: any) => item.id );
-        let getIdItemCart = this.renderStrapiId.filter((value : any) => this.productOrdered.includes(value.strapiId))
-        localStorage.setItem(`${this.UserIdCurrent}`, JSON.stringify(getIdItemCart));
+        this.productOrdered = this.productRender.map((item: any) => item.id);
+        let getIdItemCart = this.renderStrapiId.filter((value: any) =>
+          this.productOrdered.includes(value.strapiId)
+        );
+        localStorage.setItem(
+          `${this.UserIdCurrent}`,
+          JSON.stringify(getIdItemCart)
+        );
       },
       (err: any) => {
         console.log('Error Cart list API:', err);
@@ -72,18 +79,17 @@ export class ProductDetailPage implements OnInit {
     private productService: StoreService,
     private userService: UserService,
     public alertController: AlertController,
-    private loadingController: LoadingController,
+    private loadingController: LoadingController
   ) {}
   Back() {
     this.navCtrl.back();
   }
 
-
   getUserData() {
     this.userService.getUserData().subscribe(
       (res) => {
         this.user = res?.user;
-        if(this.user){
+        if (this.user) {
           this.UserIdCurrent = this.user.id;
         } else {
           console.log('User data is undefined or null');
@@ -124,12 +130,10 @@ export class ProductDetailPage implements OnInit {
 
   itemCart: any = [];
 
-
-
   // async addProduct(event: Event, item: any) {
   //   if (this.user !== undefined && this.user !== null) {
   //   event.stopPropagation();
-  //   const loading = await this.loadingController.create({ 
+  //   const loading = await this.loadingController.create({
   //     cssClass: 'loading',
   //   })
   //   await loading.present();
@@ -197,7 +201,7 @@ export class ProductDetailPage implements OnInit {
 
   // async cancelProduct(event: Event, item: any) {
   //   event.stopPropagation();
-  //   const loading = await this.loadingController.create({ 
+  //   const loading = await this.loadingController.create({
   //     cssClass: 'loading',
   //   })
   //   await loading.present();
@@ -229,7 +233,7 @@ export class ProductDetailPage implements OnInit {
   addProduct(event: Event, item: any) {
     if (this.user !== undefined && this.user !== null) {
       event.stopPropagation();
-      this.loadingController.create({ cssClass: 'loading' }).then(loading => {
+      this.loadingController.create({ cssClass: 'loading' }).then((loading) => {
         loading.present();
         const productData = {
           ProductName: item.attributes.ProductName,
@@ -242,16 +246,22 @@ export class ProductDetailPage implements OnInit {
         this.CartService.pushProducts(productData).subscribe(
           (response) => {
             loading.dismiss();
-            console.log("add to cart at product detail")
+            console.log('add to cart at product detail');
             const strapiId = response.data.id;
+            // code ở trên là lấy id của strapi tự gender ra 
+            console.log('strapiId', strapiId);
             const saveProductId = response.data.attributes.ProductId;
+            // code trên là lấy id của sản phẩm
             const savedCartItemsString = localStorage.getItem(`${this.UserIdCurrent}`);
-            const existingCartItems = savedCartItemsString? JSON.parse(savedCartItemsString): [];
-            console.log("existingCartItems at detail:", existingCartItems)
+            const existingCartItems = savedCartItemsString ? JSON.parse(savedCartItemsString): [];
+            console.log('existingCartItems at detail:', existingCartItems);
             existingCartItems.push({ ...item, strapiId, saveProductId });
-            localStorage.setItem(`${this.UserIdCurrent}`,JSON.stringify(existingCartItems));
+            // code trên dùng để đẩy toàn bộ field trong const productData dòng 238 với id của strapi lấy đc 
+            // ở dòng 250 và id của sản phẩm ở dòng 253 chung trong 1 local storage 
+            // với key là id của user đang login 
+            localStorage.setItem(`${this.UserIdCurrent}`, JSON.stringify(existingCartItems));
             this.renderStrapiId = existingCartItems;
-            console.log("renderStrapiId at detail:", this.renderStrapiId)
+            console.log('renderStrapiId at detail:', this.renderStrapiId);
           },
           (error) => {
             loading.dismiss();
@@ -259,8 +269,7 @@ export class ProductDetailPage implements OnInit {
           }
         );
       });
-    }
-        else {
+    } else {
       event.stopPropagation();
       this.alertController
         .create({
@@ -284,7 +293,7 @@ export class ProductDetailPage implements OnInit {
         });
     }
   }
-  
+
   // isProductInCart(productInfor: number): boolean {
   //   return this.renderStrapiId.some((product: any) => product.ProductId === productInfor);
   // }
@@ -300,18 +309,38 @@ export class ProductDetailPage implements OnInit {
   //   }
   // }
 
+  // private getCartItemsFromLocalStorage(): any[] {
+  //   const cartData = localStorage.getItem(`${this.UserIdCurrent}`);
+  //   return cartData ? JSON.parse(cartData) : [];
+  // }
+
+  private updateLocalStorage(cartItems: any[]) {
+    localStorage.setItem(`${this.UserIdCurrent}`, JSON.stringify(cartItems));
+  }
+
   isProductInCart(productInfor: number): boolean {
     if (this.user !== undefined && this.user !== null) {
-      const cartData = this.getCartItemsFromLocalStorage();
-      return this.renderStrapiId.some((product: any) => product.ProductId === productInfor) ||
-             cartData.some((product: any) => product.saveProductId === productInfor);
+      let cartData = JSON.parse(
+        localStorage.getItem(`${this.UserIdCurrent}`) || '[]'
+      );
+      return cartData.some(
+        (product: any) => product.saveProductId === productInfor
+      );
     } else {
       return false;
     }
   }
 
-  
-  
+  // isProductInCart(productInfor: number): boolean {
+  //   if (this.user !== undefined && this.user !== null) {
+  //     const cartData = this.getCartItemsFromLocalStorage();
+  //     return this.renderStrapiId.some((product: any) => product.ProductId === productInfor) ||
+  //            cartData.some((product: any) => product.saveProductId === productInfor);
+  //   } else {
+  //     return false;
+  //   }
+  // }
+
   // async cancelProduct(event: Event, item: any) {
   //   if (this.user !== undefined && this.user !== null) {
   //     event.stopPropagation();
@@ -347,11 +376,15 @@ export class ProductDetailPage implements OnInit {
     event.stopPropagation();
     if (this.user !== undefined && this.user !== null) {
       event.stopPropagation();
-      const loading = await this.loadingController.create({ cssClass: 'loading' });
+      const loading = await this.loadingController.create({
+        cssClass: 'loading',
+      });
       await loading.present();
-      const cartItem = this.renderStrapiId.find((cart: any) => cart.ProductId === item.ProductId);
+      const cartItem = this.renderStrapiId.find( (cart: any) => cart.ProductId === item.ProductId);
+      console.log("cartItem", cartItem)
       if (cartItem) {
         const strapiIdToDelete = cartItem.strapiId;
+        console.log("strapiIdToDelete strapiId", strapiIdToDelete)
         if (strapiIdToDelete) {
           this.CartService.deleteProduct(strapiIdToDelete).subscribe(
             () => {
@@ -366,7 +399,9 @@ export class ProductDetailPage implements OnInit {
           );
         } else {
           loading.dismiss();
-          console.error('Strapi ID is not available. Unable to delete product.');
+          console.error(
+            'Strapi ID is not available. Unable to delete product.'
+          );
         }
       } else {
         loading.dismiss();
@@ -375,18 +410,9 @@ export class ProductDetailPage implements OnInit {
     }
   }
 
-  private getCartItemsFromLocalStorage(): any[] {
-    const cartData = localStorage.getItem(`${this.UserIdCurrent}`);
-    return cartData ? JSON.parse(cartData) : [];
-  }
-
-  private updateLocalStorage(cartItems: any[]) {
-    localStorage.setItem(`${this.UserIdCurrent}`, JSON.stringify(cartItems));
-  }
-
-    // async cancelProduct(event: Event, item: any) {
+  // async cancelProduct(event: Event, item: any) {
   //   event.stopPropagation();
-  //   const loading = await this.loadingController.create({ 
+  //   const loading = await this.loadingController.create({
   //     cssClass: 'loading',
   //   })
   //   await loading.present();
@@ -432,9 +458,9 @@ export class ProductDetailPage implements OnInit {
   }
 
   async getProductRender() {
-    const loading = await this.loadingController.create({ 
+    const loading = await this.loadingController.create({
       cssClass: 'loading',
-    })
+    });
     await loading.present();
     this.productService.getProducts().subscribe(
       (res: any) => {
@@ -444,6 +470,7 @@ export class ProductDetailPage implements OnInit {
 
         this.productInfor = this.productDetail.find(
           (product: any) => product.attributes.ProductId === this.productId
+          // productInfor không cần .attributes vì trong code trên đã cho .attributes rồi
         );
         if (this.productInfor) {
           console.log('Product Information:', this.productInfor);
