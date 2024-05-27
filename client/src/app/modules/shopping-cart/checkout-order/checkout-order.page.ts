@@ -423,9 +423,7 @@ export class CheckOutOrderPage implements OnInit {
           ProductName: item.attributes.ProductName,
           productQuantityAddDefault: item.attributes.productQuantityAddDefault,
           ProductId: item.attributes.ProductId,
-          TotalPrice:
-            item.attributes.ProductPrice *
-            item.attributes.productQuantityAddDefault,
+          TotalPrice:item.attributes.ProductPrice * item.attributes.productQuantityAddDefault,
           ProductImage: item.attributes.ProductImage,
         };
       }
@@ -443,9 +441,8 @@ export class CheckOutOrderPage implements OnInit {
       AddressCustomer: this.user.address,
       phone: this.user.phone,
       DeliveryDate: this.DateTimePick,
-      TotalPrice:
-        subTotal  + this.deliveryFee - (subTotal + this.deliveryFee) *
-          (this.getPercentDiscount / 100),
+      // TotalPrice: subTotal  + this.deliveryFee - (subTotal + this.deliveryFee) * (this.getPercentDiscount / 100),
+      TotalPrice: (subTotal + this.tax + this.deliveryFee) - (subTotal + this.tax + this.deliveryFee) *  this.getPercentDiscount / 100,
       TotalItem: numberOfItems,
       PromoApplied: this.inputPromo,
       DeliveryFee: this.deliveryFee,
