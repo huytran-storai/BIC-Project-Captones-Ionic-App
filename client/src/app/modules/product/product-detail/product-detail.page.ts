@@ -190,14 +190,18 @@ export class ProductDetailPage implements OnInit {
       cssClass: 'loading',
     })
     await loading.present();
-    const cartItem = this.renderStrapiId.find((cart: any) => cart.saveProductId === item.ProductId);
+    console.log("renderStrapiId above", this.renderStrapiId)
+    const cartItem = this.renderStrapiId.find((cart: any) => item.attributes.ProductId === cart.saveProductId);
+    console.log("renderStrapiId", this.renderStrapiId)
+    console.log("cartItem", cartItem)
     if (cartItem) {
       const strapiIdToDelete = cartItem.strapiId;
       if (strapiIdToDelete) {
         this.CartService.deleteProduct(strapiIdToDelete).subscribe(
           (response) => {
             loading.dismiss();
-            this.renderStrapiId = this.renderStrapiId.filter((cart: any) => cart.saveProductId !== item.ProductId);
+            console.log("delete item success")
+            this.renderStrapiId = this.renderStrapiId.filter((cart: any) => item.attributes.ProductId !== cart.saveProductId);
             localStorage.setItem(`${this.UserIdCurrent}`, JSON.stringify(this.renderStrapiId));
           },
           (error) => {
